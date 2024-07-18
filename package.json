@@ -1,0 +1,26 @@
+{
+  "name": "uprox_installer_e2e_tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test-ui": "playwright test --ui",
+    "start": "npm run test:execute",
+    "debug": "npm run test:debug",
+    "docker-build": "docker build -t docker-pw",
+    "docker-run": "docker run --rm docker-pw",
+    "docker-run-interactive": "docker run --rm --network host --env-file .env.local --name gcp -it docker-pw /bin/bash",
+    "docker-test": "npm run test"
+  },
+  "author": "dpinchuk",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.45.2",
+    "@types/node": "^20.14.11"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "faker": "^6.6.6",
+    "mocha": "^10.6.0"
+  }
+}

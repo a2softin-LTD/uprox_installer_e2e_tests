@@ -1,0 +1,11 @@
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/logs/
+.env.local_old
+.env.local
+.idea
+target/
+yarn.lock
