@@ -1,0 +1,88 @@
+<testsuites id="" name="" tests="14" failures="0" skipped="0" errors="0" time="53.83858">
+<testsuite name="login\login.spec.ts" timestamp="2024-07-22T08:55:44.308Z" hostname="chromium" tests="14" failures="0" skipped="0" time="52.398" errors="0">
+<testcase name="Login Page tests › Checking UI elements of the Page › Checking UI elements on the Login Page" classname="login\login.spec.ts" time="5.833">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = SUPER_ADMIN" classname="login\login.spec.ts" time="4.388">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = CORP_ADMIN" classname="login\login.spec.ts" time="3.375">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = SYSTEM_ADMIN" classname="login\login.spec.ts" time="3.254">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = INSTALLER" classname="login\login.spec.ts" time="3.792">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = SUPPORT" classname="login\login.spec.ts" time="3.301">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MIXED" classname="login\login.spec.ts" time="4.353">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MANAGER" classname="login\login.spec.ts" time="3.096">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MONITORING_SERVICE_COMPANY_1" classname="login\login.spec.ts" time="3.311">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MONITORING_SERVICE_COMPANY_2" classname="login\login.spec.ts" time="3.53">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MONITORING_COMPANY" classname="login\login.spec.ts" time="3.412">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = ENGINEER" classname="login\login.spec.ts" time="3.246">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = USER_1" classname="login\login.spec.ts" time="3.478">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = USER_2" classname="login\login.spec.ts" time="4.029">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+</testsuite>
+</testsuites>
