@@ -35,7 +35,7 @@ export default defineConfig({
     screenshot: "only-on-failure",
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'https://dev-web-ac.u-prox.systems',
+    baseURL: 'https://devweb-security.u-prox.systems',
 
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
