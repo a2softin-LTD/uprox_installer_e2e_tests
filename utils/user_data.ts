@@ -62,3 +62,23 @@ export const USER_2: object = {
     login: 'pinchuk.dap@gmail.com',
     password: 'lepidoptera111278DAP!@#',
 }
+
+export const UNKNOWN_EMAIL: object = {
+    login: 'test_user_with_fake_email@faker.aqatest',
+    password: 'asdASD123',
+}
+
+export const INVALID_EMAIL_WITHOUT_AT: object = {
+    login: 'd.pinchukitvsystems.com.ua',
+    password: 'asdASD123',
+}
+
+export const INVALID_EMAIL_WITHOUT_DOMAIN: object = {
+    login: 'd.pinchuk@',
+    password: 'asdASD123',
+}
+
+export const INVALID_PASSWORD: object = {
+    login: 'd.pinchuk@itvsystems.com.ua',
+    password: 'asdASD123_fake_password',
+}

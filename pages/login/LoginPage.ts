@@ -15,6 +15,7 @@ export class LoginPage extends BasePage {
     private readonly _privacyPolicyLink: Locator;
     private readonly _termsOfServiceLink: Locator;
     private readonly _languagesList: Locator;
+    private readonly _matWarn: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -31,6 +32,7 @@ export class LoginPage extends BasePage {
         this._privacyPolicyLink = page.locator('a[href="https://policies.google.com/privacy?hl=en"]');
         this._termsOfServiceLink = page.locator('a[href="https://policies.google.com/terms?hl=en"]');
         this._languagesList = page.locator('.language-dd');
+        this._matWarn = this.form.locator('button .mat-warn');
     }
 
 
@@ -80,6 +82,10 @@ export class LoginPage extends BasePage {
 
     get languagesList(): Locator {
         return this._languagesList;
+    }
+
+    get matWarn(): Locator {
+        return this._matWarn;
     }
 
     async auth(user: object) {

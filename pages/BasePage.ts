@@ -16,7 +16,6 @@ export class BasePage {
         return locator.click();
     }
 
-    // Method finds some locator by text
     findByText(text: string) {
         return this.page.getByText(text);
     }
