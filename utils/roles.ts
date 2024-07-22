@@ -19,7 +19,7 @@ export const INSTALLER: object = {
 }
 
 export const SUPPORT: object = {
-    login: 'andrianaslobozheniuk+12@gmail.com ',
+    login: 'd.pinchuk+001@itvsystems.com.ua',
     password: 'asdASD123',
 }
 
@@ -29,22 +29,27 @@ export const MIXED: object = {
 }
 
 export const MONITORING_SERVICE_COMPANY_1: object = {
-    login: 'andrianaslobozheniuk+1@gmail.com',
+    login: 'd.pinchuk+003@itvsystems.com.ua',
     password: 'asdASD123',
 }
 
 export const MONITORING_SERVICE_COMPANY_2: object = {
-    login: 'andrianaslobozheniuk+2@gmail.co',
+    login: 'andrianaslobozheniuk+1@gmail.com',
     password: 'asdASD123',
 }
 
 export const MONITORING_COMPANY: object = {
-    login: 'andrianaslobozheniuk+5@gmail.com',
+    login: 'd.pinchuk+002@itvsystems.com.ua',
     password: 'asdASD123',
 }
 
 export const ENGINEER: object = {
-    login: 'andrianaslobozheniuk+6@gmail.com',
+    login: 'd.pinchuk+004@itvsystems.com.ua',
+    password: 'asdASD123',
+}
+
+export const MANAGER: object = {
+    login: 'd.pinchuk+005@itvsystems.com.ua',
     password: 'asdASD123',
 }
 

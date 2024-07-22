@@ -12,8 +12,8 @@ import {
     MONITORING_COMPANY,
     ENGINEER,
     USER_1,
-    USER_2,
-     } from "../../utils/roles";
+    USER_2, MANAGER,
+} from "../../utils/roles";
 
 test.describe('Login Page tests', () => {
 
@@ -88,7 +88,7 @@ test.describe('Login Page tests', () => {
                 description: ""
             });
             await loginPage.auth(SUPPORT);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL('/support/search');
         });
 
         test('Checking auth with Role = MIXED', async ({ page }) => {
@@ -98,6 +98,15 @@ test.describe('Login Page tests', () => {
             });
             await loginPage.auth(MIXED);
             await expect(page).toHaveURL('/panels');
+        });
+
+        test('Checking auth with Role = MANAGER', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: ""
+            });
+            await loginPage.auth(MANAGER);
+            await expect(page).toHaveURL('/profile/panels');
         });
 
         test('Checking auth with Role = MONITORING_SERVICE_COMPANY_1', async ({ page }) => {
