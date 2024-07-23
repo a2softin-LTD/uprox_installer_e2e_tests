@@ -1,38 +1,42 @@
 import { BasePage } from "../BasePage";
-import {Page, type Locator, expect} from "@playwright/test";
+import { Page, type Locator, expect } from "@playwright/test";
 
-export class LoginPage extends BasePage {
+export class RegistrationPage extends BasePage {
     readonly page: Page;
     private readonly _logo: Locator;
     private readonly _form: Locator;
     private readonly _emailField: Locator;
     private readonly _passwordField: Locator;
     private readonly _passwordEye: Locator;
-    private readonly _rememberMeCheckbox: Locator;
-    private readonly _forgotYourPasswordLink: Locator;
-    private readonly _loginButton: Locator;
-    private readonly _registerLink: Locator;
+    private readonly _agreeCheckbox: Locator;
+    private readonly _registerButton: Locator;
+    private readonly _signInLink: Locator;
     private readonly _privacyPolicyLink: Locator;
     private readonly _termsOfServiceLink: Locator;
     private readonly _languagesList: Locator;
     private readonly _matWarn: Locator;
+    private readonly _loginHeader: Locator;
+    private readonly _registrationComplete: Locator;
+    private readonly _registrationCompleteNotReceivedEmail: Locator;
 
     constructor(page: Page) {
         super(page);
         this.page = page;
         this._logo = page.locator('mat-icon[svgicon="login-logo-desktop"]')
         this._form = page.locator('form');
-        this._emailField = this.form.locator('#mat-input-0');
-        this._passwordField = this.form.locator('#mat-input-1');
-        this._passwordEye = this.form.locator('.mat-icon');
-        this._rememberMeCheckbox = this.form.locator('.mdc-checkbox__native-control');
-        this._forgotYourPasswordLink = this.form.locator('span[routerlink="/reset_password"]');
-        this._loginButton = this.form.locator('.mdc-button');
-        this._registerLink = this.form.locator('span[routerlink="/sign_up"]');
+        this._emailField = this.form.locator('#signUpEmail');
+        this._passwordField = this.form.locator('#signUpPassword');
+        this._passwordEye = this.form.locator('button[aria-label="Hide password"]');
+        this._agreeCheckbox = this.form.locator('.mdc-checkbox__native-control');
+        this._registerButton = this.form.locator('.mdc-button');
+        this._signInLink = page.getByText('Sign in');
         this._privacyPolicyLink = page.locator('a[href="https://policies.google.com/privacy?hl=en"]');
         this._termsOfServiceLink = page.locator('a[href="https://policies.google.com/terms?hl=en"]');
         this._languagesList = page.locator('.language-dd');
         this._matWarn = this.form.locator('button .mat-warn');
+        this._loginHeader = page.locator('.login__header');
+        this._registrationComplete = page.locator('.registration-complete').first();
+        this._registrationCompleteNotReceivedEmail = page.locator('.registration-complete').last();
     }
 
     get logo(): Locator {
@@ -55,20 +59,16 @@ export class LoginPage extends BasePage {
         return this._passwordEye;
     }
 
-    get rememberMeCheckbox(): Locator {
-        return this._rememberMeCheckbox;
+    get agreeCheckbox(): Locator {
+        return this._agreeCheckbox;
     }
 
-    get forgotYourPasswordLink(): Locator {
-        return this._forgotYourPasswordLink;
+    get registerButton(): Locator {
+        return this._registerButton;
     }
 
-    get loginButton(): Locator {
-        return this._loginButton;
-    }
-
-    get registerLink(): Locator {
-        return this._registerLink;
+    get signInLink(): Locator {
+        return this._signInLink;
     }
 
     get privacyPolicyLink(): Locator {
@@ -87,13 +87,28 @@ export class LoginPage extends BasePage {
         return this._matWarn;
     }
 
-    async auth(user: object) {
+    get loginHeader(): Locator {
+        return this._loginHeader;
+    }
+
+    get registrationComplete(): Locator {
+        return this._registrationComplete;
+    }
+
+    get registrationCompleteNotReceivedEmail(): Locator {
+        return this._registrationCompleteNotReceivedEmail;
+    }
+
+    async registration(user: object, isAgreeBox: boolean) {
         await this.emailField.fill(user['login']);
         await this.passwordField.fill(user['password']);
         await this.passwordEye.hover();
         expect(this.findByText(user['login'])).toBeDefined();
         expect(this.findByText(user['password'])).toBeDefined();
-        await this.loginButton.click();
+        if (isAgreeBox) {
+            await this.agreeCheckbox.click();
+        }
+        await this.registerButton.click();
     }
 
 }
