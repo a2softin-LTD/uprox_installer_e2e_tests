@@ -72,7 +72,7 @@ test.describe('Login Page tests', () => {
         test('negative: Checking registration (non-valid user password)', async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
-                description: "https://app.clickup.com/t/8692uuajm"
+                description: "https://app.clickup.com/t/86946t9pw"
             });
 
             registrationPage = new RegistrationPage(page);
@@ -89,6 +89,39 @@ test.describe('Login Page tests', () => {
                 'latin characters only'));
         });
 
+        test('negative: Checking registration (always exist user data)', async ({ page }) => {
+            test.info().annotations.push({
+                type: "ClickUp_link",
+                description: "https://app.clickup.com/t/86946t9pw"
+            });
+
+            registrationPage = new RegistrationPage(page);
+            const User: RegistrationModel = {
+                login: 'pinchuk.dap@gmail.com',
+                password: 'lepidoptera111278DAP!@#'
+            };
+
+            let passwordStars: string = '';
+            for (let i = 0; i < User.password.length; i++) {
+                passwordStars += '*';
+            }
+
+            await registrationPage.emailField.click();
+            await registrationPage.emailField.fill(User.login);
+
+            await expect(registrationPage.emailField).toHaveValue(User.login);
+
+            await registrationPage.passwordField.click();
+            await registrationPage.passwordField.fill(User.password);
+
+            await registrationPage.agreeCheckbox.click();
+            await page.waitForTimeout(3000);
+
+            await registrationPage.registerButton.click();
+            await page.waitForTimeout(5000);
+
+            expect(registrationPage.findByText('Email already exists'));
+        });
     });
 
 });
