@@ -16,9 +16,9 @@ test.describe('Login Page tests', () => {
         await expect(page).toHaveURL('/sign_up')
     });
 
-    test.describe('Checking registration. Positive scenarios', () => {
+    test.describe('-Checking CRUD Engineer. Positive scenarios', () => {
 
-        test('positive: Checking registration (valid user data)', async ({ page }) => {
+        test('positive: -Checking registration (valid user data)', async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pv"
@@ -54,7 +54,7 @@ test.describe('Login Page tests', () => {
             expect(registrationPage.findByText('Not received an email?'));
         });
 
-        test('negative: Checking registration (non-valid user email)', async ({ page }) => {
+        test('negative: -Checking registration (non-valid user email)', async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/8692uuajm"
@@ -69,7 +69,7 @@ test.describe('Login Page tests', () => {
             expect(registrationPage.findByText('Incorrect email address format.'));
         });
 
-        test('negative: Checking registration (non-valid user password)', async ({ page }) => {
+        test('negative: -Checking registration (non-valid user password)', async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pw"
@@ -89,7 +89,7 @@ test.describe('Login Page tests', () => {
                 'latin characters only'));
         });
 
-        test('negative: Checking registration (always exist user data)', async ({ page }) => {
+        test('negative: -Checking registration (always exist user data)', async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pw"
