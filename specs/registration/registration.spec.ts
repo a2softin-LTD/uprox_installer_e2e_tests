@@ -18,7 +18,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Checking registration. Positive scenarios', () => {
 
-        test('positive: Checking registration', async ({ page }) => {
+        test('positive: Checking registration (valid user data)', async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pv"
@@ -49,9 +49,44 @@ test.describe('Login Page tests', () => {
             await registrationPage.registerButton.click();
             await page.waitForTimeout(5000);
 
-            // await expect(registrationPage.loginHeader).toHaveText('Email confirmation');
-            // await expect(registrationPage.registrationComplete).toHaveText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`);
-            // await expect(registrationPage.registrationCompleteNotReceivedEmail).toHaveText('Not received an email?');
+            expect(registrationPage.findByText('Email confirmation'));
+            expect(registrationPage.findByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`));
+            expect(registrationPage.findByText('Not received an email?'));
+        });
+
+        test('negative: Checking registration (non-valid user email)', async ({ page }) => {
+            test.info().annotations.push({
+                type: "ClickUp_link",
+                description: "https://app.clickup.com/t/8692uuajm"
+            });
+
+            registrationPage = new RegistrationPage(page);
+
+            const email: string = "user@user";
+            await registrationPage.emailField.click();
+            await registrationPage.emailField.fill(email);
+
+            expect(registrationPage.findByText('Incorrect email address format.'));
+        });
+
+        test('negative: Checking registration (non-valid user password)', async ({ page }) => {
+            test.info().annotations.push({
+                type: "ClickUp_link",
+                description: "https://app.clickup.com/t/8692uuajm"
+            });
+
+            registrationPage = new RegistrationPage(page);
+
+            const password: string = "~";
+            await registrationPage.passwordField.click();
+            await registrationPage.passwordField.fill(password);
+
+            expect(registrationPage.findByText('Password must contain at least:\n' +
+                '8 symbols\n' +
+                '1 number\n' +
+                '1 lowercase letter\n' +
+                '1 uppercase letter\n' +
+                'latin characters only'));
         });
 
     });
