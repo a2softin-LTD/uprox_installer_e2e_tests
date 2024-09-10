@@ -19,4 +19,5 @@ export class BasePage {
     findByText(text: string) {
         return this.page.getByText(text);
     }
+
 }
