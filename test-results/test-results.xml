@@ -1,88 +1,140 @@
-<testsuites id="" name="" tests="14" failures="0" skipped="0" errors="0" time="53.83858">
-<testsuite name="login\login.spec.ts" timestamp="2024-07-22T08:55:44.308Z" hostname="chromium" tests="14" failures="0" skipped="0" time="52.398" errors="0">
-<testcase name="Login Page tests › Checking UI elements of the Page › Checking UI elements on the Login Page" classname="login\login.spec.ts" time="5.833">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = SUPER_ADMIN" classname="login\login.spec.ts" time="4.388">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = CORP_ADMIN" classname="login\login.spec.ts" time="3.375">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = SYSTEM_ADMIN" classname="login\login.spec.ts" time="3.254">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = INSTALLER" classname="login\login.spec.ts" time="3.792">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = SUPPORT" classname="login\login.spec.ts" time="3.301">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MIXED" classname="login\login.spec.ts" time="4.353">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MANAGER" classname="login\login.spec.ts" time="3.096">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MONITORING_SERVICE_COMPANY_1" classname="login\login.spec.ts" time="3.311">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MONITORING_SERVICE_COMPANY_2" classname="login\login.spec.ts" time="3.53">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = MONITORING_COMPANY" classname="login\login.spec.ts" time="3.412">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = ENGINEER" classname="login\login.spec.ts" time="3.246">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = USER_1" classname="login\login.spec.ts" time="3.478">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
-</testcase>
-<testcase name="Login Page tests › Checking authorization with different roles › Checking auth with Role = USER_2" classname="login\login.spec.ts" time="4.029">
-<properties>
-<property name="test_id" value="">
-</property>
-</properties>
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="1082.2051809999998">
+<testsuite name="sql\sql.spec.ts" timestamp="2024-09-12T13:15:50.072Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1073.89" errors="0">
+<testcase name="Get data from PROD DB, data anonymization  and save to QA DB via SQL requests › Get data from PROD DB and save to QA DB via sql-requests › 2. Get data from PROD DB and save to QA DB" classname="sql\sql.spec.ts" time="1073.89">
+<failure message="sql.spec.ts:109:13 2. Get data from PROD DB and save to QA DB" type="FAILURE">
+<![CDATA[  [chromium] › sql\sql.spec.ts:109:13 › Get data from PROD DB, data anonymization  and save to QA DB via SQL requests › Get data from PROD DB and save to QA DB via sql-requests › 2. Get data from PROD DB and save to QA DB 
+
+    error: could not extend file "base/16384/49300": Input/output error
+
+      324 |                     "INSERT INTO events (time_of_event, code, scope, device, device_account, initiator, initiator_index, target, target_index, info, info_value, extra, category_home, category_installer) VALUES " + arrRecords50.join(',') + "; " +
+      325 |                     "COMMIT;");
+    > 326 |                     wrightEvents = await qaConnection.query(query.replace(/\\/g, ""));
+          |                                    ^
+      327 |
+      328 |                     console.log('[QA] FINISH to Record PROD data into QA DB: ' + moment().format('LTS'));
+      329 |                     console.log('---------------------------------------------------------------------------------------------');
+
+        at C:\Users\d.pinchuk\IdeaProjects\uprox_installer_e2e_tests\node_modules\pg\lib\client.js:526:17
+        at C:\Users\d.pinchuk\IdeaProjects\uprox_installer_e2e_tests\specs\sql\sql.spec.ts:326:36
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\sql-sql-Get-data-from-PROD-3ed7c-m-PROD-DB-and-save-to-QA-DB-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\sql-sql-Get-data-from-PROD-3ed7c-m-PROD-DB-and-save-to-QA-DB-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[STARTING THE TEST: 4:15:55 PM
+**********************************************************************************************
+**********************************************************************************************
+**********************************************************************************************
+ 
+ 
+ 
+Offset = 1
+ 
+ 
+---------------------------------------------------------------------------------------------
+[PROD] Reading time: 4:16:11 PM
+---------------------------------------------------------------------------------------------
+[QA] START to Record PROD data into QA DB: 4:16:12 PM
+[QA] FINISH to Record PROD data into QA DB: 4:18:43 PM
+---------------------------------------------------------------------------------------------
+ 
+ 
+---------------------------------------------------------------------------------------------
+Count of records in QA DB = 18189372
+Offset = 2
+ 
+ 
+ 
+ 
+---------------------------------------------------------------------------------------------
+[PROD] Reading time: 4:18:58 PM
+---------------------------------------------------------------------------------------------
+[QA] START to Record PROD data into QA DB: 4:19:00 PM
+[QA] FINISH to Record PROD data into QA DB: 4:21:42 PM
+---------------------------------------------------------------------------------------------
+ 
+ 
+---------------------------------------------------------------------------------------------
+Count of records in QA DB = 18199372
+Offset = 3
+ 
+ 
+ 
+ 
+---------------------------------------------------------------------------------------------
+[PROD] Reading time: 4:21:58 PM
+---------------------------------------------------------------------------------------------
+[QA] START to Record PROD data into QA DB: 4:22:00 PM
+[QA] FINISH to Record PROD data into QA DB: 4:24:31 PM
+---------------------------------------------------------------------------------------------
+ 
+ 
+---------------------------------------------------------------------------------------------
+Count of records in QA DB = 18209372
+Offset = 4
+ 
+ 
+ 
+ 
+---------------------------------------------------------------------------------------------
+[PROD] Reading time: 4:24:47 PM
+---------------------------------------------------------------------------------------------
+[QA] START to Record PROD data into QA DB: 4:24:49 PM
+[QA] FINISH to Record PROD data into QA DB: 4:27:23 PM
+---------------------------------------------------------------------------------------------
+ 
+ 
+---------------------------------------------------------------------------------------------
+Count of records in QA DB = 18219372
+Offset = 5
+ 
+ 
+ 
+ 
+---------------------------------------------------------------------------------------------
+[PROD] Reading time: 4:27:40 PM
+---------------------------------------------------------------------------------------------
+[QA] START to Record PROD data into QA DB: 4:27:42 PM
+[QA] FINISH to Record PROD data into QA DB: 4:30:15 PM
+---------------------------------------------------------------------------------------------
+ 
+ 
+---------------------------------------------------------------------------------------------
+Count of records in QA DB = 18229372
+Offset = 6
+ 
+ 
+ 
+ 
+---------------------------------------------------------------------------------------------
+[PROD] Reading time: 4:30:31 PM
+---------------------------------------------------------------------------------------------
+[QA] START to Record PROD data into QA DB: 4:30:33 PM
+[QA] FINISH to Record PROD data into QA DB: 4:33:09 PM
+---------------------------------------------------------------------------------------------
+ 
+ 
+---------------------------------------------------------------------------------------------
+Count of records in QA DB = 18239372
+Offset = 7
+ 
+ 
+ 
+ 
+---------------------------------------------------------------------------------------------
+[PROD] Reading time: 4:33:40 PM
+---------------------------------------------------------------------------------------------
+[QA] START to Record PROD data into QA DB: 4:33:44 PM
+
+[[ATTACHMENT|sql-sql-Get-data-from-PROD-3ed7c-m-PROD-DB-and-save-to-QA-DB-chromium\trace.zip]]
+]]>
+</system-out>
 </testcase>
 </testsuite>
 </testsuites>
