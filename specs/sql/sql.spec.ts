@@ -138,7 +138,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                 let offset: number = 1;
                 console.log("Offset = " + offset);
 
-                let fetch: number = 10000;
+                let fetch: number = 1000;
                 
                 let arrRecords10: Array<string> = [];
                 let arrRecords20: Array<string> = [];

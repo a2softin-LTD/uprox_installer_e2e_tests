@@ -8,7 +8,7 @@ export class CompanyManagement extends BasePage {
     constructor(page: Page) {
         super(page);
         this.page = page;
-        this._addCompanyButton = page.locator('.list__header button').first()
+        this._addCompanyButton = page.locator('button[routerlink="create"]').first()
     }
 
     get addCompanyButton(): Locator {
