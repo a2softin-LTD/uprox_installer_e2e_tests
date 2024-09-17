@@ -52,6 +52,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/support/search');
             await supportHeaderPage.companiesMenuItem.click();
             await companyManagementPage.addCompanyButton.click();
+            console.log();
 
         });
     });
