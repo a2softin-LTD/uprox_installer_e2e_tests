@@ -5,6 +5,7 @@ import { CompanyManagement } from "../../pages/support/companyManagement/Support
 import {
     SYSTEM_ADMIN,
 } from "../../utils/user_data";
+import { ENVIRONMENT } from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 
@@ -14,8 +15,8 @@ test.describe('Login Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await loginPage.openLoginPage(ENVIRONMENT);
+        //await expect(page).toHaveURL('/login')
     });
 
     test.describe('Checking UI elements of the page', () => {

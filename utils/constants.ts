@@ -3,3 +3,5 @@ export enum UIErrorMessages {
     INCORRECT_EMAIL_ADDRESS = 'Incorrect email address format.',
     REQUIRED_FIELD = 'Required field',
 }
+
+export const ENVIRONMENT: string = 'dach';

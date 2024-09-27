@@ -1,9 +1,13 @@
-import { test } from "@playwright/test";
+import {expect, test} from "@playwright/test";
 import { Pool } from 'postgres-pool';
-import { prodSqlConfig, qaSqlConfig } from "../../db/db.config";
+import {prodEventWrightSqlConfig, prodSqlConfig, qaSqlConfig} from "../../db/db.config";
 import { GET_EVENTS_AMOUNT, GET_EVENTS_BY_SAMPLE } from "../../db/Query";
 import { faker } from "@faker-js/faker";
 import { DateParser } from "../../utils/DateParser";
+// @ts-ignore
+import  fs  from  "fs";
+// @ts-ignore
+import  fse  from  "fs-extra";
 // @ts-ignore
 import moment from "moment";
 
@@ -17,6 +21,12 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
     let qaPool: Pool;
     let qaConnection;
 
+    let prodEventWrightConnectionString: string;
+    let prodEventWrightPool: Pool;
+    let prodEventWrightConnection;
+
+    let allFileContents: any;
+
     test.beforeAll(async () => {
         prodConnectionString = `postgres://${prodSqlConfig['user']}:${prodSqlConfig['password']}@${prodSqlConfig['host']}:${prodSqlConfig['port']}/${qaSqlConfig['database']}`;
         prodPool = new Pool({connectionString: prodConnectionString});
@@ -25,6 +35,10 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
         qaConnectionString = `postgres://${qaSqlConfig['user']}:${qaSqlConfig['password']}@${qaSqlConfig['host']}:${qaSqlConfig['port']}/${qaSqlConfig['database']}`;
         qaPool = new Pool({connectionString: qaConnectionString});
         qaConnection = await qaPool.connect();
+
+        prodEventWrightConnectionString = `postgres://${prodEventWrightSqlConfig['user']}:${prodEventWrightSqlConfig['password']}@${prodEventWrightSqlConfig['host']}:${prodEventWrightSqlConfig['port']}/${prodEventWrightSqlConfig['database']}`;
+        prodEventWrightPool = new Pool({connectionString: prodEventWrightConnectionString});
+        prodEventWrightConnection = await prodEventWrightPool.connect();
     });
 
     test.describe('Get data from PROD DB and save to QA DB via sql-requests', () => {
@@ -348,5 +362,120 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                 await qaConnection.release();
             }
         });
+
+        test('3. Executing SQL Selects to PROD DB and measurementing response times', async () => {
+            let stage: number = 0;
+            let count: number = 0;
+            let startTime: Date;
+            let endTime: Date;
+            let duration: string;
+            let wrightEvents: any;
+
+            try {
+                    // {
+                    //     // 1. script2022.txt
+                    //     console.log("**********************************************************************************************");
+                    //     console.log("************************* Executing requests from 'script2022.txt' ***************************");
+                    //     console.log("**********************************************************************************************");
+                    //     stage++;
+                    //     allFileContents = fs.readFileSync('./test-data/script2022.txt', 'utf-8');
+                    //     for (const line of allFileContents.split(/\r?\n/)) {
+                    //         let timeStampStart: number = Date.now();
+                    //         startTime = new Date();
+                    //         count++;
+                    //         console.log(`${stage}.${count}. Executing the request:  ${line}`);
+
+                    //         wrightEvents = await prodEventWrightConnection.query(line);
+
+                    //         console.log('DONE!');
+
+                    //         let timeStampEnd: number = Date.now();
+                    //         endTime = new Date();
+                    //         duration = await DateParser.calculateTimeDifference(startTime, endTime);
+                    //         console.log("Duration time = " + duration);
+                    //         console.log();
+
+                    //         expect(timeStampEnd - timeStampStart).toBeLessThan(300001);
+                    //     }
+
+                    //     count = 0;
+                    //     duration = '';
+                    //     console.log("**********************************************************************************************");
+                    //     console.log();
+                    //     console.log();
+                    //     console.log();
+                    // }
+
+                    // {
+                    //     // 2. script2023.txt
+                    //     console.log("**********************************************************************************************");
+                    //     console.log("************************* Executing requests from 'script2023.txt' ***************************");
+                    //     console.log("**********************************************************************************************");
+                    //     stage++;
+                    //     allFileContents = fs.readFileSync('./test-data/script2023.txt', 'utf-8');
+                    //     for (const line of allFileContents.split(/\r?\n/)) {
+                    //         let timeStampStart: number = Date.now();
+                    //         startTime = new Date();
+                    //         count++;
+                    //         console.log(`${stage}.${count}. Executing the request:  ${line}`);
+
+                    //         wrightEvents = await prodEventWrightConnection.query(line);
+
+                    //         console.log('DONE!');
+
+                    //         let timeStampEnd: number = Date.now();
+                    //         endTime = new Date();
+                    //         duration = await DateParser.calculateTimeDifference(startTime, endTime);
+                    //         console.log("Duration time = " + duration);
+                    //         console.log();
+
+                    //         expect(timeStampEnd - timeStampStart).toBeLessThan(300001);
+                    //     }
+
+                    // count = 0;
+                    // duration = '';
+                    // console.log("**********************************************************************************************");
+                    // console.log();
+                    // console.log();
+                    // console.log();
+                    // }
+
+                    {
+                        // 3. script2024.txt
+                        console.log("**********************************************************************************************");
+                        console.log("************************* Executing requests from 'script2024.txt' ***************************");
+                        console.log("**********************************************************************************************");
+                        stage++;
+                        allFileContents = fs.readFileSync('./test-data/script2024.txt', 'utf-8');
+                        for (const line of allFileContents.split(/\r?\n/)) {
+                            let timeStampStart: number = Date.now();
+                            startTime = new Date();
+                            count++;
+                            console.log(`${stage}.${count}. Executing the request:  ${line}`);
+
+                            wrightEvents = await prodEventWrightConnection.query(line);
+
+                            console.log('DONE!');
+
+                            let timeStampEnd: number = Date.now();
+                            endTime = new Date();
+                            duration = await DateParser.calculateTimeDifference(startTime, endTime);
+                            console.log("Duration time = " + duration);
+                            console.log();
+
+                            expect(timeStampEnd - timeStampStart).toBeLessThan(300001);
+                        }
+
+                        count = 0;
+                        duration = '';
+                        console.log("**********************************************************************************************");
+                        console.log();
+                        console.log();
+                        console.log();
+                    }
+            } finally {
+                await prodEventWrightConnection.release();
+            }
+        })
     });
 });

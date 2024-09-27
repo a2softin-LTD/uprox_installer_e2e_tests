@@ -15,3 +15,13 @@ export const qaSqlConfig: object = {
     password: "iZprOdfWmnOTAe12",
     ssl: false
 }
+
+
+export const prodEventWrightSqlConfig: object = {
+    user: "d_pinchuk_read_write",
+    database: "events",
+    port: 11002,
+    host: "node105551-uprox-events-prod-cluster-db.jcloud.ik-server.com",
+    password: "lwfv7ni3pfkd_pinchuk_read_write",
+    ssl: false
+}

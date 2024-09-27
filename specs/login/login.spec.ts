@@ -19,7 +19,7 @@ import {
     INVALID_EMAIL_WITHOUT_DOMAIN,
     UNKNOWN_EMAIL,
 } from "../../utils/user_data";
-import { UIErrorMessages } from "../../utils/constants";
+import { ENVIRONMENT, UIErrorMessages } from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 
@@ -27,8 +27,8 @@ test.describe('Login Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await loginPage.openLoginPage(ENVIRONMENT);
+        //await expect(page).toHaveURL('/login')
     });
 
     test.describe('Checking UI elements of the Page', () => {

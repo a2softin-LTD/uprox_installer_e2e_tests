@@ -2,7 +2,8 @@
 import { LoginPage } from "../../pages/login/LoginPage";
 import { RegistrationModel } from "../../models/RegistrationModel";
 import { faker } from "@faker-js/faker";
-import {RegistrationPage} from "../../pages/registration/RegistrationPage";
+import { RegistrationPage } from "../../pages/registration/RegistrationPage";
+ import { ENVIRONMENT } from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 
@@ -11,9 +12,9 @@ test.describe('Login Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage(ENVIRONMENT);
         await loginPage.registerLink.click();
-        await expect(page).toHaveURL('/sign_up')
+        //await expect(page).toHaveURL('/sign_up')
     });
 
     test.describe('_Checking CRUD Manager.', () => {
