@@ -372,73 +372,73 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
             let wrightEvents: any;
 
             try {
-                    // {
-                    //     // 1. script2022.txt
-                    //     console.log("**********************************************************************************************");
-                    //     console.log("************************* Executing requests from 'script2022.txt' ***************************");
-                    //     console.log("**********************************************************************************************");
-                    //     stage++;
-                    //     allFileContents = fs.readFileSync('./test-data/script2022.txt', 'utf-8');
-                    //     for (const line of allFileContents.split(/\r?\n/)) {
-                    //         let timeStampStart: number = Date.now();
-                    //         startTime = new Date();
-                    //         count++;
-                    //         console.log(`${stage}.${count}. Executing the request:  ${line}`);
+                    {
+                        // 1. script2022.txt
+                        console.log("**********************************************************************************************");
+                        console.log("************************* Executing requests from 'script2022.txt' ***************************");
+                        console.log("**********************************************************************************************");
+                        stage++;
+                        allFileContents = fs.readFileSync('./test-data/script2022.txt', 'utf-8');
+                        for (const line of allFileContents.split(/\r?\n/)) {
+                            let timeStampStart: number = Date.now();
+                            startTime = new Date();
+                            count++;
+                            console.log(`${stage}.${count}. Executing the request:  ${line}`);
 
-                    //         wrightEvents = await prodEventWrightConnection.query(line);
+                            wrightEvents = await prodEventWrightConnection.query(line);
 
-                    //         console.log('DONE!');
+                            console.log('DONE!');
 
-                    //         let timeStampEnd: number = Date.now();
-                    //         endTime = new Date();
-                    //         duration = await DateParser.calculateTimeDifference(startTime, endTime);
-                    //         console.log("Duration time = " + duration);
-                    //         console.log();
+                            let timeStampEnd: number = Date.now();
+                            endTime = new Date();
+                            duration = await DateParser.calculateTimeDifference(startTime, endTime);
+                            console.log("Duration time = " + duration);
+                            console.log();
 
-                    //         expect(timeStampEnd - timeStampStart).toBeLessThan(300001);
-                    //     }
+                            expect(timeStampEnd - timeStampStart).toBeLessThan(300001);
+                        }
 
-                    //     count = 0;
-                    //     duration = '';
-                    //     console.log("**********************************************************************************************");
-                    //     console.log();
-                    //     console.log();
-                    //     console.log();
-                    // }
+                        count = 0;
+                        duration = '';
+                        console.log("**********************************************************************************************");
+                        console.log();
+                        console.log();
+                        console.log();
+                    }
 
-                    // {
-                    //     // 2. script2023.txt
-                    //     console.log("**********************************************************************************************");
-                    //     console.log("************************* Executing requests from 'script2023.txt' ***************************");
-                    //     console.log("**********************************************************************************************");
-                    //     stage++;
-                    //     allFileContents = fs.readFileSync('./test-data/script2023.txt', 'utf-8');
-                    //     for (const line of allFileContents.split(/\r?\n/)) {
-                    //         let timeStampStart: number = Date.now();
-                    //         startTime = new Date();
-                    //         count++;
-                    //         console.log(`${stage}.${count}. Executing the request:  ${line}`);
+                    {
+                        // 2. script2023.txt
+                        console.log("**********************************************************************************************");
+                        console.log("************************* Executing requests from 'script2023.txt' ***************************");
+                        console.log("**********************************************************************************************");
+                        stage++;
+                        allFileContents = fs.readFileSync('./test-data/script2023.txt', 'utf-8');
+                        for (const line of allFileContents.split(/\r?\n/)) {
+                            let timeStampStart: number = Date.now();
+                            startTime = new Date();
+                            count++;
+                            console.log(`${stage}.${count}. Executing the request:  ${line}`);
 
-                    //         wrightEvents = await prodEventWrightConnection.query(line);
+                            wrightEvents = await prodEventWrightConnection.query(line);
 
-                    //         console.log('DONE!');
+                            console.log('DONE!');
 
-                    //         let timeStampEnd: number = Date.now();
-                    //         endTime = new Date();
-                    //         duration = await DateParser.calculateTimeDifference(startTime, endTime);
-                    //         console.log("Duration time = " + duration);
-                    //         console.log();
+                            let timeStampEnd: number = Date.now();
+                            endTime = new Date();
+                            duration = await DateParser.calculateTimeDifference(startTime, endTime);
+                            console.log("Duration time = " + duration);
+                            console.log();
 
-                    //         expect(timeStampEnd - timeStampStart).toBeLessThan(300001);
-                    //     }
+                            expect(timeStampEnd - timeStampStart).toBeLessThan(300001);
+                        }
 
-                    // count = 0;
-                    // duration = '';
-                    // console.log("**********************************************************************************************");
-                    // console.log();
-                    // console.log();
-                    // console.log();
-                    // }
+                    count = 0;
+                    duration = '';
+                    console.log("**********************************************************************************************");
+                    console.log();
+                    console.log();
+                    console.log();
+                    }
 
                     {
                         // 3. script2024.txt
