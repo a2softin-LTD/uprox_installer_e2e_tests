@@ -9,3 +9,5 @@ node_modules/
 .idea
 target/
 yarn.lock
+index.html
+test-results.xml
