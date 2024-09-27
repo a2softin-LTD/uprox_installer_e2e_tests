@@ -53,6 +53,9 @@ test.describe('Login Page tests', () => {
             expect(registrationPage.findByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`));
             expect(registrationPage.findByText('Not received an email?'));
         });
+    });
+
+    test.describe('Checking registration. Negative scenarios', () => {
 
         test('negative: Checking registration (non-valid user email)', async ({ page }) => {
             test.info().annotations.push({
