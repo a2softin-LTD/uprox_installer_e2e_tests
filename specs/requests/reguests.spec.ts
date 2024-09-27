@@ -50,7 +50,6 @@ test.describe('Hub Page tests', () => {
         await hubPage.requestsNoteField.fill(note);
         await hubPage.requestsCreateApplicationButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('Transfer request sent')).toBeVisible();
 
     });

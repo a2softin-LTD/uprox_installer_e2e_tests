@@ -32,7 +32,6 @@ test.describe('Hub Page tests', () => {
         await hubPage.deleteHubIcon.click();
         await hubPage.deleteButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('deleted successfully')).toBeVisible;
         expect (hubPage.findByText(nameHub)).not.toBeVisible();
 

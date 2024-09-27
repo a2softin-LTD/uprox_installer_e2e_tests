@@ -41,7 +41,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Creation of the Security Company Admin under the System Admin account. Positive scenarios', () => {
 
-        test('positive: CCreation of the Security Company Administrator under the Role = SYSTEM_ADMIN', async ({ page }) => {
+        test('positive: Creation of the Security Company Administrator under the Role = SYSTEM_ADMIN', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694att1n"
@@ -50,11 +50,19 @@ test.describe('Login Page tests', () => {
             companyManagementPage = new CompanyManagement(page);
 
             await loginPage.auth(SYSTEM_ADMIN);
-            await expect(page).toHaveURL('/support/search');
-            await supportHeaderPage.companiesMenuItem.click();
-            await companyManagementPage.addCompanyButton.click();
-            console.log();
 
+            await expect(page.getByText('Technical support')).toBeVisible();
+            expect(page.url()).toContain('/support/search');
+
+            await supportHeaderPage.companiesMenuItem.click();
+
+            await expect(page.getByText('Add company')).toBeVisible();
+
+            await companyManagementPage.addCompanyButton.click();
+
+            await expect(page.getByText('Alternative translations:')).toBeVisible();
+
+            // Company name = 'AQA_TEST_' + faker.string.uud();
         });
     });
 

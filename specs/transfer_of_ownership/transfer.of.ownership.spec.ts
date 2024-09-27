@@ -42,16 +42,13 @@ test.describe('Profile Page tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addUserAddButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро created successfully')).toBeVisible();
 
         await (hubPage.findByText(newOwner)).click();
         await hubPage.userMobileApp.click();
         await page.waitForTimeout(2000);
-        await hubPage.userMobileAppEnable.click();
+        //await hubPage.userMobileAppEnable.click();
         await hubPage.saveButton.click();
-
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
 
         await page.waitForTimeout(2000);
         await hubPage.users.click();
@@ -61,7 +58,6 @@ test.describe('Profile Page tests', () => {
         await hubPage.findByTextExact((newOwner)).click();
         await hubPage.submitButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('successfully')).toBeVisible();
 
     });

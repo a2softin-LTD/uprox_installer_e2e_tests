@@ -52,9 +52,6 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.saveButton.click();
 
-      //  expect(hubPage.findByText('Saving changes')).toBeVisible();
-      //  expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
-
         await page.waitForTimeout(2000);
         await hubPage.settingsAirAlarm.click();
         await page.waitForTimeout(2000);

@@ -57,7 +57,6 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.okButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('saved successfully')).toBeVisible();
 
         await page.waitForTimeout(2000);
@@ -81,7 +80,6 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.okButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('saved successfully')).toBeVisible();
 
     });

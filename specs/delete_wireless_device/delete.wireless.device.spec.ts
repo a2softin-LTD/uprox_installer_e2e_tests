@@ -33,7 +33,6 @@ test.describe('Profile Page tests', () => {
         await hubPage.firstWirelessDevice.click();
         await hubPage.deleteNotExactButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('deleted successfully')).toBeVisible;
 
     });

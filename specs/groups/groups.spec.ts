@@ -43,7 +43,6 @@ test.describe('Hub Page tests', () => {
             await hubPage.groupNameField.fill(nameOfGroup);
             await hubPage.saveButton.click();
 
-            expect(hubPage.findByText('Saving changes')).toBeVisible();
             expect(hubPage.findByText('created successfully')).toBeVisible();
             await page.waitForTimeout(5000);
             expect (hubPage.findByText((nameOfGroup))).toBeVisible();

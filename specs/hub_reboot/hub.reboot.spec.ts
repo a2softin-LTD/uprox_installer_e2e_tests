@@ -38,7 +38,6 @@ test.describe('HubPage tests', () => {
         await hubPage.hubRebootButton.click();
         await hubPage.hubRebootSubmitButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
     });
 

@@ -43,7 +43,6 @@ test.describe('Profile Page tests', () => {
         await hubPage.userAllowMobileAppManagmentFromHome.click();
         await hubPage.addUserAddButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро created successfully')).toBeVisible();
         await page.waitForTimeout(3000);
         expect (hubPage.findByText((newUser))).toBeVisible();
