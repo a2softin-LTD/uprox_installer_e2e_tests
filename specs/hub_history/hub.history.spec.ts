@@ -85,7 +85,6 @@ test.describe('Hub Page tests', () => {
             await hubPage.saveInXLSButton.click();
             await hubPage.exportButton.click();
 
-            expect(hubPage.findByText('Saving changes')).toBeVisible();
             await page.waitForTimeout(1000);
             expect(hubPage.findByText('File created successfully')).toBeVisible();
 

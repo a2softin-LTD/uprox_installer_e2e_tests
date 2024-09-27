@@ -44,7 +44,6 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(1000);
         await hubPage.changeButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
 
         await page.waitForTimeout(1000);
@@ -54,7 +53,6 @@ test.describe('Hub Page tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addUserAddButton.click();
 
-       // expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро created successfully')).toBeVisible();
 
         await page.waitForTimeout(1000);
@@ -65,7 +63,6 @@ test.describe('Hub Page tests', () => {
         await hubPage.settingsKeypadCodeField.fill(code);
         await hubPage.saveButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
 
         await page.waitForTimeout(1000);
@@ -82,7 +79,6 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.changeButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
 
     });

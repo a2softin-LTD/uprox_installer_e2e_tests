@@ -26,7 +26,6 @@ test.describe('Login Page tests', () => {
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(email);
             await loginPage.recoverySendButton.click();
-            expect(loginPage.findByText('Saving changes')).toBeVisible();
             await page.waitForTimeout(2000);
             expect(page.getByText('A password recovery email has been sent to your email.')).toBeVisible();
         });

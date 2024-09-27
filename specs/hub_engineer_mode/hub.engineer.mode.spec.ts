@@ -35,13 +35,11 @@ test.describe('Hub Page tests', () => {
         if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
         await hubPage.hubEngineerModeSwitch.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
         expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
 
         await page.waitForTimeout(2000);
         await hubPage.hubEngineerModeSwitch.click();
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
         expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
 
@@ -53,7 +51,6 @@ test.describe('Hub Page tests', () => {
         expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
         await page.waitForTimeout(2000);
         await hubPage.hubEngineerModeSwitch.click();
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
      //   expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
         expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
 

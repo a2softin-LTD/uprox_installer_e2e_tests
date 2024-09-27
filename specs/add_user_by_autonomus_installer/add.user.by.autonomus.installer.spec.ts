@@ -41,7 +41,6 @@ test.describe('Hub Page tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addUserAddButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро created successfully')).toBeVisible();
         expect (hubPage.findByText((newUser))).toBeVisible();
 

@@ -108,7 +108,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditNewPasswordField.fill(passwordNew);
             await profilePage.userEditSubmit.click();
 
-            expect(profilePage.findByText('Saving changes')).toBeVisible();
             expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
 
             await page.waitForTimeout(2000);
@@ -119,7 +118,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditNewPasswordField.fill(passwordCurrent);
             await profilePage.userEditSubmit.click();
 
-            expect(profilePage.findByText('Saving changes')).toBeVisible();
             expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
 
         });

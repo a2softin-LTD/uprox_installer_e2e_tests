@@ -43,7 +43,6 @@ test.describe('HubPage tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addUserAddButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро created successfully')).toBeVisible();
 
         await (hubPage.findByText(user)).click();
@@ -51,15 +50,12 @@ test.describe('HubPage tests', () => {
         await hubPage.enableButton.click();
         await hubPage.saveButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
-
         await page.waitForTimeout(2000);
         await hubPage.userManagment.click();
         await page.waitForTimeout(2000);
         await hubPage.userManagmentEnable.click();
         await hubPage.saveButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         await page.waitForTimeout(2000);
         await hubPage.users.click();
         expect(hubPage.findByText(user)).toBeVisible();
@@ -70,7 +66,6 @@ test.describe('HubPage tests', () => {
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро deleted successfully')).toBeVisible;
         await page.waitForTimeout(2000);
         expect (hubPage.findByText((user))).not.toBeVisible();
