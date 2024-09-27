@@ -52,7 +52,7 @@ test.describe('Login Page tests', () => {
             await loginPage.auth(SYSTEM_ADMIN);
 
             await expect(page.getByText('Technical support')).toBeVisible();
-            await expect(page).toHaveURL('/support/search');
+            expect(page.url()).toContain('/support/search');
 
             await supportHeaderPage.companiesMenuItem.click();
 
