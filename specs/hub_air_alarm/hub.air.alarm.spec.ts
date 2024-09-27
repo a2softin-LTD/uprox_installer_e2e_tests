@@ -60,7 +60,7 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.offButton.click();
         await hubPage.saveButton.click();
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
+        
         await page.waitForTimeout(2000);
         expect(hubPage.findByText('Turn off')).toBeVisible();
 

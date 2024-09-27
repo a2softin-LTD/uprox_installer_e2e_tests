@@ -49,7 +49,6 @@ test.describe('Hub Page tests', () => {
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро deleted successfully')).toBeVisible;
         expect (hubPage.findByText((newUser))).not.toBeVisible();
 

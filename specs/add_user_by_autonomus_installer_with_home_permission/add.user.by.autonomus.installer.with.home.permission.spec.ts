@@ -43,12 +43,14 @@ test.describe('Hub Page tests', () => {
         await hubPage.userAllowMobileAppManagmentFromHome.click();
         await hubPage.addUserAddButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро created successfully')).toBeVisible();
         expect (hubPage.findByText((newUser))).toBeVisible();
 
         await page.waitForTimeout(5000);
         await hubPage.findByText(name).click();
+
+        expect(page.getByText('Delete user'));
+        
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 

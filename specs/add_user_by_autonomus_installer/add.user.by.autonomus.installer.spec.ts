@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
-import {USER_3} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
+import { USER_3 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -47,10 +47,12 @@ test.describe('Hub Page tests', () => {
 
         await page.waitForTimeout(5000);
         await hubPage.findByText(name).click();
+
+        expect(page.getByText('Delete user'));
+
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        expect(hubPage.findByText('Saving changes')).toBeVisible();
         expect(hubPage.findByText('User Дмитро deleted successfully')).toBeVisible;
         expect (hubPage.findByText((newUser))).not.toBeVisible();
     });

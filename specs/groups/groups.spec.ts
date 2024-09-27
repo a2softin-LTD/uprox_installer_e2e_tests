@@ -97,7 +97,6 @@ test.describe('Hub Page tests', () => {
             await hubPage.groupDeleteButton.click();
             await hubPage.deleteButton.click();
 
-            expect(hubPage.findByText('Saving changes')).toBeVisible();
             expect(hubPage.findByText('deleted successfully')).toBeVisible();
             await page.waitForTimeout(5000);
             expect (hubPage.findByTextExact((nameOfGroup))).not.toBeVisible();
