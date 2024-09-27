@@ -1,0 +1,10 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="34.833146">
+<testsuite name="hub_air_alarm\hub.air.alarm.spec.ts" timestamp="2024-09-26T15:03:02.299Z" hostname="chromium" tests="1" failures="0" skipped="0" time="26.992" errors="0">
+<testcase name="Hub Page tests › Hub air alarm setting" classname="hub_air_alarm\hub.air.alarm.spec.ts" time="26.992">
+<properties>
+<property name="test_id" value="">
+</property>
+</properties>
+</testcase>
+</testsuite>
+</testsuites>
