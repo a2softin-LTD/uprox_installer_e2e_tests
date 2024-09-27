@@ -47,17 +47,15 @@ test.describe('Profile Page tests', () => {
 
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
             await page.waitForTimeout(2000);
-            expect(page.getByText(email)).toBeVisible();
+            await expect(page.getByText(email)).toBeVisible();
 
             await page.getByText(email).click();
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
 
-            expect(profilePage.findByText('successfully deleted')).toBeVisible();
-            await page.waitForTimeout(2000);
-            expect(page.getByText(email)).not.toBeVisible();
-
-
+            await expect(profilePage.findByText('successfully deleted')).toBeVisible();
+            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(email)).not.toBeVisible();
 
         });
 
@@ -84,15 +82,15 @@ test.describe('Profile Page tests', () => {
 
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
             await page.waitForTimeout(2000);
-            expect(page.getByText(email)).toBeVisible();
+            await expect(page.getByText(email)).toBeVisible();
 
             await page.getByText(email).click();
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
 
-            expect(profilePage.findByText('successfully deleted')).toBeVisible();
-            await page.waitForTimeout(2000);
-            expect(page.getByText(email)).not.toBeVisible();
+            await expect(profilePage.findByText('successfully deleted')).toBeVisible();
+            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(email)).not.toBeVisible();
         });
 
         test('Employee editing', async ({ page }) => {
@@ -120,8 +118,8 @@ test.describe('Profile Page tests', () => {
             await profilePage.addButton.click();
 
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
-            await page.waitForTimeout(2000);
-            expect(page.getByText(emailOld)).toBeVisible();
+            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(emailOld)).toBeVisible();
 
             await page.getByText(emailOld).click();
             await page.getByText('Full name').click();
@@ -141,17 +139,17 @@ test.describe('Profile Page tests', () => {
             await profilePage.saveButton.click();
 
             await page.waitForTimeout(2000);
-            expect(page.getByText(nameNew)).toBeVisible();
-            expect(page.getByText('Enable')).toBeVisible();
-            expect(page.getByText('Yes')).toBeVisible();
+            await expect(page.getByText(nameNew)).toBeVisible();
+            await expect(page.getByText('Enable')).toBeVisible();
+            await expect(page.getByText('Yes')).toBeVisible();
 
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
 
 
-            expect(profilePage.findByText('successfully deleted')).toBeVisible();
-            await page.waitForTimeout(2000);
-            expect(page.getByText(nameNew,{ exact: true })).not.toBeVisible();
+            await expect(profilePage.findByText('successfully deleted')).toBeVisible();
+            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(nameNew,{ exact: true })).not.toBeVisible();
 
         });
 
@@ -178,20 +176,20 @@ test.describe('Profile Page tests', () => {
             await profilePage.addButton.click();
 
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
-            await page.waitForTimeout(2000);
-            expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(name)).toBeVisible();
             await profilePage.employeeSearchField.fill(name);
             await page.waitForTimeout(2000);
-            expect(page.getByText(name)).toBeVisible();
-            expect(profilePage.employeeBlock).toHaveCount(1);
+            await expect(page.getByText(name)).toBeVisible();
+            await expect(profilePage.employeeBlock).toHaveCount(1);
 
             await page.getByText(name).click();
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
 
-            expect(profilePage.findByText('successfully deleted')).toBeVisible();
-            await page.waitForTimeout(2000);
-            expect(page.getByText(name,{ exact: true })).not.toBeVisible();
+            await expect(profilePage.findByText('successfully deleted')).toBeVisible();
+            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(name,{ exact: true })).not.toBeVisible();
 
         });
 

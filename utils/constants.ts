@@ -4,4 +4,4 @@ export enum UIErrorMessages {
     REQUIRED_FIELD = 'Required field',
 }
 
-export const ENVIRONMENT: string = 'dach';
+export const ENVIRONMENT: string = 'dev';

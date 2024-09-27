@@ -28,7 +28,6 @@ test.describe('Login Page tests', () => {
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
         await loginPage.openLoginPage(ENVIRONMENT);
-        //await expect(page).toHaveURL('/login')
     });
 
     test.describe('Checking UI elements of the Page', () => {
