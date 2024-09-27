@@ -3,7 +3,7 @@ export const SUPER_ADMIN: object = {
     password: 'superadmin',
 };
 
-export const CORP_ADMIN: object = {
+export const  CORP_ADMIN: object = {
     login: 'andrianaslobozheniuk+3@gmail.com',
     password: 'asdASD123',
 };
@@ -81,4 +81,19 @@ export const INVALID_EMAIL_WITHOUT_DOMAIN: object = {
 export const INVALID_PASSWORD: object = {
     login: 'd.pinchuk@itvsystems.com.ua',
     password: 'asdASD123_fake_password',
+}
+export const USER_3: object = {
+    login: 'snaut12@gmail.com',
+    password: 'Maximum99',
+}
+
+export const SERVICE_COMPANY_1: object = {
+    login: 'asiarh@ukr.net',
+    password: 'asdASD123',
+
+}
+
+export const MONITORING_COMPANY_1: object = {
+    login: 'eltiarh@ukr.net',
+    password: '1',
 }

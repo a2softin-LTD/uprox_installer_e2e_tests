@@ -1,5 +1,5 @@
 import { BasePage } from "../BasePage";
-import {Page, type Locator, expect} from "@playwright/test";
+import {Page, Locator, expect} from "@playwright/test";
 
 export class LoginPage extends BasePage {
     readonly page: Page;
@@ -16,6 +16,8 @@ export class LoginPage extends BasePage {
     private readonly _termsOfServiceLink: Locator;
     private readonly _languagesList: Locator;
     private readonly _matWarn: Locator;
+    private readonly _recoveryEmailField: Locator;
+    private readonly _recoverySendButton: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -33,6 +35,8 @@ export class LoginPage extends BasePage {
         this._termsOfServiceLink = page.locator('a[href="https://policies.google.com/terms?hl=en"]');
         this._languagesList = page.locator('.language-dd');
         this._matWarn = this.form.locator('button .mat-warn');
+        this._recoveryEmailField = this.page.locator('input.mat-mdc-input-element');
+        this._recoverySendButton = page.getByText('Send');
     }
 
     get logo(): Locator {
@@ -85,6 +89,14 @@ export class LoginPage extends BasePage {
 
     get matWarn(): Locator {
         return this._matWarn;
+    }
+
+    get recoveryEmailField(): Locator {
+        return this._recoveryEmailField;
+    }
+
+    get recoverySendButton(): Locator {
+        return this._recoverySendButton;
     }
 
     async auth(user: object) {
