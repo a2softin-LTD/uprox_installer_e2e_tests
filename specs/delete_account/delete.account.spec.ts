@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {USER_3,} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { USER_3 } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 
@@ -32,9 +32,7 @@ test.describe('Profile Page tests', () => {
         await profilePage.deleteCheckbox.click();
         await profilePage.deleteFinalButton.click();
 
-        expect(profilePage.findByText('Your account has been successfully deleted')).toBeVisible();
-
-        await page.waitForTimeout(2000);
+        await expect(profilePage.findByText('Your account has been successfully deleted')).toBeVisible();
         await expect(page).toHaveURL('/login')
     });
 

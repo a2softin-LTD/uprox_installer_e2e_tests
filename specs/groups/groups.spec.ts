@@ -28,22 +28,44 @@ test.describe('Hub Page tests', () => {
             });
 
             const nameOfGroup: string = faker.string.alphanumeric({ length: { min: 10, max: 12 } });
+            const name: string = "Дмитро";
 
             await loginPage.auth(USER_1);
             await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
-            await page.waitForTimeout(2000);
-            if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+            if (await page.getByText('Update firmware version').isVisible())
+            {  await hubPage.closeWindowButton.click()}
+            await hubPage.users.click();
+            if (await (hubPage.findByText(name)).isVisible()) {
+                await hubPage.findByText(name).click();
+                await hubPage.deleteUserButton.click();
+                await hubPage.submitButton.click();}
             await hubPage.groups.click();
             await hubPage.groupAddGroupButton.click();
-            await page.waitForTimeout(2000);
             await hubPage.groupNameField.fill(nameOfGroup);
             await hubPage.saveButton.click();
+            await page.waitForTimeout(2000);
+            await page.reload();
+            await page.waitForTimeout(2000);
 
-            await expect(hubPage.findByText('created successfully')).toBeVisible();
             await expect(hubPage.findByText((nameOfGroup))).toBeVisible();
+
+            await hubPage.findByText(nameOfGroup).click();
+
+            await expect(hubPage.findByText('Edit group')).toBeVisible();
+
+            await hubPage.groupDeleteButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(hubPage.findByText(`Delete ${nameOfGroup}?`)).toBeVisible();
+
+            await hubPage.deleteButton.click();
+            await page.waitForTimeout(2000);
+            await page.reload();
+
+            await expect (hubPage.findByTextExact((nameOfGroup))).not.toBeVisible();
         });
 
         test('Change name of the group', async ({ page }) => {
@@ -51,24 +73,45 @@ test.describe('Hub Page tests', () => {
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694euhpq'
             });
-            const nameOfGroup: string = "newGroup";
-            const newNameOfGroup: string = 'newGroup_' + faker.string.alphanumeric({ length: { min: 10, max: 12 } });
+            const nameOfGroup: string = 'newGroup_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } });
+            const newNameOfGroup: string = 'newgroup_' + faker.string.alphanumeric({ length: { min: 2, max: 4 } });
 
             await loginPage.auth(USER_1);
             await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
-            await page.waitForTimeout(2000);
-            if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+            if (await page.getByText('Update firmware version').isVisible())
+            {  await hubPage.closeWindowButton.click()}
             await hubPage.groups.click();
+            await hubPage.groupAddGroupButton.click();
+            await hubPage.groupNameField.fill(nameOfGroup);
+            await hubPage.saveButton.click();
+            await page.waitForTimeout(2000);
+            page.reload();
+
+            await expect(hubPage.findByText((nameOfGroup))).toBeVisible();
+
+            await page.waitForTimeout(2000);
             await hubPage.findByText((nameOfGroup)).click();
             await hubPage.groupBlockWithName.click();
             await hubPage.groupNameField.fill(newNameOfGroup);
             await hubPage.saveButton.click();
+            await page.waitForTimeout(2000);
+            await page.reload();
 
-            await expect(hubPage.findByText('saved successfully')).toBeVisible();
             await expect (hubPage.findByText((newNameOfGroup))).toBeVisible();
+
+            await hubPage.groupDeleteButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(hubPage.findByText(`Delete ${newNameOfGroup}?`)).toBeVisible();
+
+            await hubPage.deleteButton.click();
+            await page.waitForTimeout(2000);
+            await page.reload();
+
+            await expect (hubPage.findByTextExact((newNameOfGroup))).not.toBeVisible();
         });
 
         test('Delete group', async ({ page }) => {
@@ -85,19 +128,17 @@ test.describe('Hub Page tests', () => {
             await profilePage.panels.click();
             await profilePage.firstHub.click();
             await page.waitForTimeout(2000);
-
-            if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
-           
+            if (await page.getByText('Update firmware version').isVisible())
+            {  await hubPage.closeWindowButton.click()}
             await hubPage.groups.click();
-            
             await hubPage.groupAddGroupButton.click();
             
             await expect(page.getByText('Enter group name')).toBeVisible();
 
             await hubPage.groupNameField.fill(nameOfGroup);
             await hubPage.saveButton.click();
-
-            await page.waitForTimeout(10000);
+            await page.waitForTimeout(2000);
+            await page.reload();
 
             await expect(hubPage.findByText(nameOfGroup)).toBeVisible();
 
@@ -106,15 +147,17 @@ test.describe('Hub Page tests', () => {
             await expect(hubPage.findByText('Edit group')).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
+            await page.waitForTimeout(2000);
 
             await expect(hubPage.findByText(`Delete ${nameOfGroup}?`)).toBeVisible();
 
             await hubPage.deleteButton.click();
-
-            await page.waitForTimeout(10000);
+            await page.waitForTimeout(2000);
+            await page.reload();
 
             await expect (hubPage.findByTextExact((nameOfGroup))).not.toBeVisible();
         });
+
     });
 
 });

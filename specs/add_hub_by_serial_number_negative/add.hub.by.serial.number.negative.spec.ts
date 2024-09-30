@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -16,16 +16,15 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test.skip('Add hub by serial number: positive', async ({ page }) => {
+    test('Add hub by serial number:negative', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0hu6"
+            description: "https://app.clickup.com/t/8678p1vxc"
         });
 
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
-        const serialNumber: string = "00:08:B7:10:02:04";
-        const country: string = "uk";
+        const serialNumber: string = "56:08:B7:10:02:44";
 
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
@@ -33,13 +32,10 @@ test.describe('Hub Page tests', () => {
         await profilePage.panels.click();
         await hubPage.addPanelButton.click();
         await hubPage.addPanelEnterSerialButton.click();
-        await hubPage.serialNumberField.fill(serialNumber);
+        await hubPage.inputFirstField.fill(serialNumber);
         await hubPage.nextButton.click();
-        await hubPage.countryField.fill(country);
-        await hubPage.countryUkraine.click();
-        await hubPage.nextButton.click();
-        await page.waitForTimeout(2000);
 
+        await expect(hubPage.findByText('Serial number in wrong format')).toBeVisible();
     });
 
 });

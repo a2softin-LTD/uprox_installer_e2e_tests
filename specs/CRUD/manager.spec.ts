@@ -1,128 +1,97 @@
- import { expect, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { RegistrationModel } from "../../models/RegistrationModel";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { CORP_ADMIN, MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
+import { ENVIRONMENT } from "../../utils/constants";
 import { faker } from "@faker-js/faker";
-import { RegistrationPage } from "../../pages/registration/RegistrationPage";
- import { ENVIRONMENT } from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 
     let loginPage: LoginPage;
-    let registrationPage: RegistrationPage;
+    let profilePage: ProfilePage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
         await loginPage.openLoginPage(ENVIRONMENT);
-        await loginPage.registerLink.click();
-        //await expect(page).toHaveURL('/sign_up')
+        profilePage = new ProfilePage(page);
     });
 
-    test.describe('_Checking CRUD Manager.', () => {
+    test.describe('Creation of the Security Company Admin under the different role', () => {
 
-        test('positive: _Checking registration (valid user data)', async ({ page }) => {
+        test('Creation of MANAGER under the Role = MONITORING_SERVICE_COMPANY_ADMIN', async ({ page }) => {
             test.info().annotations.push({
-                type: "ClickUp_link",
-                description: "https://app.clickup.com/t/86946t9pv"
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694atxk3"
             });
 
-            registrationPage = new RegistrationPage(page);
-            const User: RegistrationModel = {
-                login: faker.internet.email(),
-                password: 'asdASD123'
-            };
+            const name: string = "Іван";
+            const email: string = faker.internet.email();
+            const phone: string = faker.phone.number();
+            const role: string = "Manager";
 
-            let passwordStars: string = '';
-            for (let i = 0; i < User.password.length; i++) {
-                passwordStars += '*';
-            }
+            await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
 
-            await registrationPage.emailField.click();
-            await registrationPage.emailField.fill(User.login);
+            await expect(page).toHaveURL('/panels');
 
-            await expect(registrationPage.emailField).toHaveValue(User.login);
+            await profilePage.employees.click();
+            await page.waitForTimeout(2000);
+            await profilePage.addButton.click();
+            await profilePage.employeeEmailField.fill(email);
+            await profilePage.employeeNameField.fill(name);
+            await profilePage.employeePhoneField.fill(phone);
+            await profilePage.employeeRoleField.click();
+            await page.getByText(role).click();
+            await profilePage.addButton.click();
+            await page.waitForTimeout(2000);
 
-            await registrationPage.passwordField.click();
-            await registrationPage.passwordField.fill(User.password);
+            await expect(page.getByText(email)).toBeVisible();
 
-            await registrationPage.agreeCheckbox.click();
-            await page.waitForTimeout(3000);
+            await page.getByText(email).click();
+            await profilePage.employeeDeleteManager.click();
+            await profilePage.deleteButton.click();
 
-            await registrationPage.registerButton.click();
-            await page.waitForTimeout(5000);
-
-            expect(registrationPage.findByText('Email confirmation'));
-            expect(registrationPage.findByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`));
-            expect(registrationPage.findByText('Not received an email?'));
+            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(email)).not.toBeVisible();
         });
 
-        test('negative: _Checking registration (non-valid user email)', async ({ page }) => {
+        test.skip('Creation of MANAGER under the Role = CORP_ADMIN', async ({ page }) => {
             test.info().annotations.push({
-                type: "ClickUp_link",
-                description: "https://app.clickup.com/t/8692uuajm"
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694atyg8"
             });
 
-            registrationPage = new RegistrationPage(page);
+            const name: string = "Іван";
+            const email: string = faker.internet.email();
+            const phone: string = faker.phone.number();
+            const role: string = "Manager";
 
-            const email: string = "user@user";
-            await registrationPage.emailField.click();
-            await registrationPage.emailField.fill(email);
+            await loginPage.auth(CORP_ADMIN);
 
-            expect(registrationPage.findByText('Incorrect email address format.'));
+            await expect(page).toHaveURL('/profile/companies');
+
+            await expect(page.getByText('QA- company-1')).toBeVisible();
+            await (page.getByText('QA- company-1')).click();
+            await page.waitForTimeout(2000);
+            await profilePage.employees.click();
+            await profilePage.addButton.click();
+            await profilePage.employeeEmailField.fill(email);
+            await profilePage.employeeNameField.fill(name);
+            await profilePage.employeePhoneField.fill(phone);
+            await profilePage.employeeRoleField.click();
+            await page.getByText(role).click();
+            await profilePage.addButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(email)).toBeVisible();
+
+            await page.getByText(email).click();
+            await profilePage.employeeDeleteManager.click();
+            await profilePage.deleteButton.click();
+
+            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(email)).not.toBeVisible();
         });
 
-        test('negative: _Checking registration (non-valid user password)', async ({ page }) => {
-            test.info().annotations.push({
-                type: "ClickUp_link",
-                description: "https://app.clickup.com/t/86946t9pw"
-            });
-
-            registrationPage = new RegistrationPage(page);
-
-            const password: string = "~";
-            await registrationPage.passwordField.click();
-            await registrationPage.passwordField.fill(password);
-
-            expect(registrationPage.findByText('Password must contain at least:\n' +
-                '8 symbols\n' +
-                '1 number\n' +
-                '1 lowercase letter\n' +
-                '1 uppercase letter\n' +
-                'latin characters only'));
-        });
-
-        test('negative: _Checking registration (always exist user data)', async ({ page }) => {
-            test.info().annotations.push({
-                type: "ClickUp_link",
-                description: "https://app.clickup.com/t/86946t9pw"
-            });
-
-            registrationPage = new RegistrationPage(page);
-            const User: RegistrationModel = {
-                login: 'pinchuk.dap@gmail.com',
-                password: 'lepidoptera111278DAP!@#'
-            };
-
-            let passwordStars: string = '';
-            for (let i = 0; i < User.password.length; i++) {
-                passwordStars += '*';
-            }
-
-            await registrationPage.emailField.click();
-            await registrationPage.emailField.fill(User.login);
-
-            await expect(registrationPage.emailField).toHaveValue(User.login);
-
-            await registrationPage.passwordField.click();
-            await registrationPage.passwordField.fill(User.password);
-
-            await registrationPage.agreeCheckbox.click();
-            await page.waitForTimeout(3000);
-
-            await registrationPage.registerButton.click();
-            await page.waitForTimeout(5000);
-
-            expect(registrationPage.findByText('Email already exists'));
-        });
     });
 
 });

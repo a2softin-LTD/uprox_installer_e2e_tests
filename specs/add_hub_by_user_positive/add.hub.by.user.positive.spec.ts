@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -33,13 +33,11 @@ test.describe('Hub Page tests', () => {
         await profilePage.panels.click();
         await hubPage.addPanelButton.click();
         await hubPage.addPanelEnterSerialButton.click();
-        await hubPage.serialNumberField.fill(serialNumber);
+        await hubPage.inputFirstField.fill(serialNumber);
         await hubPage.nextButton.click();
         await hubPage.countryField.fill(country);
         await hubPage.countryUkraine.click();
         await hubPage.nextButton.click();
-        await page.waitForTimeout(2000);
-
     });
 
 });

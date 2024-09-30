@@ -1,9 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
-
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -36,13 +35,14 @@ test.describe('Hub Page tests', () => {
             await page.waitForTimeout(2000);
             if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
-            await page.waitForTimeout(2000);
-            expect(hubPage.historyFirstEvent).toBeVisible();
-            await page.waitForTimeout(2000);
-            await hubPage.historyLastEvent.scrollIntoViewIfNeeded();
-            await page.waitForTimeout(5000);
-            expect(hubPage.historyLastEvent).toBeVisible();
 
+            await expect(hubPage.historyFirstEvent).toBeVisible();
+            for (const li of await hubPage.historyEvent.all())
+            { await expect(li).toBeVisible();}
+            await hubPage.historyLastEvent.scrollIntoViewIfNeeded();
+            await page.waitForTimeout(2000);
+
+            await expect(hubPage.historyLastEvent).toBeVisible();
         });
 
         test('History filtration', async ({ page }) => {
@@ -59,12 +59,26 @@ test.describe('Hub Page tests', () => {
             await page.waitForTimeout(2000);
             if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
+            await hubPage.historyAlarmCheckBox.isVisible();
+            await hubPage.historyTroublesCheckBox.isVisible();
+            await hubPage.historyArmsCheckBox.isVisible();
+            await hubPage.historyActionsCheckBox.isVisible();
+            await hubPage.historyAlarmCheckBox.click();
+            await hubPage.historyTroublesCheckBox.click();
+            await hubPage.historyArmsCheckBox.click();
+            await page.waitForTimeout(2000);
+
+            await expect(hubPage.findByText('Removed user').first()).toBeVisible();
+            await expect(hubPage.findByText('Added new user').first()).toBeVisible();
+
             await hubPage.historyAlarmCheckBox.click();
             await hubPage.historyTroublesCheckBox.click();
             await hubPage.historyArmsCheckBox.click();
             await hubPage.historyActionsCheckBox.click();
+            await page.waitForTimeout(2000);
 
-
+            await expect(hubPage.findByText('Removed user').first()).not.toBeVisible();
+            await expect(hubPage.findByText('Added new user').first()).not.toBeVisible();
         });
 
 
@@ -84,11 +98,11 @@ test.describe('Hub Page tests', () => {
             await hubPage.history.click();
             await hubPage.saveInXLSButton.click();
             await hubPage.exportButton.click();
-
             await page.waitForTimeout(1000);
-            expect(hubPage.findByText('File created successfully')).toBeVisible();
 
+            await expect(hubPage.findByText('File created successfully')).toBeVisible();
         });
+
     });
 
 });

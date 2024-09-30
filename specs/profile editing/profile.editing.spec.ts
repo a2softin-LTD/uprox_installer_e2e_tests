@@ -3,7 +3,6 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import {ProfilePage} from "../../pages/profile/ProfilePage";
 import {USER_1} from "../../utils/user_data";
 
-
 test.describe('Profile Page tests', () => {
 
     let loginPage: LoginPage;
@@ -26,6 +25,7 @@ test.describe('Profile Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await expect(profilePage.userLogo).toBeVisible();
             await expect(profilePage.userName).toBeVisible();
             await expect(profilePage.userRole).toBeVisible();
@@ -41,12 +41,13 @@ test.describe('Profile Page tests', () => {
             await expect(profilePage.myProfileTitle).toBeVisible();
         });
     });
+
     test.describe('Profile edit.', () => {
 
         test('Name edit', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: "https://app.clickup.com/t/8678rc9at"
             });
             const newName: string = "Дмитро Дмитрук";
             const oldName: string = "Дмитро Анатольович Пінчук";
@@ -55,23 +56,20 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditField.fill(newName);
             await profilePage.userEditSubmit.click();
 
-            expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
-            expect(page.getByText(newName)).toBeVisible();
+            await expect(page.getByText(newName)).toBeVisible();
 
             await page.waitForTimeout(2000);
             await profilePage.userName.click();
             await profilePage.userEditField.fill(oldName);
             await profilePage.userEditSubmit.click();
 
-            expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
-            expect(page.getByText(oldName)).toBeVisible();
-
+            await expect(page.getByText(oldName)).toBeVisible();
         });
 
         test('Phone edit', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: "https://app.clickup.com/t/8678rc9uy"
             });
             const newPhone: string = "+380508888888";
             const oldPhone: string = "+380507777777";
@@ -80,23 +78,20 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditField.fill(newPhone);
             await profilePage.userEditSubmit.click();
 
-            expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
-            expect(page.getByText(newPhone)).toBeVisible();
+            await expect(page.getByText(newPhone)).toBeVisible();
 
             await page.waitForTimeout(2000);
             await profilePage.userPhone.click();
             await profilePage.userEditField.fill(oldPhone);
             await profilePage.userEditSubmit.click();
 
-            expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
-            expect(page.getByText(oldPhone)).toBeVisible();
-
+            await expect(page.getByText(oldPhone)).toBeVisible();
         });
 
         test('Password edit', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: "https://app.clickup.com/t/8678rc9y0"
             });
             const passwordCurrent: string = "lepidoptera111278DAP!@#";
             const passwordNew: string = "lepidoptera111278DAP!";
@@ -107,9 +102,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditNewPasswordField.click();
             await profilePage.userEditNewPasswordField.fill(passwordNew);
             await profilePage.userEditSubmit.click();
-
-            expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
-
             await page.waitForTimeout(2000);
             await profilePage.userPassword.click();
             await page.waitForTimeout(2000);
@@ -118,39 +110,35 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditNewPasswordField.fill(passwordCurrent);
             await profilePage.userEditSubmit.click();
 
-            expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
-
+            await expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
         });
 
         test('Language for emails edit', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: "https://app.clickup.com/t/8678rcapf"
             });
             const languageOld: string = "English";
             const languageNew: string = "French";
 
             await profilePage.userLanguageForEmails.click();
             await page.getByText(languageNew).click();
-            await profilePage.userLanguageForEmailsEditSubmit.click();
+            await profilePage.saveButton.click();
 
-            expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
-            expect(page.getByText(languageNew)).toBeVisible();
+            await expect(page.getByText(languageNew)).toBeVisible();
 
             await page.waitForTimeout(2000);
             await profilePage.userLanguageForEmails.click();
             await page.getByText(languageOld).click();
-            await profilePage.userLanguageForEmailsEditSubmit.click();
+            await profilePage.saveButton.click();
 
-            expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
-            expect(page.getByText(languageOld)).toBeVisible();
-
+            await expect(page.getByText(languageOld)).toBeVisible();
         });
 
         test('Language edit', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: "https://app.clickup.com/t/8694f8kwd"
             });
 
             const languageNew: string = "FR";
@@ -161,20 +149,19 @@ test.describe('Profile Page tests', () => {
             await profilePage.languageChoice.click();
             await page.getByText(languageNew, { exact: true }).click();
 
-            expect(page.getByRole('heading', { name: newTitle })).toBeVisible();
+            await expect(page.getByRole('heading', {name: newTitle})).toBeVisible();
 
             await page.waitForTimeout(2000);
             await profilePage.languageChoice.click();
             await page.getByText(languageOld, { exact: true }).click();
 
-            expect(page.getByRole('heading', { name: oldTitle })).toBeVisible();
-
+            await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
         });
 
         test('Support', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: "https://app.clickup.com/t/8678rcauf"
             });
 
             const supportText: string = "You can send your question or message to the technical support service at:";
@@ -182,9 +169,8 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.feedback.click();
 
-            expect(page.getByText(supportText)).toBeVisible();
-            expect(page.getByText(supportEmail)).toBeVisible();
+            await expect(page.getByText(supportText)).toBeVisible();
+            await expect(page.getByText(supportEmail)).toBeVisible();
         });
     });
-
 });

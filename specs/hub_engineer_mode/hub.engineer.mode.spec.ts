@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 
 test.describe('Hub Page tests', () => {
@@ -19,7 +19,6 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/profile/panels');
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
-
     });
 
     test('Engineer mode ', async ({ page }) => {
@@ -28,32 +27,30 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/86946gkfb"
         });
 
-
         await profilePage.panels.click();
         await profilePage.firstHub.click();
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
+        await hubPage.hubEngineerModeSwitch.click();
         await page.waitForTimeout(2000);
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+
+        await expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
+
+        await page.waitForTimeout(2000);
         await hubPage.hubEngineerModeSwitch.click();
 
-        expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
-        expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
-
-        await page.waitForTimeout(2000);
-        await hubPage.hubEngineerModeSwitch.click();
-        expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
-        expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
-
+        await expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
 
         await hubPage.wirelessDeviceAddButton.click();
         await page.waitForTimeout(2000);
         await hubPage.backButton.click();
 
-        expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
+        await expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
+
         await page.waitForTimeout(2000);
         await hubPage.hubEngineerModeSwitch.click();
-     //   expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
-        expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
 
-
+        await expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
     });
+
 });

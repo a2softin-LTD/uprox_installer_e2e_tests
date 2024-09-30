@@ -1,9 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
-import {USER_3} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1, USER_3 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -34,19 +33,23 @@ test.describe('Hub Page tests', () => {
         await profilePage.panels.click();
         await profilePage.firstHub.click();
         await page.waitForTimeout(2000);
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
-        await hubPage.addUserButton.click();
+        if (await (hubPage.findByText(name)).isVisible()) {
+            await hubPage.findByText(name).click();
+            await hubPage.deleteUserButton.click();
+            await hubPage.submitButton.click();}
+        await page.waitForTimeout(2000);
+        await hubPage.addButton.click();
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await page.waitForTimeout(2000);
-        await hubPage.userAllowMobileAppManagmentFromHome.click();
-        await hubPage.addUserAddButton.click();
+        await hubPage.userAllowMobileAppManagementFromHome.click();
+        await hubPage.addButton.click();
 
-        expect(hubPage.findByText('User Дмитро created successfully')).toBeVisible();
-        expect (hubPage.findByText((newUser))).toBeVisible();
+        await expect (hubPage.findByText((newUser))).toBeVisible();
 
-        await page.waitForTimeout(5000);
         await hubPage.findByText(name).click();
 
         expect(page.getByText('Delete user'));
@@ -54,9 +57,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        expect(hubPage.findByText('User Дмитро deleted successfully')).toBeVisible;
-        expect (hubPage.findByText((newUser))).not.toBeVisible();
-
+        await expect (hubPage.findByText((newUser))).not.toBeVisible();
     });
 
 });

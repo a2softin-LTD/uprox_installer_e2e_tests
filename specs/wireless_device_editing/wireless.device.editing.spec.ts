@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1, USER_3} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -19,7 +19,7 @@ test.describe('Hub Page tests', () => {
     test.skip('Wireless device editing', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0hx1"
+            description: "https://app.clickup.com/t/8694mz7xz"
         });
 
         profilePage = new ProfilePage(page);
@@ -31,8 +31,5 @@ test.describe('Hub Page tests', () => {
         await profilePage.secondHub.click();
         await page.waitForTimeout(2000);
         await hubPage.firstWirelessDevice.click();
-
-
     });
-
 });

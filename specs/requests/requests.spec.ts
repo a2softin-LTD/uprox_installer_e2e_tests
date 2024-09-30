@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test.skip('New request', async ({ page }) => {
+    test('New request', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -29,6 +29,7 @@ test.describe('Hub Page tests', () => {
         const contactPhone: string = "+3805066789089";
         const location: string = "Madrid";
         const note: string = "no";
+        const warningMessage: string = "Unfortunately, there are no companies in your country to apply for service. You can select another country";
 
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
@@ -36,8 +37,12 @@ test.describe('Hub Page tests', () => {
         await profilePage.panels.click();
         await profilePage.firstHub.click();
         await page.waitForTimeout(2000);
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
         await hubPage.requests.click();
+        await page.waitForTimeout(2000);
+        if (await (page.getByText(warningMessage)).isVisible()) {  await hubPage.system.click()}
+        else {
         await page.waitForTimeout(2000);
         await hubPage.countryUkraine.click();
         await hubPage.saveButton.click();
@@ -50,8 +55,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.requestsNoteField.fill(note);
         await hubPage.requestsCreateApplicationButton.click();
 
-        expect(hubPage.findByText('Transfer request sent')).toBeVisible();
-
+        await expect(hubPage.findByText('Transfer request sent')).toBeVisible();}
     });
 
 });

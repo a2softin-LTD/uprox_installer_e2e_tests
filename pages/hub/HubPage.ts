@@ -7,29 +7,24 @@ export class HubPage extends BasePage {
     private readonly _system: Locator;
     private readonly _users: Locator;
     private readonly _history: Locator;
-    private readonly _addUserButton: Locator;
     private readonly _addUserName: Locator;
     private readonly _addUserEmail: Locator;
-    private readonly _addUserCheckbox: Locator;
-    private readonly _addUserAddButton: Locator;
     private readonly _deleteUserButton: Locator;
     private readonly _transferOwnershipButton: Locator;
     private readonly _hubPanel: Locator;
     private readonly _hubRebootButton: Locator;
     private readonly _hubRebootSubmitButton: Locator;
     private readonly _userMobileApp: Locator;
-    private readonly _userManagment: Locator;
-    private readonly _userManagmentEnable: Locator;
-    private readonly _userManagmentDisable: Locator;
-    private readonly _changeButton: Locator;
+    private readonly _userManagement: Locator;
+    private readonly _userManagementEnable: Locator;
+    private readonly _userManagementDisable: Locator;
     private readonly _deleteHubIcon: Locator;
     private readonly _addPanelButton: Locator;
     private readonly _addPanelEnterSerialButton: Locator;
-    private readonly _serialNumberField: Locator;
     private readonly _countryField: Locator;
     private readonly _countryUkraine: Locator;
     private readonly _userBlock: Locator;
-    private readonly _userAllowMobileAppManagmentFromHome: Locator;
+    private readonly _userAllowMobileAppManagementFromHome: Locator;
     private readonly _groupAddGroupButton: Locator;
     private readonly _groups: Locator;
     private readonly _groupNameField: Locator;
@@ -40,7 +35,8 @@ export class HubPage extends BasePage {
     private readonly _requestsContactPhoneField: Locator;
     private readonly _requestsLocationField: Locator;
     private readonly _requestsNoteField: Locator;
-    private readonly _hubHeader: Locator;
+    private readonly _hubCorpNameAccountInfo: Locator;
+    private readonly _hubCorpNumberConnectionInfo: Locator;
     private readonly _hubPowerNormalIcon: Locator;
     private readonly _hubPowerTroubleIcon: Locator;
     private readonly _hubTamperCloseIcon: Locator;
@@ -68,6 +64,7 @@ export class HubPage extends BasePage {
     private readonly _historyActionsCheckBox: Locator;
     private readonly _historyFirstEvent: Locator;
     private readonly _historyLastEvent: Locator;
+    private readonly _historyEvent: Locator;
     private readonly _settingsAirAlarm: Locator;
     private readonly _settingsKeypadCodeLength: Locator;
     private readonly _settingsKeypadCodeLength4digits: Locator;
@@ -91,6 +88,8 @@ export class HubPage extends BasePage {
     private readonly _hubInfoBuilding: Locator;
     private readonly _hubInfoApartment: Locator;
     private readonly _settingsWifiNetwork: Locator;
+    private readonly _hubsCounter: Locator;
+    private readonly _hubTroublesState: Locator;
 
 
     constructor(page: Page) {
@@ -100,30 +99,25 @@ export class HubPage extends BasePage {
         this._users = page.getByText('Users').and(this.page.locator('.navbar__sub-text'));
         this._history = page.getByText('History',{ exact: true });
         this._system = page.getByText('System',{ exact: true });
-        this._addUserButton = page.getByText('Add user');
         this._addUserName = this.page.locator('#name');
         this._addUserEmail = this.page.locator('#email');
-        this._addUserCheckbox = this.page.locator('.mdc-checkbox__native-control');
-        this._addUserAddButton = page.getByText('Add',{ exact: true });
         this._deleteUserButton = page.getByText('Delete user');
         this._transferOwnershipButton = page.getByText('Transfer ownership');
         this._hubPanel = this.page.locator('.main-block__panel-item');
         this._hubRebootButton = page.getByText('Restart panel');
         this._hubRebootSubmitButton = page.getByText('Restart', { exact: true });
         this._userMobileApp = page.getByText('Mobile app');
-        this._userManagment = page.getByText('User management');
-        this._userManagmentEnable = page.getByText('Enable').first();
-        this._userManagmentDisable = page.getByText('Disable').nth(1);
-        this._changeButton = page.getByText('Change',{ exact: true });
+        this._userManagement = page.getByText('User management');
+        this._userManagementEnable = page.getByText('Enable').first();
+        this._userManagementDisable = page.getByText('Disable').nth(1);
         this._deleteHubIcon = page.locator('.icon.body-icon.body-icon--action.ng-star-inserted');
         this._deleteNotExactButton = page.getByText('Delete');
         this._addPanelButton = page.getByText('Add panel');
         this._addPanelEnterSerialButton = page.getByText('Enter the serial number of the device');
-        this._serialNumberField = this.page.locator('.mat-mdc-input-element');
         this._countryField = this.page.locator('.mat-mdc-autocomplete-trigger').first();
-        this._countryUkraine = page.getByText('UKraine').and(this.page.locator('.part__item-text'));;
+        this._countryUkraine = page.getByText('Ukraine').and(this.page.locator('.part__item-text'));;
         this._userBlock = this.page.locator('.panel-header_text-block').last();
-        this._userAllowMobileAppManagmentFromHome = page.getByText('Allow control from U-Prox Home application');
+        this._userAllowMobileAppManagementFromHome = page.getByText('Allow control from U-Prox Home application');
         this._groupAddGroupButton = page.getByText('Add group');
         this._groups = page.getByText('Groups',{ exact: true });
         this._groupNameField = this.page.locator('.input_block-input');
@@ -134,7 +128,10 @@ export class HubPage extends BasePage {
         this._requestsContactPhoneField = this.page.locator('.input_block-input').nth(1);
         this._requestsLocationField = this.page.locator('.input_block-input').nth(2);
         this._requestsNoteField = this.page.locator('.input_block-input').nth(3);
-        this._hubHeader = this.page.locator('.panel-header_text-block');
+        this._hubCorpNameAccountInfo = this.page.locator('div.part__item-text--main');
+        this._hubCorpNumberConnectionInfo = this.page.locator('div.part__item-text--small');
+        this._hubsCounter = this.page.locator('h3.list__header-text');
+        this._hubTroublesState = this.page.locator('.Warning').or(this.page.locator('.Trouble'));
         this._hubEngineerModeSwitch = this.page.locator('span.slider.round');
         this._hubPowerNormalIcon = this.page.locator('.group_and_panel-state').filter({has:this.page.locator('mat-icon[data-mat-icon-name="power-normal"]')});
         this._hubPowerTroubleIcon = this.page.locator('.group_and_panel-state').filter({has:this.page.locator('mat-icon[data-mat-icon-name="power-trouble"]')});
@@ -167,8 +164,8 @@ export class HubPage extends BasePage {
         this._historyArmsCheckBox = this.page.locator('.checkbox__block').nth(2);
         this._historyActionsCheckBox = this.page.locator('.checkbox__block').nth(3);
         this._historyFirstEvent = this.page.locator('.part__item--checked').first();
+        this._historyEvent = this.page.locator('.part__item--checked');
         this._historyLastEvent = this.page.locator('.part__item--checked').last();
-       // this._settingsAirAlarm = page.getByText('Air raid alarms').and(this.page.locator('div.input_block'));
         this._settingsAirAlarm = page.getByText('Air raid alarms');
         this._settingsKeypadCodeLength = page.getByText('Keypad code length');
         this._settingsKeypadCodeLength4digits = page.getByText('4 digits');
@@ -186,13 +183,11 @@ export class HubPage extends BasePage {
         this._hubInfoApartment = this.page.locator('div.building_block input.input_block-input.ng-untouched.ng-pristine.ng-valid').last();
         this._hubInformationIcon = page.locator('use[*|href="#icon-About"]');
 
-
     }
 
     get modal(): Locator {
         return this._modal;
     }
-
 
     get users(): Locator {
         return this._users;
@@ -206,24 +201,12 @@ export class HubPage extends BasePage {
         return this._system;
     }
 
-    get addUserButton(): Locator {
-        return this._addUserButton;
-    }
-
     get addUserName(): Locator {
         return this._addUserName;
     }
 
-    get addUserCheckbox(): Locator {
-        return this._addUserCheckbox;
-    }
-
     get addUserEmail(): Locator {
         return this._addUserEmail;
-    }
-
-    get addUserAddButton(): Locator {
-        return this._addUserAddButton;
     }
 
     get deleteUserButton(): Locator {
@@ -238,10 +221,6 @@ export class HubPage extends BasePage {
         return this._hubPanel;
     }
 
-    get hubHeader(): Locator {
-        return this._hubHeader;
-    }
-
     get hubRebootButton(): Locator {
         return this._hubRebootButton;
     }
@@ -254,20 +233,16 @@ export class HubPage extends BasePage {
         return this._userMobileApp;
     }
 
-    get userManagment(): Locator {
-        return this._userManagment;
+    get userManagement(): Locator {
+        return this._userManagement;
     }
 
-    get userManagmentEnable(): Locator {
-        return this._userManagmentEnable;
+    get userManagementEnable(): Locator {
+        return this._userManagementEnable;
     }
 
-    get userManagmentDisable(): Locator {
-        return this._userManagmentDisable;
-    }
-
-    get changeButton(): Locator {
-        return this._changeButton;
+    get userManagementDisable(): Locator {
+        return this._userManagementDisable;
     }
 
     get deleteHubIcon(): Locator {
@@ -283,10 +258,6 @@ export class HubPage extends BasePage {
     }
 
 
-    get serialNumberField(): Locator {
-        return this._serialNumberField;
-    }
-
     get countryField(): Locator {
         return this._countryField;
     }
@@ -299,8 +270,8 @@ export class HubPage extends BasePage {
         return this._userBlock;
     }
 
-    get userAllowMobileAppManagmentFromHome(): Locator {
-        return this._userAllowMobileAppManagmentFromHome;
+    get userAllowMobileAppManagementFromHome(): Locator {
+        return this._userAllowMobileAppManagementFromHome;
     }
 
     get groupAddGroupButton(): Locator {
@@ -475,6 +446,10 @@ export class HubPage extends BasePage {
         return this._historyLastEvent ;
     }
 
+    get historyEvent (): Locator {
+        return this._historyEvent ;
+    }
+
     get settingsAirAlarm (): Locator {
         return this._settingsAirAlarm ;
     }
@@ -541,5 +516,21 @@ export class HubPage extends BasePage {
 
     get settingsWifiNetwork (): Locator {
         return this._settingsWifiNetwork ;
+    }
+
+    get hubsCounter (): Locator {
+        return this._hubsCounter ;
+    }
+
+    get hubCorpNameAccountInfo (): Locator {
+        return this._hubCorpNameAccountInfo ;
+    }
+
+    get hubCorpNumberConnectionInfo (): Locator {
+        return this._hubCorpNumberConnectionInfo ;
+    }
+
+    get hubTroublesState (): Locator {
+        return this._hubTroublesState ;
     }
 }

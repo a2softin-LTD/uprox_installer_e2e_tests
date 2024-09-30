@@ -19,16 +19,14 @@ test.describe('Profile Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/86946uqka"
         });
+        profilePage = new ProfilePage(page);
 
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
 
-        profilePage = new ProfilePage(page);
         await profilePage.logoutButton.click();
+        await page.waitForTimeout(2000)
 
-        await page.waitForTimeout(3000)
         await expect(page).toHaveURL('/login')
-
     });
-
 });

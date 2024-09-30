@@ -1,9 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
-
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -32,7 +31,9 @@ test.describe('Hub Page tests', () => {
         await profilePage.panels.click();
         await profilePage.firstHub.click();
         await page.waitForTimeout(2000);
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
+
         await expect((hubPage.hubPowerNormalIcon).or(hubPage.hubPowerTroubleIcon)).toBeVisible();
         await expect((hubPage.hubTamperOpenIcon).or(hubPage.hubTamperCloseIcon)).toBeVisible();
         await expect(hubPage.hubBatteryIcon).toBeVisible();
@@ -40,4 +41,5 @@ test.describe('Hub Page tests', () => {
         await expect((hubPage.hubWifiMaxIcon).or(hubPage.hubWifiGoodIcon).or(hubPage.hubWifiNormalIcon).or(hubPage.hubWifiLowIcon)).toBeVisible();
         await expect((hubPage.hubGsmMaxIcon).or(hubPage.hubGsmGoodIcon).or(hubPage.hubGsmNormalIcon).or(hubPage.hubGsmLowIcon).or(hubPage.hubSimCardNoneIcon).or(hubPage.hubSimCardDefaultIcon)).toBeVisible();
     });
+
 });

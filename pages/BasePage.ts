@@ -1,4 +1,4 @@
-import {  Locator,  Page } from "@playwright/test";
+import {  Locator, type Page } from "@playwright/test";
 import { INSTALLER_LOGIN_URL } from "../utils/path";
 
 export class BasePage {
@@ -20,6 +20,18 @@ export class BasePage {
     private readonly _offButton: Locator;
     private readonly _editButton: Locator;
     private readonly _exportButton: Locator;
+    private readonly _changeButton: Locator;
+    private readonly _inputFirstField: Locator;
+    private readonly _inputSecondField: Locator;
+    private readonly _inputThirdField: Locator;
+    private readonly _inputFourthField: Locator;
+    private readonly _inputFifthField: Locator;
+    private readonly _inputSixthField: Locator;
+    private readonly _inputSeventhField: Locator;
+    private readonly _selectFirstField: Locator;
+    private readonly _selectSecondField: Locator;
+    private readonly _selectThirdField: Locator;
+    private readonly _entityBlock: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -39,7 +51,20 @@ export class BasePage {
         this._onButton = page.getByText('On',{ exact: true });
         this._offButton = page.getByText('Turn off',{ exact: true });
         this._editButton = page.getByText('Edit',{ exact: true });
-        this._exportButton = page.getByRole('button', { name: 'Export' });
+        this._exportButton = page.getByText('Export',{ exact: true });
+        this._changeButton = page.getByText('Change',{ exact: true });
+        this._inputFirstField = this.page.locator('.mat-mdc-input-element').nth(0);
+        this._inputSecondField = this.page.locator('.mat-mdc-input-element').nth(1);
+        this._inputThirdField = this.page.locator('.mat-mdc-input-element').nth(2);
+        this._inputFourthField = this.page.locator('.mat-mdc-input-element').nth(3);
+        this._inputFifthField = this.page.locator('.mat-mdc-input-element').nth(4);
+        this._inputSixthField = this.page.locator('.mat-mdc-input-element').nth(5);
+        this._inputSeventhField = this.page.locator('.mat-mdc-input-element').nth(6);
+        this._selectFirstField = this.page.locator('.mat-mdc-select-value').nth(0);
+        this._selectSecondField = this.page.locator('.mat-mdc-select-value').nth(1);
+        this._selectThirdField = this.page.locator('.mat-mdc-select-value').nth(2);
+        this._entityBlock = this.page.locator('.part__item');
+
     }
 
     get saveButton(): Locator {
@@ -106,10 +131,77 @@ export class BasePage {
         return this._editButton;
     }
 
-
     get exportButton(): Locator {
         return this._exportButton;
     }
+
+    get changeButton(): Locator {
+        return this._changeButton;
+    }
+
+    get inputFirstField(): Locator {
+        return this._inputFirstField;
+    }
+
+    get inputSecondField(): Locator {
+        return this._inputSecondField;
+    }
+
+    get inputThirdField(): Locator {
+        return this._inputThirdField;
+    }
+
+    get inputFourthField(): Locator {
+        return this._inputFourthField;
+    }
+
+    get inputFifthField(): Locator {
+        return this._inputFifthField;
+    }
+
+    get inputSixthtField(): Locator {
+        return this._inputSixthField;
+    }
+
+    get inputSeventhField(): Locator {
+        return this._inputSeventhField;
+    }
+
+    get selectFirstField(): Locator {
+        return this._selectFirstField;
+    }
+
+    get selectSecondField(): Locator {
+        return this._selectSecondField;
+    }
+
+    get selectThirdField(): Locator {
+        return this._selectThirdField;
+    }
+
+    get entityBlock(): Locator {
+        return this._entityBlock;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

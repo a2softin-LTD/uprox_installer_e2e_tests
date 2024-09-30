@@ -1,9 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
-import {USER_3} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage} from "../../pages/hub/HubPage";
+import { USER_1, USER_3 } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 
@@ -17,7 +16,6 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-
     test('Delete user', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
@@ -27,32 +25,35 @@ test.describe('Profile Page tests', () => {
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
-        const name: string = "Дмитро";
+        const name: string = "01 | Дмитро ";
         const newUser: string = "Дмитро | snaut12@gmail.com";
 
         await loginPage.auth(USER_1);
-        await page.waitForTimeout(5000);
+        await page.waitForTimeout(2000);
         await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
         await page.waitForTimeout(2000);
         await hubPage.users.click();
-        await hubPage.addUserButton.click();
+        if (await (hubPage.findByText(name)).isVisible()) {
+            await hubPage.findByText(name).click();
+            await hubPage.deleteUserButton.click();
+            await hubPage.submitButton.click();}
+        await hubPage.addButton.click();
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
-        await hubPage.addUserAddButton.click();
+        await hubPage.addButton.click();
         await page.waitForTimeout(5000);
-
-        await hubPage.findByText(name).click();
+        await expect(hubPage.findByText(newUser)).toBeVisible();
+        await hubPage.findByText(newUser).click();
         await page.waitForTimeout(2000);
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        expect(hubPage.findByText('User Дмитро deleted successfully')).toBeVisible;
-        expect (hubPage.findByText((newUser))).not.toBeVisible();
-
+        await expect(hubPage.findByText((newUser))).not.toBeVisible();
     });
 
 });

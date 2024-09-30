@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {ENGINEER} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { ENGINEER } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -33,9 +33,8 @@ test.describe('Hub Page tests', () => {
         await hubPage.addPanelButton.click();
         await hubPage.addPanelEnterSerialButton.click();
         await hubPage.nextButton.click();
-        await hubPage.serialNumberField.fill(serialNumber);
+        await hubPage.inputFirstField.fill(serialNumber);
         await hubPage.nextButton.click();
-
     });
 
 });
