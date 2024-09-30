@@ -13,7 +13,6 @@ export class ProfilePage extends BasePage {
     private readonly _userEditNewPasswordField: Locator;
     private readonly _userPhone: Locator;
     private readonly _userLanguageForEmails: Locator;
-    private readonly _userLanguageForEmailsEditSubmit: Locator;
     private readonly _companyInfoName: Locator;
     private readonly _companyInfoDescription: Locator;
     private readonly _companyInfoContacts: Locator;
@@ -34,6 +33,7 @@ export class ProfilePage extends BasePage {
     private readonly _deleteFinalButton: Locator;
     private readonly _panels: Locator;
     private readonly _company: Locator;
+    private readonly _companies: Locator;
     private readonly _feedback: Locator;
     private readonly _message: Locator;
     private readonly _requests: Locator;
@@ -58,13 +58,12 @@ export class ProfilePage extends BasePage {
     private readonly _companyServerList: Locator;
     private readonly _companyIntegration: Locator;
     private readonly _companyAdditionalSoftware: Locator;
-    private readonly _companyFirstServer: Locator;
-    private readonly _companySecondServer: Locator;
-    private readonly _companyThirdServer: Locator;
     private readonly _companyNameServerField: Locator;
     private readonly _companyDnsServerField: Locator;
     private readonly _companyPortServerField: Locator;
     private readonly _companyServerAddButton: Locator;
+    private readonly _companyAddButton: Locator;
+    private readonly _companyCloseButton: Locator;
     private readonly _employeeEmailField: Locator;
     private readonly _employeeNameField: Locator;
     private readonly _employeePhoneField: Locator;
@@ -72,6 +71,10 @@ export class ProfilePage extends BasePage {
     private readonly _employeeDeleteManager: Locator;
     private readonly _employeeSearchField: Locator;
     private readonly _employeeBlock: Locator;
+    private readonly _companyCountryFilter: Locator;
+    private readonly _companyRoleFilter: Locator;
+    private readonly _companyAllFilter: Locator;
+    private readonly _companySearchField: Locator;
 
 
     constructor(page: Page) {
@@ -87,10 +90,9 @@ export class ProfilePage extends BasePage {
         this._userEditNewPasswordField = this.form.locator('input[type="password"]').last();
         this._userPhone = page.getByText('Phone');
         this._userLanguageForEmails = page.getByText('Language for emails');
-        this._userLanguageForEmailsEditSubmit = page.getByText('Save');
         this._companyInfoName = page.getByText('Name');
         this._companyInfoDescription = page.getByText('Description');
-        this._companyInfoContacts = page.getByText('Description');
+        this._companyInfoContacts = page.getByText('Contacts',{ exact: true });
         this._companyInfoNameField = this.form.locator('input.mat-mdc-input-element');
         this._companyInfoDescriptionField = this.form.locator('textarea.mat-mdc-input-element').first();
         this._companyInfoContactsField = this.form.locator('textarea.mat-mdc-input-element').last();
@@ -115,6 +117,7 @@ export class ProfilePage extends BasePage {
         this._deleteCheckbox = this.page.locator('.mdc-checkbox__native-control');
         this._panels = page.getByText('Panels',{ exact: true });
         this._company = page.getByText('Company',{ exact: true });
+        this._companies = page.getByText('Companies',{ exact: true });
         this._employees= page.getByText('Employees',{ exact: true });
         this._requests= page.getByText('Requests',{ exact: true });
         this._history= page.getByText('History',{ exact: true });
@@ -128,17 +131,23 @@ export class ProfilePage extends BasePage {
         this._logoutButton = this.page.locator('span:text-is("Logout")');
         this._message = page.getByText('Messages');
         this._myProfileTitle = this.page.locator('span:text-is("Email")');
-        this._hubEngineerIcon = this.page.locator('.icon-with-text.has_action.ng-star-inserted').first();
+        this._hubEngineerIcon = this.page.locator('.icon-with-text.has_action').first();
+
         this._companyServerList = page.getByText('Server list',{ exact: true });
         this._companyIntegration = page.getByText('Integration',{ exact: true });
         this._companyAdditionalSoftware= page.getByText('Additional software',{ exact: true });
-        this._companyFirstServer = this.page.locator('li.part__item').nth(0);
-        this._companySecondServer = this.page.locator('li.part__item').nth(1);
-        this._companyThirdServer = this.page.locator('li.part__item').nth(2);
         this._companyNameServerField = this.page.locator('input.mat-mdc-input-element').nth(0);
         this._companyDnsServerField = this.page.locator('input.mat-mdc-input-element').nth(1);
         this._companyPortServerField = this.page.locator('input.mat-mdc-input-element').nth(2);
         this._companyServerAddButton = page.getByText('Add server');
+        this._companyAddButton = page.getByText('Add company');
+        this._companyCloseButton = page.getByText('Close company');
+
+        this._companyCountryFilter = page.getByText('All countries').and(this.page.locator('span'));
+        this._companyRoleFilter = this.page.locator('span:text-is("All roles")');
+        this._companyAllFilter = this.page.locator('span:text-is("All")');
+        this._companySearchField = this.page.locator('input[placeholder*="Company search"]');
+
         this._employeeEmailField = this.form.locator('input[formcontrolname="email"]');
         this._employeeNameField = this.form.locator('input[formcontrolname="pib"]');
         this._employeePhoneField = this.form.locator('input[formcontrolname="phone"]');
@@ -184,10 +193,6 @@ export class ProfilePage extends BasePage {
         return this._userLanguageForEmails;
     }
 
-    get userLanguageForEmailsEditSubmit(): Locator {
-        return this._userLanguageForEmailsEditSubmit;
-    }
-
     get deleteAccountButton(): Locator {
         return this._deleteAccountButton;
     }
@@ -210,6 +215,10 @@ export class ProfilePage extends BasePage {
 
     get company(): Locator {
         return this._company;
+    }
+
+    get companies(): Locator {
+        return this._companies;
     }
 
     get feedback(): Locator {
@@ -352,18 +361,6 @@ export class ProfilePage extends BasePage {
         return this._companyServerList;
     }
 
-    get companyFirstServer (): Locator {
-        return this._companyFirstServer;
-    }
-
-    get companySecondServer (): Locator {
-        return this._companySecondServer;
-    }
-
-    get companyThirdServer (): Locator {
-        return this._companyThirdServer;
-    }
-
     get companyNameServerField (): Locator {
         return this._companyNameServerField;
     }
@@ -378,6 +375,10 @@ export class ProfilePage extends BasePage {
 
     get companyServerAddButton (): Locator {
         return this._companyServerAddButton;
+    }
+
+    get companyAddButton (): Locator {
+        return this._companyAddButton;
     }
 
     get employeeEmailField (): Locator {
@@ -414,5 +415,25 @@ export class ProfilePage extends BasePage {
 
     get companyAdditionalSoftware (): Locator {
         return this._companyAdditionalSoftware;
+    }
+
+    get companyCloseButton (): Locator {
+        return this._companyCloseButton;
+    }
+
+    get companyCountryFilter (): Locator {
+        return this._companyCountryFilter;
+    }
+
+    get companyRoleFilter (): Locator {
+        return this._companyRoleFilter;
+    }
+
+    get companyAllFilter (): Locator {
+        return this._companyAllFilter;
+    }
+
+    get companySearchField (): Locator {
+        return this._companySearchField;
     }
 }

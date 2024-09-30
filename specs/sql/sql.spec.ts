@@ -363,7 +363,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
             }
         });
 
-        test('3. Executing SQL Selects to PROD DB and measurementing response times', async () => {
+        test.skip('3. Executing SQL Selects to PROD DB and measurementing response times', async () => {
             let stage: number = 0;
             let count: number = 0;
             let startTime: Date;

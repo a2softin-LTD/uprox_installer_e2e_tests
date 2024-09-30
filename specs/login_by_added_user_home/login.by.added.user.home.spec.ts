@@ -34,27 +34,30 @@ test.describe('Profile Page tests', () => {
         await profilePage.panels.click();
         await profilePage.firstHub.click();
         await page.waitForTimeout(2000);
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
-        await hubPage.addUserButton.click();
+        if (await (hubPage.findByText(name)).isVisible()) {
+            await hubPage.findByText(name).click();
+            await hubPage.deleteUserButton.click();
+            await hubPage.submitButton.click();}
+        await page.waitForTimeout(2000);
+        await hubPage.addButton.click();
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await page.waitForTimeout(2000);
-        await hubPage.userAllowMobileAppManagmentFromHome.click();
-        await hubPage.addUserAddButton.click();
+        await hubPage.userAllowMobileAppManagementFromHome.click();
+        await hubPage.addButton.click();
+        await page.waitForTimeout(2000);
 
-        expect(hubPage.findByText('User Дмитро created successfully')).toBeVisible();
-        await page.waitForTimeout(3000);
-        expect (hubPage.findByText((newUser))).toBeVisible();
-        await page.waitForTimeout(3000);
+        await expect(hubPage.findByText((name))).toBeVisible();
+
+        await page.waitForTimeout(1000);
         await profilePage.logoutButton.click();
-
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(1000);
         await loginPage.openLoginPage('dev');
         await loginPage.auth(USER_3);
+
         await expect(page).toHaveURL('/profile/panels');
-
-
     });
-
 });

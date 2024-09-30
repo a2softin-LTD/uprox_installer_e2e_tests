@@ -1,9 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
-
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -35,31 +34,25 @@ test.describe('Hub Page tests', () => {
         await profilePage.panels.click();
         await profilePage.firstHub.click();
         await page.waitForTimeout(2000);
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
         await hubPage.hubPanel.click();
-        await page.waitForTimeout(2000);
         await hubPage.settingsAirAlarm.click();
         await hubPage.onButton.click();
-        await page.waitForTimeout(2000);
         await hubPage.findByText('Select region').click();
         await hubPage.findByText((region)).click();
-        await page.waitForTimeout(2000);
         await hubPage.findByText('Select district').click();
         await hubPage.findByText((district)).click();
-        await page.waitForTimeout(2000);
         await hubPage.findByText('Select community').click();
         await hubPage.findByText((community)).click();
-        await page.waitForTimeout(2000);
         await hubPage.saveButton.click();
-
         await page.waitForTimeout(2000);
         await hubPage.settingsAirAlarm.click();
-        await page.waitForTimeout(2000);
         await hubPage.offButton.click();
         await hubPage.saveButton.click();
-        
         await page.waitForTimeout(2000);
-        expect(hubPage.findByText('Turn off')).toBeVisible();
 
+        await expect(hubPage.findByText('Turn off')).toBeVisible();
     });
+
 });

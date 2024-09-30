@@ -31,11 +31,6 @@ test.describe('Login Page tests', () => {
                 password: 'asdASD123'
             };
 
-            let passwordStars: string = '';
-            for (let i = 0; i < User.password.length; i++) {
-                passwordStars += '*';
-            }
-
             await registrationPage.emailField.click();
             await registrationPage.emailField.fill(User.login);
 
@@ -43,16 +38,14 @@ test.describe('Login Page tests', () => {
 
             await registrationPage.passwordField.click();
             await registrationPage.passwordField.fill(User.password);
-
             await registrationPage.agreeCheckbox.click();
             await page.waitForTimeout(3000);
-
             await registrationPage.registerButton.click();
             await page.waitForTimeout(5000);
 
-            expect(registrationPage.findByText('Email confirmation'));
-            expect(registrationPage.findByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`));
-            expect(registrationPage.findByText('Not received an email?'));
+            await expect(registrationPage.findByText('Email confirmation')).toBeVisible();
+            await expect(registrationPage.findByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`)).toBeVisible();
+            await expect(registrationPage.findByText('Not received an email?')).toBeVisible();
         });
     });
 
@@ -65,12 +58,13 @@ test.describe('Login Page tests', () => {
             });
 
             registrationPage = new RegistrationPage(page);
-
             const email: string = "user@user";
+
             await registrationPage.emailField.click();
             await registrationPage.emailField.fill(email);
+            await registrationPage.registerButton.click();
 
-            expect(registrationPage.findByText('Incorrect email address format.'));
+            await expect(registrationPage.findByText('Incorrect email address format.')).toBeVisible();
         });
 
         test('negative: Checking registration (non-valid user password)', async ({ page }) => {
@@ -85,15 +79,15 @@ test.describe('Login Page tests', () => {
             await registrationPage.passwordField.click();
             await registrationPage.passwordField.fill(password);
 
-            expect(registrationPage.findByText('Password must contain at least:\n' +
-                '8 symbols\n' +
-                '1 number\n' +
-                '1 lowercase letter\n' +
-                '1 uppercase letter\n' +
-                'latin characters only'));
+            await expect(registrationPage.findByText('Password must contain at least')).toBeVisible();
+            await expect(registrationPage.findByText('8 symbols')).toBeVisible();
+            await expect(registrationPage.findByText('1 number')).toBeVisible();
+            await expect(registrationPage.findByText('1 lowercase letter')).toBeVisible();
+            await expect(registrationPage.findByText('1 uppercase letter')).toBeVisible();
+            await expect(registrationPage.findByText('latin characters only')).toBeVisible();
         });
 
-        test('negative: Checking registration (always exist user data)', async ({ page }) => {
+        test('negative: Checking registration (already exist user data)', async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pw"
@@ -105,11 +99,6 @@ test.describe('Login Page tests', () => {
                 password: 'lepidoptera111278DAP!@#'
             };
 
-            let passwordStars: string = '';
-            for (let i = 0; i < User.password.length; i++) {
-                passwordStars += '*';
-            }
-
             await registrationPage.emailField.click();
             await registrationPage.emailField.fill(User.login);
 
@@ -117,15 +106,12 @@ test.describe('Login Page tests', () => {
 
             await registrationPage.passwordField.click();
             await registrationPage.passwordField.fill(User.password);
-
             await registrationPage.agreeCheckbox.click();
-            await page.waitForTimeout(3000);
-
+            await page.waitForTimeout(2000);
             await registrationPage.registerButton.click();
-            await page.waitForTimeout(5000);
+            await page.waitForTimeout(2000);
 
-            expect(registrationPage.findByText('Email already exists'));
+            await expect(registrationPage.findByText('Email already exists')).toBeVisible();
         });
     });
-
 });

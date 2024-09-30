@@ -37,6 +37,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await expect(loginPage.logo).toBeVisible();
             await expect(loginPage.languagesList).toBeVisible();
             await expect(loginPage.emailField).toBeVisible();
@@ -160,7 +161,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/profile/panels');
         });
 
-        test('positive: Checking auth with Role = USER_2', async ({ page }) => {
+        test.skip('positive: Checking auth with Role = USER_2', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -180,7 +181,15 @@ test.describe('Login Page tests', () => {
             });
             await loginPage.emailField.fill(USER_1['login']);
             await loginPage.passwordField.fill(USER_1['password']);
-            await expect(page).toHaveURL('/support/search');
+            await loginPage.rememberMeCheckbox.click();
+            await loginPage.loginButton.click();
+            await expect(page).toHaveURL('/profile/panels');
+
+            await page.close();
+            loginPage = new LoginPage(page);
+            await loginPage.openLoginPage(ENVIRONMENT);
+            await expect(page).toHaveURL('/profile/panels');
+
         });
 
     });

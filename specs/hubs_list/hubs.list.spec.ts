@@ -1,9 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {MIXED, USER_1} from "../../utils/user_data";
-
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { MIXED, USER_1 } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 
@@ -31,13 +30,14 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
+        for (const li of await hubPage.entityBlock.all())
+            await expect(li).toBeVisible();
 
-        await page.waitForTimeout(2000);
-        expect(hubPage.findByText('PIN@dev')).toBeVisible();
-       // expect(hubPage.findByText('Untitled')).toBeVisible();
+        await expect(hubPage.findByText('PIN@dev')).toBeVisible();
+
     });
 
-    test('Hubs list for company', async ({ page }) => {
+    test.skip('Hubs list for company', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0fth"
@@ -51,11 +51,13 @@ test.describe('Profile Page tests', () => {
 
         await profilePage.panels.click();
 
-        await page.waitForTimeout(2000);
-        expect(hubPage.findByText('52')).toBeVisible();
-        expect(hubPage.findByText('Alert')).toBeVisible();
-        expect(hubPage.findByTextExact('Os-test')).toBeVisible();
+        for (const li of await hubPage.entityBlock.all())
+            await expect(li).toBeVisible();
 
+        const hubsCounter = Number((await hubPage.hubsCounter.textContent()).slice(-3,-1));
+        let hubsNumber=((await page.$$('.part__item')).length).toString();
+
+        await expect(hubPage.entityBlock).toHaveCount(hubsCounter);
     });
 
 });

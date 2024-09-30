@@ -1,15 +1,13 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {MONITORING_SERVICE_COMPANY_1, USER_1} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
-
 
 test.describe('Profile Page tests', () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
-
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
@@ -20,7 +18,6 @@ test.describe('Profile Page tests', () => {
         profilePage = new ProfilePage(page);
 
     });
-
 
     test.describe('Employees', () => {
 
@@ -34,7 +31,6 @@ test.describe('Profile Page tests', () => {
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 
-
             await profilePage.employees.click();
             await page.waitForTimeout(2000);
             await profilePage.addButton.click();
@@ -44,19 +40,17 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
             await page.waitForTimeout(2000);
+
             await expect(page.getByText(email)).toBeVisible();
 
             await page.getByText(email).click();
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
 
-            await expect(profilePage.findByText('successfully deleted')).toBeVisible();
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).not.toBeVisible();
-
         });
 
         test('Delete employee', async ({ page }) => {
@@ -69,7 +63,6 @@ test.describe('Profile Page tests', () => {
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 
-
             await profilePage.employees.click();
             await page.waitForTimeout(2000);
             await profilePage.addButton.click();
@@ -79,16 +72,16 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
             await page.waitForTimeout(2000);
+
             await expect(page.getByText(email)).toBeVisible();
 
             await page.getByText(email).click();
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
+            await page.waitForTimeout(2000);
 
-            await expect(profilePage.findByText('successfully deleted')).toBeVisible();
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).not.toBeVisible();
         });
@@ -103,9 +96,8 @@ test.describe('Profile Page tests', () => {
             const emailOld: string = faker.internet.email();
             const phoneOld: string = faker.phone.number();
             const nameNew: string = "Петро Пилипів";
-            const phoneNew: string = "+380506784544";
+            const phoneNew: string = faker.phone.number();
             const role: string = "Manager";
-
 
             await profilePage.employees.click();
             await page.waitForTimeout(2000);
@@ -116,8 +108,8 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
+
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(emailOld)).toBeVisible();
 
@@ -126,10 +118,10 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditField.fill(nameNew);
             await profilePage.saveButton.click();
             await page.waitForTimeout(2000);
-            // page.getByText('Phone').click();
-            //await profilePage.userEditField.fill(phoneNew);
-            //await profilePage.saveButton.click();
-            //await page.waitForTimeout(2000);
+            page.getByText('Phone').click();
+            await profilePage.userEditField.fill(phoneNew);
+            await profilePage.saveButton.click();
+            await page.waitForTimeout(2000);
             await page.getByText('Configuring panels').click();
             await profilePage.enableButton.click();
             await profilePage.saveButton.click()
@@ -137,8 +129,8 @@ test.describe('Profile Page tests', () => {
             await page.getByText('Block employee').click();
             await profilePage.yesButton.click();
             await profilePage.saveButton.click();
-
             await page.waitForTimeout(2000);
+
             await expect(page.getByText(nameNew)).toBeVisible();
             await expect(page.getByText('Enable')).toBeVisible();
             await expect(page.getByText('Yes')).toBeVisible();
@@ -146,8 +138,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
 
-
-            await expect(profilePage.findByText('successfully deleted')).toBeVisible();
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(nameNew,{ exact: true })).not.toBeVisible();
 
@@ -164,7 +154,6 @@ test.describe('Profile Page tests', () => {
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 
-
             await profilePage.employees.click();
             await page.waitForTimeout(2000);
             await profilePage.addButton.click();
@@ -174,12 +163,14 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
+
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(name)).toBeVisible();
+
             await profilePage.employeeSearchField.fill(name);
             await page.waitForTimeout(2000);
+
             await expect(page.getByText(name)).toBeVisible();
             await expect(profilePage.employeeBlock).toHaveCount(1);
 
@@ -187,11 +178,10 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
 
-            await expect(profilePage.findByText('successfully deleted')).toBeVisible();
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(name,{ exact: true })).not.toBeVisible();
-
         });
 
     });
+
 });

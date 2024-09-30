@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -16,10 +16,10 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test.skip('Wireless devices curent status', async ({ page }) => {
+    test.skip('Wireless devices: current status', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0hx1"
+            description: "https://app.clickup.com/t/8678t0fu2"
         });
 
         profilePage = new ProfilePage(page);
@@ -30,7 +30,5 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await profilePage.secondHub.click();
         await page.waitForTimeout(2000);
-
     });
-
 });
