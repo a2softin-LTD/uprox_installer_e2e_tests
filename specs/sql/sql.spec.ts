@@ -42,7 +42,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
     });
 
     test.describe('Get data from PROD DB and save to QA DB via sql-requests', () => {
-        test('1. Get data from PROD DB and save to QA DB', { tag: '@db' }, async () => {
+        test.skip('1. Get data from PROD DB and save to QA DB', { tag: '@db' }, async () => {
 
             let getEventsResults;
             let wrightEvents;

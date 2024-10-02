@@ -112,7 +112,7 @@ test.describe('Profile Page tests', () => {
         await expect(page.getByText(newName)).not.toBeVisible();
     });
 
-    test('Server settings editing: monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
+    test('Server settings editing: monitoring-service company', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694nt1k0"
