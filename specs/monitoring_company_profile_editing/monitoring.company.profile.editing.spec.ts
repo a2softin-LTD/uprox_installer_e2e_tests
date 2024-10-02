@@ -68,6 +68,7 @@ test.describe('Profile Page tests', () => {
             await profilePage.companyContactEmail.click();
             await profilePage.userEditField.fill(newEmail);
             await profilePage.saveButton.click();
+            await page.waitForTimeout(2000);
 
             await expect(page.getByText(newEmail)).toBeVisible();
 
@@ -152,6 +153,86 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
         });
 
+        test('Another settings editing:monitoring company', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694fau7g"
+            });
+
+            const countryNew: string = "Moldova";
+            const countryOld: string = "Ukraine";
+            const cabinetNew: string = "https://qwertynew.com";
+            const cabinetOld: string = "https://qwerty.com";
+
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyCountry.click();
+            await profilePage.inputField.fill(countryNew);
+            await page.waitForTimeout(2000);
+            await page.getByText(countryNew).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyUsersCabinet.click();
+            await page.waitForTimeout(1000);
+            await profilePage.inputField.fill(cabinetNew);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(countryNew)).toBeVisible();
+            await expect(page.getByText(cabinetNew)).toBeVisible();
+
+            await profilePage.companyCountry.click();
+            await profilePage.inputField.fill(countryOld);
+            await page.waitForTimeout(2000);
+            await page.getByText(countryOld).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyUsersCabinet.click();
+            await profilePage.inputField.fill(cabinetOld);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(countryOld)).toBeVisible();
+            await expect(page.getByText(cabinetOld)).toBeVisible();
+
+        });
+
+        test('Add or change monitoring company logo', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694fb1p8"
+            });
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await page.waitForTimeout(2000);
+
+            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+
+            await profilePage.companyDeleteLogoButton.click();
+
+            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+        });
+
+        test('Delete monitoring company logo', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694mc54u"
+            });
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await page.waitForTimeout(2000);
+
+            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+
+            await profilePage.companyDeleteLogoButton.click();
+
+            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+        });
 
         test('Information about company editing: monitoring company', async ({ page }) => {
             test.info().annotations.push({
@@ -178,7 +259,7 @@ test.describe('Profile Page tests', () => {
             await profilePage.saveButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
-
+            await page.waitForTimeout(2000);
             await expect(page.getByText(newCompanyName).last()).toBeVisible();
             await expect(page.getByText(newCompanyContacts)).toBeVisible();
             await expect(page.getByText(newCompanyDescription)).toBeVisible();

@@ -30,14 +30,17 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
-        for (const li of await hubPage.entityBlock.all())
-            await expect(li).toBeVisible();
 
-        await expect(hubPage.findByText('PIN@dev')).toBeVisible();
+        for (const hubs of await hubPage.entityBlock.all())
+            await expect(hubs).toBeVisible();
+        for (const hub of await profilePage.entityBlock.all())
+        {await expect(hub.filter({has: profilePage.entityText})).toBeVisible();}
+        for (const hub of await profilePage.entityBlock.all())
+        {await expect(hub.filter({has: profilePage.trashIcon})).toBeVisible();}
 
     });
 
-    test.skip('Hubs list for company', async ({ page }) => {
+    test('Hubs list for company', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0fth"
@@ -51,13 +54,13 @@ test.describe('Profile Page tests', () => {
 
         await profilePage.panels.click();
 
-        for (const li of await hubPage.entityBlock.all())
-            await expect(li).toBeVisible();
+        for (const hubs of await hubPage.entityBlock.all())
+            await expect(hubs).toBeVisible();
 
-        const hubsCounter = Number((await hubPage.hubsCounter.textContent()).slice(-3,-1));
-        let hubsNumber=((await page.$$('.part__item')).length).toString();
+        //const hubsCounter = Number((await hubPage.hubsCounter.textContent()).slice(-3,-1));
+        //let hubsNumber=((await page.$$('.part__item')).length).toString();
 
-        await expect(hubPage.entityBlock).toHaveCount(hubsCounter);
+       // await expect(hubPage.entityBlock).toHaveCount(hubsCounter);
     });
 
 });

@@ -4,8 +4,10 @@ import { INSTALLER_LOGIN_URL } from "../utils/path";
 export class BasePage {
     readonly page: Page;
     private readonly _saveButton: Locator;
+    private readonly _change_Button: Locator;
     private readonly _submitButton: Locator;
     private readonly _deleteButton: Locator;
+    private readonly _deleteUserButton: Locator;
     private readonly _addButton: Locator;
     private readonly _trashIcon: Locator;
     private readonly _closeWindowButton: Locator;
@@ -32,11 +34,16 @@ export class BasePage {
     private readonly _selectSecondField: Locator;
     private readonly _selectThirdField: Locator;
     private readonly _entityBlock: Locator;
+    private readonly _entityText: Locator;
+    private readonly _inputField: Locator;
+    private readonly _connectButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        this._saveButton = page.getByText('Save');
+        this._saveButton = page.getByText('Save',{ exact: true });
+        this._change_Button = page.getByText('Change',{ exact: true });
         this._deleteButton = page.getByRole('button', { name: 'Delete' });
+        this._deleteUserButton = page.getByText('Delete user');
         this._addButton = page.getByRole('button', { name: 'Add' });
         this._trashIcon = page.locator('use[*|href="#icon-trash"]');
         this._submitButton = page.getByText('Submit');
@@ -53,26 +60,36 @@ export class BasePage {
         this._editButton = page.getByText('Edit',{ exact: true });
         this._exportButton = page.getByText('Export',{ exact: true });
         this._changeButton = page.getByText('Change',{ exact: true });
-        this._inputFirstField = this.page.locator('.mat-mdc-input-element').nth(0);
-        this._inputSecondField = this.page.locator('.mat-mdc-input-element').nth(1);
-        this._inputThirdField = this.page.locator('.mat-mdc-input-element').nth(2);
-        this._inputFourthField = this.page.locator('.mat-mdc-input-element').nth(3);
-        this._inputFifthField = this.page.locator('.mat-mdc-input-element').nth(4);
-        this._inputSixthField = this.page.locator('.mat-mdc-input-element').nth(5);
-        this._inputSeventhField = this.page.locator('.mat-mdc-input-element').nth(6);
-        this._selectFirstField = this.page.locator('.mat-mdc-select-value').nth(0);
-        this._selectSecondField = this.page.locator('.mat-mdc-select-value').nth(1);
-        this._selectThirdField = this.page.locator('.mat-mdc-select-value').nth(2);
+        this._inputFirstField = this.page.locator('.mat-mdc-input-element').nth(0).or(this.page.locator('.input_block-input').nth(0));;
+        this._inputSecondField = this.page.locator('.mat-mdc-input-element').nth(1).or(this.page.locator('.input_block-input').nth(1));;
+        this._inputThirdField = this.page.locator('.mat-mdc-input-element').nth(2).or(this.page.locator('.input_block-input').nth(2));;
+        this._inputFourthField = this.page.locator('.mat-mdc-input-element').nth(3).or(this.page.locator('.input_block-input').nth(3));;
+        this._inputFifthField = this.page.locator('.mat-mdc-input-element').nth(4).or(this.page.locator('.input_block-input').nth(4));;
+        this._inputSixthField = this.page.locator('.mat-mdc-input-element').nth(5).or(this.page.locator('.input_block-input').nth(5));;
+        this._inputSeventhField = this.page.locator('.mat-mdc-input-element').nth(6).or(this.page.locator('.input_block-input').nth(6));;
+        this._selectFirstField = this.page.locator('.mat-mdc-select-value').nth(0).or(this.page.locator('.input-block__select-text').nth(0));
+        this._selectSecondField = this.page.locator('.mat-mdc-select-value').nth(1).or(this.page.locator('.input-block__select-text').nth(1));;
+        this._selectThirdField = this.page.locator('.mat-mdc-select-value').nth(2).or(this.page.locator('.input-block__select-text').nth(2));;
         this._entityBlock = this.page.locator('.part__item');
-
+        this._entityText = this.page.locator('.part__item-text');
+        this._inputField = page.locator('input[type="text"]');
+        this._connectButton = page.getByText('Connect',{ exact: true });
     }
 
     get saveButton(): Locator {
         return this._saveButton;
     }
 
+    get change_Button(): Locator {
+        return this._change_Button;
+    }
+
     get deleteButton(): Locator {
         return this._deleteButton;
+    }
+
+    get deleteUserButton(): Locator {
+        return this._deleteUserButton;
     }
 
     get trashIcon(): Locator {
@@ -181,6 +198,18 @@ export class BasePage {
 
     get entityBlock(): Locator {
         return this._entityBlock;
+    }
+
+    get entityText(): Locator {
+        return this._entityText;
+    }
+
+    get inputField(): Locator {
+        return this._inputField;
+    }
+
+    get connectButton(): Locator {
+        return this._connectButton;
     }
 
 

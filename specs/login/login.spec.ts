@@ -161,7 +161,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/profile/panels');
         });
 
-        test.skip('positive: Checking auth with Role = USER_2', async ({ page }) => {
+        test('positive: Checking auth with Role = USER_2', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""

@@ -151,6 +151,114 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
         });
 
+        test('Another settings editing: monitoring-service company', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694nrufc"
+            });
+
+            const countryNew: string = "Moldova";
+            const countryOld: string = "Ukraine";
+            const cabinetNew: string = "https://qwertynew.com";
+            const cabinetOld: string = "https://qwerty.com";
+            const guestsNewStatus: string = "Denied";
+            const guestsOldStatus: string = "Allowed";
+            const firstEvent: string = "Arms/Disarms";
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyCountry.click();
+            await profilePage.inputField.fill(countryNew);
+            await page.waitForTimeout(1000);
+            await page.getByText(countryNew).click();
+            await page.waitForTimeout(1000);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyUsersCabinet.click();
+            await page.waitForTimeout(1000);
+            await profilePage.inputField.fill(cabinetNew);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyGuestEngineers.click();
+            await page.waitForTimeout(1000);
+            await page.getByText(guestsNewStatus).click();
+            await page.waitForTimeout(1000);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyEventCategories.click();
+            await page.waitForTimeout(2000);
+            await page.getByText(firstEvent, { exact: true }).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(countryNew)).toBeVisible();
+            await expect(page.getByText(cabinetNew)).toBeVisible();
+            await expect(page.getByText(guestsNewStatus)).toBeVisible();
+            await expect(page.getByText('Alarms/Restores, Troubles/Restores, ...')).toBeVisible();
+
+            await profilePage.companyCountry.click();
+            await profilePage.inputField.fill(countryOld);
+            await page.waitForTimeout(1000);
+            await page.getByText(countryOld).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyUsersCabinet.click();
+            await page.waitForTimeout(1000);
+            await profilePage.inputField.fill(cabinetOld);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyGuestEngineers.click();
+            await page.waitForTimeout(1000);
+            await page.getByText(guestsOldStatus).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyEventCategories.click();
+            await page.getByText(firstEvent).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(countryOld)).toBeVisible();
+            await expect(page.getByText(cabinetOld)).toBeVisible();
+            await expect(page.getByText(guestsOldStatus)).toBeVisible();
+            await expect(page.getByText('Arms/Disarms, Alarms/Restores, ...')).toBeVisible();
+
+        });
+
+        test('Add or change monitoring-service company logo', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694mhptt"
+            });
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await page.waitForTimeout(2000);
+
+            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+
+            await profilePage.companyDeleteLogoButton.click();
+
+            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+        });
+
+        test('Delete monitoring-service company logo', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694mhptt"
+            });
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await page.waitForTimeout(2000);
+
+            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+
+            await profilePage.companyDeleteLogoButton.click();
+
+            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+        });
 
         test('Information about company editing: monitoring-service  company', async ({page}) => {
             test.info().annotations.push({

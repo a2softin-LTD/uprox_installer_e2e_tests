@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {MONITORING_COMPANY_1} from "../../utils/user_data";
+import {MIXED,MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 
@@ -10,20 +10,20 @@ test.describe('Profile Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
         await loginPage.openLoginPage('dev');
         await expect(page).toHaveURL('/login')
-        await loginPage.auth(MONITORING_COMPANY_1);
-        await page.waitForTimeout(2000);
-        await expect(page).toHaveURL('/panels');
-        profilePage = new ProfilePage(page);
 
     });
 
-    test('Servers list: monitoring company', async ({ page }) => {
+    test('Servers list: monitoring-service company', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694fb8kd"
+            description: "https://app.clickup.com/t/8694nt17d"
         });
+        await loginPage.auth(MIXED);
+        await page.waitForTimeout(2000);
+        await expect(page).toHaveURL('/panels');
 
         await profilePage.company.click();
         await page.waitForTimeout(2000);
@@ -39,16 +39,22 @@ test.describe('Profile Page tests', () => {
         {await expect(server.filter({has: profilePage.companyServerDnsPortInfo})).toBeVisible();}
         for (const server of await profilePage.entityBlock.all())
         {await expect(server.filter({has: profilePage.trashIcon})).toBeVisible();}
+
     });
 
-    test('Add server: monitoring company', async ({ page }) => {
+    test('Add server: monitoring-service company', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694fb8nk"
+            description: "https://app.clickup.com/t/8694nt050"
         });
+
         const newName: string = "New server";
         const newDNS: string = "179.36.500.218";
         const newPort: string = "4480";
+
+        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
+        await page.waitForTimeout(2000);
+        await expect(page).toHaveURL('/panels')
 
         await profilePage.company.click();
         await page.waitForTimeout(2000);
@@ -67,19 +73,24 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);
+
         await expect(page.getByText(newName)).not.toBeVisible();
     });
 
-    test('Delete server: monitoring company', async ({ page }) => {
+    test('Delete server: monitoring-service company', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694mgxr1"
+            description: "https://app.clickup.com/t/8694nt0np"
         });
 
         const newName: string = "Best server";
         const newDNS: string = "179.36.500.218";
         const newPort: string = "4480";
 
+        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
+        await page.waitForTimeout(2000);
+        await expect(page).toHaveURL('/panels')
+
         await profilePage.company.click();
         await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
@@ -101,19 +112,23 @@ test.describe('Profile Page tests', () => {
         await expect(page.getByText(newName)).not.toBeVisible();
     });
 
-    test('Server settings editing: monitoring company', async ({ page }) => {
+    test('Server settings editing: monitoring-service company', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694mh0qb"
+            description: "https://app.clickup.com/t/8694nt1k0"
         });
 
-        const newName: string = "Best new server";
+        const newName: string = "Best server";
         const newDNS: string = "179.36.500.218";
         const newPort: string = "4480";
 
-        const oldName: string = "Worst server";
-        const oldDNS: string = "345.345.346";
-        const oldPort: string = "4455";
+        const oldName: string = "old";
+        const oldDNS: string = "123.345.346";
+        const oldPort: string = "4450";
+
+        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
+        await page.waitForTimeout(2000);
+        await expect(page).toHaveURL('/panels')
 
         await profilePage.company.click();
         await page.waitForTimeout(2000);
@@ -124,7 +139,7 @@ test.describe('Profile Page tests', () => {
         await profilePage.companyDnsServerField.fill(oldDNS);
         await profilePage.companyPortServerField.fill(oldPort);
         await profilePage.saveButton.click();
-        await page.waitForTimeout(2000);
+
         await expect(page.getByText(oldName)).toBeVisible();
 
         await profilePage.findByText((oldName)).click();
@@ -141,6 +156,7 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);
+
         await expect(page.getByText(newName)).not.toBeVisible();
     });
 });

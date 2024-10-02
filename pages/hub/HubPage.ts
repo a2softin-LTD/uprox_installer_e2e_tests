@@ -9,7 +9,6 @@ export class HubPage extends BasePage {
     private readonly _history: Locator;
     private readonly _addUserName: Locator;
     private readonly _addUserEmail: Locator;
-    private readonly _deleteUserButton: Locator;
     private readonly _transferOwnershipButton: Locator;
     private readonly _hubPanel: Locator;
     private readonly _hubRebootButton: Locator;
@@ -101,7 +100,6 @@ export class HubPage extends BasePage {
         this._system = page.getByText('System',{ exact: true });
         this._addUserName = this.page.locator('#name');
         this._addUserEmail = this.page.locator('#email');
-        this._deleteUserButton = page.getByText('Delete user');
         this._transferOwnershipButton = page.getByText('Transfer ownership');
         this._hubPanel = this.page.locator('.main-block__panel-item');
         this._hubRebootButton = page.getByText('Restart panel');
@@ -207,10 +205,6 @@ export class HubPage extends BasePage {
 
     get addUserEmail(): Locator {
         return this._addUserEmail;
-    }
-
-    get deleteUserButton(): Locator {
-        return this._deleteUserButton;
     }
 
     get transferOwnershipButton(): Locator {
