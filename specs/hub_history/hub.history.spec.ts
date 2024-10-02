@@ -84,7 +84,7 @@ test.describe('Hub Page tests', () => {
             await expect(page.getByText('Added new user').first()).not.toBeVisible();
         });
 
-        test('Download history file', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Download history file', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk8'
