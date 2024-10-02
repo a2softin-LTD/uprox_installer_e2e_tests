@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {USER_1} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { MIXED,USER_1 } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 
@@ -158,7 +158,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
         });
 
-        test('Support', async ({ page }) => {
+        test('Support: autonomous user', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rcauf"
@@ -171,6 +171,37 @@ test.describe('Profile Page tests', () => {
 
             await expect(page.getByText(supportText)).toBeVisible();
             await expect(page.getByText(supportEmail)).toBeVisible();
+        });
+
+        test('Support: admin', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8678rcauf"
+            });
+            const supportText: string = "You can send your question or message to the technical support service at:";
+            const supportEmail: string = "support@u-prox.systems";
+
+            await profilePage.logoutButton.click();
+            await page.waitForTimeout(2000)
+            await loginPage.openLoginPage('dev');
+            await expect(page).toHaveURL('/login')
+            await loginPage.auth(MIXED);
+            await page.waitForTimeout(2000);
+            await expect(page).toHaveURL('/panels')
+
+            await profilePage.myProfileButton.click();
+            await profilePage.feedback.click();
+
+            await expect(page.getByText(supportText)).toBeVisible();
+            await expect(page.getByText(supportEmail)).toBeVisible();
+
+            await profilePage.message.click();
+
+            for (const message of await profilePage.entityBlock.all())
+                await expect(message).toBeVisible();
+
+            for (const message of await profilePage.entityBlock.all())
+                await expect(message).toHaveText(/\b[0-2]?\d:[0-5]\d\b/mg);
         });
     });
 });

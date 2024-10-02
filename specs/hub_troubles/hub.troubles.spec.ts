@@ -37,8 +37,8 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         page.reload();
         await page.waitForTimeout(2000);
-        for (const device of await hubPage.entityBlock.all())
 
+        for (const device of await hubPage.entityBlock.all())
         {await expect(device.filter({has: hubPage.hubTroublesState})).toBeVisible();}
     });
 

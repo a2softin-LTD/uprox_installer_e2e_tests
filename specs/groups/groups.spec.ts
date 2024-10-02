@@ -31,6 +31,7 @@ test.describe('Hub Page tests', () => {
             const name: string = "Дмитро";
 
             await loginPage.auth(USER_1);
+            await page.waitForTimeout(2000);
             await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
@@ -77,6 +78,7 @@ test.describe('Hub Page tests', () => {
             const newNameOfGroup: string = 'newgroup_' + faker.string.alphanumeric({ length: { min: 2, max: 4 } });
 
             await loginPage.auth(USER_1);
+            await page.waitForTimeout(2000);
             await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
@@ -123,6 +125,7 @@ test.describe('Hub Page tests', () => {
             const nameOfGroup: string = 'DELETE_' + faker.string.alphanumeric({ length: { min: 10, max: 12 } });
 
             await loginPage.auth(USER_1);
+            await page.waitForTimeout(2000);
             await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
@@ -139,7 +142,7 @@ test.describe('Hub Page tests', () => {
             await hubPage.saveButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
-
+            await page.waitForTimeout(2000);
             await expect(hubPage.findByText(nameOfGroup)).toBeVisible();
 
             await hubPage.findByText(nameOfGroup).click();

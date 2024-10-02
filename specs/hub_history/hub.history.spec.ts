@@ -33,12 +33,14 @@ test.describe('Hub Page tests', () => {
             await profilePage.panels.click();
             await profilePage.firstHub.click();
             await page.waitForTimeout(2000);
-            if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+            if (await page.getByText('Update firmware version').isVisible())
+            {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
 
             await expect(hubPage.historyFirstEvent).toBeVisible();
-            for (const li of await hubPage.historyEvent.all())
-            { await expect(li).toBeVisible();}
+            for (const event of await hubPage.historyEvent.all())
+            { await expect(event).toBeVisible();}
+
             await hubPage.historyLastEvent.scrollIntoViewIfNeeded();
             await page.waitForTimeout(2000);
 
@@ -57,7 +59,8 @@ test.describe('Hub Page tests', () => {
             await profilePage.panels.click();
             await profilePage.firstHub.click();
             await page.waitForTimeout(2000);
-            if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+            if (await page.getByText('Update firmware version').isVisible())
+            {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
             await hubPage.historyAlarmCheckBox.isVisible();
             await hubPage.historyTroublesCheckBox.isVisible();
@@ -94,13 +97,18 @@ test.describe('Hub Page tests', () => {
             await profilePage.panels.click();
             await profilePage.firstHub.click();
             await page.waitForTimeout(2000);
-            if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+            if (await page.getByText('Update firmware version').isVisible())
+            {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
             await hubPage.saveInXLSButton.click();
-            await hubPage.exportButton.click();
+
             await page.waitForTimeout(1000);
 
-            await expect(hubPage.findByText('File created successfully')).toBeVisible();
+            const downloadPromise = page.waitForEvent('download');
+            await hubPage.exportButton.click();
+            const download = await downloadPromise;
+
+            await download.saveAs(download.suggestedFilename());
         });
 
     });

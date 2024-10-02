@@ -27,6 +27,7 @@ export class ProfilePage extends BasePage {
     private readonly _companyEventCategories: Locator;
     private readonly _companyAutoProcessingApplications: Locator;
     private readonly _companyChangeLogoButton: Locator;
+    private readonly _companyDeleteLogoButton: Locator;
     private readonly _deletePasswordField: Locator;
     private readonly _deleteCheckbox: Locator;
     private readonly _deleteAccountButton: Locator;
@@ -35,10 +36,12 @@ export class ProfilePage extends BasePage {
     private readonly _company: Locator;
     private readonly _companies: Locator;
     private readonly _feedback: Locator;
+    private readonly _permissions: Locator;
     private readonly _message: Locator;
     private readonly _requests: Locator;
     private readonly _history: Locator;
     private readonly _employees: Locator;
+    private readonly _groupsOfCompanies: Locator;
     private readonly _firstHub: Locator;
     private readonly _secondHub: Locator;
     private readonly _languageChoice: Locator;
@@ -62,7 +65,11 @@ export class ProfilePage extends BasePage {
     private readonly _companyDnsServerField: Locator;
     private readonly _companyPortServerField: Locator;
     private readonly _companyServerAddButton: Locator;
+    private readonly _companyServerNameInfo: Locator;
+    private readonly _companyServerDnsPortInfo: Locator;
+
     private readonly _companyAddButton: Locator;
+    private readonly _companyAddGroupButton: Locator;
     private readonly _companyCloseButton: Locator;
     private readonly _employeeEmailField: Locator;
     private readonly _employeeNameField: Locator;
@@ -75,7 +82,7 @@ export class ProfilePage extends BasePage {
     private readonly _companyRoleFilter: Locator;
     private readonly _companyAllFilter: Locator;
     private readonly _companySearchField: Locator;
-
+    private readonly _defaultCompanyLogo: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -108,6 +115,7 @@ export class ProfilePage extends BasePage {
         this._companyAutoProcessingApplications  = page.getByText('Auto processing of applications');
         this._companyEventCategories  = page.getByText('Event categories');
         this._companyChangeLogoButton = page.getByText('Change logo');
+        this._companyDeleteLogoButton = page.getByText('Delete logo');
         this._companyAddLocalizationButton = this.page.locator('div.add-block');
         this._companyDeleteLocalizationButton = this.page.locator('span.delete_point');
         this._deleteAccountButton = page.getByText('Delete account');
@@ -122,6 +130,8 @@ export class ProfilePage extends BasePage {
         this._requests= page.getByText('Requests',{ exact: true });
         this._history= page.getByText('History',{ exact: true });
         this._feedback = page.getByText('Feedback');
+        this._permissions = page.getByText('Permissions');
+        this._groupsOfCompanies = page.getByText('Groups of companies');
         this._firstHub = this.page.locator('.part__item').first();
         this._secondHub = this.page.locator('.part__item').nth(1);
         this._languageChoice = this.page.locator('.header__lang');
@@ -139,10 +149,13 @@ export class ProfilePage extends BasePage {
         this._companyNameServerField = this.page.locator('input.mat-mdc-input-element').nth(0);
         this._companyDnsServerField = this.page.locator('input.mat-mdc-input-element').nth(1);
         this._companyPortServerField = this.page.locator('input.mat-mdc-input-element').nth(2);
+        this._companyServerNameInfo = this.page.locator('div.server-name');
+        this._companyServerDnsPortInfo = this.page.locator('.part__item-text-small');
+
         this._companyServerAddButton = page.getByText('Add server');
         this._companyAddButton = page.getByText('Add company');
+        this._companyAddGroupButton = page.getByText('Add new group');
         this._companyCloseButton = page.getByText('Close company');
-
         this._companyCountryFilter = page.getByText('All countries').and(this.page.locator('span'));
         this._companyRoleFilter = this.page.locator('span:text-is("All roles")');
         this._companyAllFilter = this.page.locator('span:text-is("All")');
@@ -155,6 +168,7 @@ export class ProfilePage extends BasePage {
         this._employeeDeleteManager = page.getByRole('button', { name: 'Delete' });
         this._employeeSearchField = this.page.locator('input[placeholder*="Enter the"]');
         this._employeeBlock = this.page.locator('div.part__item');
+        this._defaultCompanyLogo = this.page.locator('img[src="./assets/icons/gradient/gradient-company-default.svg"]');
     }
 
     get form(): Locator {
@@ -224,6 +238,15 @@ export class ProfilePage extends BasePage {
     get feedback(): Locator {
         return this._feedback;
     }
+
+    get permissions(): Locator {
+        return this._permissions;
+    }
+
+    get groupsOfCompanies(): Locator {
+        return this._groupsOfCompanies;
+    }
+
     get secondHub(): Locator {
         return this._secondHub;
     }
@@ -349,6 +372,10 @@ export class ProfilePage extends BasePage {
         return this._companyAddLocalizationButton;
     }
 
+    get companyAddGroupButton (): Locator {
+        return this._companyAddGroupButton ;
+    }
+
     get companyDeleteLocalizationButton (): Locator {
         return this._companyDeleteLocalizationButton;
     }
@@ -376,6 +403,15 @@ export class ProfilePage extends BasePage {
     get companyServerAddButton (): Locator {
         return this._companyServerAddButton;
     }
+
+    get companyServerNameInfo (): Locator {
+        return this._companyServerNameInfo;
+    }
+
+    get companyServerDnsPortInfo (): Locator {
+        return this._companyServerDnsPortInfo;
+    }
+
 
     get companyAddButton (): Locator {
         return this._companyAddButton;
@@ -435,5 +471,13 @@ export class ProfilePage extends BasePage {
 
     get companySearchField (): Locator {
         return this._companySearchField;
+    }
+
+    get companyDeleteLogoButton (): Locator {
+        return this._companyDeleteLogoButton;
+    }
+
+    get defaultCompanyLogo (): Locator {
+        return this._defaultCompanyLogo;
     }
 }

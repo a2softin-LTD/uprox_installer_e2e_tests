@@ -33,17 +33,27 @@ test.describe('Hub Page tests', () => {
         await profilePage.panels.click();
         await profilePage.firstHub.click();
         await page.waitForTimeout(1000);
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
         await hubPage.hubPanel.click();
         await page.waitForTimeout(1000);
         await hubPage.settingsKeypadCodeLength.click();
         await hubPage.settingsKeypadCodeLength4digits.click();
+        if (await hubPage.changeButton.isDisabled())
+        {  await page.waitForTimeout(1000);
+            await hubPage.settingsKeypadCodeLength6digits.click()
+            await page.waitForTimeout(2000);
+            await hubPage.change_Button.click();
+            await page.waitForTimeout(2000);
+            await page.reload();
+            await hubPage.settingsKeypadCodeLength.click();
+            await hubPage.settingsKeypadCodeLength4digits.click();}
         await page.waitForTimeout(1000);
-        await hubPage.changeButton.click();
+        await hubPage.change_Button.click();
 
         await expect(hubPage.findByText('6 symbols')).toBeVisible();
 
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(2000);
         await hubPage.users.click();
         if (await (hubPage.findByText(name)).isVisible()) {
             await hubPage.findByText(name).click();
@@ -73,7 +83,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.settingsKeypadCodeLength.click();
         await hubPage.settingsKeypadCodeLength6digits.click();
         await page.waitForTimeout(2000);
-        await hubPage.changeButton.click();
+        await hubPage.change_Button.click();
         await page.waitForTimeout(2000);
 
         await expect(hubPage.findByText('6 symbols')).toBeVisible();

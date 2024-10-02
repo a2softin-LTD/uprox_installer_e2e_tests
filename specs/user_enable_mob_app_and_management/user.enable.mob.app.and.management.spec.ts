@@ -31,6 +31,7 @@ test.describe('HubPage tests', () => {
         const userManagment: string = "| Дмитро | snaut12@gmail.com Mobile | User management";
 
         await loginPage.auth(USER_1);
+        await page.waitForTimeout(2000);
         await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
@@ -62,7 +63,7 @@ test.describe('HubPage tests', () => {
         await expect(hubPage.findByText(user)).toBeVisible();
         await expect(hubPage.findByText(userManagment)).toBeVisible();
 
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(2000);
         await hubPage.findByText(name).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();

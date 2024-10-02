@@ -38,17 +38,20 @@ test.describe('Hub Page tests', () => {
 
         await page.waitForTimeout(2000);
         await hubPage.hubEngineerModeSwitch.click();
+        await page.waitForTimeout(2000);
 
         await expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
 
         await hubPage.wirelessDeviceAddButton.click();
         await page.waitForTimeout(2000);
         await hubPage.backButton.click();
+        await page.waitForTimeout(2000);
 
         await expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
 
         await page.waitForTimeout(2000);
         await hubPage.hubEngineerModeSwitch.click();
+        await page.waitForTimeout(2000);
 
         await expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
     });

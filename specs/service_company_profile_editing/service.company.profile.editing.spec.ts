@@ -18,7 +18,7 @@ test.describe('Profile Page tests', () => {
         profilePage = new ProfilePage(page);
     });
 
-    test.describe('Checking UI elements of the Page', () => {
+    test.describe('Checking UI elements of the page', () => {
 
         test('Checking UI elements', async ({ page }) => {
             test.info().annotations.push({
@@ -150,6 +150,110 @@ test.describe('Profile Page tests', () => {
             await page.getByText(languageOld, { exact: true }).click();
 
             await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
+        });
+
+        test('Another settings editing:service company', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694mhpj3"
+            });
+
+            const countryNew: string = "Moldova";
+            const countryOld: string = "Ukraine";
+            const cabinetNew: string = "https://qwertynew.com";
+            const cabinetOld: string = "https://qwerty.com";
+            const guestsNewStatus: string = "Denied";
+            const guestsOldStatus: string = "Allowed";
+            const firstEvent: string = "Arms/Disarms";
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyCountry.click();
+            await profilePage.inputField.fill(countryNew);
+            await page.getByText(countryNew).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyUsersCabinet.click();
+            await page.waitForTimeout(1000);
+            await profilePage.inputField.fill(cabinetNew);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyGuestEngineers.click();
+            await page.waitForTimeout(1000);
+            await page.getByText(guestsNewStatus).click();
+            await page.waitForTimeout(1000);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyEventCategories.click();
+            await page.waitForTimeout(2000);
+            await page.getByText(firstEvent, { exact: true }).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(countryNew)).toBeVisible();
+            await expect(page.getByText(cabinetNew)).toBeVisible();
+            await expect(page.getByText(guestsNewStatus)).toBeVisible();
+            await expect(page.getByText('Alarms/Restores')).toBeVisible();
+
+            await profilePage.companyCountry.click();
+            await profilePage.inputField.fill(countryOld);
+            await page.getByText(countryOld).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyUsersCabinet.click();
+            await profilePage.inputField.fill(cabinetOld);
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyGuestEngineers.click();
+            await page.waitForTimeout(1000);
+            await page.getByText(guestsOldStatus).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyEventCategories.click();
+            await page.getByText(firstEvent).click();
+            await profilePage.submitButton.click();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(countryOld)).toBeVisible();
+            await expect(page.getByText(cabinetOld)).toBeVisible();
+            await expect(page.getByText(guestsOldStatus)).toBeVisible();
+            await expect(page.getByText('Arms/Disarms, Alarms/Restores')).toBeVisible();
+        });
+
+        test('Add/change service company logo', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694mhptt"
+            });
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await page.waitForTimeout(2000);
+
+            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+
+            await profilePage.companyDeleteLogoButton.click();
+
+            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+        });
+
+        test('Delete service company logo', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694mhptt"
+            });
+
+            await profilePage.company.click();
+            await page.waitForTimeout(2000);
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await page.waitForTimeout(2000);
+
+            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+
+            await profilePage.companyDeleteLogoButton.click();
+
+            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
         });
 
         test('Information about company editing:service', async ({ page }) => {
