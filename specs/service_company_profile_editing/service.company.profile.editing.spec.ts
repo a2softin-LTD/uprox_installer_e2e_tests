@@ -65,7 +65,9 @@ test.describe('Profile Page tests', () => {
             const oldEmail: string = "asiarh45@ukr.net";
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
+
+            await expect(page.getByText('Company settings')).toBeVisible();
+
             await profilePage.companyContactEmail.click();
             await profilePage.userEditField.fill(newEmail);
             await profilePage.saveButton.click();
@@ -89,7 +91,9 @@ test.describe('Profile Page tests', () => {
             const oldPhone: string = "+380678974567";
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
+
+            await expect(page.getByText('Company settings')).toBeVisible();
+
             await profilePage.companyContactPhone.click();
             await profilePage.userEditField.fill(newPhone);
             await profilePage.saveButton.click();
@@ -100,6 +104,7 @@ test.describe('Profile Page tests', () => {
             await profilePage.companyContactPhone.click();
             await profilePage.userEditField.fill(oldPhone);
             await profilePage.saveButton.click();
+
             await expect(page.getByText(oldPhone)).toBeVisible();
         });
 
@@ -228,7 +233,7 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.company.click();
             await page.waitForTimeout(2000);
-            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
             await page.waitForTimeout(2000);
 
             await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
@@ -246,7 +251,7 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.company.click();
             await page.waitForTimeout(2000);
-            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
             await page.waitForTimeout(2000);
 
             await expect(profilePage.defaultCompanyLogo).not.toBeVisible();

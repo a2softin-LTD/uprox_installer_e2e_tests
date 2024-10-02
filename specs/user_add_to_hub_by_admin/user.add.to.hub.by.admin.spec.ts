@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test.skip('Add new user by admin', async ({ page }) => {
+    test.skip('Add new user by admin', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf9"
@@ -39,14 +39,14 @@ test.describe('Hub Page tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
 
-        await expect (hubPage.findByText(newUser)).toBeVisible();
+        await expect (page.getByText(newUser)).toBeVisible();
 
         await page.waitForTimeout(1000);
-        await hubPage.findByText(name).click();
+        await page.getByText(name).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        await expect(hubPage.findByText(newUser)).not.toBeVisible();
+        await expect(page.getByText(newUser)).not.toBeVisible();
     });
 
 });

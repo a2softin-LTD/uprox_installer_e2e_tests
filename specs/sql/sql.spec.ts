@@ -36,13 +36,13 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
         qaPool = new Pool({connectionString: qaConnectionString});
         qaConnection = await qaPool.connect();
 
-        prodEventWrightConnectionString = `postgres://${prodEventWrightSqlConfig['user']}:${prodEventWrightSqlConfig['password']}@${prodEventWrightSqlConfig['host']}:${prodEventWrightSqlConfig['port']}/${prodEventWrightSqlConfig['database']}`;
-        prodEventWrightPool = new Pool({connectionString: prodEventWrightConnectionString});
-        prodEventWrightConnection = await prodEventWrightPool.connect();
+        //prodEventWrightConnectionString = `postgres://${prodEventWrightSqlConfig['user']}:${prodEventWrightSqlConfig['password']}@${prodEventWrightSqlConfig['host']}:${prodEventWrightSqlConfig['port']}/${prodEventWrightSqlConfig['database']}`;
+        //prodEventWrightPool = new Pool({connectionString: prodEventWrightConnectionString});
+        //prodEventWrightConnection = await prodEventWrightPool.connect();
     });
 
     test.describe('Get data from PROD DB and save to QA DB via sql-requests', () => {
-        test.skip('1. Get data from PROD DB and save to QA DB', async () => {
+        test('1. Get data from PROD DB and save to QA DB', { tag: '@db' }, async () => {
 
             let getEventsResults;
             let wrightEvents;
@@ -67,7 +67,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                 let offset: number = 1;
                 console.log("Offset = " + offset);
 
-                let fetch: number = 5000;
+                let fetch: number = 1000;
 
                 while (eventAmountQuery < 140000000) {
                     getEventsResults = await prodConnection.query(GET_EVENTS_BY_SAMPLE(offset++, fetch));
@@ -152,7 +152,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                 let offset: number = 1;
                 console.log("Offset = " + offset);
 
-                let fetch: number = 1000;
+                let fetch: number = 10000;
                 
                 let arrRecords10: Array<string> = [];
                 let arrRecords20: Array<string> = [];

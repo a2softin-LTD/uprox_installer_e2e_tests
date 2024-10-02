@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Add user by autonomus installer with Home permission', async ({ page }) => {
+    test('Add user by autonomus installer with Home permission', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -36,8 +36,8 @@ test.describe('Hub Page tests', () => {
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
-        if (await (hubPage.findByText(name)).isVisible()) {
-            await hubPage.findByText(name).click();
+        if (await (page.getByText(name)).isVisible()) {
+            await page.getByText(name).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
         await page.waitForTimeout(2000);
@@ -48,16 +48,16 @@ test.describe('Hub Page tests', () => {
         await hubPage.userAllowMobileAppManagementFromHome.click();
         await hubPage.addButton.click();
 
-        await expect (hubPage.findByText((newUser))).toBeVisible();
+        await expect (page.getByText((newUser))).toBeVisible();
 
-        await hubPage.findByText(name).click();
+        await page.getByText(name).click();
 
         expect(page.getByText('Delete user'));
         
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        await expect (hubPage.findByText((newUser))).not.toBeVisible();
+        await expect (page.getByText((newUser))).not.toBeVisible();
     });
 
 });

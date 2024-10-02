@@ -14,7 +14,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test.skip('Delete hub', async ({ page }) => {
+    test.skip('Delete hub', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0hx1"
@@ -29,8 +29,8 @@ test.describe('Hub Page tests', () => {
         await hubPage.deleteHubIcon.click();
         await hubPage.deleteButton.click();
 
-        await expect(hubPage.findByText('deleted successfully')).toBeVisible();
-        await expect (hubPage.findByText(nameHub)).not.toBeVisible();
+        await expect(page.getByText('deleted successfully')).toBeVisible();
+        await expect (page.getByText(nameHub)).not.toBeVisible();
     });
 
 });

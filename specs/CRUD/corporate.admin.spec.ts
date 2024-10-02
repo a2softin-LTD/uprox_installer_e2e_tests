@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
 import {
     SUPER_ADMIN,
     SYSTEM_ADMIN,
@@ -21,7 +21,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Creation of the Corporate Admin under the different role', () => {
 
-        test('Creation of the Corporate Administrator under the Role = SYSTEM_ADMIN', async ({ page }) => {
+        test('Creation of the Corporate Administrator under the Role = SYSTEM_ADMIN', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694attun"
@@ -77,7 +77,7 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText(name)).not.toBeVisible();
         });
 
-        test('Creation of the Corporate Administrator under the Role = SUPER_ADMIN)', async ({ page }) => {
+        test('Creation of the Corporate Administrator under the Role = SUPER_ADMIN)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694atuwv"

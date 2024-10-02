@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
@@ -17,7 +17,7 @@ test.describe('Profile Page tests', () => {
         profilePage = new ProfilePage(page);
     });
 
-    test('Checking UI elements on the page', async ({page}) => {
+    test('Checking UI elements on the page', { tag: '@smoke' }, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -54,7 +54,7 @@ test.describe('Profile Page tests', () => {
 
     test.describe('Company profile edit.', () => {
 
-        test('Company contact email editing', async ({page}) => {
+        test('Company contact email editing', { tag: '@smoke' }, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694mhnuq"
@@ -78,7 +78,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(oldEmail).last()).toBeVisible();
         });
 
-        test('Company contact phone editing', async ({page}) => {
+        test('Company contact phone editing', { tag: '@smoke' }, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694mhp23"
@@ -102,7 +102,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(oldPhone)).toBeVisible();
         });
 
-        test('Language for emails edit', async ({page}) => {
+        test('Language for emails edit', { tag: '@smoke' }, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694mhp9y"
@@ -126,7 +126,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(languageOld).first()).toBeVisible();
         });
 
-        test('Language of page editing', async ({page}) => {
+        test('Language of page editing', { tag: '@smoke' }, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678m6f8a"
@@ -151,7 +151,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
         });
 
-        test('Another settings editing: monitoring-service company', async ({ page }) => {
+        test('Another settings editing: monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694nrufc"
@@ -224,15 +224,15 @@ test.describe('Profile Page tests', () => {
 
         });
 
-        test('Add or change monitoring-service company logo', async ({ page }) => {
+        test('Add or change monitoring-service company logo', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694mhptt"
             });
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
-            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await expect(page.getByText('Company settings')).toBeVisible();
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
             await page.waitForTimeout(2000);
 
             await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
@@ -242,7 +242,7 @@ test.describe('Profile Page tests', () => {
             await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
         });
 
-        test('Delete monitoring-service company logo', async ({ page }) => {
+        test('Delete monitoring-service company logo', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694mhptt"
@@ -250,7 +250,7 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.company.click();
             await page.waitForTimeout(2000);
-            await profilePage.companyChangeLogoButton.setInputFiles("./test-materials/1.jpg");
+            await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
             await page.waitForTimeout(2000);
 
             await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
@@ -260,7 +260,7 @@ test.describe('Profile Page tests', () => {
             await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
         });
 
-        test('Information about company editing: monitoring-service  company', async ({page}) => {
+        test('Information about company editing: monitoring-service  company', { tag: '@smoke' }, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694mhqa6"
@@ -304,7 +304,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(oldCompanyContacts)).toBeVisible();
         });
 
-        test('Localization adding: monitoring-service company', async ({page}) => {
+        test('Localization adding: monitoring-service company', { tag: '@smoke' }, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678m6f8a"
@@ -339,7 +339,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(language)).not.toBeVisible();
         });
 
-        test('Localization deleting: monitoring-service company', async ({page}) => {
+        test('Localization deleting: monitoring-service company', { tag: '@smoke' }, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678m6f8a"

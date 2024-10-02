@@ -19,7 +19,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Checking registration. Positive scenarios', () => {
 
-        test('positive: Checking registration (valid user data)', async ({ page }) => {
+        test('positive: Checking registration (valid user data)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pv"
@@ -43,15 +43,15 @@ test.describe('Login Page tests', () => {
             await registrationPage.registerButton.click();
             await page.waitForTimeout(5000);
 
-            await expect(registrationPage.findByText('Email confirmation')).toBeVisible();
-            await expect(registrationPage.findByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`)).toBeVisible();
-            await expect(registrationPage.findByText('Not received an email?')).toBeVisible();
+            await expect(page.getByText('Email confirmation')).toBeVisible();
+            await expect(page.getByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`)).toBeVisible();
+            await expect(page.getByText('Not received an email?')).toBeVisible();
         });
     });
 
     test.describe('Checking registration. Negative scenarios', () => {
 
-        test('negative: Checking registration (non-valid user email)', async ({ page }) => {
+        test('negative: Checking registration (non-valid user email)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/8692uuajm"
@@ -64,10 +64,10 @@ test.describe('Login Page tests', () => {
             await registrationPage.emailField.fill(email);
             await registrationPage.registerButton.click();
 
-            await expect(registrationPage.findByText('Incorrect email address format.')).toBeVisible();
+            await expect(page.getByText('Incorrect email address format.')).toBeVisible();
         });
 
-        test('negative: Checking registration (non-valid user password)', async ({ page }) => {
+        test('negative: Checking registration (non-valid user password)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pw"
@@ -79,15 +79,15 @@ test.describe('Login Page tests', () => {
             await registrationPage.passwordField.click();
             await registrationPage.passwordField.fill(password);
 
-            await expect(registrationPage.findByText('Password must contain at least')).toBeVisible();
-            await expect(registrationPage.findByText('8 symbols')).toBeVisible();
-            await expect(registrationPage.findByText('1 number')).toBeVisible();
-            await expect(registrationPage.findByText('1 lowercase letter')).toBeVisible();
-            await expect(registrationPage.findByText('1 uppercase letter')).toBeVisible();
-            await expect(registrationPage.findByText('latin characters only')).toBeVisible();
+            await expect(page.getByText('Password must contain at least')).toBeVisible();
+            await expect(page.getByText('8 symbols')).toBeVisible();
+            await expect(page.getByText('1 number')).toBeVisible();
+            await expect(page.getByText('1 lowercase letter')).toBeVisible();
+            await expect(page.getByText('1 uppercase letter')).toBeVisible();
+            await expect(page.getByText('latin characters only')).toBeVisible();
         });
 
-        test('negative: Checking registration (already exist user data)', async ({ page }) => {
+        test('negative: Checking registration (already exist user data)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pw"
@@ -111,7 +111,7 @@ test.describe('Login Page tests', () => {
             await registrationPage.registerButton.click();
             await page.waitForTimeout(2000);
 
-            await expect(registrationPage.findByText('Email already exists')).toBeVisible();
+            await expect(page.getByText('Email already exists')).toBeVisible();
         });
     });
 });

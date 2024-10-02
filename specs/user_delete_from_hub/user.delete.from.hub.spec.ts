@@ -16,7 +16,7 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Delete user', async ({ page }) => {
+    test('Delete user', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694hvwdg"
@@ -38,8 +38,8 @@ test.describe('Profile Page tests', () => {
         {  await hubPage.closeWindowButton.click()}
         await page.waitForTimeout(2000);
         await hubPage.users.click();
-        if (await (hubPage.findByText(name)).isVisible()) {
-            await hubPage.findByText(name).click();
+        if (await (page.getByText(name)).isVisible()) {
+            await page.getByText(name).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
         await hubPage.addButton.click();
@@ -47,13 +47,13 @@ test.describe('Profile Page tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
         await page.waitForTimeout(5000);
-        await expect(hubPage.findByText(newUser)).toBeVisible();
-        await hubPage.findByText(newUser).click();
+        await expect(page.getByText(newUser)).toBeVisible();
+        await page.getByText(newUser).click();
         await page.waitForTimeout(2000);
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        await expect(hubPage.findByText((newUser))).not.toBeVisible();
+        await expect(page.getByText((newUser))).not.toBeVisible();
     });
 
 });

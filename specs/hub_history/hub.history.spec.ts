@@ -21,7 +21,7 @@ test.describe('Hub Page tests', () => {
 
     test.describe('History', () => {
 
-        test('History display', async ({ page }) => {
+        test('History display', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk8'
@@ -47,7 +47,7 @@ test.describe('Hub Page tests', () => {
             await expect(hubPage.historyLastEvent).toBeVisible();
         });
 
-        test('History filtration', async ({ page }) => {
+        test('History filtration', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk8'
@@ -71,8 +71,8 @@ test.describe('Hub Page tests', () => {
             await hubPage.historyArmsCheckBox.click();
             await page.waitForTimeout(2000);
 
-            await expect(hubPage.findByText('Removed user').first()).toBeVisible();
-            await expect(hubPage.findByText('Added new user').first()).toBeVisible();
+            await expect(page.getByText('Removed user').first()).toBeVisible();
+            await expect(page.getByText('Added new user').first()).toBeVisible();
 
             await hubPage.historyAlarmCheckBox.click();
             await hubPage.historyTroublesCheckBox.click();
@@ -80,12 +80,11 @@ test.describe('Hub Page tests', () => {
             await hubPage.historyActionsCheckBox.click();
             await page.waitForTimeout(2000);
 
-            await expect(hubPage.findByText('Removed user').first()).not.toBeVisible();
-            await expect(hubPage.findByText('Added new user').first()).not.toBeVisible();
+            await expect(page.getByText('Removed user').first()).not.toBeVisible();
+            await expect(page.getByText('Added new user').first()).not.toBeVisible();
         });
 
-
-        test('Download history file', async ({ page }) => {
+        test('Download history file', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk8'

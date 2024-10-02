@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
-import {MIXED, USER_1} from "../../utils/user_data";
+import { MIXED } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Troubles', async ({ page }) => {
+    test('Troubles', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694ky0zj"

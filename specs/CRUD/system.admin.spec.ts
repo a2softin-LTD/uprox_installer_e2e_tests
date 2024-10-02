@@ -1,9 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
 import {
-    SUPER_ADMIN,
-    SYSTEM_ADMIN,
+    SUPER_ADMIN
 } from "../../utils/user_data";
 import { ENVIRONMENT } from "../../utils/constants";
 import { faker } from "@faker-js/faker";
@@ -21,7 +20,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Creation of the System Admin by SUPER_ADMIN with and without password', () => {
 
-        test('Creation of the System Admin by SUPER_ADMIN with password', async ({ page }) => {
+        test('Creation of the System Admin by SUPER_ADMIN with password', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694aw8r6"
@@ -66,7 +65,7 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText(email)).not.toBeVisible();
         });
 
-        test('Creation of the System Admin by SUPER_ADMIN without password', async ({ page }) => {
+        test('Creation of the System Admin by SUPER_ADMIN without password', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694atvun"

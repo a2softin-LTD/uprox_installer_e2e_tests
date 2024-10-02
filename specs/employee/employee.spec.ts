@@ -21,7 +21,7 @@ test.describe('Profile Page tests', () => {
 
     test.describe('Employees', () => {
 
-        test('Add employee', async ({ page }) => {
+        test('Add employee', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju80"
@@ -53,7 +53,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(email)).not.toBeVisible();
         });
 
-        test('Delete employee', async ({ page }) => {
+        test('Delete employee', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694v0c04"
@@ -86,7 +86,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(email)).not.toBeVisible();
         });
 
-        test('Employee editing', async ({ page }) => {
+        test('Employee editing', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju83"
@@ -143,7 +143,7 @@ test.describe('Profile Page tests', () => {
 
         });
 
-        test('Employee search', async ({ page }) => {
+        test('Employee search', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju7u"

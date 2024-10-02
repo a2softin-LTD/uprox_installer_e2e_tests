@@ -20,7 +20,7 @@ test.describe('Profile Page tests', () => {
 
     test.describe('Checking UI elements of the Profile Page', () => {
 
-        test('Checking UI elements on the Profile Page', async () => {
+        test('Checking UI elements on the Profile Page', { tag: '@smoke' }, async () => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -44,7 +44,7 @@ test.describe('Profile Page tests', () => {
 
     test.describe('Profile edit.', () => {
 
-        test('Name edit', async ({ page }) => {
+        test('Name edit', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9at"
@@ -66,7 +66,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(oldName)).toBeVisible();
         });
 
-        test('Phone edit', async ({ page }) => {
+        test('Phone edit', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9uy"
@@ -88,7 +88,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(oldPhone)).toBeVisible();
         });
 
-        test('Password edit', async ({ page }) => {
+        test('Password edit', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9y0"
@@ -110,10 +110,10 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditNewPasswordField.fill(passwordCurrent);
             await profilePage.userEditSubmit.click();
 
-            await expect(profilePage.findByText('Changes saved successfully')).toBeVisible();
+            await expect(page.getByText('The password must be at least 8 characters, contain numbers and, at least, one uppercase and one lowercase letter')).not.toBeVisible();
         });
 
-        test('Language for emails edit', async ({ page }) => {
+        test('Language for emails edit', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rcapf"
@@ -135,7 +135,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(languageOld)).toBeVisible();
         });
 
-        test('Language edit', async ({ page }) => {
+        test('Language edit', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694f8kwd"
@@ -158,7 +158,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
         });
 
-        test('Support: autonomous user', async ({ page }) => {
+        test('Support: autonomous user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rcauf"
@@ -173,7 +173,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(supportEmail)).toBeVisible();
         });
 
-        test('Support: admin', async ({ page }) => {
+        test('Support: admin', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rcauf"

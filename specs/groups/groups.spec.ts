@@ -21,7 +21,7 @@ test.describe('Hub Page tests', () => {
 
     test.describe('Working with groups', () => {
 
-        test('Add group', async ({ page }) => {
+        test('Add group', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694euhpq'
@@ -39,8 +39,8 @@ test.describe('Hub Page tests', () => {
             if (await page.getByText('Update firmware version').isVisible())
             {  await hubPage.closeWindowButton.click()}
             await hubPage.users.click();
-            if (await (hubPage.findByText(name)).isVisible()) {
-                await hubPage.findByText(name).click();
+            if (await (page.getByText(name)).isVisible()) {
+                await page.getByText(name).click();
                 await hubPage.deleteUserButton.click();
                 await hubPage.submitButton.click();}
             await hubPage.groups.click();
@@ -51,25 +51,25 @@ test.describe('Hub Page tests', () => {
             await page.reload();
             await page.waitForTimeout(2000);
 
-            await expect(hubPage.findByText((nameOfGroup))).toBeVisible();
+            await expect(page.getByText((nameOfGroup))).toBeVisible();
 
-            await hubPage.findByText(nameOfGroup).click();
+            await page.getByText(nameOfGroup).click();
 
-            await expect(hubPage.findByText('Edit group')).toBeVisible();
+            await expect(page.getByText('Edit group')).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
             await page.waitForTimeout(2000);
 
-            await expect(hubPage.findByText(`Delete ${nameOfGroup}?`)).toBeVisible();
+            await expect(page.getByText(`Delete ${nameOfGroup}?`)).toBeVisible();
 
             await hubPage.deleteButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
 
-            await expect (hubPage.findByTextExact((nameOfGroup))).not.toBeVisible();
+            await expect (page.getByText((nameOfGroup))).not.toBeVisible();
         });
 
-        test('Change name of the group', async ({ page }) => {
+        test('Change name of the group', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694euhpq'
@@ -92,31 +92,31 @@ test.describe('Hub Page tests', () => {
             await page.waitForTimeout(2000);
             page.reload();
 
-            await expect(hubPage.findByText((nameOfGroup))).toBeVisible();
+            await expect(page.getByText((nameOfGroup))).toBeVisible();
 
             await page.waitForTimeout(2000);
-            await hubPage.findByText((nameOfGroup)).click();
+            await page.getByText((nameOfGroup)).click();
             await hubPage.groupBlockWithName.click();
             await hubPage.groupNameField.fill(newNameOfGroup);
             await hubPage.saveButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
 
-            await expect (hubPage.findByText((newNameOfGroup))).toBeVisible();
+            await expect (page.getByText((newNameOfGroup))).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
             await page.waitForTimeout(2000);
 
-            await expect(hubPage.findByText(`Delete ${newNameOfGroup}?`)).toBeVisible();
+            await expect(page.getByText(`Delete ${newNameOfGroup}?`)).toBeVisible();
 
             await hubPage.deleteButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
 
-            await expect (hubPage.findByTextExact((newNameOfGroup))).not.toBeVisible();
+            await expect (page.getByText((newNameOfGroup))).not.toBeVisible();
         });
 
-        test('Delete group', async ({ page }) => {
+        test('Delete group', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694euhpq'
@@ -143,22 +143,22 @@ test.describe('Hub Page tests', () => {
             await page.waitForTimeout(2000);
             await page.reload();
             await page.waitForTimeout(2000);
-            await expect(hubPage.findByText(nameOfGroup)).toBeVisible();
+            await expect(page.getByText(nameOfGroup)).toBeVisible();
 
-            await hubPage.findByText(nameOfGroup).click();
+            await page.getByText(nameOfGroup).click();
 
-            await expect(hubPage.findByText('Edit group')).toBeVisible();
+            await expect(page.getByText('Edit group')).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
             await page.waitForTimeout(2000);
 
-            await expect(hubPage.findByText(`Delete ${nameOfGroup}?`)).toBeVisible();
+            await expect(page.getByText(`Delete ${nameOfGroup}?`)).toBeVisible();
 
             await hubPage.deleteButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
 
-            await expect (hubPage.findByTextExact((nameOfGroup))).not.toBeVisible();
+            await expect (page.getByText((nameOfGroup))).not.toBeVisible();
         });
 
     });

@@ -16,7 +16,7 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('information about corporate hub ', async ({ page }) => {
+    test('information about corporate hub ', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0hzj"
@@ -43,42 +43,41 @@ test.describe('Profile Page tests', () => {
         { await expect(hub).toBeVisible();}
 
         await (hubPage.hubInformationIcon.first()).click();
-        await page.waitForTimeout(2000);
+        await expect(page.getByText('Panel information')).toBeVisible();
         await hubPage.editButton.click();
         await hubPage.hubInfoCity.click();
         await hubPage.hubInfoCity.fill('Poltava');
-        await hubPage.findByText('Poltava').click();
+        await page.getByText('Poltava').click();
         await hubPage.hubInfoBuilding.click();
         await hubPage.hubInfoBuilding.fill('12');
         await hubPage.hubInfoApartment.click();
         await hubPage.hubInfoApartment.fill('28');
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(3000);
         await hubPage.okButton.click();
         await page.waitForTimeout(4000);
         await page.reload();
-        await page.waitForTimeout(2000);
+        await expect(page.getByText('Number of devices in the company')).toBeVisible();
         await (hubPage.hubInformationIcon.first()).click();
-        await page.waitForTimeout(2000);
+        await expect(page.getByText('Panel information')).toBeVisible();
         await hubPage.editButton.click();
         await hubPage.hubInfoCity.click();
-        await page.waitForTimeout(2000);
-        await hubPage.hubInfoCity.fill('Dnipro');
-        await page.waitForTimeout(2000);
-        await hubPage.findByTextExact('Dnipro').click();
+        await page.waitForTimeout(3000);
+        await hubPage.hubInfoCity.fill('Poltava');
+        await page.getByText('Poltava').click();
         await page.waitForTimeout(2000);
         await hubPage.hubInfoBuilding.click();
         await hubPage.hubInfoBuilding.fill('45');
         await hubPage.hubInfoApartment.click();
         await hubPage.hubInfoApartment.fill('7');
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(3000);
         await hubPage.okButton.click();
         await page.waitForTimeout(4000);
         await page.reload();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(3000);
         await (hubPage.hubInformationIcon.first()).click();
 
-        await expect(hubPage.findByText('Dnipro')).toBeVisible();
-        await expect(hubPage.findByText('Sinna, 45, 7')).toBeVisible();
+        await expect(page.getByText('Poltava')).toBeVisible();
+        await expect(page.getByText('Sinna, 45, 7')).toBeVisible();
     });
 
 });

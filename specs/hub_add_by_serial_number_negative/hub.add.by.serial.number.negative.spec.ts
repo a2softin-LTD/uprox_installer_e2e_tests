@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Add hub by serial number:negative', async ({ page }) => {
+    test('Add hub by serial number:negative', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p1vxc"
@@ -35,7 +35,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.inputFirstField.fill(serialNumber);
         await hubPage.nextButton.click();
 
-        await expect(hubPage.findByText('Serial number in wrong format')).toBeVisible();
+        await expect(page.getByText('Serial number in wrong format')).toBeVisible();
     });
 
 });

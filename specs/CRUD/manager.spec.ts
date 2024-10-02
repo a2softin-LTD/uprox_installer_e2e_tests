@@ -18,7 +18,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Creation of the Security Company Admin under the different role', () => {
 
-        test('Creation of MANAGER under the Role = MONITORING_SERVICE_COMPANY_ADMIN', async ({ page }) => {
+        test('Creation of MANAGER under the Role = MONITORING_SERVICE_COMPANY_ADMIN', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694atxk3"
@@ -54,7 +54,7 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText(email)).not.toBeVisible();
         });
 
-        test.skip('Creation of MANAGER under the Role = CORP_ADMIN', async ({ page }) => {
+        test.skip('Creation of MANAGER under the Role = CORP_ADMIN', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694atyg8"

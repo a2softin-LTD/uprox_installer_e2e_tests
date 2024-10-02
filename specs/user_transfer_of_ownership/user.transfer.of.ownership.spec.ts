@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
 
@@ -16,7 +16,7 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test.skip('Transfer of ownership to new user', async ({ page }) => {
+    test.skip('Transfer of ownership to new user', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694hvwe2"
@@ -41,7 +41,7 @@ test.describe('Profile Page tests', () => {
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
-        await (hubPage.findByText(newOwner)).click();
+        await (page.getByText(newOwner)).click();
         await hubPage.userMobileApp.click();
         await page.waitForTimeout(2000);
         await hubPage.userManagementEnable.click();
@@ -51,10 +51,10 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.transferOwnershipButton.click();
         await page.waitForTimeout(2000);
-        await hubPage.findByTextExact((newOwner)).click();
+        await page.getByText((newOwner)).click();
         await hubPage.submitButton.click();
 
-        await expect(hubPage.findByText('successfully')).toBeVisible();
+        await expect(page.getByText('successfully')).toBeVisible();
     });
 
 });

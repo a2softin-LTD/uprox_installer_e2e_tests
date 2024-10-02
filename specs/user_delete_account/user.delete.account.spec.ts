@@ -14,7 +14,7 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test.skip('Delete account', async ({ page }) => {
+    test.skip('Delete account', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694f0xqb"
@@ -32,7 +32,7 @@ test.describe('Profile Page tests', () => {
         await profilePage.deleteCheckbox.click();
         await profilePage.deleteFinalButton.click();
 
-        await expect(profilePage.findByText('Your account has been successfully deleted')).toBeVisible();
+        await expect(page.getByText('Your account has been successfully deleted')).toBeVisible();
         await expect(page).toHaveURL('/login')
     });
 

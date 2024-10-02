@@ -32,7 +32,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Checking UI elements of the Page', () => {
 
-        test('Checking UI elements on the Login Page', async () => {
+        test('Checking UI elements on the Login Page', { tag: '@smoke' }, async () => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -53,7 +53,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Checking authorization with different roles. Positive scenarios', () => {
 
-        test('positive: Checking auth with Role = SUPER_ADMIN', async ({ page }) => {
+        test('positive: Checking auth with Role = SUPER_ADMIN', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -62,7 +62,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/support/search');
         });
 
-        test('positive: Checking auth with Role = CORP_ADMIN', async ({ page }) => {
+        test('positive: Checking auth with Role = CORP_ADMIN', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -71,7 +71,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/profile/companies');
         });
 
-        test('positive: Checking auth with Role = SYSTEM_ADMIN', async ({ page }) => {
+        test('positive: Checking auth with Role = SYSTEM_ADMIN', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -80,7 +80,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/support/search');
         });
 
-        test('positive: Checking auth with Role = INSTALLER', async ({ page }) => {
+        test('positive: Checking auth with Role = INSTALLER', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -89,7 +89,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/panels');
         });
 
-        test('positive: Checking auth with Role = SUPPORT', async ({ page }) => {
+        test('positive: Checking auth with Role = SUPPORT', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -98,7 +98,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/support/search');
         });
 
-        test('positive: Checking auth with Role = MIXED', async ({ page }) => {
+        test('positive: Checking auth with Role = MIXED', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -107,7 +107,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/panels');
         });
 
-        test('positive: Checking auth with Role = MANAGER', async ({ page }) => {
+        test('positive: Checking auth with Role = MANAGER', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -116,7 +116,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/profile/panels');
         });
 
-        test('positive: Checking auth with Role = MONITORING_SERVICE_COMPANY_1', async ({ page }) => {
+        test('positive: Checking auth with Role = MONITORING_SERVICE_COMPANY_1', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -125,7 +125,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/panels');
         });
 
-        test('positive: Checking auth with Role = MONITORING_SERVICE_COMPANY_2', async ({ page }) => {
+        test('positive: Checking auth with Role = MONITORING_SERVICE_COMPANY_2', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -134,7 +134,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/panels');
         });
 
-        test('positive: Checking auth with Role = MONITORING_COMPANY', async ({ page }) => {
+        test('positive: Checking auth with Role = MONITORING_COMPANY', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -143,7 +143,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/panels');
         });
 
-        test('positive: Checking auth with Role = ENGINEER', async ({ page }) => {
+        test('positive: Checking auth with Role = ENGINEER', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -152,7 +152,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/profile/feedback');
         });
 
-        test('positive: Checking auth with Role = USER_1', async ({ page }) => {
+        test('positive: Checking auth with Role = USER_1', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -161,7 +161,7 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/profile/panels');
         });
 
-        test('positive: Checking auth with Role = USER_2', async ({ page }) => {
+        test('positive: Checking auth with Role = USER_2', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -174,7 +174,7 @@ test.describe('Login Page tests', () => {
     test.describe('Checking authorization. Other scenarios Positive scenarios', () => {
 
         //TODO
-        test.skip('positive: Checking auth with included checkbox: Remember me', async ({ page }) => {
+        test.skip('positive: Checking auth with included checkbox: Remember me', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk8'
@@ -196,34 +196,34 @@ test.describe('Login Page tests', () => {
 
     test.describe('Checking authorization flow. Negative scenarios', () => {
 
-        test('negative: Checking auth with UNKNOWN_EMAIL', async ({ page }) => {
+        test('negative: Checking auth with UNKNOWN_EMAIL', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
             });
             await loginPage.auth(UNKNOWN_EMAIL);
-            await expect(loginPage.findByText(UIErrorMessages.WRONG_CREDENTIALS)).toBeVisible();
+            await expect(page.getByText(UIErrorMessages.WRONG_CREDENTIALS)).toBeVisible();
         });
 
-        test('negative: Checking auth with INVALID_EMAIL (without @)', async ({ page }) => {
+        test('negative: Checking auth with INVALID_EMAIL (without @)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
             });
             await loginPage.emailField.fill(INVALID_EMAIL_WITHOUT_AT['login']);
-            await expect(loginPage.findByText(UIErrorMessages.INCORRECT_EMAIL_ADDRESS)).toBeVisible();
+            await expect(page.getByText(UIErrorMessages.INCORRECT_EMAIL_ADDRESS)).toBeVisible();
         });
 
-        test('negative: Checking auth with INVALID_EMAIL (without domain)', async ({ page }) => {
+        test('negative: Checking auth with INVALID_EMAIL (without domain)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
             });
             await loginPage.emailField.fill(INVALID_EMAIL_WITHOUT_DOMAIN['login']);
-            await expect(loginPage.findByText(UIErrorMessages.INCORRECT_EMAIL_ADDRESS)).toBeVisible();
+            await expect(page.getByText(UIErrorMessages.INCORRECT_EMAIL_ADDRESS)).toBeVisible();
         });
 
-        test('negative: Checking auth with CLEARED_CREDENTIAL_FIELDS', async ({ page }) => {
+        test('negative: Checking auth with CLEARED_CREDENTIAL_FIELDS', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
@@ -233,10 +233,10 @@ test.describe('Login Page tests', () => {
             await loginPage.passwordField.fill(USER_1['password']);
             await loginPage.passwordField.clear();
             await loginPage.loginButton.click();
-            await expect(loginPage.findByText(UIErrorMessages.REQUIRED_FIELD)).toHaveCount(2);
+            await expect(page.getByText(UIErrorMessages.REQUIRED_FIELD)).toHaveCount(2);
         });
 
-        test('negative: Checking auth with EMPTY_CREDENTIAL_FIELDS', async ({ page }) => {
+        test('negative: Checking auth with EMPTY_CREDENTIAL_FIELDS', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
@@ -245,13 +245,13 @@ test.describe('Login Page tests', () => {
             await expect(loginPage.matWarn).toHaveCount(2);
         });
 
-        test('negative: Checking auth with INVALID_PASSWORD', async ({ page }) => {
+        test('negative: Checking auth with INVALID_PASSWORD', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk6'
             });
             await loginPage.auth(INVALID_PASSWORD);
-            await expect(loginPage.findByText(UIErrorMessages.WRONG_CREDENTIALS)).toBeVisible();
+            await expect(page.getByText(UIErrorMessages.WRONG_CREDENTIALS)).toBeVisible();
         });
 
     });

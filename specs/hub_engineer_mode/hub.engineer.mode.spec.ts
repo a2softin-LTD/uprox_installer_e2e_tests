@@ -21,7 +21,7 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
     });
 
-    test('Engineer mode ', async ({ page }) => {
+    test('Engineer mode ', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/86946gkfb"
@@ -34,26 +34,26 @@ test.describe('Hub Page tests', () => {
         await hubPage.hubEngineerModeSwitch.click();
         await page.waitForTimeout(2000);
 
-        await expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
+        await expect(page.getByText('Engineer mode seconds left:')).toBeVisible();
 
         await page.waitForTimeout(2000);
         await hubPage.hubEngineerModeSwitch.click();
         await page.waitForTimeout(2000);
 
-        await expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
+        await expect(page.getByText('Engineer mode seconds left:')).not.toBeVisible();
 
         await hubPage.wirelessDeviceAddButton.click();
         await page.waitForTimeout(2000);
         await hubPage.backButton.click();
         await page.waitForTimeout(2000);
 
-        await expect(hubPage.findByText('Engineer mode seconds left:')).toBeVisible();
+        await expect(page.getByText('Engineer mode seconds left:')).toBeVisible();
 
         await page.waitForTimeout(2000);
         await hubPage.hubEngineerModeSwitch.click();
         await page.waitForTimeout(2000);
 
-        await expect(hubPage.findByText('Engineer mode seconds left:')).not.toBeVisible();
+        await expect(page.getByText('Engineer mode seconds left:')).not.toBeVisible();
     });
 
 });

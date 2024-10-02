@@ -17,7 +17,7 @@ test.describe('HubPage tests', () => {
     });
 
 
-    test('Reboot hub', async ({ page }) => {
+    test('Reboot hub', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -39,7 +39,7 @@ test.describe('HubPage tests', () => {
         await hubPage.hubRebootButton.click();
         await hubPage.hubRebootSubmitButton.click();
 
-        await expect(hubPage.findByText('Changes saved successfully')).toBeVisible();
+        await expect(page.getByText('Changes saved successfully')).toBeVisible();
     });
 
 });

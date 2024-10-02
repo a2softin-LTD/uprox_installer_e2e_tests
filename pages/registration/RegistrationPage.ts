@@ -103,8 +103,8 @@ export class RegistrationPage extends BasePage {
         await this.emailField.fill(user['login']);
         await this.passwordField.fill(user['password']);
         await this.passwordEye.hover();
-        expect(this.findByText(user['login'])).toBeDefined();
-        expect(this.findByText(user['password'])).toBeDefined();
+        await expect(this.page.getByText(user['login'])).toBeDefined();
+        await expect(this.page.getByText(user['password'])).toBeDefined();
         if (isAgreeBox) {
             await this.agreeCheckbox.click();
         }

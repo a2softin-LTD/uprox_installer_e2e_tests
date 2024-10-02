@@ -16,7 +16,7 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test.skip('Delete wireless device', async ({ page }) => {
+    test.skip('Delete wireless device', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0hx1"
@@ -34,7 +34,7 @@ test.describe('Profile Page tests', () => {
         await hubPage.firstWirelessDevice.click();
         await hubPage.deleteNotExactButton.click();
 
-        await expect(hubPage.findByText('deleted successfully')).toBeVisible();
+        await expect(page.getByText('deleted successfully')).toBeVisible();
     });
 
 });

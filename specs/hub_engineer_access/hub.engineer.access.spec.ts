@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Access for engineer (company hub)', async ({ page }) => {
+    test('Access for engineer (company hub)', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -36,15 +36,15 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000)
         if (await ((profilePage.hubEngineerIcon).filter(({ hasText: engineersNumberFinal }))).isVisible())
         {        await profilePage.hubEngineerIcon.click();
-            await profilePage.findByText((engineerEmail)).click();
-            await hubPage.findByText('ОК').click();
+            await page.getByText((engineerEmail)).click();
+            await page.getByText('ОК').click();
             await page.waitForTimeout(1000)
             page.reload()
             await page.waitForTimeout(1000);}
 
         await profilePage.hubEngineerIcon.click();
-        await profilePage.findByText((engineerEmail)).click();
-        await hubPage.findByText('ОК').click();
+        await page.getByText((engineerEmail)).click();
+        await page.getByText('ОК').click();
 
         page.reload()
         await page.waitForTimeout(2000);
@@ -52,8 +52,8 @@ test.describe('Hub Page tests', () => {
         await expect(profilePage.hubEngineerIcon).toHaveText(engineersNumberFinal);
 
         await profilePage.hubEngineerIcon.click();
-        await profilePage.findByText((engineerEmail)).click();
-        await hubPage.findByText('ОК').click();
+        await page.getByText((engineerEmail)).click();
+        await page.getByText('ОК').click();
         page.reload()
         await page.waitForTimeout(2000);
 

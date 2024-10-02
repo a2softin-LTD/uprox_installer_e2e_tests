@@ -21,7 +21,7 @@ test.describe('Hub Page tests', () => {
 
     });
 
-    test('Hub air alarm setting', async ({ page }) => {
+    test('Hub air alarm setting', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -39,12 +39,12 @@ test.describe('Hub Page tests', () => {
         await hubPage.hubPanel.click();
         await hubPage.settingsAirAlarm.click();
         await hubPage.onButton.click();
-        await hubPage.findByText('Select region').click();
-        await hubPage.findByText((region)).click();
-        await hubPage.findByText('Select district').click();
-        await hubPage.findByText((district)).click();
-        await hubPage.findByText('Select community').click();
-        await hubPage.findByText((community)).click();
+        await page.getByText('Select region').click();
+        await page.getByText((region)).click();
+        await page.getByText('Select district').click();
+        await page.getByText((district)).click();
+        await page.getByText('Select community').click();
+        await page.getByText((community)).click();
         await hubPage.saveButton.click();
         await page.waitForTimeout(2000);
         await hubPage.settingsAirAlarm.click();
@@ -52,7 +52,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.saveButton.click();
         await page.waitForTimeout(2000);
 
-        await expect(hubPage.findByText('Turn off')).toBeVisible();
+        await expect(page.getByText('Turn off')).toBeVisible();
     });
 
 });

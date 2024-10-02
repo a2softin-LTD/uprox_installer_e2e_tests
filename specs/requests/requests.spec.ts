@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('New request', async ({ page }) => {
+    test('New request', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -47,7 +47,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.countryUkraine.click();
         await hubPage.saveButton.click();
         await page.waitForTimeout(2000);
-        await hubPage.findByText((nameOfCompany)).click();
+        await page.getByText((nameOfCompany)).click();
         await page.waitForTimeout(2000);
         await hubPage.requestsCreateApplicationButton.click();
         await hubPage.requestsContactPhoneField.fill(contactPhone);
@@ -55,7 +55,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.requestsNoteField.fill(note);
         await hubPage.requestsCreateApplicationButton.click();
 
-        await expect(hubPage.findByText('Transfer request sent')).toBeVisible();}
+        await expect(page.getByText('Transfer request sent')).toBeVisible();}
     });
 
 });

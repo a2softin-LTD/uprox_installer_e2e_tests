@@ -212,28 +212,6 @@ export class BasePage {
         return this._connectButton;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     async openLoginPage(env: string) {
         await this.page.goto(INSTALLER_LOGIN_URL(env));
     }
@@ -242,11 +220,11 @@ export class BasePage {
         return locator.click();
     }
 
-    findByText(text: string) {
+    async findByText(text: string) {
         return this.page.getByText(text);
     }
 
-    findByTextExact(text: string) {
+    async findByTextExact(text: string) {
         return this.page.getByText((text), { exact: true });
     }
 

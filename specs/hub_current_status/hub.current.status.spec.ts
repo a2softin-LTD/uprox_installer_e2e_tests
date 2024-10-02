@@ -22,7 +22,7 @@ test.describe('Hub Page tests', () => {
 
     });
 
-    test('Display of hub current status ', async ({ page }) => {
+    test('Display of hub current status ', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""

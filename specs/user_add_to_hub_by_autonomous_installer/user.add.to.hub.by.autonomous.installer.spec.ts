@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Add new user by autonomous installer', async ({ page }) => {
+    test('Add new user by autonomous installer', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -36,8 +36,8 @@ test.describe('Hub Page tests', () => {
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
-        if (await (hubPage.findByText(name)).isVisible())
-        {   await hubPage.findByText(name).click();
+        if (await (page.getByText(name)).isVisible())
+        {   await page.getByText(name).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
         await page.waitForTimeout(1000);
@@ -46,10 +46,10 @@ test.describe('Hub Page tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
 
-        await expect (hubPage.findByText((name))).toBeVisible();
+        await expect (page.getByText((name))).toBeVisible();
 
         await page.waitForTimeout(2000);
-        await hubPage.findByText(name).click();
+        await page.getByText(name).click();
 
         expect(page.getByText('Delete user'));
 
@@ -57,7 +57,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.submitButton.click();
         await page.waitForTimeout(1000);
 
-        await expect (hubPage.findByText((newUser))).not.toBeVisible();
+        await expect (page.getByText((newUser))).not.toBeVisible();
     });
 
 });

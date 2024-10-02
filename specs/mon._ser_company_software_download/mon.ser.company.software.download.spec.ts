@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
-import {MONITORING_SERVICE_COMPANY_1, USER_1} from "../../utils/user_data";
+import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -10,7 +10,7 @@ test.describe('Hub Page tests', () => {
     let profilePage: ProfilePage;
     let hubPage: HubPage;
 
-    test('Download additional software:monitoring-service company', async ({ page }) => {
+    test('Download additional software:monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694nt24q'

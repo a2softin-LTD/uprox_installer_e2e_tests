@@ -15,7 +15,7 @@ test.describe('Login Page tests', () => {
 
     test.describe('Checking recovery', () => {
 
-        test('positive: Checking recovery', async ({ page }) => {
+        test('positive: Checking recovery', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8692udkp3"
@@ -31,7 +31,7 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText('A password recovery email has been sent to your email.')).toBeVisible();
         });
 
-        test('negative: Checking recovery (non-valid user email)', async ({ page }) => {
+        test('negative: Checking recovery (non-valid user email)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8692udkp3"
@@ -44,10 +44,10 @@ test.describe('Login Page tests', () => {
             await loginPage.recoverySendButton.click();
             await page.waitForTimeout(2000);
 
-            await expect(loginPage.findByText('Incorrect email address format.')).toBeVisible();
+            await expect(page.getByText('Incorrect email address format.')).toBeVisible();
         });
 
-        test('negative: Checking recovery (valid not-registrated user email)', async ({ page }) => {
+        test('negative: Checking recovery (valid not-registrated user email)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8692udkp3"
@@ -61,7 +61,7 @@ test.describe('Login Page tests', () => {
             await loginPage.recoverySendButton.click();
             await page.waitForTimeout(2000);
 
-            await expect(loginPage.findByText('User not found')).toBeVisible();
+            await expect(page.getByText('User not found')).toBeVisible();
         });
     });
 });

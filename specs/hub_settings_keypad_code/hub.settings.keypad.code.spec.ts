@@ -21,7 +21,7 @@ test.describe('Hub Page tests', () => {
 
     });
 
-    test('Keypad code setting', async ({ page }) => {
+    test('Keypad code setting', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8693q67d2"
@@ -51,12 +51,12 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(1000);
         await hubPage.change_Button.click();
 
-        await expect(hubPage.findByText('6 symbols')).toBeVisible();
+        await expect(page.getByText('6 symbols')).toBeVisible();
 
         await page.waitForTimeout(2000);
         await hubPage.users.click();
-        if (await (hubPage.findByText(name)).isVisible()) {
-            await hubPage.findByText(name).click();
+        if (await (page.getByText(name)).isVisible()) {
+            await page.getByText(name).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
         await page.waitForTimeout(1000);
@@ -65,7 +65,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
         await page.waitForTimeout(1000);
-        await hubPage.findByText(mail).click();
+        await page.getByText(mail).click();
         await page.waitForTimeout(1000);
         await hubPage.settingsArmKeypadCode.click();
         await page.waitForTimeout(1000);
@@ -74,7 +74,7 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(1000);
         await hubPage.users.click();
         await page.waitForTimeout(1000);
-        await hubPage.findByText(name).click();
+        await page.getByText(name).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
         await page.waitForTimeout(2000);
@@ -86,7 +86,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.change_Button.click();
         await page.waitForTimeout(2000);
 
-        await expect(hubPage.findByText('6 symbols')).toBeVisible();
+        await expect(page.getByText('6 symbols')).toBeVisible();
     });
 
 });

@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {HubPage} from "../../pages/hub/HubPage";
-import {USER_1} from "../../utils/user_data";
-import {USER_3} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { HubPage } from "../../pages/hub/HubPage";
+import { USER_1 } from "../../utils/user_data";
+import { USER_3 } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 
@@ -17,7 +17,7 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Login by user added from Home app', async ({ page }) => {
+    test('Login by user added from Home app', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -37,8 +37,8 @@ test.describe('Profile Page tests', () => {
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
-        if (await (hubPage.findByText(name)).isVisible()) {
-            await hubPage.findByText(name).click();
+        if (await (page.getByText(name)).isVisible()) {
+            await page.getByText(name).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
         await page.waitForTimeout(2000);
@@ -50,7 +50,7 @@ test.describe('Profile Page tests', () => {
         await hubPage.addButton.click();
         await page.waitForTimeout(2000);
 
-        await expect(hubPage.findByText((name))).toBeVisible();
+        await expect(page.getByText((name))).toBeVisible();
 
         await page.waitForTimeout(1000);
         await profilePage.logoutButton.click();

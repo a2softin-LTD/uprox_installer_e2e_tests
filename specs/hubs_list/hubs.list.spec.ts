@@ -17,7 +17,7 @@ test.describe('Profile Page tests', () => {
     });
 
 
-    test('Hubs list for user', async ({ page }) => {
+    test('Hubs list for user', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0fth"
@@ -40,7 +40,7 @@ test.describe('Profile Page tests', () => {
 
     });
 
-    test('Hubs list for company', async ({ page }) => {
+    test('Hubs list for company', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0fth"

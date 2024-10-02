@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {MONITORING_COMPANY_1} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { MONITORING_COMPANY_1 } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 
@@ -19,7 +19,7 @@ test.describe('Profile Page tests', () => {
 
     });
 
-    test('Servers list: monitoring company', async ({ page }) => {
+    test('Servers list: monitoring company', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694fb8kd"
@@ -41,7 +41,7 @@ test.describe('Profile Page tests', () => {
         {await expect(server.filter({has: profilePage.trashIcon})).toBeVisible();}
     });
 
-    test('Add server: monitoring company', async ({ page }) => {
+    test('Add server: monitoring company', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694fb8nk"
@@ -70,7 +70,7 @@ test.describe('Profile Page tests', () => {
         await expect(page.getByText(newName)).not.toBeVisible();
     });
 
-    test('Delete server: monitoring company', async ({ page }) => {
+    test('Delete server: monitoring company', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694mgxr1"
@@ -101,7 +101,7 @@ test.describe('Profile Page tests', () => {
         await expect(page.getByText(newName)).not.toBeVisible();
     });
 
-    test('Server settings editing: monitoring company', async ({ page }) => {
+    test('Server settings editing: monitoring company', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694mh0qb"
@@ -127,7 +127,7 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(2000);
         await expect(page.getByText(oldName)).toBeVisible();
 
-        await profilePage.findByText((oldName)).click();
+        await page.getByText((oldName)).click();
         await profilePage.companyNameServerField.fill(newName);
         await profilePage.companyDnsServerField.fill(newDNS);
         await profilePage.companyPortServerField.fill(newPort);

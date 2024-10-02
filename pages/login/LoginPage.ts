@@ -103,8 +103,8 @@ export class LoginPage extends BasePage {
         await this.emailField.fill(user['login']);
         await this.passwordField.fill(user['password']);
         await this.passwordEye.hover();
-        expect(this.findByText(user['login'])).toBeDefined();
-        expect(this.findByText(user['password'])).toBeDefined();
+        expect(this.page.getByText(user['login'])).toBeDefined();
+        expect(this.page.getByText(user['password'])).toBeDefined();
         await this.loginButton.click();
     }
 
