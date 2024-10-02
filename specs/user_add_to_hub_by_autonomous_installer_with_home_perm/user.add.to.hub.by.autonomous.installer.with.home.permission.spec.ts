@@ -16,7 +16,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Add user by autonomus installer with Home permission', { tag: '@smoke' }, async ({ page }) => {
+    test('Add user by autonomus installer with Home permission', async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -47,6 +47,7 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.userAllowMobileAppManagementFromHome.click();
         await hubPage.addButton.click();
+        await page.waitForTimeout(2000);
 
         await expect (page.getByText((newUser))).toBeVisible();
 
