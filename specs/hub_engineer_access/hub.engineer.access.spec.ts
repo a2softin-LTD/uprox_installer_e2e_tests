@@ -33,7 +33,6 @@ test.describe('Hub Page tests', () => {
 
         await profilePage.panels.click();
 
-        await page.waitForTimeout(2000)
         if (await ((profilePage.hubEngineerIcon).filter(({ hasText: engineersNumberFinal }))).isVisible())
         {        await profilePage.hubEngineerIcon.click();
             await page.getByText((engineerEmail)).click();

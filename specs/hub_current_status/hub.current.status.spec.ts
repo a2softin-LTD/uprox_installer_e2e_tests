@@ -30,7 +30,6 @@ test.describe('Hub Page tests', () => {
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();
-        await page.waitForTimeout(2000);
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
 

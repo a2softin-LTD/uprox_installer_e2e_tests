@@ -31,7 +31,6 @@ test.describe('Hub Page tests', () => {
             const name: string = "Дмитро";
 
             await loginPage.auth(USER_1);
-            await page.waitForTimeout(2000);
             await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
@@ -65,6 +64,7 @@ test.describe('Hub Page tests', () => {
             await hubPage.deleteButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
+            await page.waitForTimeout(2000);
 
             await expect (page.getByText((nameOfGroup))).not.toBeVisible();
         });
@@ -78,7 +78,6 @@ test.describe('Hub Page tests', () => {
             const newNameOfGroup: string = 'newgroup_' + faker.string.alphanumeric({ length: { min: 2, max: 4 } });
 
             await loginPage.auth(USER_1);
-            await page.waitForTimeout(2000);
             await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
@@ -91,21 +90,21 @@ test.describe('Hub Page tests', () => {
             await hubPage.saveButton.click();
             await page.waitForTimeout(2000);
             page.reload();
+            await page.waitForTimeout(2000);
 
             await expect(page.getByText((nameOfGroup))).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await page.getByText((nameOfGroup)).click();
             await hubPage.groupBlockWithName.click();
             await hubPage.groupNameField.fill(newNameOfGroup);
             await hubPage.saveButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
+            await page.waitForTimeout(2000);
 
             await expect (page.getByText((newNameOfGroup))).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(`Delete ${newNameOfGroup}?`)).toBeVisible();
 
@@ -125,12 +124,10 @@ test.describe('Hub Page tests', () => {
             const nameOfGroup: string = 'DELETE_' + faker.string.alphanumeric({ length: { min: 10, max: 12 } });
 
             await loginPage.auth(USER_1);
-            await page.waitForTimeout(2000);
             await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
-            await page.waitForTimeout(2000);
             if (await page.getByText('Update firmware version').isVisible())
             {  await hubPage.closeWindowButton.click()}
             await hubPage.groups.click();
@@ -140,24 +137,20 @@ test.describe('Hub Page tests', () => {
 
             await hubPage.groupNameField.fill(nameOfGroup);
             await hubPage.saveButton.click();
-            await page.waitForTimeout(2000);
+            await expect(hubPage.groupAddGroupButton).toBeVisible();
+            await expect(page.getByText(nameOfGroup).last()).toBeVisible();
             await page.reload();
-            await page.waitForTimeout(2000);
-            await expect(page.getByText(nameOfGroup)).toBeVisible();
-
             await page.getByText(nameOfGroup).click();
 
             await expect(page.getByText('Edit group')).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(`Delete ${nameOfGroup}?`)).toBeVisible();
 
             await hubPage.deleteButton.click();
-            await page.waitForTimeout(2000);
-            await page.reload();
 
+            await expect(hubPage.groupAddGroupButton).toBeVisible();
             await expect (page.getByText((nameOfGroup))).not.toBeVisible();
         });
 

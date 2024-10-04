@@ -25,7 +25,6 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.logoutButton.click();
-        await page.waitForTimeout(2000)
 
         await expect(page).toHaveURL('/login')
     });

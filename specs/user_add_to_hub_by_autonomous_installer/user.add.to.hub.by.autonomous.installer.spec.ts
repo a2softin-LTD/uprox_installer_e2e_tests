@@ -45,7 +45,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
-
+        await page.waitForTimeout(2000);
         await expect (page.getByText((name))).toBeVisible();
 
         await page.waitForTimeout(2000);

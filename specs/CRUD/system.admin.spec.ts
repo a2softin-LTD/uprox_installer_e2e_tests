@@ -37,14 +37,11 @@ test.describe('Login Page tests', () => {
             expect(page.url()).toContain('/support/search');
 
             await profilePage.permissions.click();
-            await page.waitForTimeout(1000);
             await profilePage.addButton.click();
             await profilePage.inputFirstField.fill(email);
             await profilePage.inputSecondField.fill(password);
             await profilePage.inputThirdField.fill(name);
-            await page.waitForTimeout(1000);
             await profilePage.selectFirstField.click();
-            await page.waitForTimeout(2000);
             await (page.getByText(role)).click()
             await profilePage.addButton.click()
             await page.waitForTimeout(2000);
@@ -54,13 +51,13 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText(email)).toBeVisible();
 
             await (page.getByText(name)).click()
-            await page.waitForTimeout(1000);
             await profilePage.deleteUserButton.click();
-            await page.waitForTimeout(1000);
+
             await profilePage.submitButton.click();
+
             await page.waitForTimeout(3000);
             await page.reload();
-            await page.waitForTimeout(1000)
+            await page.waitForTimeout(3000)
 
             await expect(page.getByText(email)).not.toBeVisible();
         });
@@ -81,29 +78,24 @@ test.describe('Login Page tests', () => {
             expect(page.url()).toContain('/support/search');
 
             await profilePage.permissions.click();
-            await page.waitForTimeout(1000);
             await profilePage.addButton.click();
             await profilePage.inputFirstField.fill(email);
             await profilePage.inputThirdField.fill(name);
-            await page.waitForTimeout(1000);
             await profilePage.selectFirstField.click();
-            await page.waitForTimeout(2000);
             await (page.getByText(role)).click()
             await profilePage.addButton.click()
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(3000);
             await page.reload();
-            await page.waitForTimeout(2000)
+            await page.waitForTimeout(3000)
 
             await expect(page.getByText(email)).toBeVisible();
 
             await (page.getByText(name)).click()
-            await page.waitForTimeout(1000);
             await profilePage.deleteUserButton.click();
-            await page.waitForTimeout(1000);
             await profilePage.submitButton.click();
             await page.waitForTimeout(3000);
             await page.reload();
-            await page.waitForTimeout(1000)
+            await page.waitForTimeout(3000)
 
             await expect(page.getByText(email)).not.toBeVisible();
         });

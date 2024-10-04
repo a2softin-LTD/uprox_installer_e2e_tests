@@ -32,59 +32,43 @@ test.describe('Hub Page tests', () => {
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();
-        await page.waitForTimeout(1000);
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.hubPanel.click();
-        await page.waitForTimeout(1000);
         await hubPage.settingsKeypadCodeLength.click();
         await hubPage.settingsKeypadCodeLength4digits.click();
         if (await hubPage.changeButton.isDisabled())
-        {  await page.waitForTimeout(1000);
-            await hubPage.settingsKeypadCodeLength6digits.click()
-            await page.waitForTimeout(2000);
+        {   await hubPage.settingsKeypadCodeLength6digits.click()
             await hubPage.change_Button.click();
-            await page.waitForTimeout(2000);
             await page.reload();
             await hubPage.settingsKeypadCodeLength.click();
             await hubPage.settingsKeypadCodeLength4digits.click();}
-        await page.waitForTimeout(1000);
         await hubPage.change_Button.click();
 
         await expect(page.getByText('6 symbols')).toBeVisible();
 
-        await page.waitForTimeout(2000);
         await hubPage.users.click();
         if (await (page.getByText(name)).isVisible()) {
             await page.getByText(name).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
-        await page.waitForTimeout(1000);
         await hubPage.addButton.click();
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
-        await page.waitForTimeout(1000);
         await page.getByText(mail).click();
-        await page.waitForTimeout(1000);
         await hubPage.settingsArmKeypadCode.click();
-        await page.waitForTimeout(1000);
         await hubPage.settingsKeypadCodeField.fill(code);
         await hubPage.saveButton.click();
-        await page.waitForTimeout(1000);
         await hubPage.users.click();
-        await page.waitForTimeout(1000);
         await page.getByText(name).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
-        await page.waitForTimeout(2000);
         await hubPage.system.click();
         await hubPage.hubPanel.click();
         await hubPage.settingsKeypadCodeLength.click();
         await hubPage.settingsKeypadCodeLength6digits.click();
-        await page.waitForTimeout(2000);
         await hubPage.change_Button.click();
-        await page.waitForTimeout(2000);
 
         await expect(page.getByText('6 symbols')).toBeVisible();
     });

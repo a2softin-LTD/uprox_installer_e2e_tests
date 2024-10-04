@@ -26,9 +26,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/panels');
 
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyAdditionalSoftware.click();
-        await page.waitForTimeout(1000);
 
         const downloadPromise = page.waitForEvent('download');
         await hubPage.entityBlock.last().click();

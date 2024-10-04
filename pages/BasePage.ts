@@ -10,6 +10,7 @@ export class BasePage {
     private readonly _deleteUserButton: Locator;
     private readonly _addButton: Locator;
     private readonly _trashIcon: Locator;
+    private readonly _banIcon: Locator;
     private readonly _closeWindowButton: Locator;
     private readonly _disableButton: Locator;
     private readonly _enableButton: Locator;
@@ -23,6 +24,7 @@ export class BasePage {
     private readonly _editButton: Locator;
     private readonly _exportButton: Locator;
     private readonly _changeButton: Locator;
+    private readonly _applyButton: Locator;
     private readonly _inputFirstField: Locator;
     private readonly _inputSecondField: Locator;
     private readonly _inputThirdField: Locator;
@@ -37,6 +39,11 @@ export class BasePage {
     private readonly _entityText: Locator;
     private readonly _inputField: Locator;
     private readonly _connectButton: Locator;
+    private readonly _sendButton: Locator;
+    private readonly _resendEmailButton: Locator;
+    private readonly _informationIcon: Locator
+    private readonly _searchField: Locator;
+    private readonly _pageTitle: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -53,6 +60,7 @@ export class BasePage {
         this._nextButton = page.getByText('Next');
         this._yesButton = page.getByText('Yes');
         this._noButton = page.getByText('No');
+        this._applyButton = page.getByText('Apply');
         this._okButton = page.getByRole('button', { name: 'ОК' });
         this._backButton = page.locator('use[*|href="#icon-arrow"]');
         this._onButton = page.getByText('On',{ exact: true });
@@ -73,7 +81,13 @@ export class BasePage {
         this._entityBlock = this.page.locator('.part__item');
         this._entityText = this.page.locator('.part__item-text');
         this._inputField = page.locator('input[type="text"]');
-        this._connectButton = page.getByText('Connect',{ exact: true });
+        this._connectButton = page.getByText('Connect',{ exact: true })
+        this._sendButton = page.getByText('Send',{ exact: true });
+        this._resendEmailButton = page.getByText('Resend Email',{ exact: true });
+        this._banIcon = page.locator('use[*|href="#icon-ban"]');
+        this._informationIcon = page.locator('use[*|href="#icon-About"]');
+        this._searchField = page.locator('input[placeholder="Search"]');
+        this._pageTitle = page.locator('h3');
     }
 
     get saveButton(): Locator {
@@ -94,6 +108,10 @@ export class BasePage {
 
     get trashIcon(): Locator {
         return this._trashIcon;
+    }
+
+    get banIcon(): Locator {
+        return this._banIcon;
     }
 
     get submitButton(): Locator {
@@ -211,6 +229,43 @@ export class BasePage {
     get connectButton(): Locator {
         return this._connectButton;
     }
+
+    get sendButton(): Locator {
+        return this._sendButton;
+    }
+
+    get resendEmailButton(): Locator {
+        return this._resendEmailButton;
+    }
+
+    get informationIcon (): Locator {
+        return this._informationIcon  ;
+    }
+
+    get searchField (): Locator {
+        return this._searchField  ;
+    }
+
+    get pageTitle (): Locator {
+        return this._pageTitle  ;
+    }
+
+    get applyButton (): Locator {
+        return this._applyButton ;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     async openLoginPage(env: string) {
         await this.page.goto(INSTALLER_LOGIN_URL(env));

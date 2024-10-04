@@ -46,11 +46,9 @@ test.describe('Hub Page tests', () => {
         await page.getByText('Select community').click();
         await page.getByText((community)).click();
         await hubPage.saveButton.click();
-        await page.waitForTimeout(2000);
         await hubPage.settingsAirAlarm.click();
         await hubPage.offButton.click();
         await hubPage.saveButton.click();
-        await page.waitForTimeout(2000);
 
         await expect(page.getByText('Turn off')).toBeVisible();
     });

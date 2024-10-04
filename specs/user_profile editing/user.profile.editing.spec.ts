@@ -58,7 +58,6 @@ test.describe('Profile Page tests', () => {
 
             await expect(page.getByText(newName)).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await profilePage.userName.click();
             await profilePage.userEditField.fill(oldName);
             await profilePage.userEditSubmit.click();
@@ -80,7 +79,6 @@ test.describe('Profile Page tests', () => {
 
             await expect(page.getByText(newPhone)).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await profilePage.userPhone.click();
             await profilePage.userEditField.fill(oldPhone);
             await profilePage.userEditSubmit.click();
@@ -88,30 +86,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(oldPhone)).toBeVisible();
         });
 
-        test('Password edit', { tag: '@smoke' }, async ({ page }) => {
-            test.info().annotations.push({
-                type: "test_id",
-                description: "https://app.clickup.com/t/8678rc9y0"
-            });
-            const passwordCurrent: string = "lepidoptera111278DAP!@#";
-            const passwordNew: string = "lepidoptera111278DAP!";
 
-            await profilePage.userPassword.click();
-            await page.waitForTimeout(2000);
-            await profilePage.userEditCurrentPasswordField.fill(passwordCurrent);
-            await profilePage.userEditNewPasswordField.click();
-            await profilePage.userEditNewPasswordField.fill(passwordNew);
-            await profilePage.userEditSubmit.click();
-            await page.waitForTimeout(2000);
-            await profilePage.userPassword.click();
-            await page.waitForTimeout(2000);
-            await profilePage.userEditCurrentPasswordField.fill(passwordNew);
-            await profilePage.userEditNewPasswordField.click();
-            await profilePage.userEditNewPasswordField.fill(passwordCurrent);
-            await profilePage.userEditSubmit.click();
-
-            await expect(page.getByText('The password must be at least 8 characters, contain numbers and, at least, one uppercase and one lowercase letter')).not.toBeVisible();
-        });
 
         test('Language for emails edit', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
@@ -127,7 +102,6 @@ test.describe('Profile Page tests', () => {
 
             await expect(page.getByText(languageNew)).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await profilePage.userLanguageForEmails.click();
             await page.getByText(languageOld).click();
             await profilePage.saveButton.click();
@@ -151,7 +125,6 @@ test.describe('Profile Page tests', () => {
 
             await expect(page.getByRole('heading', {name: newTitle})).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await profilePage.languageChoice.click();
             await page.getByText(languageOld, { exact: true }).click();
 
@@ -182,11 +155,9 @@ test.describe('Profile Page tests', () => {
             const supportEmail: string = "support@u-prox.systems";
 
             await profilePage.logoutButton.click();
-            await page.waitForTimeout(2000)
             await loginPage.openLoginPage('dev');
             await expect(page).toHaveURL('/login')
             await loginPage.auth(MIXED);
-            await page.waitForTimeout(2000);
             await expect(page).toHaveURL('/panels')
 
             await profilePage.myProfileButton.click();
@@ -202,6 +173,29 @@ test.describe('Profile Page tests', () => {
 
             for (const message of await profilePage.entityBlock.all())
                 await expect(message).toHaveText(/\b[0-2]?\d:[0-5]\d\b/mg);
+        });
+
+        test('Password edit', { tag: '@smoke' }, async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8678rc9y0"
+            });
+            const passwordCurrent: string = "lepidoptera111278DAP!@#";
+            const passwordNew: string = "lepidoptera111278DAP!";
+
+            await profilePage.userPassword.click();
+            await profilePage.userEditCurrentPasswordField.fill(passwordCurrent);
+            await profilePage.userEditNewPasswordField.click();
+            await profilePage.userEditNewPasswordField.fill(passwordNew);
+            await profilePage.userEditSubmit.click();
+            await page.waitForTimeout(3000);
+            await profilePage.userPassword.click();
+            await profilePage.userEditCurrentPasswordField.fill(passwordNew);
+            await profilePage.userEditNewPasswordField.click();
+            await profilePage.userEditNewPasswordField.fill(passwordCurrent);
+            await profilePage.userEditSubmit.click();
+            await page.waitForTimeout(2000);
+            await expect(page.getByText('The password must be at least 8 characters, contain numbers and, at least, one uppercase and one lowercase letter')).not.toBeVisible();
         });
     });
 });

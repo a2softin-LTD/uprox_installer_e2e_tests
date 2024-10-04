@@ -16,7 +16,7 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('information about corporate hub ', { tag: '@smoke' }, async ({ page }) => {
+    test('Editing information about corporate hub', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0hzj"
@@ -29,11 +29,10 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/panels');
 
         await page.waitForTimeout(2000);
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
 
         for (const hub of await profilePage.hubEngineerIcon.all())
         { await expect(hub).toBeVisible();}
-        for (const hub of await hubPage.hubInformationIcon.all())
+        for (const hub of await hubPage.informationIcon.all())
         { await expect(hub).toBeVisible();}
         for (const hub of await hubPage.deleteHubIcon.all())
         { await expect(hub).toBeVisible();}
@@ -42,7 +41,7 @@ test.describe('Profile Page tests', () => {
         for (const hub of await hubPage.hubCorpNumberConnectionInfo.all())
         { await expect(hub).toBeVisible();}
 
-        await (hubPage.hubInformationIcon.first()).click();
+        await (hubPage.informationIcon.first()).click();
         await expect(page.getByText('Panel information')).toBeVisible();
         await hubPage.editButton.click();
         await hubPage.hubInfoCity.click();
@@ -56,14 +55,15 @@ test.describe('Profile Page tests', () => {
         await hubPage.okButton.click();
         await page.waitForTimeout(4000);
         await page.reload();
+        await page.waitForTimeout(2000);
         await expect(page.getByText('Number of devices in the company')).toBeVisible();
-        await (hubPage.hubInformationIcon.first()).click();
+        await (hubPage.informationIcon.first()).click();
         await expect(page.getByText('Panel information')).toBeVisible();
         await hubPage.editButton.click();
         await hubPage.hubInfoCity.click();
         await page.waitForTimeout(3000);
-        await hubPage.hubInfoCity.fill('Poltava');
-        await page.getByText('Poltava').click();
+        await hubPage.hubInfoCity.fill('Dnipro');
+        await page.getByText('Dnipro', { exact: true }).click();
         await page.waitForTimeout(2000);
         await hubPage.hubInfoBuilding.click();
         await hubPage.hubInfoBuilding.fill('45');
@@ -74,9 +74,9 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(4000);
         await page.reload();
         await page.waitForTimeout(3000);
-        await (hubPage.hubInformationIcon.first()).click();
+        await (hubPage.informationIcon.first()).click();
 
-        await expect(page.getByText('Poltava')).toBeVisible();
+        await expect(page.getByText('Dnipro')).toBeVisible();
         await expect(page.getByText('Sinna, 45, 7')).toBeVisible();
     });
 

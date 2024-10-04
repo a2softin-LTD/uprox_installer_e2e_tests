@@ -87,14 +87,12 @@ test.describe('Profile Page tests', () => {
             const oldPhone: string = "+380971344443";
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyContactPhone.click();
             await profilePage.userEditField.fill(newPhone);
             await profilePage.saveButton.click();
 
             await expect(page.getByText(newPhone)).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await profilePage.companyContactPhone.click();
             await profilePage.userEditField.fill(oldPhone);
             await profilePage.saveButton.click();
@@ -111,14 +109,12 @@ test.describe('Profile Page tests', () => {
             const languageNew: string = "Ukrainian";
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyLanguageForEmails.click();
             await page.getByText(languageNew).click();
             await profilePage.saveButton.click();
 
             await expect(page.getByText(languageNew, {exact: true}).first()).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await profilePage.companyLanguageForEmails.click();
             await page.getByText(languageOld).click();
             await profilePage.saveButton.click();
@@ -144,7 +140,6 @@ test.describe('Profile Page tests', () => {
 
             await expect(page.getByRole('heading', {name: newTitle})).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await profilePage.languageChoice.click();
             await page.getByText(languageOld, {exact: true}).click();
 
@@ -166,30 +161,19 @@ test.describe('Profile Page tests', () => {
             const firstEvent: string = "Arms/Disarms";
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyCountry.click();
             await profilePage.inputField.fill(countryNew);
-            await page.waitForTimeout(1000);
-            await page.getByText(countryNew).click();
-            await page.waitForTimeout(1000);
+            await page.getByText(countryNew).last().click();
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyUsersCabinet.click();
-            await page.waitForTimeout(1000);
             await profilePage.inputField.fill(cabinetNew);
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyGuestEngineers.click();
-            await page.waitForTimeout(1000);
-            await page.getByText(guestsNewStatus).click();
-            await page.waitForTimeout(1000);
+            await page.getByText(guestsNewStatus).first().click();
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyEventCategories.click();
-            await page.waitForTimeout(2000);
             await page.getByText(firstEvent, { exact: true }).click();
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(countryNew)).toBeVisible();
             await expect(page.getByText(cabinetNew)).toBeVisible();
@@ -198,24 +182,18 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.companyCountry.click();
             await profilePage.inputField.fill(countryOld);
-            await page.waitForTimeout(1000);
             await page.getByText(countryOld).click();
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyUsersCabinet.click();
-            await page.waitForTimeout(1000);
             await profilePage.inputField.fill(cabinetOld);
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
+            await expect(page.getByText('Company settings')).toBeVisible();
             await profilePage.companyGuestEngineers.click();
-            await page.waitForTimeout(1000);
             await page.getByText(guestsOldStatus).click();
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyEventCategories.click();
             await page.getByText(firstEvent).click();
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(countryOld)).toBeVisible();
             await expect(page.getByText(cabinetOld)).toBeVisible();
@@ -233,7 +211,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.company.click();
             await expect(page.getByText('Company settings')).toBeVisible();
             await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
-            await page.waitForTimeout(2000);
 
             await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
 
@@ -249,9 +226,7 @@ test.describe('Profile Page tests', () => {
             });
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
-            await page.waitForTimeout(2000);
 
             await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
 
@@ -276,7 +251,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.company.click();
             await page.waitForTimeout(2000);
             await profilePage.companyInfoName.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyInfoNameField.click();
             await profilePage.companyInfoNameField.fill(newCompanyName);
             await profilePage.companyInfoDescriptionField.click();
@@ -285,12 +259,11 @@ test.describe('Profile Page tests', () => {
             await profilePage.saveButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
-
+            await page.waitForTimeout(2000);
             await expect(page.getByText(newCompanyName).last()).toBeVisible();
             await expect(page.getByText(newCompanyContacts)).toBeVisible();
             await expect(page.getByText(newCompanyDescription)).toBeVisible();
 
-            await page.waitForTimeout(3000);
             await profilePage.companyInfoName.click();
             await profilePage.companyInfoNameField.fill(oldCompanyName);
             await profilePage.companyInfoDescriptionField.fill(oldCompanyDescription);
@@ -316,16 +289,13 @@ test.describe('Profile Page tests', () => {
             const language: string = "Ukrainian";
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyAddLocalizationButton.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyInfoLocalizationLanguageField.click();
             await page.getByText(language).click();
             await profilePage.companyInfoNameField.fill(newCompanyName);
             await profilePage.companyInfoDescriptionField.fill(newCompanyDescription);
             await profilePage.companyInfoContactsField.fill(newCompanyContacts);
             await profilePage.saveButton.click();
-            await page.waitForTimeout(2000);
             await page.getByText(language).click();
 
             await expect(page.getByText(newCompanyName).last()).toBeVisible();
@@ -334,9 +304,8 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.companyDeleteLocalizationButton.click();
             await page.getByText('Delete', {exact: true}).click();
-            await page.waitForTimeout(2000);
 
-            await expect(page.getByText(language)).not.toBeVisible();
+            await expect(page.getByText(language).first()).not.toBeVisible();
         });
 
         test('Localization deleting: monitoring-service company', { tag: '@smoke' }, async ({page}) => {
@@ -351,16 +320,13 @@ test.describe('Profile Page tests', () => {
             const language: string = "Ukrainian";
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyAddLocalizationButton.click();
-            await page.waitForTimeout(2000);
             await profilePage.companyInfoLocalizationLanguageField.click();
             await page.getByText(language).click();
             await profilePage.companyInfoNameField.fill(newCompanyName);
             await profilePage.companyInfoDescriptionField.fill(newCompanyDescription);
             await profilePage.companyInfoContactsField.fill(newCompanyContacts);
             await profilePage.saveButton.click();
-            await page.waitForTimeout(2000);
             await page.getByText(language).click();
 
             await expect(page.getByText(newCompanyName).last()).toBeVisible();
@@ -369,9 +335,8 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.companyDeleteLocalizationButton.click();
             await page.getByText('Delete', {exact: true}).click();
-            await page.waitForTimeout(2000);
 
-            await expect(page.getByText(language)).not.toBeVisible();
+            await expect(page.getByText(language).first()).not.toBeVisible();
         });
     });
 

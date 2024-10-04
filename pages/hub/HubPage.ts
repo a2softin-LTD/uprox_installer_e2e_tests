@@ -79,7 +79,6 @@ export class HubPage extends BasePage {
     private readonly _settingsGroup: Locator;
     private readonly _settingsLightIndication: Locator;
     private readonly _hubEngineerModeSwitch: Locator;
-    private readonly _hubInformationIcon: Locator;
     private readonly _hubInfoCity: Locator;
     private readonly _hubInfoStreet: Locator;
     private readonly _hubInfoStreetEditButton: Locator;
@@ -179,7 +178,6 @@ export class HubPage extends BasePage {
         this._hubInfoStreetEditField = this.page.locator('div.input_block.input_block-modal input.input_block-input').first();
         this._hubInfoBuilding = this.page.locator('div.building_block input.input_block-input.ng-untouched.ng-pristine.ng-valid').first();
         this._hubInfoApartment = this.page.locator('div.building_block input.input_block-input.ng-untouched.ng-pristine.ng-valid').last();
-        this._hubInformationIcon = page.locator('use[*|href="#icon-About"]');
 
     }
 
@@ -494,10 +492,6 @@ export class HubPage extends BasePage {
 
     get hubInfoApartment (): Locator {
         return this._hubInfoApartment ;
-    }
-
-    get hubInformationIcon (): Locator {
-        return this._hubInformationIcon  ;
     }
 
     get hubInfoStreetEditButton (): Locator {

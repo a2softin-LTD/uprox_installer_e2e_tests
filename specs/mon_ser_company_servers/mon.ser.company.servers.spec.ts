@@ -13,6 +13,13 @@ test.describe('Profile Page tests', () => {
         profilePage = new ProfilePage(page);
         await loginPage.openLoginPage('dev');
         await expect(page).toHaveURL('/login')
+        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
+        await expect(page).toHaveURL('/panels');
+        await profilePage.company.click();
+        await profilePage.companyServerList.click();
+        for (const server of await profilePage.entityBlock.all())
+        {   await  profilePage.trashIcon.click()
+            await profilePage.submitButton.click();}
 
     });
 
@@ -21,14 +28,10 @@ test.describe('Profile Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8694nt17d"
         });
-        await loginPage.auth(MIXED);
-        await page.waitForTimeout(2000);
-        await expect(page).toHaveURL('/panels');
+
 
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
-        await page.waitForTimeout(2000);
 
         await expect(profilePage.companyServerAddButton).toBeVisible();
         for (const server of await profilePage.entityBlock.all())
@@ -52,14 +55,8 @@ test.describe('Profile Page tests', () => {
         const newDNS: string = "179.36.500.218";
         const newPort: string = "4480";
 
-        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
-        await page.waitForTimeout(2000);
-        await expect(page).toHaveURL('/panels')
-
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerAddButton.click();
         await profilePage.companyNameServerField.fill(newName);
         await profilePage.companyDnsServerField.fill(newDNS);
@@ -87,14 +84,8 @@ test.describe('Profile Page tests', () => {
         const newDNS: string = "179.36.500.218";
         const newPort: string = "4480";
 
-        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
-        await page.waitForTimeout(2000);
-        await expect(page).toHaveURL('/panels')
-
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerAddButton.click();
         await profilePage.companyNameServerField.fill(newName);
         await profilePage.companyDnsServerField.fill(newDNS);
@@ -122,18 +113,12 @@ test.describe('Profile Page tests', () => {
         const newDNS: string = "179.36.500.218";
         const newPort: string = "4480";
 
-        const oldName: string = "old";
+        const oldName: string = "oldServer";
         const oldDNS: string = "123.345.346";
         const oldPort: string = "4450";
 
-        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
-        await page.waitForTimeout(2000);
-        await expect(page).toHaveURL('/panels')
-
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerAddButton.click();
         await profilePage.companyNameServerField.fill(oldName);
         await profilePage.companyDnsServerField.fill(oldDNS);
@@ -147,7 +132,6 @@ test.describe('Profile Page tests', () => {
         await profilePage.companyDnsServerField.fill(newDNS);
         await profilePage.companyPortServerField.fill(newPort);
         await profilePage.saveButton.click();
-        await page.waitForTimeout(2000);
 
         await expect(page.getByText(newName)).toBeVisible();
 

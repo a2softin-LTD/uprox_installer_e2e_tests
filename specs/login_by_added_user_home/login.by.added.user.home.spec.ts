@@ -33,7 +33,6 @@ test.describe('Profile Page tests', () => {
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();
-        await page.waitForTimeout(2000);
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
@@ -41,20 +40,15 @@ test.describe('Profile Page tests', () => {
             await page.getByText(name).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
-        await page.waitForTimeout(2000);
         await hubPage.addButton.click();
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
-        await page.waitForTimeout(2000);
         await hubPage.userAllowMobileAppManagementFromHome.click();
         await hubPage.addButton.click();
-        await page.waitForTimeout(2000);
 
         await expect(page.getByText((name))).toBeVisible();
 
-        await page.waitForTimeout(1000);
         await profilePage.logoutButton.click();
-        await page.waitForTimeout(1000);
         await loginPage.openLoginPage('dev');
         await loginPage.auth(USER_3);
 
