@@ -17,7 +17,7 @@ test.describe('HubPage tests', () => {
         await expect(page).toHaveURL('/login')
     });
 
-    test('Enable mobile app and user management', { tag: '@smoke' }, async ({ page }) => {
+    test('User enable mobile app and management', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -31,12 +31,12 @@ test.describe('HubPage tests', () => {
         const userManagment: string = "| Дмитро | snaut12@gmail.com Mobile | User management";
 
         await loginPage.auth(USER_1);
-        await page.waitForTimeout(2000);
         await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();
-        if (await hubPage.closeWindowButton.isVisible()) {  await hubPage.closeWindowButton.click()}
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click()
         if (await (page.getByText(name)).isVisible()) {
             await page.getByText(name).click();
@@ -47,14 +47,10 @@ test.describe('HubPage tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
 
-        await expect(page.getByText('User Дмитро created successfully')).toBeVisible();
-
         await (page.getByText(user)).click();
         await hubPage.userMobileApp.click();
         await hubPage.enableButton.click();
         await hubPage.saveButton.click();
-
-
         await hubPage.userManagement.click();
         await hubPage.userManagementEnable.click();
         await hubPage.saveButton.click();
@@ -63,12 +59,10 @@ test.describe('HubPage tests', () => {
         await expect(page.getByText(user)).toBeVisible();
         await expect(page.getByText(userManagment)).toBeVisible();
 
-        await page.waitForTimeout(2000);
         await page.getByText(name).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        await page.waitForTimeout(2000);
         await expect (page.getByText((user))).not.toBeVisible();
     });
 

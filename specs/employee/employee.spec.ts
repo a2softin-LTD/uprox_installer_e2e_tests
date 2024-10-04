@@ -41,7 +41,6 @@ test.describe('Profile Page tests', () => {
             await page.getByText(role).click();
             await profilePage.addButton.click();
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(email)).toBeVisible();
 
@@ -73,14 +72,12 @@ test.describe('Profile Page tests', () => {
             await page.getByText(role).click();
             await profilePage.addButton.click();
             if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(email)).toBeVisible();
 
             await page.getByText(email).click();
             await profilePage.employeeDeleteManager.click();
             await profilePage.deleteButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).not.toBeVisible();
@@ -117,19 +114,15 @@ test.describe('Profile Page tests', () => {
             await page.getByText('Full name').click();
             await profilePage.userEditField.fill(nameNew);
             await profilePage.saveButton.click();
-            await page.waitForTimeout(2000);
             page.getByText('Phone').click();
             await profilePage.userEditField.fill(phoneNew);
             await profilePage.saveButton.click();
-            await page.waitForTimeout(2000);
             await page.getByText('Configuring panels').click();
             await profilePage.enableButton.click();
             await profilePage.saveButton.click()
-            await page.waitForTimeout(2000);
             await page.getByText('Block employee').click();
             await profilePage.yesButton.click();
             await profilePage.saveButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(nameNew)).toBeVisible();
             await expect(page.getByText('Enable')).toBeVisible();
@@ -169,7 +162,6 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(name)).toBeVisible();
 
             await profilePage.employeeSearchField.fill(name);
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(name)).toBeVisible();
             await expect(profilePage.employeeBlock).toHaveCount(1);

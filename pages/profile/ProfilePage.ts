@@ -25,7 +25,8 @@ export class ProfilePage extends BasePage {
     private readonly _companyLanguageForEmails: Locator;
     private readonly _companyGuestEngineers: Locator;
     private readonly _companyEventCategories: Locator;
-    private readonly _companyAutoProcessingApplications: Locator;
+    private readonly _companyAutoProcessingConAppl: Locator;
+    private readonly _companyAutoProcessingDisconAppl: Locator;
     private readonly _companyChangeLogoButton: Locator;
     private readonly _companyDeleteLogoButton: Locator;
     private readonly _deletePasswordField: Locator;
@@ -83,6 +84,12 @@ export class ProfilePage extends BasePage {
     private readonly _companyAllFilter: Locator;
     private readonly _companySearchField: Locator;
     private readonly _defaultCompanyLogo: Locator;
+    private readonly _companyRemovePermissionButton: Locator;
+    private readonly _companyChangeAdminLogin: Locator;
+    private readonly _companyAddToGroupButton: Locator;
+    private readonly _companyAddNewGroupButton: Locator;
+    private readonly _companySelectCommandField: Locator;
+    private readonly _actionsCheckbox: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -112,12 +119,14 @@ export class ProfilePage extends BasePage {
         this._companyDisplayInAdvertising  = page.getByText('Display in advertising');
         this._companyLanguageForEmails = page.getByText('Language for emails');
         this._companyGuestEngineers  = page.getByText('Guest engineers');
-        this._companyAutoProcessingApplications  = page.getByText('Auto processing of applications');
+        this._companyAutoProcessingConAppl  = page.getByText('Auto processing of connection applications');
+        this._companyAutoProcessingDisconAppl  = page.getByText('Auto processing of disconnection applications');
         this._companyEventCategories  = page.getByText('Event categories');
         this._companyChangeLogoButton = page.getByText('Change logo');
         this._companyDeleteLogoButton = page.getByText('Delete logo');
         this._companyAddLocalizationButton = this.page.locator('div.add-block');
         this._companyDeleteLocalizationButton = this.page.locator('span.delete_point');
+        this._companyRemovePermissionButton = page.getByText(' Remove support permissions ');
         this._deleteAccountButton = page.getByText('Delete account');
         this._companySettingsTitle = page.getByText('Company settings');
         this._deletePasswordField = this.page.locator('#deletePasswordId');
@@ -160,6 +169,11 @@ export class ProfilePage extends BasePage {
         this._companyRoleFilter = this.page.locator('span:text-is("All roles")');
         this._companyAllFilter = this.page.locator('span:text-is("All")');
         this._companySearchField = this.page.locator('input[placeholder*="Company search"]');
+        this._companySelectCommandField = page.getByText('Select command');
+        this._actionsCheckbox = page.getByText('Actions');
+        this._companyChangeAdminLogin = page.getByText('Change admin login');
+        this._companyAddToGroupButton = page.getByText('Add company to group');
+        this._companyAddNewGroupButton = page.getByText('Add new group');
 
         this._employeeEmailField = this.form.locator('input[formcontrolname="email"]');
         this._employeeNameField = this.form.locator('input[formcontrolname="pib"]');
@@ -328,8 +342,12 @@ export class ProfilePage extends BasePage {
         return this._companyEventCategories;
     }
 
-    get companyAutoProcessingApplications  (): Locator {
-        return this._companyAutoProcessingApplications ;
+    get companyAutoProcessingConAppl (): Locator {
+        return this._companyAutoProcessingConAppl ;
+    }
+
+    get companyAutoProcessingDisconAppl  (): Locator {
+        return this._companyAutoProcessingDisconAppl ;
     }
 
     get companyUsersCabinet (): Locator {
@@ -479,5 +497,29 @@ export class ProfilePage extends BasePage {
 
     get defaultCompanyLogo (): Locator {
         return this._defaultCompanyLogo;
+    }
+
+    get companyRemovePermissionButton (): Locator {
+        return this._companyRemovePermissionButton;
+    }
+
+    get companyChangeAdminLogin (): Locator {
+        return this._companyChangeAdminLogin;
+    }
+
+    get companyAddToGroupButton (): Locator {
+        return this._companyAddToGroupButton;
+    }
+
+    get companyAddNewGroupButton (): Locator {
+        return this._companyAddNewGroupButton;
+    }
+
+    get companySelectCommandField (): Locator {
+        return this._companySelectCommandField;
+    }
+
+    get actionsCheckbox  (): Locator {
+        return this._actionsCheckbox ;
     }
 }

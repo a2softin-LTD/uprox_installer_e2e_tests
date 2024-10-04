@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
-import { MONITORING_COMPANY_1 } from "../../utils/user_data";
+import { MONITORING_COMPANY } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 
@@ -10,12 +10,16 @@ test.describe('Profile Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
         await loginPage.openLoginPage('dev');
         await expect(page).toHaveURL('/login')
-        await loginPage.auth(MONITORING_COMPANY_1);
-        await page.waitForTimeout(2000);
+        await loginPage.auth(MONITORING_COMPANY);
         await expect(page).toHaveURL('/panels');
-        profilePage = new ProfilePage(page);
+        await profilePage.company.click();
+        await profilePage.companyServerList.click();
+        for (const server of await profilePage.entityBlock.all())
+        {   await  profilePage.trashIcon.click()
+            await profilePage.submitButton.click();}
 
     });
 
@@ -26,9 +30,7 @@ test.describe('Profile Page tests', () => {
         });
 
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
-        await page.waitForTimeout(2000);
 
         await expect(profilePage.companyServerAddButton).toBeVisible();
         for (const server of await profilePage.entityBlock.all())
@@ -51,9 +53,7 @@ test.describe('Profile Page tests', () => {
         const newPort: string = "4480";
 
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerAddButton.click();
         await profilePage.companyNameServerField.fill(newName);
         await profilePage.companyDnsServerField.fill(newDNS);
@@ -81,9 +81,7 @@ test.describe('Profile Page tests', () => {
         const newPort: string = "4480";
 
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerAddButton.click();
         await profilePage.companyNameServerField.fill(newName);
         await profilePage.companyDnsServerField.fill(newDNS);
@@ -116,15 +114,12 @@ test.describe('Profile Page tests', () => {
         const oldPort: string = "4455";
 
         await profilePage.company.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerList.click();
-        await page.waitForTimeout(2000);
         await profilePage.companyServerAddButton.click();
         await profilePage.companyNameServerField.fill(oldName);
         await profilePage.companyDnsServerField.fill(oldDNS);
         await profilePage.companyPortServerField.fill(oldPort);
         await profilePage.saveButton.click();
-        await page.waitForTimeout(2000);
         await expect(page.getByText(oldName)).toBeVisible();
 
         await page.getByText((oldName)).click();
@@ -132,7 +127,6 @@ test.describe('Profile Page tests', () => {
         await profilePage.companyDnsServerField.fill(newDNS);
         await profilePage.companyPortServerField.fill(newPort);
         await profilePage.saveButton.click();
-        await page.waitForTimeout(2000);
 
         await expect(page.getByText(newName)).toBeVisible();
 

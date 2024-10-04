@@ -32,7 +32,6 @@ test.describe('Hub Page tests', () => {
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
-            await page.waitForTimeout(2000);
             if (await page.getByText('Update firmware version').isVisible())
             {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
@@ -42,7 +41,6 @@ test.describe('Hub Page tests', () => {
             { await expect(event).toBeVisible();}
 
             await hubPage.historyLastEvent.scrollIntoViewIfNeeded();
-            await page.waitForTimeout(2000);
 
             await expect(hubPage.historyLastEvent).toBeVisible();
         });
@@ -58,7 +56,6 @@ test.describe('Hub Page tests', () => {
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
-            await page.waitForTimeout(2000);
             if (await page.getByText('Update firmware version').isVisible())
             {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
@@ -69,7 +66,6 @@ test.describe('Hub Page tests', () => {
             await hubPage.historyAlarmCheckBox.click();
             await hubPage.historyTroublesCheckBox.click();
             await hubPage.historyArmsCheckBox.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText('Removed user').first()).toBeVisible();
             await expect(page.getByText('Added new user').first()).toBeVisible();
@@ -78,7 +74,6 @@ test.describe('Hub Page tests', () => {
             await hubPage.historyTroublesCheckBox.click();
             await hubPage.historyArmsCheckBox.click();
             await hubPage.historyActionsCheckBox.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText('Removed user').first()).not.toBeVisible();
             await expect(page.getByText('Added new user').first()).not.toBeVisible();
@@ -95,13 +90,11 @@ test.describe('Hub Page tests', () => {
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
-            await page.waitForTimeout(2000);
             if (await page.getByText('Update firmware version').isVisible())
             {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
+            await expect(page.getByText('Save in .XLS')).toBeVisible();
             await hubPage.saveInXLSButton.click();
-
-            await page.waitForTimeout(1000);
 
             const downloadPromise = page.waitForEvent('download');
             await hubPage.exportButton.click();

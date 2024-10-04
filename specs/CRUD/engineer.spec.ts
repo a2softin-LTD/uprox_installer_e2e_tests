@@ -34,7 +34,6 @@ test.describe('Login Page tests', () => {
             await expect(page).toHaveURL('/panels');
 
             await profilePage.employees.click();
-            await page.waitForTimeout(2000);
             await profilePage.addButton.click();
             await profilePage.employeeEmailField.fill(email);
             await profilePage.employeeNameField.fill(name);
@@ -42,7 +41,6 @@ test.describe('Login Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(email)).toBeVisible();
 
@@ -71,7 +69,6 @@ test.describe('Login Page tests', () => {
 
             await expect(page.getByText('QA- company-1')).toBeVisible();
             await (page.getByText('QA- company-1')).click();
-            await page.waitForTimeout(2000);
             await profilePage.employees.click();
             await profilePage.addButton.click();
             await profilePage.employeeEmailField.fill(email);
@@ -80,7 +77,6 @@ test.describe('Login Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(email)).toBeVisible();
 

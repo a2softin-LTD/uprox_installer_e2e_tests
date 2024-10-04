@@ -29,10 +29,12 @@ test.describe('Hub Page tests', () => {
         await loginPage.auth(MIXED);
         await expect(page).toHaveURL('/panels');
         await page.getByText(hubSerialNumber).isVisible();
+        await page.waitForTimeout(2000);
         await page.getByText(hubSerialNumber).click();
         await page.waitForTimeout(2000);
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
+        await page.waitForTimeout(2000);
         await hubPage.troubles.click();
         await page.waitForTimeout(2000);
         page.reload();

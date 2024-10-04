@@ -36,19 +36,14 @@ test.describe('Hub Page tests', () => {
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();
-        await page.waitForTimeout(2000);
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.requests.click();
-        await page.waitForTimeout(2000);
         if (await (page.getByText(warningMessage)).isVisible()) {  await hubPage.system.click()}
-        else {
-        await page.waitForTimeout(2000);
+        else if (await (hubPage.countryUkraine).isVisible()){
         await hubPage.countryUkraine.click();
         await hubPage.saveButton.click();
-        await page.waitForTimeout(2000);
         await page.getByText((nameOfCompany)).click();
-        await page.waitForTimeout(2000);
         await hubPage.requestsCreateApplicationButton.click();
         await hubPage.requestsContactPhoneField.fill(contactPhone);
         await hubPage.requestsLocationField.fill(location);

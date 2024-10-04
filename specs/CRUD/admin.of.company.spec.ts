@@ -48,29 +48,21 @@ test.describe('Login Page tests', () => {
             await profilePage.companyAddButton.click();
             await profilePage.inputFirstField.fill(name);
             await profilePage.inputSecondField.fill(adminEmail);
-            await page.waitForTimeout(1000);
             await profilePage.inputThirdField.fill(country);
             await page.getByText('Ukraine').click();
             await profilePage.selectFirstField.click();
             await page.getByText('Test dealer role').click();
-            await page.waitForTimeout(1000);
             await profilePage.selectSecondField.click();
             await page.getByText('Monitoring company').click();
-            await page.waitForTimeout(1000);
             await profilePage.inputFourthField.fill(contactEmail);
-            await page.waitForTimeout(1000);
             await profilePage.inputFifthField.fill(contactPhone);
-            await page.waitForTimeout(2000);
             await profilePage.inputSixthtField.fill(description);
             await profilePage.inputSeventhField.fill(contacts);
-            await page.waitForTimeout(1000);
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(name)).toBeVisible();
 
             await (page.getByText(name)).click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(adminEmail)).toBeVisible();
         });
@@ -102,29 +94,21 @@ test.describe('Login Page tests', () => {
             await profilePage.companyAddButton.click();
             await profilePage.inputFirstField.fill(name);
             await profilePage.inputSecondField.fill(adminEmail);
-            await page.waitForTimeout(1000);
             await profilePage.inputThirdField.fill(country);
             await page.getByText('Ukraine').click();
             await profilePage.selectFirstField.click();
             await page.getByText('Test dealer role').click();
-            await page.waitForTimeout(1000);
             await profilePage.selectSecondField.click();
             await page.getByText('Monitoring company').click();
-            await page.waitForTimeout(1000);
             await profilePage.inputFourthField.fill(contactEmail);
-            await page.waitForTimeout(1000);
             await profilePage.inputFifthField.fill(contactPhone);
-            await page.waitForTimeout(3000);
             await profilePage.inputSixthtField.fill(description);
             await profilePage.inputSeventhField.fill(contacts);
-            await page.waitForTimeout(1000);
             await profilePage.submitButton.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(name)).toBeVisible();
 
             await (page.getByText(name)).click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(adminEmail)).toBeVisible();
         });

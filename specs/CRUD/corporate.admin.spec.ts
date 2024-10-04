@@ -39,7 +39,6 @@ test.describe('Login Page tests', () => {
             expect(page.url()).toContain('/support/search');
 
             await profilePage.companies.click();
-            await page.waitForTimeout(1000);
             await profilePage.groupsOfCompanies.click();
 
             await expect(page.getByText('Add new group')).toBeVisible();
@@ -47,15 +46,11 @@ test.describe('Login Page tests', () => {
             await profilePage.companyAddGroupButton.click();
             await profilePage.inputFirstField.fill(name);
             await profilePage.inputSecondField.fill(adminEmail);
-            await page.waitForTimeout(1000);
 
             await profilePage.connectButton.click();
-            await page.waitForTimeout(1000);
             await profilePage.connectButton.last().click()
-
-            await page.waitForTimeout(4000);
+            await page.waitForTimeout(3000)
             await profilePage.companies.first().click();
-            await page.waitForTimeout(1000);
             await profilePage.groupsOfCompanies.click();
             await page.waitForTimeout(1000);
             await page.reload();
@@ -65,9 +60,7 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText(adminEmail)).toBeVisible();
 
             await (page.getByText(name)).click()
-            await page.waitForTimeout(1000);
             await profilePage.deleteButton.click();
-            await page.waitForTimeout(1000);
             await profilePage.deleteButton.click();
 
             await page.waitForTimeout(1000);
@@ -92,7 +85,6 @@ test.describe('Login Page tests', () => {
             expect(page.url()).toContain('/support/search');
 
             await profilePage.companies.click();
-            await page.waitForTimeout(1000);
             await profilePage.groupsOfCompanies.click();
 
             await expect(page.getByText('Add new group')).toBeVisible();
@@ -100,13 +92,11 @@ test.describe('Login Page tests', () => {
             await profilePage.companyAddGroupButton.click();
             await profilePage.inputFirstField.fill(name);
             await profilePage.inputSecondField.fill(adminEmail);
-            await page.waitForTimeout(1000);
 
             await profilePage.connectButton.click();
-            await page.waitForTimeout(2000);
             await profilePage.connectButton.last().click()
-
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(3000)
+            await profilePage.companies.first().click();
             await profilePage.groupsOfCompanies.click();
             await page.waitForTimeout(2000);
             await page.reload();
@@ -116,9 +106,7 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText(adminEmail)).toBeVisible();
 
             await (page.getByText(name)).click()
-            await page.waitForTimeout(1000);
             await profilePage.deleteButton.click();
-            await page.waitForTimeout(1000);
             await profilePage.deleteButton.click();
 
             await page.waitForTimeout(1000);

@@ -26,8 +26,7 @@ test.describe('Login Page tests', () => {
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(email);
             await loginPage.recoverySendButton.click();
-            await page.waitForTimeout(3000);
-
+            await page.waitForTimeout(2000);
             await expect(page.getByText('A password recovery email has been sent to your email.')).toBeVisible();
         });
 
@@ -43,7 +42,6 @@ test.describe('Login Page tests', () => {
             await loginPage.recoveryEmailField.fill(email);
             await loginPage.recoverySendButton.click();
             await page.waitForTimeout(2000);
-
             await expect(page.getByText('Incorrect email address format.')).toBeVisible();
         });
 
@@ -58,9 +56,9 @@ test.describe('Login Page tests', () => {
             await loginPage.forgotYourPasswordLink.click();
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(email);
+            await page.waitForTimeout(2000);
             await loginPage.recoverySendButton.click();
             await page.waitForTimeout(2000);
-
             await expect(page.getByText('User not found')).toBeVisible();
         });
     });

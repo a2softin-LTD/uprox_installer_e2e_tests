@@ -21,7 +21,7 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
     });
 
-    test('Engineer mode ', { tag: '@smoke' }, async ({ page }) => {
+    test('Engineer mode', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/86946gkfb"
