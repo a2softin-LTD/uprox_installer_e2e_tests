@@ -4,21 +4,19 @@ import {ProfilePage} from "../../pages/profile/ProfilePage";
 import {SUPER_ADMIN} from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 
-
-test.describe('Profile Page tests', () => {
+test.describe('Permissions under SUPER_ADMIN role', () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
 
-
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
         profilePage = new ProfilePage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(SUPER_ADMIN);
+        await expect(page).toHaveURL('/support/search');
     });
 
     test.describe('Checking UI elements of the permissions page', () => {
@@ -35,7 +33,6 @@ test.describe('Profile Page tests', () => {
             await expect(profilePage.selectFirstField.filter({has:page.getByText('All roles')})).toBeVisible();
             await expect(profilePage.addButton).toBeVisible();
             await expect(profilePage.pageTitle.filter({has:page.getByText('Employees')})).toBeVisible();
-
         });
     });
 
@@ -59,7 +56,6 @@ test.describe('Profile Page tests', () => {
             for (const hub of await profilePage.entityBlock.all())
             {   await expect((hub.filter({hasText:'Tech Support'})).or (hub.filter({hasText:'Sysadmin'}))).toBeVisible();
                 await expect(hub.filter({hasText:/.+@.+\..+/i})).toBeVisible();}
-
         });
 
         test('Add employee', async ({ page }) => {
@@ -79,13 +75,11 @@ test.describe('Profile Page tests', () => {
             await profilePage.inputThirdField.fill(name);
             await page.waitForTimeout(1000);
             await profilePage.selectFirstField.click();
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(1000);
             await (page.getByText(role)).click()
             await profilePage.addButton.click()
-            await page.waitForTimeout(2000);
-            await page.reload();
-            await page.waitForTimeout(2000)
 
+            await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).toBeVisible();
 
             await (page.getByText(name)).click()
@@ -93,10 +87,8 @@ test.describe('Profile Page tests', () => {
             await profilePage.deleteUserButton.click();
             await page.waitForTimeout(1000);
             await profilePage.submitButton.click();
-            await page.waitForTimeout(3000);
-            await page.reload();
-            await page.waitForTimeout(2000)
 
+            await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).not.toBeVisible();
         });
 
@@ -118,13 +110,11 @@ test.describe('Profile Page tests', () => {
             await profilePage.inputThirdField.fill(name);
             await page.waitForTimeout(1000);
             await profilePage.selectFirstField.click();
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(1000);
             await (page.getByText(role)).click()
             await profilePage.addButton.click()
-            await page.waitForTimeout(2000);
-            await page.reload();
-            await page.waitForTimeout(2000)
 
+            await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).toBeVisible();
 
             await (page.getByText(name)).click()
@@ -132,10 +122,8 @@ test.describe('Profile Page tests', () => {
             await profilePage.deleteUserButton.click();
             await page.waitForTimeout(1000);
             await profilePage.submitButton.click();
-            await page.waitForTimeout(3000);
-            await page.reload();
-            await page.waitForTimeout(2000)
 
+            await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).not.toBeVisible();
         });
 
@@ -155,18 +143,19 @@ test.describe('Profile Page tests', () => {
             await profilePage.selectFirstField.click();
             await (page.getByText(role)).click()
             await profilePage.addButton.click()
-            await page.waitForTimeout(2000);
-            await page.reload();
-            await page.waitForTimeout(2000)
+            await expect(page.getByText('Employees')).toBeVisible();
 
             await expect(page.getByText(email)).toBeVisible();
 
             await (page.getByText(name)).click()
+
             await expect(page.getByText(name)).toBeVisible();
+
             await profilePage.companyRemovePermissionButton.click();
             await profilePage.submitButton.click();
             await profilePage.backButton.click();
 
+            await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).not.toBeVisible();
         });
         test('Info about employee', async ({ page }) => {
@@ -185,13 +174,12 @@ test.describe('Profile Page tests', () => {
             await profilePage.selectFirstField.click();
             await (page.getByText(role)).click()
             await profilePage.addButton.click()
-            await page.waitForTimeout(2000);
-            await page.reload();
-            await page.waitForTimeout(2000)
 
+            await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).toBeVisible();
 
             await (page.getByText(name)).click()
+
             await expect(page.getByText(name)).toBeVisible();
             await expect(page.getByText(email)).toBeVisible();
             await expect(page.getByText(role)).toBeVisible();
@@ -206,12 +194,11 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.deleteUserButton.click();
             await profilePage.submitButton.click();
-            await page.waitForTimeout(3000);
-            await page.reload();
-            await page.waitForTimeout(2000)
 
+            await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(email)).not.toBeVisible();
         });
+
     });
 
 });

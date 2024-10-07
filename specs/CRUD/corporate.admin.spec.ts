@@ -15,8 +15,10 @@ test.describe('Login Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage(ENVIRONMENT);
         profilePage = new ProfilePage(page);
+
+        await loginPage.openLoginPage(ENVIRONMENT);
+
     });
 
     test.describe('Creation of the Corporate Admin under the different role', () => {
@@ -35,9 +37,6 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText('Technical support')).toBeVisible();
             expect(page.url()).toContain('/support/search');
 
-            await expect(page.getByText('Technical support')).toBeVisible();
-            expect(page.url()).toContain('/support/search');
-
             await profilePage.companies.click();
             await profilePage.groupsOfCompanies.click();
 
@@ -46,7 +45,6 @@ test.describe('Login Page tests', () => {
             await profilePage.companyAddGroupButton.click();
             await profilePage.inputFirstField.fill(name);
             await profilePage.inputSecondField.fill(adminEmail);
-
             await profilePage.connectButton.click();
             await profilePage.connectButton.last().click()
             await page.waitForTimeout(3000)
@@ -115,6 +113,7 @@ test.describe('Login Page tests', () => {
 
             await expect(page.getByText(name)).not.toBeVisible();
         });
+
     });
 
 });

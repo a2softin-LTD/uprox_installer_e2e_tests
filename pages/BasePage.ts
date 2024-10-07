@@ -86,7 +86,7 @@ export class BasePage {
         this._resendEmailButton = page.getByText('Resend Email',{ exact: true });
         this._banIcon = page.locator('use[*|href="#icon-ban"]');
         this._informationIcon = page.locator('use[*|href="#icon-About"]');
-        this._searchField = page.locator('input[placeholder="Search"]');
+        this._searchField = page.locator('input[placeholder*="Search"]');
         this._pageTitle = page.locator('h3');
     }
 

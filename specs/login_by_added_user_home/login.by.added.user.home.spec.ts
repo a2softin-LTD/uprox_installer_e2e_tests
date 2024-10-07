@@ -13,23 +13,22 @@ test.describe('Profile Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
+
         await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
-    test('Login by user added from Home app', { tag: '@smoke' }, async ({ page }) => {
+    test('Login by user added from Home app', { tag: ['@smoke','@hub']  }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
         });
 
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
         const name: string = "Дмитро";
-        const newUser: string = "Дмитро | snaut12@gmail.com";
-
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();

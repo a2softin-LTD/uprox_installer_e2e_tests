@@ -12,8 +12,13 @@ test.describe('Profile Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
+
         await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(MIXED);
+        await expect(page).toHaveURL('/panels');
     });
 
     test('Editing information about corporate hub', { tag: '@smoke' }, async ({ page }) => {
@@ -21,14 +26,6 @@ test.describe('Profile Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0hzj"
         });
-
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
-
-        await loginPage.auth(MIXED);
-        await expect(page).toHaveURL('/panels');
-
-        await page.waitForTimeout(2000);
 
         for (const hub of await profilePage.hubEngineerIcon.all())
         { await expect(hub).toBeVisible();}
@@ -42,7 +39,9 @@ test.describe('Profile Page tests', () => {
         { await expect(hub).toBeVisible();}
 
         await (hubPage.informationIcon.first()).click();
+
         await expect(page.getByText('Panel information')).toBeVisible();
+
         await hubPage.editButton.click();
         await hubPage.hubInfoCity.click();
         await hubPage.hubInfoCity.fill('Poltava');
@@ -56,9 +55,13 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(4000);
         await page.reload();
         await page.waitForTimeout(2000);
+
         await expect(page.getByText('Number of devices in the company')).toBeVisible();
+
         await (hubPage.informationIcon.first()).click();
+
         await expect(page.getByText('Panel information')).toBeVisible();
+
         await hubPage.editButton.click();
         await hubPage.hubInfoCity.click();
         await page.waitForTimeout(3000);

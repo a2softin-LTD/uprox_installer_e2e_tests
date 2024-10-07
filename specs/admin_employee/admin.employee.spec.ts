@@ -11,12 +11,12 @@ test.describe('Profile Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
-        await expect(page).toHaveURL('/panels');
         profilePage = new ProfilePage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
+        await expect(page).toHaveURL('/panels');
     });
 
     test.describe('Employees', () => {
@@ -26,6 +26,7 @@ test.describe('Profile Page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju80"
             });
+
             const name: string = "Дмитро";
             const email: string = faker.internet.email();
             const phone: string = faker.phone.number();
@@ -40,7 +41,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-            if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
 
             await expect(page.getByText(email)).toBeVisible();
 
@@ -57,6 +57,7 @@ test.describe('Profile Page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694v0c04"
             });
+
             const name: string = "Дмитро";
             const email: string = faker.internet.email();
             const phone: string = faker.phone.number();
@@ -71,7 +72,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-            if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
 
             await expect(page.getByText(email)).toBeVisible();
 
@@ -83,7 +83,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(email)).not.toBeVisible();
         });
 
-        test('Employee editing', { tag: '@smoke' }, async ({ page }) => {
+        test('Employee data editing', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju83"
@@ -105,7 +105,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-            if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
 
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(emailOld)).toBeVisible();
@@ -156,7 +155,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeRoleField.click();
             await page.getByText(role).click();
             await profilePage.addButton.click();
-            if (await profilePage.closeWindowButton.isVisible()) {  await profilePage.closeWindowButton.click()}
 
             await expect(page.getByText('Employees')).toBeVisible();
             await expect(page.getByText(name)).toBeVisible();
@@ -164,6 +162,11 @@ test.describe('Profile Page tests', () => {
             await profilePage.employeeSearchField.fill(name);
 
             await expect(page.getByText(name)).toBeVisible();
+            await expect(profilePage.employeeBlock).toHaveCount(1);
+
+            await profilePage.employeeSearchField.fill(email);
+
+            await expect(page.getByText(email)).toBeVisible();
             await expect(profilePage.employeeBlock).toHaveCount(1);
 
             await page.getByText(name).click();

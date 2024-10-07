@@ -12,8 +12,13 @@ test.describe('Profile Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
+
         await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
     test.skip('Transfer of ownership to new user', { tag: '@smoke' }, async ({ page }) => {
@@ -22,13 +27,8 @@ test.describe('Profile Page tests', () => {
             description: "https://app.clickup.com/t/8694hvwe2"
         });
 
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
         const name: string = "Дмитро";
         const newOwner: string = "Дмитро | snaut12@gmail.com";
-
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();

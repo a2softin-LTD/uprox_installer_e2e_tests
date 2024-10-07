@@ -4,36 +4,35 @@ import {ProfilePage} from "../../pages/profile/ProfilePage";
 import {SUPER_ADMIN} from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 
-
 test.describe('Profile Page tests', () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
 
-
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
         profilePage = new ProfilePage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(SUPER_ADMIN);
+        await expect(page).toHaveURL('/support/search');
     });
 
     test.describe('Checking UI elements of the Page', () => {
 
-        test('Checking UI elements on gropes of companies page', async ({ page }) => {
+        test('Checking UI elements on groups of companies page', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
+
             await profilePage.companies.click();
             await profilePage.groupsOfCompanies.click();
             await page.waitForTimeout(2000);
+
             await expect(profilePage.companyAddNewGroupButton).toBeVisible();
             await expect(profilePage.pageTitle.filter({has:page.getByText('Groups of companies')})).toBeVisible();
-
         });
     });
 
@@ -60,7 +59,6 @@ test.describe('Profile Page tests', () => {
 
             for (const hub of await profilePage.entityBlock.all())
                 await expect(hub.filter({has: profilePage.informationIcon})).toBeVisible();
-
         });
 
         test('Add company to group', async ({ page }) => {
@@ -80,8 +78,8 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.trashIcon.last().click();
             await profilePage.submitButton.click();
-           // await (page.getByText(company).filter({has:profilePage.trashIcon})).click();
             page.reload()
+
             await expect(page.getByText(company)).not.toBeVisible();
         });
 
@@ -102,8 +100,8 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.trashIcon.last().click();
             await profilePage.submitButton.click();
-            // await (page.getByText(company).filter({has:profilePage.trashIcon})).click();
             page.reload()
+
             await expect(page.getByText(company)).not.toBeVisible();
         });
 
@@ -168,6 +166,7 @@ test.describe('Profile Page tests', () => {
 
             await expect(page.getByText(name)).not.toBeVisible();
         });
+
     });
 
 });

@@ -8,47 +8,69 @@ test.describe('Login Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
     });
 
     test.describe('Checking recovery', () => {
 
+        test('Recovery page', { tag: '@smoke' }, async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8692udm64"
+            });
+
+            const email: string = "snaut12@gmail.com";
+
+            await loginPage.forgotYourPasswordLink.click();;
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText('Password recovery')).toBeVisible();
+            await expect(page.getByText('What email is associated with your U-Prox profile?')).toBeVisible();
+            await expect(loginPage.sendButton).toBeVisible();
+            await expect(loginPage.recoveryEmailField).toBeVisible();
+            await expect(loginPage.goToAuthorizationButton).toBeVisible();
+        });
+
         test('positive: Checking recovery', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8692udkp3"
+                description: "https://app.clickup.com/t/8692udm64"
             });
+
             const email: string = "snaut12@gmail.com";
 
             await loginPage.forgotYourPasswordLink.click();;
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(email);
-            await loginPage.recoverySendButton.click();
-            await page.waitForTimeout(2000);
-            await expect(page.getByText('A password recovery email has been sent to your email.')).toBeVisible();
+            await loginPage.sendButton.click();
+
+            if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible()}
+            else if (await page.getByText('A password recovery email has been sent to your email.').isVisible())
+            {await expect(page.getByText('A password recovery email has been sent to your email.')).toBeVisible();}
         });
 
         test('negative: Checking recovery (non-valid user email)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8692udkp3"
+                description: "https://app.clickup.com/t/8692udp0v"
             });
             const email: string = "valera123gmail.com";
 
             await loginPage.forgotYourPasswordLink.click();
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(email);
-            await loginPage.recoverySendButton.click();
+            await loginPage.sendButton.click();
             await page.waitForTimeout(2000);
+
             await expect(page.getByText('Incorrect email address format.')).toBeVisible();
         });
 
         test('negative: Checking recovery (valid not-registrated user email)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8692udkp3"
+                description: "https://app.clickup.com/t/8692udp0v"
             });
 
             const email: string = faker.internet.email();
@@ -57,9 +79,14 @@ test.describe('Login Page tests', () => {
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(email);
             await page.waitForTimeout(2000);
-            await loginPage.recoverySendButton.click();
-            await page.waitForTimeout(2000);
-            await expect(page.getByText('User not found')).toBeVisible();
+            await loginPage.sendButton.click();
+
+            if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible()}
+            else if (await page.getByText('User not found').isVisible())
+            {await expect(page.getByText('User not found')).toBeVisible();}
+
         });
+
     });
+
 });

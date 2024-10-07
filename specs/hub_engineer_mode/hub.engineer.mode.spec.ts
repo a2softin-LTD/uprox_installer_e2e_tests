@@ -4,7 +4,6 @@ import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 
-
 test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
@@ -13,12 +12,13 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
+
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
     test('Engineer mode', { tag: '@smoke' }, async ({ page }) => {
@@ -29,8 +29,10 @@ test.describe('Hub Page tests', () => {
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();
+
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await hubPage.hubEngineerModeSwitch.click();
         await page.waitForTimeout(2000);
 

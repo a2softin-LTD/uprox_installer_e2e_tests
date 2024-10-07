@@ -17,7 +17,7 @@ export class LoginPage extends BasePage {
     private readonly _languagesList: Locator;
     private readonly _matWarn: Locator;
     private readonly _recoveryEmailField: Locator;
-    private readonly _recoverySendButton: Locator;
+    private readonly _goToAuthorizationButton: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -36,7 +36,7 @@ export class LoginPage extends BasePage {
         this._languagesList = page.locator('.language-dd');
         this._matWarn = this.form.locator('button .mat-warn');
         this._recoveryEmailField = this.page.locator('input.mat-mdc-input-element');
-        this._recoverySendButton = page.getByText('Send');
+        this._goToAuthorizationButton = page.getByText('Go to authorization');
     }
 
     get logo(): Locator {
@@ -95,8 +95,8 @@ export class LoginPage extends BasePage {
         return this._recoveryEmailField;
     }
 
-    get recoverySendButton(): Locator {
-        return this._recoverySendButton;
+    get goToAuthorizationButton(): Locator {
+        return this._goToAuthorizationButton;
     }
 
     async auth(user: object) {

@@ -4,21 +4,19 @@ import {ProfilePage} from "../../pages/profile/ProfilePage";
 import {SUPER_ADMIN} from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 
-
-test.describe('Profile Page tests', () => {
+test.describe('Company under SUPER_ADMIN role', { tag: '@stable' },() => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
 
-
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
         profilePage = new ProfilePage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(SUPER_ADMIN);
+        await expect(page).toHaveURL('/support/search');
     });
 
     test.describe('Checking UI elements of the Page', () => {
@@ -30,6 +28,7 @@ test.describe('Profile Page tests', () => {
             });
             await profilePage.companies.click();
             await page.waitForTimeout(2000);
+
             await expect(profilePage.companyAddButton).toBeVisible();
             await expect(profilePage.companyCountryFilter).toBeVisible();
             await expect(profilePage.companyRoleFilter).toBeVisible();
@@ -64,6 +63,7 @@ test.describe('Profile Page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694p407a"
             });
+
             const name: string = faker.commerce.productName();
             const email: string = faker.internet.email();
             const country: string = "Ukr";
@@ -97,15 +97,14 @@ test.describe('Profile Page tests', () => {
             await profilePage.submitButton.click();
 
             await expect(page.getByText(contactPhone)).not.toBeVisible();
-
         });
-
 
         test.skip('Delete company', async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694p40z1"
             });
+
             const name: string = faker.commerce.productName();
             const email: string = faker.internet.email();
             const country: string = "Ukr";
@@ -142,6 +141,7 @@ test.describe('Profile Page tests', () => {
         });
 
     });
+
     test.describe('Company search', () => {
 
         test('Search by country', async ({ page }) => {
@@ -154,6 +154,7 @@ test.describe('Profile Page tests', () => {
 
             await profilePage.companies.click();
             await page.waitForTimeout(5000);
+
             for (const hub of await profilePage.entityBlock.filter({hasText:'Algeria'}).all())
             { await expect(hub).toBeVisible();
             count=count+1;}
@@ -178,7 +179,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.companies.click();
             await page.waitForTimeout(5000);
             let hubsNumber=((await page.$$('div:text-is("Service companies")')).length)-1;
-            console.log(hubsNumber);
             await profilePage.companyRoleFilter.click();
             await page.getByText(role, { exact: true }).first().click();
 
@@ -199,7 +199,6 @@ test.describe('Profile Page tests', () => {
             await profilePage.companies.click();
             await page.waitForTimeout(5000);
             let hubsNumber=((await page.$$('use[*|href="#icon-ban"]')).length);
-            console.log(hubsNumber);
             await profilePage.companyAllFilter.click();
             await page.getByText(setting, { exact: true }).click();
 
@@ -217,7 +216,10 @@ test.describe('Profile Page tests', () => {
             const company: string = "Сиротин";
 
             await profilePage.companies.click();
+            await page.waitForTimeout(5000);
+
             await expect(page.getByText(company)).toBeVisible();
+
             await profilePage.companySearchField.fill(company);
 
             await expect(page.getByText(company)).toBeVisible();
@@ -245,7 +247,6 @@ test.describe('Profile Page tests', () => {
 
             await expect(page.getByText('Saving changes')).toBeVisible();
             await expect(page.getByText('successfully')).toBeVisible();
-
         });
 
         test('Changing admin login', async ({ page }) => {
@@ -267,8 +268,8 @@ test.describe('Profile Page tests', () => {
             await page.waitForTimeout(2000);
             page.reload();
             await page.waitForTimeout(2000);
-            await expect(page.getByText(email)).toBeVisible();
 
+            await expect(page.getByText(email)).toBeVisible();
         });
 
    });

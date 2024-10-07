@@ -12,8 +12,11 @@ test.describe('Profile Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
+
         await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL('/login');
     });
 
 
@@ -22,9 +25,6 @@ test.describe('Profile Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0fth"
         });
-
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
 
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
@@ -45,9 +45,6 @@ test.describe('Profile Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0fth"
         });
-
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
 
         await loginPage.auth(MIXED);
         await expect(page).toHaveURL('/panels');

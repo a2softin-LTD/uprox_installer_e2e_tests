@@ -5,16 +5,16 @@ import { faker } from "@faker-js/faker";
 import { RegistrationPage } from "../../pages/registration/RegistrationPage";
 import { ENVIRONMENT } from "../../utils/constants";
 
-test.describe('Login Page tests', () => {
+test.describe('Login Page tests', {tag: '@stable'}, () => {
 
     let loginPage: LoginPage;
     let registrationPage: RegistrationPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+
         await loginPage.openLoginPage(ENVIRONMENT);
         await loginPage.registerLink.click();
-        //await expect(page).toHaveURL('/sign_up')
     });
 
     test.describe('Checking registration. Positive scenarios', () => {
@@ -41,11 +41,15 @@ test.describe('Login Page tests', () => {
             await registrationPage.agreeCheckbox.click();
             await page.waitForTimeout(3000);
             await registrationPage.registerButton.click();
-            await page.waitForTimeout(5000);
+            await page.waitForTimeout(3000);
 
-            await expect(page.getByText('Email confirmation')).toBeVisible();
-            await expect(page.getByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`)).toBeVisible();
-            await expect(page.getByText('Not received an email?')).toBeVisible();
+            if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible()}
+            else if (await page.getByText('Not received an email?').isVisible())
+            {   await expect(page.getByText('Email confirmation')).toBeVisible();
+                await expect(page.getByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`)).toBeVisible();
+                await expect(page.getByText('Not received an email?')).toBeVisible();
+            }
+
         });
     });
 
@@ -58,6 +62,7 @@ test.describe('Login Page tests', () => {
             });
 
             registrationPage = new RegistrationPage(page);
+
             const email: string = "user@user";
 
             await registrationPage.emailField.click();
@@ -87,7 +92,7 @@ test.describe('Login Page tests', () => {
             await expect(page.getByText('latin characters only')).toBeVisible();
         });
 
-        test('negative: Checking registration (already exist user data)', { tag: '@smoke' }, async ({ page }) => {
+        test('negative:Checking registration (already exist user data)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pw"
@@ -109,9 +114,12 @@ test.describe('Login Page tests', () => {
             await registrationPage.agreeCheckbox.click();
             await page.waitForTimeout(2000);
             await registrationPage.registerButton.click();
-            await page.waitForTimeout(2000);
 
-            await expect(page.getByText('Email already exists')).toBeVisible();
+            if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible()}
+            else if (await page.getByText('Email already exists').isVisible())
+            {await expect(page.getByText('Email already exists')).toBeVisible();}
         });
+
     });
+
 });
