@@ -12,16 +12,16 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
-    test('Hub air alarm setting', { tag: '@smoke' }, async ({ page }) => {
+    test('Hub air alarm setting', { tag: ['@smoke','@hub'] }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -35,7 +35,7 @@ test.describe('Hub Page tests', () => {
         await profilePage.firstHub.click();
         await page.waitForTimeout(2000);
         if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
+        {   await hubPage.closeWindowButton.click()}
         await hubPage.hubPanel.click();
         await hubPage.settingsAirAlarm.click();
         await hubPage.onButton.click();

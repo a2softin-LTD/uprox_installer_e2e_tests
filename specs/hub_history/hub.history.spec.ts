@@ -4,7 +4,7 @@ import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 
-test.describe('Hub Page tests', () => {
+test.describe('Hub history page', { tag: ['@stable']  }, () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
@@ -12,23 +12,22 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
     test.describe('History', () => {
 
-        test('History display', { tag: '@smoke' }, async ({ page }) => {
+        test('History display', { tag: ['@smoke','@hub']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/86946uqk8'
+                description: 'https://app.clickup.com/t/8678rvbyg'
             });
-
-            await loginPage.auth(USER_1);
-            await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
@@ -37,6 +36,7 @@ test.describe('Hub Page tests', () => {
             await hubPage.history.click();
 
             await expect(hubPage.historyFirstEvent).toBeVisible();
+
             for (const event of await hubPage.historyEvent.all())
             { await expect(event).toBeVisible();}
 
@@ -48,11 +48,8 @@ test.describe('Hub Page tests', () => {
         test('History filtration', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/86946uqk8'
+                description: 'https://app.clickup.com/t/8678rvbzg'
             });
-
-            await loginPage.auth(USER_1);
-            await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
@@ -79,27 +76,24 @@ test.describe('Hub Page tests', () => {
             await expect(page.getByText('Added new user').first()).not.toBeVisible();
         });
 
-        test.skip('Download history file', { tag: '@smoke' }, async ({ page }) => {
+        test('Download history file', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/86946uqk8'
+                description: 'https://app.clickup.com/t/8678rvcav'
             });
-
-            await loginPage.auth(USER_1);
-            await expect(page).toHaveURL('/profile/panels');
 
             await profilePage.panels.click();
             await profilePage.firstHub.click();
             if (await page.getByText('Update firmware version').isVisible())
             {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
-            await expect(page.getByText('Save in .XLS')).toBeVisible();
-            await hubPage.saveInXLSButton.click();
 
+            await expect(page.getByText('Save in .XLS')).toBeVisible();
+
+            await hubPage.saveInXLSButton.click();
             const downloadPromise = page.waitForEvent('download');
             await hubPage.exportButton.click();
             const download = await downloadPromise;
-
             await download.saveAs(download.suggestedFilename());
         });
 

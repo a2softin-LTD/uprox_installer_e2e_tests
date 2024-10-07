@@ -12,22 +12,23 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
+
         await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
-    test('Add hub by serial number:negative', { tag: '@smoke' }, async ({ page }) => {
+    test('Add hub by serial number: negative', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p1vxc"
         });
 
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
         const serialNumber: string = "56:08:B7:10:02:44";
-
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        const serialNumber1: string = "00:08:B7:10:02:04";
 
         await profilePage.panels.click();
         await hubPage.addPanelButton.click();

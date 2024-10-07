@@ -12,27 +12,26 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-    });
-
-    test('New request', { tag: '@smoke' }, async ({ page }) => {
-        test.info().annotations.push({
-            type: "test_id",
-            description: ""
-        });
-
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
-        const country: string = "Ukraine";
+
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
+    });
+
+    test('New request', { tag: ['@smoke','@hub']}, async ({ page }) => {
+        test.info().annotations.push({
+            type: "test_id",
+            description: "https://app.clickup.com/t/8678rb7xp"
+        });
+
         const nameOfCompany: string = "AVL TEST";
         const contactPhone: string = "+3805066789089";
         const location: string = "Madrid";
         const note: string = "no";
         const warningMessage: string = "Unfortunately, there are no companies in your country to apply for service. You can select another country";
-
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();

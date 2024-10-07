@@ -21,7 +21,6 @@ test.describe('Hub Page tests', () => {
 
         await loginPage.openLoginPage('dev');
         await expect(page).toHaveURL('/login')
-
         await loginPage.auth(MONITORING_COMPANY);
         await expect(page).toHaveURL('/panels');
 

@@ -15,8 +15,9 @@ test.describe('Login Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage(ENVIRONMENT);
         profilePage = new ProfilePage(page);
+
+        await loginPage.openLoginPage(ENVIRONMENT);
     });
 
     test.describe('Creation of the Security Company Admin under the different role', () => {
@@ -112,6 +113,7 @@ test.describe('Login Page tests', () => {
 
             await expect(page.getByText(adminEmail)).toBeVisible();
         });
+
     });
 
 });

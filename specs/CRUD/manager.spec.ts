@@ -12,8 +12,9 @@ test.describe('Login Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage(ENVIRONMENT);
         profilePage = new ProfilePage(page);
+
+        await loginPage.openLoginPage(ENVIRONMENT);
     });
 
     test.describe('Creation of the Security Company Admin under the different role', () => {
@@ -35,6 +36,9 @@ test.describe('Login Page tests', () => {
 
             await profilePage.employees.click();
             await profilePage.addButton.click();
+
+            await expect(page.getByText('Add employee')).toBeVisible();
+
             await profilePage.employeeEmailField.fill(email);
             await profilePage.employeeNameField.fill(name);
             await profilePage.employeePhoneField.fill(phone);
@@ -66,11 +70,14 @@ test.describe('Login Page tests', () => {
             await loginPage.auth(CORP_ADMIN);
 
             await expect(page).toHaveURL('/profile/companies');
-
             await expect(page.getByText('QA- company-1')).toBeVisible();
+
             await (page.getByText('QA- company-1')).click();
             await profilePage.employees.click();
             await profilePage.addButton.click();
+
+            await expect(page.getByText('Add employee')).toBeVisible();
+
             await profilePage.employeeEmailField.fill(email);
             await profilePage.employeeNameField.fill(name);
             await profilePage.employeePhoneField.fill(phone);

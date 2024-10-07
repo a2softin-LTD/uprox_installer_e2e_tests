@@ -3,19 +3,19 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MIXED,USER_1 } from "../../utils/user_data";
 
-test.describe('Profile Page tests', () => {
+test.describe('Profile Page tests', {tag: '@stable'},() => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
         profilePage = new ProfilePage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
     test.describe('Checking UI elements of the Profile Page', () => {
@@ -49,6 +49,7 @@ test.describe('Profile Page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9at"
             });
+
             const newName: string = "Дмитро Дмитрук";
             const oldName: string = "Дмитро Анатольович Пінчук";
 
@@ -70,6 +71,7 @@ test.describe('Profile Page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9uy"
             });
+
             const newPhone: string = "+380508888888";
             const oldPhone: string = "+380507777777";
 
@@ -86,13 +88,12 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText(oldPhone)).toBeVisible();
         });
 
-
-
         test('Language for emails edit', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rcapf"
             });
+
             const languageOld: string = "English";
             const languageNew: string = "French";
 
@@ -151,6 +152,7 @@ test.describe('Profile Page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rcauf"
             });
+
             const supportText: string = "You can send your question or message to the technical support service at:";
             const supportEmail: string = "support@u-prox.systems";
 
@@ -180,6 +182,7 @@ test.describe('Profile Page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9y0"
             });
+
             const passwordCurrent: string = "lepidoptera111278DAP!@#";
             const passwordNew: string = "lepidoptera111278DAP!";
 
@@ -195,7 +198,10 @@ test.describe('Profile Page tests', () => {
             await profilePage.userEditNewPasswordField.fill(passwordCurrent);
             await profilePage.userEditSubmit.click();
             await page.waitForTimeout(2000);
+
             await expect(page.getByText('The password must be at least 8 characters, contain numbers and, at least, one uppercase and one lowercase letter')).not.toBeVisible();
         });
+
     });
+
 });

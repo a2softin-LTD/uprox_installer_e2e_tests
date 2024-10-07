@@ -8,10 +8,11 @@ test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
-    let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+
         await loginPage.openLoginPage('dev');
         await expect(page).toHaveURL('/login')
     });
@@ -21,9 +22,6 @@ test.describe('Hub Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8678t0fu2"
         });
-
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
 
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');

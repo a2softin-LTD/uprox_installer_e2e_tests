@@ -12,20 +12,19 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
-
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
     test('Display of hub current status ', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: ""
+            description: "https://app.clickup.com/t/8678t0fxq"
         });
 
         await profilePage.panels.click();

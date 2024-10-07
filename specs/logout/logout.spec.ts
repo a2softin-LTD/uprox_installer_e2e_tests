@@ -10,8 +10,12 @@ test.describe('Profile Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+
         await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
     test('Logout', { tag: '@smoke' }, async ({ page }) => {
@@ -19,13 +23,12 @@ test.describe('Profile Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/86946uqka"
         });
-        profilePage = new ProfilePage(page);
-
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.logoutButton.click();
 
         await expect(page).toHaveURL('/login')
+        await page.waitForTimeout(2000);
+       // await expect(loginPage.passwordField).toBeEmpty();
+       // await expect(loginPage.emailField).toBeEmpty();
     });
 });

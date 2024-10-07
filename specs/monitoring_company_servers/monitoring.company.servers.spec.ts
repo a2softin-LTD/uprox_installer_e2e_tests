@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MONITORING_COMPANY } from "../../utils/user_data";
 
-test.describe('Profile Page tests', () => {
+test.describe('Monitoring company servers',{ tag: '@stable' }, () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
@@ -11,6 +11,7 @@ test.describe('Profile Page tests', () => {
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
+
         await loginPage.openLoginPage('dev');
         await expect(page).toHaveURL('/login')
         await loginPage.auth(MONITORING_COMPANY);
@@ -20,7 +21,6 @@ test.describe('Profile Page tests', () => {
         for (const server of await profilePage.entityBlock.all())
         {   await  profilePage.trashIcon.click()
             await profilePage.submitButton.click();}
-
     });
 
     test('Servers list: monitoring company', { tag: '@smoke' }, async ({ page }) => {
@@ -48,6 +48,7 @@ test.describe('Profile Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8694fb8nk"
         });
+
         const newName: string = "New server";
         const newDNS: string = "179.36.500.218";
         const newPort: string = "4480";
@@ -67,6 +68,7 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);
+
         await expect(page.getByText(newName)).not.toBeVisible();
     });
 
@@ -120,6 +122,7 @@ test.describe('Profile Page tests', () => {
         await profilePage.companyDnsServerField.fill(oldDNS);
         await profilePage.companyPortServerField.fill(oldPort);
         await profilePage.saveButton.click();
+
         await expect(page.getByText(oldName)).toBeVisible();
 
         await page.getByText((oldName)).click();
@@ -135,6 +138,7 @@ test.describe('Profile Page tests', () => {
         await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);
+
         await expect(page.getByText(newName)).not.toBeVisible();
     });
 });

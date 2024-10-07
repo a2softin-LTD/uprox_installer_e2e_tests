@@ -21,12 +21,13 @@ import {
 } from "../../utils/user_data";
 import { ENVIRONMENT, UIErrorMessages } from "../../utils/constants";
 
-test.describe('Login Page tests', () => {
+test.describe('Login Page tests', {tag: '@stable'}, () => {
 
     let loginPage: LoginPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+
         await loginPage.openLoginPage(ENVIRONMENT);
     });
 
@@ -58,6 +59,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(SUPER_ADMIN);
             await expect(page).toHaveURL('/support/search');
         });
@@ -67,6 +69,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(CORP_ADMIN);
             await expect(page).toHaveURL('/profile/companies');
         });
@@ -76,6 +79,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(SYSTEM_ADMIN);
             await expect(page).toHaveURL('/support/search');
         });
@@ -85,6 +89,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(INSTALLER);
             await expect(page).toHaveURL('/panels');
         });
@@ -94,6 +99,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(SUPPORT);
             await expect(page).toHaveURL('/support/search');
         });
@@ -103,6 +109,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(MIXED);
             await expect(page).toHaveURL('/panels');
         });
@@ -112,6 +119,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(MANAGER);
             await expect(page).toHaveURL('/profile/panels');
         });
@@ -121,6 +129,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
             await expect(page).toHaveURL('/panels');
         });
@@ -130,6 +139,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(MONITORING_SERVICE_COMPANY_2);
             await expect(page).toHaveURL('/panels');
         });
@@ -139,6 +149,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(MONITORING_COMPANY);
             await expect(page).toHaveURL('/panels');
         });
@@ -148,6 +159,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(ENGINEER);
             await expect(page).toHaveURL('/profile/feedback');
         });
@@ -157,6 +169,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(USER_1);
             await expect(page).toHaveURL('/profile/panels');
         });
@@ -166,6 +179,7 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: ""
             });
+
             await loginPage.auth(USER_2);
             await expect(page).toHaveURL('/profile/panels');
         });
@@ -179,6 +193,7 @@ test.describe('Login Page tests', () => {
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk8'
             });
+
             await loginPage.emailField.fill(USER_1['login']);
             await loginPage.passwordField.fill(USER_1['password']);
             await loginPage.rememberMeCheckbox.click();
@@ -201,7 +216,9 @@ test.describe('Login Page tests', () => {
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
             });
+
             await loginPage.auth(UNKNOWN_EMAIL);
+
             await expect(page.getByText(UIErrorMessages.WRONG_CREDENTIALS)).toBeVisible();
         });
 
@@ -210,7 +227,9 @@ test.describe('Login Page tests', () => {
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
             });
+
             await loginPage.emailField.fill(INVALID_EMAIL_WITHOUT_AT['login']);
+
             await expect(page.getByText(UIErrorMessages.INCORRECT_EMAIL_ADDRESS)).toBeVisible();
         });
 
@@ -219,7 +238,9 @@ test.describe('Login Page tests', () => {
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
             });
+
             await loginPage.emailField.fill(INVALID_EMAIL_WITHOUT_DOMAIN['login']);
+
             await expect(page.getByText(UIErrorMessages.INCORRECT_EMAIL_ADDRESS)).toBeVisible();
         });
 
@@ -228,11 +249,13 @@ test.describe('Login Page tests', () => {
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
             });
+
             await loginPage.emailField.fill(USER_1['login']);
             await loginPage.emailField.clear();
             await loginPage.passwordField.fill(USER_1['password']);
             await loginPage.passwordField.clear();
             await loginPage.loginButton.click();
+
             await expect(page.getByText(UIErrorMessages.REQUIRED_FIELD)).toHaveCount(2);
         });
 
@@ -241,7 +264,9 @@ test.describe('Login Page tests', () => {
                 type: "clickUp_link",
                 description: "https://app.clickup.com/t/86946uqk6"
             });
+
             await loginPage.loginButton.click();
+
             await expect(loginPage.matWarn).toHaveCount(2);
         });
 
@@ -250,7 +275,9 @@ test.describe('Login Page tests', () => {
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk6'
             });
+
             await loginPage.auth(INVALID_PASSWORD);
+
             await expect(page.getByText(UIErrorMessages.WRONG_CREDENTIALS)).toBeVisible();
         });
 

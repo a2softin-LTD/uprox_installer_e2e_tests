@@ -4,7 +4,7 @@ import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
 
-test.describe('Hub Page tests', () => {
+test.describe('Keypad code setting', () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
@@ -12,13 +12,13 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
+        await loginPage.openLoginPage('dev');
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
     test('Keypad code setting', { tag: '@smoke' }, async ({ page }) => {
@@ -26,6 +26,7 @@ test.describe('Hub Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8693q67d2"
         });
+
         const name: string = "Дмитро";
         const mail: string = "| snaut12@gmail.com";
         const code: string = "1111";
@@ -40,12 +41,13 @@ test.describe('Hub Page tests', () => {
         if (await hubPage.changeButton.isDisabled())
         {   await hubPage.settingsKeypadCodeLength6digits.click()
             await hubPage.change_Button.click();
-            await page.reload();
+            await expect(page.getByText('6 symbols')).toBeVisible();
             await hubPage.settingsKeypadCodeLength.click();
             await hubPage.settingsKeypadCodeLength4digits.click();}
         await hubPage.change_Button.click();
 
-        await expect(page.getByText('6 symbols')).toBeVisible();
+        await expect(page.getByText('4 symbols')).toBeVisible();
+        await expect(page.getByText('Users', {exact: true})).toBeVisible();
 
         await hubPage.users.click();
         if (await (page.getByText(name)).isVisible()) {
@@ -59,7 +61,10 @@ test.describe('Hub Page tests', () => {
         await page.getByText(mail).click();
         await hubPage.settingsArmKeypadCode.click();
         await hubPage.settingsKeypadCodeField.fill(code);
-        await hubPage.saveButton.click();
+        await hubPage.saveButton.click()
+
+        await expect(page.getByText('Users', {exact: true})).toBeVisible();
+
         await hubPage.users.click();
         await page.getByText(name).click();
         await hubPage.deleteUserButton.click();

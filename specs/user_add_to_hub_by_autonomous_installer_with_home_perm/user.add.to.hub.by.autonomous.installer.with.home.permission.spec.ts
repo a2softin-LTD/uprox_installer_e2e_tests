@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
-import { USER_1, USER_3 } from "../../utils/user_data";
+import { USER_1,USER_3 } from "../../utils/user_data";
 
 test.describe('Hub Page tests', () => {
 
@@ -12,23 +12,23 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
+
         await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(USER_1);
+        await expect(page).toHaveURL('/profile/panels');
     });
 
-    test('Add user by autonomus installer with Home permission', async ({ page }) => {
+    test('Add user by autonomous installer with Home permission', {tag:['@smoke','@hub']}, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
         });
 
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
         const name: string = "Дмитро";
         const newUser: string = "Дмитро | snaut12@gmail.com";
-
-        await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();

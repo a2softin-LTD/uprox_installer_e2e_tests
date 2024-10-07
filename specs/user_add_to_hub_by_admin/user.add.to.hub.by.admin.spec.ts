@@ -12,8 +12,13 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
+
         await loginPage.openLoginPage('dev');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL('/login');
+        await loginPage.auth(MONITORING_SERVICE_COMPANY_2);
+        await expect(page).toHaveURL('/panels');
     });
 
     test.skip('Add new user by admin', { tag: '@smoke' }, async ({ page }) => {
@@ -22,13 +27,8 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8694amwf9"
         });
 
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
         const name: string = "Дмитро";
         const newUser: string = "Дмитро | snaut12@gmail.com";
-
-        await loginPage.auth(MONITORING_SERVICE_COMPANY_2);
-        await expect(page).toHaveURL('/panels');
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();

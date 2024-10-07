@@ -12,6 +12,9 @@ test.describe('Hub Page tests', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
+
         await loginPage.openLoginPage('dev');
         await expect(page).toHaveURL('/login')
     });
@@ -22,11 +25,9 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8694mz7xz"
         });
 
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
-
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
+
         await page.waitForTimeout(2000);
         await profilePage.secondHub.click();
         await page.waitForTimeout(2000);
