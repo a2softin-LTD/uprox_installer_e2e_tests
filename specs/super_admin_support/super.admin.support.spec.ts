@@ -12,7 +12,7 @@ test.describe('Profile Page tests', () => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(SUPER_ADMIN);
         await expect(page).toHaveURL('/support/search');
@@ -20,7 +20,7 @@ test.describe('Profile Page tests', () => {
 
     test.describe('Search under SUPER_ADMIN role', () => {
 
-        test('Search by login under SUPER_ADMIN role', async ({ page }) => {
+        test('Search by login under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694py9mp"
@@ -36,7 +36,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText('Search result for d.pinchuk@itvsystems.com.ua')).toBeVisible();
         });
 
-        test('Search by serial number under SUPER_ADMIN role', async ({ page }) => {
+        test('Search by serial number under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694py9ch"
@@ -53,7 +53,7 @@ test.describe('Profile Page tests', () => {
             await expect(page.getByText('Show configuration')).toBeVisible();
         });
 
-        test('Search by account under SUPER_ADMIN role', async ({ page }) => {
+        test('Search by account under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694py97x"

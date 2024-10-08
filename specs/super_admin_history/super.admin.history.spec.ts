@@ -15,7 +15,7 @@ test.describe('Hub history page', { tag: ['@stable']  }, () => {
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(SUPER_ADMIN);
         await expect(page).toHaveURL('/support/search');

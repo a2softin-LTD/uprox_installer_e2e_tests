@@ -1,8 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {DILER, SUPER_ADMIN} from "../../utils/user_data";
-import { faker } from "@faker-js/faker";
+import {DILER } from "../../utils/user_data";
 
 test.describe('Companies under DILER role', { tag: '@stable' },() => {
 
@@ -13,13 +12,13 @@ test.describe('Companies under DILER role', { tag: '@stable' },() => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(DILER);
         await expect(page).toHaveURL('/dealer/companies');
     });
 
-    test('Checking UI elements on companies page under DILER role', async ({ page }) => {
+    test('Checking UI elements on companies page under DILER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -33,8 +32,7 @@ test.describe('Companies under DILER role', { tag: '@stable' },() => {
             await expect(profilePage.pageTitle.filter({has:page.getByText('Companies:')})).toBeVisible();
     });
 
-
-    test('Company list under DILER role', async ({ page }) => {
+    test('Company list under DILER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf42"
@@ -51,7 +49,7 @@ test.describe('Companies under DILER role', { tag: '@stable' },() => {
 
     test.describe('Company search under DILER role', () => {
 
-        test('Company search by country under DILER role', async ({ page }) => {
+        test('Company search by country under DILER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf4a"
@@ -74,7 +72,7 @@ test.describe('Companies under DILER role', { tag: '@stable' },() => {
             await expect(profilePage.employeeBlock).toHaveCount(companiesNumber);
         });
 
-        test('Company search by role under DILER role', async ({ page }) => {
+        test('Company search by role under DILER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf4c"
@@ -94,8 +92,7 @@ test.describe('Companies under DILER role', { tag: '@stable' },() => {
             await expect(profilePage.employeeBlock).toHaveCount(companiesNumber);
         });
 
-
-        test('Company search by setting under DILER role', async ({ page }) => {
+        test('Company search by setting under DILER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf48"
@@ -116,7 +113,7 @@ test.describe('Companies under DILER role', { tag: '@stable' },() => {
             await expect(profilePage.employeeBlock).toHaveCount(companiesNumber);
         });
 
-        test('Company search by company name under DILER role', async ({ page }) => {
+        test('Company search by company name under DILER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf4b"
@@ -134,7 +131,7 @@ test.describe('Companies under DILER role', { tag: '@stable' },() => {
 
     });
 
-    test('Downloading companies list under DILER role', async ({ page }) => {
+    test('Downloading companies list under DILER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694phqe6"

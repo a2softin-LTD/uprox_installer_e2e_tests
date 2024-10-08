@@ -3,9 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import {
     SUPER_ADMIN,
-    SYSTEM_ADMIN,
 } from "../../utils/user_data";
-import { ENVIRONMENT } from "../../utils/constants";
 import { faker } from "@faker-js/faker";
 
 test.describe('Login Page tests', () => {
@@ -17,7 +15,7 @@ test.describe('Login Page tests', () => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(SUPER_ADMIN);
         await expect(page).toHaveURL('/support/search');
@@ -38,8 +36,7 @@ test.describe('Login Page tests', () => {
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";
-            const company: string = "фів";
-
+            //const company: string = "фів";
 
             await profilePage.companies.click();
 
