@@ -110,7 +110,7 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             await profilePage.userEditField.fill(oldPhone);
             await profilePage.saveButton.click();
 
-           await expect(page.getByText(oldPhone)).toBeVisible();
+            await expect(page.getByText(oldPhone)).toBeVisible();
         });
 
         test('Language for emails edit: monitoring company', { tag: '@smoke' }, async ({ page }) => {
@@ -206,6 +206,7 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             await profilePage.inputField.fill(cabinetNew);
             await profilePage.submitButton.click();
 
+            await expect(page.getByText('Company settings')).toBeVisible();
             await expect(page.getByText(countryNew)).toBeVisible();
             await expect(page.getByText(cabinetNew)).toBeVisible();
 
@@ -220,6 +221,7 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             await profilePage.inputField.fill(cabinetOld);
             await profilePage.submitButton.click();
 
+            await expect(page.getByText('Company settings')).toBeVisible();
             await expect(page.getByText(countryOld)).toBeVisible();
             await expect(page.getByText(cabinetOld)).toBeVisible();
         });
@@ -391,5 +393,7 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
 
             await expect(page.getByText(language)).not.toBeVisible();
         });
+
     });
+
 });

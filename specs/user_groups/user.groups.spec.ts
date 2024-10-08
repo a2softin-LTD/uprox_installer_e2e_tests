@@ -86,18 +86,16 @@ test.describe('Hub Page tests', () => {
             await hubPage.groupNameField.fill(nameOfGroup);
             await hubPage.saveButton.click();
             await page.waitForTimeout(2000);
-            page.reload();
-
+            await page.reload();
+            await expect(profilePage.pageTitle.filter({hasText:'Groups'})).toBeVisible();
             await expect(page.getByText((nameOfGroup))).toBeVisible();
 
             await page.getByText((nameOfGroup)).click();
             await hubPage.groupBlockWithName.click();
             await hubPage.groupNameField.fill(newNameOfGroup);
             await hubPage.saveButton.click();
-            await page.waitForTimeout(2000);
-            await page.reload();
-            await page.waitForTimeout(2000);
 
+            await expect(page.getByText(`Edit group`)).toBeVisible();
             await expect (page.getByText((newNameOfGroup))).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
@@ -105,9 +103,8 @@ test.describe('Hub Page tests', () => {
             await expect(page.getByText(`Delete ${newNameOfGroup}?`)).toBeVisible();
 
             await hubPage.deleteButton.click();
-            await page.waitForTimeout(2000);
-            await page.reload();
 
+            await expect(profilePage.pageTitle.filter({hasText:'Groups'})).toBeVisible();
             await expect (page.getByText((newNameOfGroup))).not.toBeVisible();
         });
 
@@ -125,7 +122,7 @@ test.describe('Hub Page tests', () => {
             {  await hubPage.closeWindowButton.click()}
             await hubPage.groups.click();
             await hubPage.groupAddGroupButton.click();
-            
+
             await expect(page.getByText('Enter group name')).toBeVisible();
 
             await hubPage.groupNameField.fill(nameOfGroup);

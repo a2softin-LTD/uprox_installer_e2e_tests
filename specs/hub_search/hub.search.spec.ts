@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {MIXED} from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { MIXED } from "../../utils/user_data";
 
 test.describe('Profile Page tests', () => {
 

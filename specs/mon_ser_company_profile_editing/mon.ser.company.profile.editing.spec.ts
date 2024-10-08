@@ -183,19 +183,20 @@ test.describe('Monitoring-service company profile editing ', { tag: '@stable' },
             const firstEvent: string = "Arms/Disarms";
 
             await profilePage.company.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText('Company settings')).toBeVisible();
 
             if (await profilePage.companyCountry.filter({hasText:countryNew}).isVisible())
             {   await profilePage.companyCountry.click();
                 await profilePage.inputField.fill(countryOld);
+                await page.waitForTimeout(2000);
                 await page.getByText(countryOld, {exact: true}).click();
                 await profilePage.submitButton.click();
                 await expect(profilePage.companyCountry.filter({hasText:countryOld})).toBeVisible();}
 
             await profilePage.companyCountry.click();
             await profilePage.inputField.fill(countryNewShortCut);
+            await page.waitForTimeout(2000);
             await page.getByText(countryNew, {exact: true}).click();
             await profilePage.submitButton.click();
 
@@ -233,6 +234,7 @@ test.describe('Monitoring-service company profile editing ', { tag: '@stable' },
             await page.getByText(firstEvent, { exact: true }).click();
             await profilePage.submitButton.click();
 
+            await expect(page.getByText('Company settings')).toBeVisible();
             await expect(page.getByText(countryNew)).toBeVisible();
             await expect(page.getByText(cabinetNew)).toBeVisible();
             await expect(page.getByText(guestsNewStatus)).toBeVisible();
@@ -254,10 +256,7 @@ test.describe('Monitoring-service company profile editing ', { tag: '@stable' },
             await page.getByText(firstEvent).click();
             await profilePage.submitButton.click();
 
-            await page.waitForTimeout(2000);
-            await page.reload();
-            await page.waitForTimeout(2000);
-
+            await expect(page.getByText('Company settings')).toBeVisible();
             await expect(page.getByText(countryOld)).toBeVisible();
             await expect(page.getByText(cabinetOld)).toBeVisible();
             await expect(page.getByText(guestsOldStatus)).toBeVisible();

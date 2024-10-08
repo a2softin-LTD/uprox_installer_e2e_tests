@@ -43,7 +43,10 @@ export class BasePage {
     private readonly _resendEmailButton: Locator;
     private readonly _informationIcon: Locator
     private readonly _searchField: Locator;
+    private readonly _searchButton: Locator;
     private readonly _pageTitle: Locator;
+    private readonly _adsIcon: Locator
+    private readonly _saveInXLSButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -88,6 +91,9 @@ export class BasePage {
         this._informationIcon = page.locator('use[*|href="#icon-About"]');
         this._searchField = page.locator('input[placeholder*="Search"]');
         this._pageTitle = page.locator('h3');
+        this._searchButton = page.getByText('Search',{ exact: true });
+        this._adsIcon = page.locator('use[*|href="#icon-ads"]');
+        this._saveInXLSButton = page.getByText(' Save in .XLS ').or(page.getByText(' Save in XLS')).or(this.page.locator('.threepoints-block'));
     }
 
     get saveButton(): Locator {
@@ -253,6 +259,19 @@ export class BasePage {
     get applyButton (): Locator {
         return this._applyButton ;
     }
+
+    get searchButton (): Locator {
+        return this._searchButton ;
+    }
+
+    get adsIcon (): Locator {
+        return this._adsIcon ;
+    }
+
+    get saveInXLSButton (): Locator {
+        return this._saveInXLSButton ;
+    }
+
 
 
 
