@@ -9,7 +9,7 @@ test.describe('Login Page tests', () => {
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
     });
 

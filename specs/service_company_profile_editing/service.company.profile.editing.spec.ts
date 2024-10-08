@@ -12,7 +12,7 @@ test.describe('Service company profile editing', { tag: '@stable' },() => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(SERVICE_COMPANY_1);
         await page.waitForTimeout(2000);

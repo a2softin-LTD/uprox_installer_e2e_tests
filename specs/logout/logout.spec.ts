@@ -12,7 +12,7 @@ test.describe('Profile Page tests', () => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');

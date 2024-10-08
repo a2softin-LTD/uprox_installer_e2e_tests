@@ -5,7 +5,6 @@ import {
     SUPER_ADMIN,
     SYSTEM_ADMIN,
 } from "../../utils/user_data";
-import { ENVIRONMENT } from "../../utils/constants";
 import { faker } from "@faker-js/faker";
 
 test.describe('Login Page tests', () => {
@@ -17,7 +16,7 @@ test.describe('Login Page tests', () => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage(ENVIRONMENT);
+        await loginPage.openLoginPage('/');
     });
 
     test.describe('Creation of the Security Company Admin under the different role', () => {

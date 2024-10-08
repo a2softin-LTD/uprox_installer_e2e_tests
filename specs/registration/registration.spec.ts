@@ -3,7 +3,6 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { RegistrationModel } from "../../models/RegistrationModel";
 import { faker } from "@faker-js/faker";
 import { RegistrationPage } from "../../pages/registration/RegistrationPage";
-import { ENVIRONMENT } from "../../utils/constants";
 
 test.describe('Login Page tests', {tag: '@stable'}, () => {
 
@@ -13,7 +12,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
 
-        await loginPage.openLoginPage(ENVIRONMENT);
+        await loginPage.openLoginPage('/');
         await loginPage.registerLink.click();
     });
 

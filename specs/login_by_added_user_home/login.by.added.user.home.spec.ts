@@ -16,7 +16,7 @@ test.describe('Profile Page tests', () => {
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
@@ -48,7 +48,7 @@ test.describe('Profile Page tests', () => {
         await expect(page.getByText((name))).toBeVisible();
 
         await profilePage.logoutButton.click();
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await loginPage.auth(USER_3);
 
         await expect(page).toHaveURL('/profile/panels');

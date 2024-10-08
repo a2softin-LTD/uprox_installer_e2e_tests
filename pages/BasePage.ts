@@ -254,21 +254,8 @@ export class BasePage {
         return this._applyButton ;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    async openLoginPage(env: string) {
-        await this.page.goto(INSTALLER_LOGIN_URL(env));
+    async openLoginPage(path: string) {
+        await this.page.goto(path);
     }
 
     async clickOnButton(locator: Locator) {

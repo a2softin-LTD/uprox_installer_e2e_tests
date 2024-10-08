@@ -15,7 +15,7 @@ test.describe('Hub Page tests', () => {
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
@@ -29,8 +29,10 @@ test.describe('Hub Page tests', () => {
 
         await profilePage.panels.click();
         await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
+
+        if (await page.getByText('Update firmware version').isVisible()) {
+            await hubPage.closeWindowButton.click()
+        }
 
         await expect((hubPage.hubPowerNormalIcon).or(hubPage.hubPowerTroubleIcon)).toBeVisible();
         await expect((hubPage.hubTamperOpenIcon).or(hubPage.hubTamperCloseIcon)).toBeVisible();

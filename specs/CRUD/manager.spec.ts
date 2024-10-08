@@ -2,7 +2,6 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { CORP_ADMIN, MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
-import { ENVIRONMENT } from "../../utils/constants";
 import { faker } from "@faker-js/faker";
 
 test.describe('Login Page tests', () => {
@@ -14,7 +13,7 @@ test.describe('Login Page tests', () => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage(ENVIRONMENT);
+        await loginPage.openLoginPage('/');
     });
 
     test.describe('Creation of the Security Company Admin under the different role', () => {

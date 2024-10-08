@@ -27,8 +27,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-
-        await loginPage.openLoginPage(ENVIRONMENT);
+        await loginPage.openLoginPage('/');
     });
 
     test.describe('Checking UI elements of the Page', () => {
@@ -202,7 +201,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
             await page.close();
             loginPage = new LoginPage(page);
-            await loginPage.openLoginPage(ENVIRONMENT);
+            await loginPage.openLoginPage('/');
             await expect(page).toHaveURL('/profile/panels');
 
         });

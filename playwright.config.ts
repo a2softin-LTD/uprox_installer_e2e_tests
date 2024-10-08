@@ -37,11 +37,12 @@ export default defineConfig({
     screenshot: "only-on-failure",
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.CUSTOM_BASE_URL,
+    //baseURL: 'http://localhost:3000',
     // baseURL: 'https://devweb-security.u-prox.systems',
 
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
+    actionTimeout: 15000,
+    navigationTimeout: 30000,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
@@ -50,14 +51,22 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'setup',
-      testMatch: '**/specs/auth/auth.setup.ts',
+      name: 'dev',
+      use: {
+        baseURL: 'https://devweb-security.u-prox.systems',
+      },
     },
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup'],
+      name: 'dach',
+      use: {
+        baseURL: 'https://dev-dach-web-security.u-prox.systems',
+      },
     },
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+    //   dependencies: ['setup'],
+    // },
 
     // {
     //   name: 'firefox',
