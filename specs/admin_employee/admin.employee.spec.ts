@@ -13,7 +13,7 @@ test.describe('Profile Page tests', () => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
         await expect(page).toHaveURL('/panels');
@@ -28,7 +28,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = "Дмитро";
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 
@@ -59,7 +59,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = "Дмитро";
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 
@@ -90,7 +90,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const nameOld: string = "Дмитро Дмитрович";
-            const emailOld: string = faker.internet.email();
+            const emailOld: string = faker.internet.email({ firstName: 'sastest2398_' });
             const phoneOld: string = faker.phone.number();
             const nameNew: string = "Петро Пилипів";
             const phoneNew: string = faker.phone.number();
@@ -142,7 +142,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = "ДЖОНСОН";
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 

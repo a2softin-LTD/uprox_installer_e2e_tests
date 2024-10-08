@@ -15,7 +15,7 @@ test.describe('Keypad code setting', () => {
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');

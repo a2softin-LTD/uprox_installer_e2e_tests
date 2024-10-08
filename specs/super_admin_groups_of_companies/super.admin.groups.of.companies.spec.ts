@@ -13,7 +13,7 @@ test.describe('Profile Page tests', () => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage('dev');
+        await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(SUPER_ADMIN);
         await expect(page).toHaveURL('/support/search');
@@ -112,7 +112,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
 
             await profilePage.companies.click();
             await profilePage.groupsOfCompanies.click();
@@ -143,7 +143,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
 
             await profilePage.companies.click();
             await profilePage.groupsOfCompanies.click();

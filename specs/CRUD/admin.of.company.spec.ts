@@ -5,7 +5,6 @@ import {
     SUPER_ADMIN,
     SYSTEM_ADMIN,
 } from "../../utils/user_data";
-import { ENVIRONMENT } from "../../utils/constants";
 import { faker } from "@faker-js/faker";
 
 test.describe('Login Page tests', () => {
@@ -17,7 +16,7 @@ test.describe('Login Page tests', () => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
 
-        await loginPage.openLoginPage(ENVIRONMENT);
+        await loginPage.openLoginPage('/');
     });
 
     test.describe('Creation of the Security Company Admin under the different role', () => {
@@ -29,9 +28,9 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email();
+            const adminEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
             const country: string = "Ukr";
-            const contactEmail: string = faker.internet.email();
+            const contactEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";
@@ -77,7 +76,7 @@ test.describe('Login Page tests', () => {
             const name: string = faker.commerce.productName();
             const adminEmail: string = 'user@';
             const country: string = "Ukr";
-            const contactEmail: string = faker.internet.email();
+            const contactEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";

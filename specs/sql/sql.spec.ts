@@ -80,7 +80,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                         }) : getEventsResults.rows[i].scope;
                         device = faker.number.int({min: 40000000000, max: 50000000000});
                         device_account = faker.number.int({min: 0, max: 999999});
-                        initiator = faker.internet.email();
+                        initiator = faker.internet.email({ firstName: 'sastest2398_' });
                         initiator_index = faker.number.int({min: 999, max: 99999});
                         target = faker.string.alpha({length: {min: 9, max: 99}});
                         target_index = faker.number.int({min: 999, max: 99999});
@@ -179,7 +179,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                         }) : getEventsResults.rows[i].scope;
                         device = faker.number.int({min: 40000000000, max: 50000000000});
                         device_account = faker.number.int({min: 0, max: 999999});
-                        initiator = faker.internet.email();
+                        initiator = faker.internet.email({ firstName: 'sastest2398_' });
                         initiator_index = faker.number.int({min: 999, max: 99999});
                         target = faker.string.alpha({length: {min: 9, max: 99}});
                         target_index = faker.number.int({min: 999, max: 99999});
@@ -211,7 +211,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                         }) : getEventsResults.rows[i].scope;
                         device = faker.number.int({min: 40000000000, max: 50000000000});
                         device_account = faker.number.int({min: 0, max: 999999});
-                        initiator = faker.internet.email();
+                        initiator = faker.internet.email({ firstName: 'sastest2398_' });
                         initiator_index = faker.number.int({min: 999, max: 99999});
                         target = faker.string.alpha({length: {min: 9, max: 99}});
                         target_index = faker.number.int({min: 999, max: 99999});
@@ -243,7 +243,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                         }) : getEventsResults.rows[i].scope;
                         device = faker.number.int({min: 40000000000, max: 50000000000});
                         device_account = faker.number.int({min: 0, max: 999999});
-                        initiator = faker.internet.email();
+                        initiator = faker.internet.email({ firstName: 'sastest2398_' });
                         initiator_index = faker.number.int({min: 999, max: 99999});
                         target = faker.string.alpha({length: {min: 9, max: 99}});
                         target_index = faker.number.int({min: 999, max: 99999});
@@ -275,7 +275,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                         }) : getEventsResults.rows[i].scope;
                         device = faker.number.int({min: 40000000000, max: 50000000000});
                         device_account = faker.number.int({min: 0, max: 999999});
-                        initiator = faker.internet.email();
+                        initiator = faker.internet.email({ firstName: 'sastest2398_' });
                         initiator_index = faker.number.int({min: 999, max: 99999});
                         target = faker.string.alpha({length: {min: 9, max: 99}});
                         target_index = faker.number.int({min: 999, max: 99999});
@@ -307,7 +307,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                         }) : getEventsResults.rows[i].scope;
                         device = faker.number.int({min: 40000000000, max: 50000000000});
                         device_account = faker.number.int({min: 0, max: 999999});
-                        initiator = faker.internet.email();
+                        initiator = faker.internet.email({ firstName: 'sastest2398_' });
                         initiator_index = faker.number.int({min: 999, max: 99999});
                         target = faker.string.alpha({length: {min: 9, max: 99}});
                         target_index = faker.number.int({min: 999, max: 99999});
