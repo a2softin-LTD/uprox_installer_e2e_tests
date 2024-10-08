@@ -31,7 +31,7 @@ test.describe('Hub Page tests', () => {
         await profilePage.firstHub.click();
 
         if (await page.getByText('Update firmware version').isVisible()) {
-            await hubPage.closeWindowButton.click()
+            await hubPage.closeWindowButton.click();
         }
 
         await expect((hubPage.hubPowerNormalIcon).or(hubPage.hubPowerTroubleIcon)).toBeVisible();

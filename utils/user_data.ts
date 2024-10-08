@@ -13,8 +13,13 @@ export const SYSTEM_ADMIN: object = {
     password: 'asdASD123',
 };
 
-export const INSTALLER: object = {
+export const INSTALLER: object = { // SERVICE_COMPANY
     login: 'andrianaslobozheniuk+4@gmail.com',
+    password: 'asdASD123',
+}
+
+export const INSTALLER_DACH: object = { // SERVICE_COMPANY
+    login: 'andriana99+dach2@gmail.com',
     password: 'asdASD123',
 }
 
@@ -23,8 +28,13 @@ export const SUPPORT: object = {
     password: 'asdASD123',
 }
 
-export const MIXED: object = {
+export const MIXED: object = { //MONITORING_SERVICE_COMPANY
     login: 'zajac@ukr.net',
+    password: 'asdASD123',
+}
+
+export const MIXED_DACH: object = { //MONITORING_SERVICE_COMPANY
+    login: 'andriana99+106@gmail.com',
     password: 'asdASD123',
 }
 
@@ -43,13 +53,33 @@ export const MONITORING_COMPANY: object = {
     password: 'asdASD123',
 }
 
+export const MONITORING_COMPANY_DACH: object = {
+    login: 'andriana99+dach3@gmail.com',
+    password: 'asdASD123',
+}
+
 export const ENGINEER: object = {
     login: 'd.pinchuk+004@itvsystems.com.ua',
     password: 'asdASD123',
 }
 
+export const ENGINEER_DACH: object = {
+    login: 'andriana99+94@gmail.com',
+    password: 'asdASD123',
+}
+
 export const MANAGER: object = {
     login: 'd.pinchuk+005@itvsystems.com.ua',
+    password: 'asdASD123',
+}
+
+export const MANAGER_DACH: object = {
+    login: 'andriana99+96@gmail.com',
+    password: 'asdASD123',
+}
+
+export const USER_DACH: object = {
+    login: 'andriana99+dach1@gmail.com',
     password: 'asdASD123',
 }
 
