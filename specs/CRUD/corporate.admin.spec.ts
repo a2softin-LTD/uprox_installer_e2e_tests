@@ -30,7 +30,7 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email();
+            const adminEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
 
             await loginPage.auth(SYSTEM_ADMIN);
 
@@ -75,7 +75,7 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email();
+            const adminEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
 
             await loginPage.auth(SUPER_ADMIN);
 

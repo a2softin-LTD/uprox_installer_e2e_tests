@@ -26,7 +26,7 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = "Петро";
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const phone: string = faker.phone.number();
             const role: string = "Engineer";
 
@@ -63,7 +63,7 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = "Петро";
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const phone: string = faker.phone.number();
             const role: string = "Engineer";
 

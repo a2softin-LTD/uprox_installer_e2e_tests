@@ -29,9 +29,9 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email();
+            const adminEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
             const country: string = "Ukr";
-            const contactEmail: string = faker.internet.email();
+            const contactEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";
@@ -77,7 +77,7 @@ test.describe('Login Page tests', () => {
             const name: string = faker.commerce.productName();
             const adminEmail: string = 'user@';
             const country: string = "Ukr";
-            const contactEmail: string = faker.internet.email();
+            const contactEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";

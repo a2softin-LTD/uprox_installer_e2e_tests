@@ -27,7 +27,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
             registrationPage = new RegistrationPage(page);
             const User: RegistrationModel = {
-                login: faker.internet.email(),
+                login: faker.internet.email({ firstName: 'sastest2398_' }),
                 password: 'asdASD123'
             };
 

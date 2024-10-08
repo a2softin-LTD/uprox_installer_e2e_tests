@@ -73,7 +73,7 @@ test.describe('Login Page tests', () => {
                 description: "https://app.clickup.com/t/8692udp0v"
             });
 
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
 
             await loginPage.forgotYourPasswordLink.click();
             await page.waitForTimeout(2000);

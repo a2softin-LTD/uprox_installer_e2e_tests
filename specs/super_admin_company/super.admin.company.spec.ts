@@ -65,9 +65,9 @@ test.describe('Company under SUPER_ADMIN role', { tag: '@stable' },() => {
             });
 
             const name: string = faker.commerce.productName();
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const country: string = "Ukr";
-            const contactEmail: string = faker.internet.email();
+            const contactEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";
@@ -106,9 +106,9 @@ test.describe('Company under SUPER_ADMIN role', { tag: '@stable' },() => {
             });
 
             const name: string = faker.commerce.productName();
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const country: string = "Ukr";
-            const contactEmail: string = faker.internet.email();
+            const contactEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";
@@ -256,7 +256,7 @@ test.describe('Company under SUPER_ADMIN role', { tag: '@stable' },() => {
             });
 
             const company: string = 'Handcrafted Concrete Mouse';
-            const email: string = faker.internet.email('pol');
+            const email: string = faker.internet.email({ firstName: 'pol_sastest2398_' });
 
             await profilePage.companies.click();
             await page.waitForTimeout(2000);

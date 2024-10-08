@@ -112,7 +112,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
 
             await profilePage.companies.click();
             await profilePage.groupsOfCompanies.click();
@@ -143,7 +143,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
 
             await profilePage.companies.click();
             await profilePage.groupsOfCompanies.click();

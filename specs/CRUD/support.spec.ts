@@ -26,7 +26,7 @@ test.describe('Creation of the Tech Support  by SUPER_ADMIN', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const password: string = 'asdASD123';
             const role: string = 'system_admin';
 
@@ -62,7 +62,7 @@ test.describe('Creation of the Tech Support  by SUPER_ADMIN', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const role: string = 'support';
 
             await loginPage.auth(SUPER_ADMIN);

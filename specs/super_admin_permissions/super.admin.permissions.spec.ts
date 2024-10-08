@@ -65,7 +65,7 @@ test.describe('Permissions under SUPER_ADMIN role', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const role: string = 'system_admin';
 
             await profilePage.permissions.click();
@@ -100,7 +100,7 @@ test.describe('Permissions under SUPER_ADMIN role', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const role: string = 'system_admin';
 
             await profilePage.permissions.click();
@@ -133,7 +133,7 @@ test.describe('Permissions under SUPER_ADMIN role', () => {
                 description: "https://app.clickup.com/t/8694p40z1"
             });
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const role: string = 'system_admin';
 
             await profilePage.permissions.click();
@@ -164,7 +164,7 @@ test.describe('Permissions under SUPER_ADMIN role', () => {
                 description: "https://app.clickup.com/t/8694p40z1"
             });
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email();
+            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
             const role: string = 'system_admin';
 
             await profilePage.permissions.click();
