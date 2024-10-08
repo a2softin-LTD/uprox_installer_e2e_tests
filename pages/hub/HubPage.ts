@@ -56,7 +56,7 @@ export class HubPage extends BasePage {
     private readonly _troubles: Locator;
     private readonly _firstWirelessDevice: Locator;
     private readonly _deleteNotExactButton: Locator;
-    private readonly _saveInXLSButton: Locator;
+
     private readonly _historyAlarmCheckBox: Locator;
     private readonly _historyTroublesCheckBox: Locator;
     private readonly _historyArmsCheckBox: Locator;
@@ -155,7 +155,7 @@ export class HubPage extends BasePage {
         this._wirelessDeviceAddButton = page.getByText('Add wireless device');
         this._troubles = page.getByText('Troubles',{ exact: true });
         this._firstWirelessDevice = page.locator('.part__item.ng-star-inserted').nth(1);
-        this._saveInXLSButton = page.getByText(' Save in .XLS ');
+
         this._historyAlarmCheckBox = this.page.locator('.checkbox__block').nth(0);
         this._historyTroublesCheckBox = this.page.locator('.checkbox__block').nth(1);
         this._historyArmsCheckBox = this.page.locator('.checkbox__block').nth(2);
@@ -408,10 +408,6 @@ export class HubPage extends BasePage {
 
     get deleteNotExactButton (): Locator {
         return this._deleteNotExactButton ;
-    }
-
-    get saveInXLSButton (): Locator {
-        return this._saveInXLSButton ;
     }
 
     get historyAlarmCheckBox (): Locator {

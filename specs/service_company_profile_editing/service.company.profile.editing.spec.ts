@@ -243,6 +243,7 @@ test.describe('Service company profile editing', { tag: '@stable' },() => {
             await page.getByText(firstEvent, { exact: true }).click();
             await profilePage.submitButton.click();
 
+            await expect(page.getByText('Company settings')).toBeVisible();
             await expect(page.getByText(countryNew)).toBeVisible();
             await expect(page.getByText(cabinetNew)).toBeVisible();
             await expect(page.getByText(guestsNewStatus)).toBeVisible();
@@ -265,7 +266,7 @@ test.describe('Service company profile editing', { tag: '@stable' },() => {
             await page.getByText(firstEvent,{ exact: true }).click();
             await profilePage.submitButton.click();
 
-
+            await expect(page.getByText('Company settings')).toBeVisible();
             await expect(page.getByText(countryOld)).toBeVisible();
             await expect(page.getByText(cabinetOld)).toBeVisible();
             await expect(page.getByText(guestsOldStatus)).toBeVisible();

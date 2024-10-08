@@ -43,6 +43,7 @@ test.describe('Keypad code setting', () => {
             await hubPage.change_Button.click();
             await expect(page.getByText('6 symbols')).toBeVisible();
             await hubPage.settingsKeypadCodeLength.click();
+            await expect(page.getByText('Change keypad code length')).toBeVisible();
             await hubPage.settingsKeypadCodeLength4digits.click();}
         await hubPage.change_Button.click();
 
@@ -54,6 +55,7 @@ test.describe('Keypad code setting', () => {
             await page.getByText(name).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
+        await expect(page.getByText('Add user')).toBeVisible();
         await hubPage.addButton.click();
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
@@ -72,6 +74,7 @@ test.describe('Keypad code setting', () => {
         await hubPage.system.click();
         await hubPage.hubPanel.click();
         await hubPage.settingsKeypadCodeLength.click();
+        await expect(page.getByText('Change keypad code length')).toBeVisible();
         await hubPage.settingsKeypadCodeLength6digits.click();
         await hubPage.change_Button.click();
 

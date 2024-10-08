@@ -127,3 +127,8 @@ export const MONITORING_COMPANY_1: object = {
     login: 'eltiarh@ukr.net',
     password: '1',
 }
+
+export const DILER: object = {
+    login: 'shamtriel+dealer@gmail.com',
+    password: 'asdASD123',
+}

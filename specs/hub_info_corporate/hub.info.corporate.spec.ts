@@ -50,9 +50,8 @@ test.describe('Profile Page tests', () => {
         await hubPage.hubInfoBuilding.fill('12');
         await hubPage.hubInfoApartment.click();
         await hubPage.hubInfoApartment.fill('28');
-        await page.waitForTimeout(3000);
         await hubPage.okButton.click();
-        await page.waitForTimeout(4000);
+        await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);
 
@@ -64,21 +63,22 @@ test.describe('Profile Page tests', () => {
 
         await hubPage.editButton.click();
         await hubPage.hubInfoCity.click();
-        await page.waitForTimeout(3000);
         await hubPage.hubInfoCity.fill('Dnipro');
         await page.getByText('Dnipro', { exact: true }).click();
-        await page.waitForTimeout(2000);
         await hubPage.hubInfoBuilding.click();
         await hubPage.hubInfoBuilding.fill('45');
         await hubPage.hubInfoApartment.click();
         await hubPage.hubInfoApartment.fill('7');
-        await page.waitForTimeout(3000);
-        await hubPage.okButton.click();
-        await page.waitForTimeout(4000);
+        await hubPage.okButton.click()
+        await page.waitForTimeout(2000);
         await page.reload();
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(2000);
+
+        await expect(page.getByText('Number of devices in the company')).toBeVisible();
+
         await (hubPage.informationIcon.first()).click();
 
+        await expect(page.getByText('Panel information')).toBeVisible();
         await expect(page.getByText('Dnipro')).toBeVisible();
         await expect(page.getByText('Sinna, 45, 7')).toBeVisible();
     });

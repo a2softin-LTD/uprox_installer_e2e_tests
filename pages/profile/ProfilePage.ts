@@ -83,6 +83,9 @@ export class ProfilePage extends BasePage {
     private readonly _companyRoleFilter: Locator;
     private readonly _companyAllFilter: Locator;
     private readonly _companySearchField: Locator;
+    private readonly _companySearchByLogin: Locator;
+    private readonly _companySearchByNumber: Locator;
+    private readonly _companySearchByAccount: Locator;
     private readonly _defaultCompanyLogo: Locator;
     private readonly _companyRemovePermissionButton: Locator;
     private readonly _companyChangeAdminLogin: Locator;
@@ -90,6 +93,7 @@ export class ProfilePage extends BasePage {
     private readonly _companyAddNewGroupButton: Locator;
     private readonly _companySelectCommandField: Locator;
     private readonly _actionsCheckbox: Locator;
+    private readonly _companySearchByHubField: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -169,7 +173,12 @@ export class ProfilePage extends BasePage {
         this._companyRoleFilter = this.page.locator('span:text-is("All roles")');
         this._companyAllFilter = this.page.locator('span:text-is("All")');
         this._companySearchField = this.page.locator('input[placeholder*="Company search"]');
+        this._companySearchByHubField = this.page.locator('input[placeholder*="All panels"]');
         this._companySelectCommandField = page.getByText('Select command');
+        this._companySearchByLogin = page.getByText('Login').and(this.page.locator('.tab-item'));
+        this._companySearchByNumber = page.getByText('Serial number').and(this.page.locator('.tab-item'));
+        this._companySearchByAccount = page.getByText('Account').and(this.page.locator('.tab-item'));
+
         this._actionsCheckbox = page.getByText('Actions');
         this._companyChangeAdminLogin = page.getByText('Change admin login');
         this._companyAddToGroupButton = page.getByText('Add company to group');
@@ -521,5 +530,21 @@ export class ProfilePage extends BasePage {
 
     get actionsCheckbox  (): Locator {
         return this._actionsCheckbox ;
+    }
+
+    get companySearchByLogin (): Locator {
+        return this._companySearchByLogin;
+    }
+
+    get companySearchByNumber (): Locator {
+        return this._companySearchByNumber;
+    }
+
+    get companySearchByAccount (): Locator {
+        return this._companySearchByAccount;
+    }
+
+    get companySearchByHubField (): Locator {
+        return this._companySearchByHubField;
     }
 }

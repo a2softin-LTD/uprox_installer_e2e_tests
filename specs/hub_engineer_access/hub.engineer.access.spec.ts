@@ -42,6 +42,7 @@ test.describe('Hub Page tests', () => {
         await profilePage.hubEngineerIcon.click();
         await page.getByText((engineerEmail)).click();
         await page.getByText('ОК').click();
+        await page.waitForTimeout(2000);
         page.reload()
         await page.waitForTimeout(2000);
 
@@ -50,6 +51,7 @@ test.describe('Hub Page tests', () => {
         await profilePage.hubEngineerIcon.click();
         await page.getByText((engineerEmail)).click();
         await page.getByText('ОК').click();
+        await page.waitForTimeout(2000);
         page.reload()
         await page.waitForTimeout(2000);
 
