@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { faker } from "@faker-js/faker";
+import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 
@@ -73,7 +74,7 @@ test.describe('Login Page tests', () => {
                 description: "https://app.clickup.com/t/8692udp0v"
             });
 
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
             await loginPage.forgotYourPasswordLink.click();
             await page.waitForTimeout(2000);

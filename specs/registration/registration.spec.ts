@@ -3,6 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { RegistrationModel } from "../../models/RegistrationModel";
 import { faker } from "@faker-js/faker";
 import { RegistrationPage } from "../../pages/registration/RegistrationPage";
+import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
 
 test.describe('Login Page tests', {tag: '@stable'}, () => {
 
@@ -18,7 +19,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
     test.describe('Checking registration. Positive scenarios', () => {
 
-        test('positive: Checking registration (valid user data)', { tag: '@smoke' }, async ({ page }) => {
+        test('positive: Checking registration (valid user data)', async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pv"
@@ -26,7 +27,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
             registrationPage = new RegistrationPage(page);
             const User: RegistrationModel = {
-                login: faker.internet.email({ firstName: 'sastest2398_' }),
+                login: faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART }),
                 password: 'asdASD123'
             };
 
@@ -42,9 +43,11 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await registrationPage.registerButton.click();
             await page.waitForTimeout(3000);
 
-            if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible()}
-            else if (await page.getByText('Not received an email?').isVisible())
-            {   await expect(page.getByText('Email confirmation')).toBeVisible();
+            if (await page.getByText('Warning!').isVisible()) {
+                await expect (page.getByText('Warning!')).toBeVisible()
+            }
+            else if (await page.getByText('Not received an email?').isVisible()) {
+                await expect(page.getByText('Email confirmation')).toBeVisible();
                 await expect(page.getByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`)).toBeVisible();
                 await expect(page.getByText('Not received an email?')).toBeVisible();
             }

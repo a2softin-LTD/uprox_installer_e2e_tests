@@ -5,3 +5,5 @@ export enum UIErrorMessages {
 }
 
 export const ENVIRONMENT: string = 'dev';
+
+export const EMAIL_NECESSARY_NAME_PART: string = 'sastest2398';

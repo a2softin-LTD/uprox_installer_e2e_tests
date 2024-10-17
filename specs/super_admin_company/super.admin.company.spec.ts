@@ -3,6 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import {ProfilePage} from "../../pages/profile/ProfilePage";
 import {SUPER_ADMIN} from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
+import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
 
 test.describe('Company under SUPER_ADMIN role', { tag: '@stable' },() => {
 
@@ -65,9 +66,9 @@ test.describe('Company under SUPER_ADMIN role', { tag: '@stable' },() => {
             });
 
             const name: string = faker.commerce.productName();
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const country: string = "Ukr";
-            const contactEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const contactEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";
@@ -106,9 +107,9 @@ test.describe('Company under SUPER_ADMIN role', { tag: '@stable' },() => {
             });
 
             const name: string = faker.commerce.productName();
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const country: string = "Ukr";
-            const contactEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const contactEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const contactPhone: string = faker.phone.number();
             const description: string = "no";
             const contacts: string = "absent";
@@ -256,7 +257,7 @@ test.describe('Company under SUPER_ADMIN role', { tag: '@stable' },() => {
             });
 
             const company: string = 'Handcrafted Concrete Mouse';
-            const email: string = faker.internet.email({ firstName: 'pol_sastest2398_' });
+            const email: string = faker.internet.email({ firstName: 'pol_' + EMAIL_NECESSARY_NAME_PART });
 
             await profilePage.companies.click();
             await page.waitForTimeout(2000);

@@ -6,6 +6,7 @@ import {
     SYSTEM_ADMIN,
 } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
+import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 
@@ -29,7 +30,7 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const adminEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
             await loginPage.auth(SYSTEM_ADMIN);
 
@@ -74,7 +75,7 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const adminEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
             await loginPage.auth(SUPER_ADMIN);
 

@@ -3,6 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
+import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
 
 test.describe('Profile Page tests', () => {
 
@@ -28,7 +29,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = "Дмитро";
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 
@@ -59,7 +60,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = "Дмитро";
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 
@@ -90,7 +91,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const nameOld: string = "Дмитро Дмитрович";
-            const emailOld: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const emailOld: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const phoneOld: string = faker.phone.number();
             const nameNew: string = "Петро Пилипів";
             const phoneNew: string = faker.phone.number();
@@ -142,7 +143,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = "ДЖОНСОН";
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const phone: string = faker.phone.number();
             const role: string = "Manager";
 

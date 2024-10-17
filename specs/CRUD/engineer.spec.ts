@@ -3,6 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { CORP_ADMIN, MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
+import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 
@@ -25,7 +26,7 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = "Петро";
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const phone: string = faker.phone.number();
             const role: string = "Engineer";
 
@@ -62,7 +63,7 @@ test.describe('Login Page tests', () => {
             });
 
             const name: string = "Петро";
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
             const phone: string = faker.phone.number();
             const role: string = "Engineer";
 

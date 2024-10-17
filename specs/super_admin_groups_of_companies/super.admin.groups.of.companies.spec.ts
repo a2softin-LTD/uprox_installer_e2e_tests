@@ -3,6 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import {ProfilePage} from "../../pages/profile/ProfilePage";
 import {SUPER_ADMIN} from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
+import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
 
 test.describe('Profile Page tests', () => {
 
@@ -112,7 +113,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
             await profilePage.companies.click();
             await profilePage.groupsOfCompanies.click();
@@ -143,7 +144,7 @@ test.describe('Profile Page tests', () => {
             });
 
             const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
-            const email: string = faker.internet.email({ firstName: 'sastest2398_' });
+            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
             await profilePage.companies.click();
             await profilePage.groupsOfCompanies.click();
