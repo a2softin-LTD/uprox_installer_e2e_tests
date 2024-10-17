@@ -13,7 +13,6 @@ export class HubPage extends BasePage {
     private readonly _hubPanel: Locator;
     private readonly _hubRebootButton: Locator;
     private readonly _hubRebootSubmitButton: Locator;
-    private readonly _userMobileApp: Locator;
     private readonly _userManagement: Locator;
     private readonly _userManagementEnable: Locator;
     private readonly _userManagementDisable: Locator;
@@ -41,6 +40,7 @@ export class HubPage extends BasePage {
     private readonly _hubTamperCloseIcon: Locator;
     private readonly _hubTamperOpenIcon: Locator;
     private readonly _hubBatteryIcon: Locator;
+    private readonly _hubBatteryDetailedIcon: Locator;
     private readonly _hubEthernetTroubleIcon: Locator;
     private readonly _hubEthernetDefaultIcon: Locator;
     private readonly _hubGsmMaxIcon: Locator;
@@ -76,8 +76,25 @@ export class HubPage extends BasePage {
     private readonly _wirelessDeviceTamperOpenIcon: Locator;
     private readonly _wirelessDeviceBatteryIcon: Locator;
     private readonly _wirelessDeviceAddButton: Locator;
+
     private readonly _settingsGroup: Locator;
     private readonly _settingsLightIndication: Locator;
+    private readonly _settingsCountry: Locator;
+    private readonly _settingsAutoCancelAlarm: Locator;
+    private readonly _settingsFirmwareUpdate: Locator;
+    private readonly _settingsTrackSimCardExpenses: Locator;
+    private readonly _settingsTimeZone: Locator;
+    private readonly _settingsHubName: Locator;
+
+    private readonly _settingsKeyfob: Locator;
+    private readonly _settingsKeyfobImage: Locator;
+    private readonly _settingsCallOnAlarm: Locator;
+    private readonly _settingsPanicButton: Locator;
+    private readonly _settingsEventCategories: Locator;
+    private readonly _settingsUserManagement: Locator;
+    private readonly _settingsMobileApp: Locator;
+
+
     private readonly _hubEngineerModeSwitch: Locator;
     private readonly _hubInfoCity: Locator;
     private readonly _hubInfoStreet: Locator;
@@ -88,6 +105,8 @@ export class HubPage extends BasePage {
     private readonly _settingsWifiNetwork: Locator;
     private readonly _hubsCounter: Locator;
     private readonly _hubTroublesState: Locator;
+
+    private readonly _automationCreateReactionButton: Locator;
 
 
     constructor(page: Page) {
@@ -103,7 +122,7 @@ export class HubPage extends BasePage {
         this._hubPanel = this.page.locator('.main-block__panel-item');
         this._hubRebootButton = page.getByText('Restart panel');
         this._hubRebootSubmitButton = page.getByText('Restart', { exact: true });
-        this._userMobileApp = page.getByText('Mobile app');
+
         this._userManagement = page.getByText('User management');
         this._userManagementEnable = page.getByText('Enable').first();
         this._userManagementDisable = page.getByText('Disable').nth(1);
@@ -147,6 +166,8 @@ export class HubPage extends BasePage {
         this._hubWifiMaxIcon  = this.page.locator('.group_and_panel-state').filter({has:this.page.locator('mat-icon[data-mat-icon-name="wifi-signal-max"]')});
         this._hubWifiNormalIcon  = this.page.locator('.group_and_panel-state').filter({has:this.page.locator('mat-icon[data-mat-icon-name="wifi-signal-normal"]')});
         this._hubWifiLowIcon = this.page.locator('.group_and_panel-state').filter({has:this.page.locator('mat-icon[data-mat-icon-name="wifi-signal-low"]')});
+        this._hubBatteryDetailedIcon = this.page.locator('.state-icon-block').filter({has:this.page.locator('mat-icon[data-mat-icon-name="battery-full"]')});
+
         this._wirelessDevicePowerNormalIcon = this.page.locator('.part-content__device-list').filter({has:this.page.locator('mat-icon[data-mat-icon-name="power-normal"]')});
         this._wirelessDevicePowerTroubleIcon = this.page.locator('.part-content__device-list').filter({has:this.page.locator('mat-icon[data-mat-icon-name="power-trouble"]')});
         this._wirelessDeviceTamperCloseIcon = this.page.locator('.part-content__device-list').filter({has:this.page.locator('mat-icon[data-mat-icon-name="tamper-close"]')});
@@ -156,6 +177,11 @@ export class HubPage extends BasePage {
         this._troubles = page.getByText('Troubles',{ exact: true });
         this._firstWirelessDevice = page.locator('.part__item.ng-star-inserted').nth(1);
 
+        this._automationCreateReactionButton = page.getByText('Create schedule',{ exact: true });
+
+
+
+
         this._historyAlarmCheckBox = this.page.locator('.checkbox__block').nth(0);
         this._historyTroublesCheckBox = this.page.locator('.checkbox__block').nth(1);
         this._historyArmsCheckBox = this.page.locator('.checkbox__block').nth(2);
@@ -163,15 +189,32 @@ export class HubPage extends BasePage {
         this._historyFirstEvent = this.page.locator('.part__item--checked').first();
         this._historyEvent = this.page.locator('.part__item--checked');
         this._historyLastEvent = this.page.locator('.part__item--checked').last();
+
         this._settingsAirAlarm = page.getByText('Air raid alarms');
         this._settingsKeypadCodeLength = page.getByText('Keypad code length');
         this._settingsKeypadCodeLength4digits = page.getByText('4 digits');
         this._settingsKeypadCodeLength6digits = page.getByText('6 digits');
-        this._settingsArmKeypadCode = page.getByText('Arm/disarm keypad code');
+        this._settingsArmKeypadCode = page.locator('.input_block').filter({hasText:'Arm/disarm keypad code'});
+        this._settingsKeyfob = page.locator('.input_block').filter({hasText:'Keyfob'});
+        this._settingsMobileApp = page.locator('.input_block').filter({hasText:'Mobile app'});
+        this._settingsUserManagement = page.locator('.input_block').filter({hasText:'User management'});
+        this._settingsCallOnAlarm = page.locator('.input_block').filter({hasText:'Call on alarm'});
+        this._settingsPanicButton = page.locator('.input_block').filter({hasText:'Mobile panic button'});
+        this._settingsEventCategories = page.locator('.input_block').filter({hasText:'Event categories'});
+        this._settingsKeyfobImage = page.locator('.peripheral_item-block');
+
+
         this._settingsKeypadCodeField = this.page.locator('input[type="password"]');
         this._settingsGroup = page.getByText('Group');
         this._settingsWifiNetwork= page.getByText('Wi-Fi network');
+        this._settingsCountry = this.page.locator('pc-panel-prop-view[propname="feature_panel_additional_info_country"]');
+        this._settingsFirmwareUpdate = this.page.locator('pc-panel-prop-view[propname="feature_panel_firmware_auto_update_header"]');
+        this._settingsAutoCancelAlarm = page.getByText('Auto cancel alarm');
+        this._settingsTrackSimCardExpenses = this.page.locator('pc-panel-prop-view[propname="feature_sim_card_track_balance_header"]');
         this._settingsLightIndication = page.getByText('Light indication');
+        this._settingsTimeZone = this.page.locator('pc-panel-prop-view[propname="feature_time_zone_name"]');
+        this._settingsHubName = this.page.locator('pc-device-name-view[titlename="feature_device_name_panel_header"]');
+
         this._hubInfoCity = this.page.locator('addit-info-city input.input_block-input.ng-untouched.ng-pristine.ng-valid');
         this._hubInfoStreet = this.page.locator('addit-info-street input.input_block-input.ng-untouched.ng-pristine.ng-valid');
         this._hubInfoStreetEditButton = this.page.locator('.icon-edit.ng-star-inserted').last();
@@ -221,9 +264,6 @@ export class HubPage extends BasePage {
         return this._hubRebootSubmitButton;
     }
 
-    get userMobileApp(): Locator {
-        return this._userMobileApp;
-    }
 
     get userManagement(): Locator {
         return this._userManagement;
@@ -516,5 +556,65 @@ export class HubPage extends BasePage {
 
     get hubTroublesState (): Locator {
         return this._hubTroublesState ;
+    }
+
+    get hubBatteryDetailedIcon (): Locator {
+        return this._hubBatteryDetailedIcon ;
+    }
+
+    get settingsAutoCancelAlarm (): Locator {
+        return this._settingsAutoCancelAlarm ;
+    }
+
+    get settingsCountry (): Locator {
+        return this._settingsCountry ;
+    }
+
+    get settingsFirmwareUpdate (): Locator {
+        return this._settingsFirmwareUpdate ;
+    }
+
+    get settingsTrackSimCardExpenses (): Locator {
+        return this._settingsTrackSimCardExpenses ;
+    }
+
+    get settingsTimeZone (): Locator {
+        return this._settingsTimeZone ;
+    }
+
+    get settingsHubName (): Locator {
+        return this._settingsHubName ;
+    }
+
+    get settingsKeyfob (): Locator {
+        return this._settingsKeyfob ;
+    }
+
+    get settingsKeyfobImage (): Locator {
+        return this._settingsKeyfobImage ;
+    }
+
+    get settingsMobileApp (): Locator {
+        return this._settingsMobileApp ;
+    }
+
+    get settingsCallOnAlarm (): Locator {
+        return this._settingsCallOnAlarm ;
+    }
+
+    get settingsPanicButton (): Locator {
+        return this._settingsPanicButton ;
+    }
+
+    get settingsEventCategories (): Locator {
+        return this._settingsEventCategories ;
+    }
+
+    get settingsUserManagement(): Locator {
+        return this._settingsUserManagement ;
+    }
+
+    get automationCreateReactionButton(): Locator {
+        return this._automationCreateReactionButton ;
     }
 }

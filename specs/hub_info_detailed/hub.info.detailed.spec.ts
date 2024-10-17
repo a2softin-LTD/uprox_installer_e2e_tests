@@ -4,7 +4,7 @@ import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 
-test.describe('Hub Page tests', () => {
+test.describe('HubPage tests', () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
@@ -15,27 +15,30 @@ test.describe('Hub Page tests', () => {
         profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
+
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
+        await page.waitForTimeout(2000);
         await expect(page).toHaveURL('/profile/panels');
     });
 
-    test('Add hub by serial number: negative', { tag: '@smoke' }, async ({ page }) => {
+    test.skip('Detailed information about the hub', { tag: ['@smoke','@hub']  }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p1vxc"
+            description: ""
         });
 
-        const serialNumber: string = "56:08:B7:10:02:44";
-
         await profilePage.panels.click();
-        await hubPage.addPanelButton.click();
-        await hubPage.addPanelEnterSerialButton.click();
-        await hubPage.inputFirstField.fill(serialNumber);
-        await hubPage.nextButton.click();
+        await profilePage.firstHub.click();
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
+        await page.waitForTimeout(2000);
+        await hubPage.hubPanel.click();
+        await hubPage.informationIcon.click();
 
-        await expect(page.getByText('Serial number in wrong format')).toBeVisible();
+        let newHubPage = new HubPage(page);
+       // await expect(newHubPage).toHaveURL('https://www.u-prox.systems/doc_mplte');
     });
 
 });

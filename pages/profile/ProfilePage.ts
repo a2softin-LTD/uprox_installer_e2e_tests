@@ -29,20 +29,41 @@ export class ProfilePage extends BasePage {
     private readonly _companyAutoProcessingDisconAppl: Locator;
     private readonly _companyChangeLogoButton: Locator;
     private readonly _companyDeleteLogoButton: Locator;
+    private readonly _companyDefaultLogo: Locator;
     private readonly _deletePasswordField: Locator;
     private readonly _deleteCheckbox: Locator;
     private readonly _deleteAccountButton: Locator;
     private readonly _deleteFinalButton: Locator;
+
     private readonly _panels: Locator;
     private readonly _company: Locator;
     private readonly _companies: Locator;
+    private readonly _dealers: Locator;
+    private readonly _statistics: Locator;
     private readonly _feedback: Locator;
     private readonly _permissions: Locator;
     private readonly _message: Locator;
     private readonly _requests: Locator;
     private readonly _history: Locator;
+    private readonly _automation: Locator;
     private readonly _employees: Locator;
     private readonly _groupsOfCompanies: Locator;
+    private readonly _firmware: Locator;
+    private readonly _utils: Locator;
+    private readonly _letterTemplates: Locator;
+    private readonly _push: Locator;
+    private readonly _email: Locator;
+
+    private readonly _testEmailButton: Locator;
+
+    private readonly _uploadFirmwareButton: Locator;
+    private readonly _uploadFirmwareCode: Locator;
+    private readonly _uploadFirmwareName: Locator;
+
+    private readonly _utilsExtractVersionButton: Locator;
+    private readonly _utilsAddEmailToWhitelistButton: Locator;
+    private readonly _utilsWhitelistEmailBlock: Locator;
+
     private readonly _firstHub: Locator;
     private readonly _secondHub: Locator;
     private readonly _languageChoice: Locator;
@@ -86,7 +107,7 @@ export class ProfilePage extends BasePage {
     private readonly _companySearchByLogin: Locator;
     private readonly _companySearchByNumber: Locator;
     private readonly _companySearchByAccount: Locator;
-    private readonly _defaultCompanyLogo: Locator;
+
     private readonly _companyRemovePermissionButton: Locator;
     private readonly _companyChangeAdminLogin: Locator;
     private readonly _companyAddToGroupButton: Locator;
@@ -94,6 +115,16 @@ export class ProfilePage extends BasePage {
     private readonly _companySelectCommandField: Locator;
     private readonly _actionsCheckbox: Locator;
     private readonly _companySearchByHubField: Locator;
+    private readonly _upLoadFirmwareSelectFile: Locator;
+    private readonly _consoleApplication: Locator;
+
+    private readonly _pushLetterLocalization: Locator;
+    private readonly _pushTestButton: Locator;
+    private readonly _letterPreview: Locator;
+    private readonly _pushLetterTemplateTitle: Locator;
+    private readonly _letterParameters: Locator;
+    private readonly _emailTestButton: Locator;
+    private readonly _emailTestField: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -128,6 +159,7 @@ export class ProfilePage extends BasePage {
         this._companyEventCategories  = this.page.locator('state-property-view[propname="feature_event_category_title"]');
         this._companyChangeLogoButton = page.getByText('Change logo');
         this._companyDeleteLogoButton = page.getByText('Delete logo');
+        this._companyDefaultLogo = this.page.locator('img[src="./assets/icons/gradient/gradient-company-default.svg"]');
         this._companyAddLocalizationButton = this.page.locator('div.add-block');
         this._companyDeleteLocalizationButton = this.page.locator('span.delete_point');
         this._companyRemovePermissionButton = page.getByText(' Remove support permissions ');
@@ -136,15 +168,45 @@ export class ProfilePage extends BasePage {
         this._deletePasswordField = this.page.locator('#deletePasswordId');
         this._deleteFinalButton = this.page.locator('.filled');
         this._deleteCheckbox = this.page.locator('.mdc-checkbox__native-control');
+
         this._panels = page.getByText('Panels',{ exact: true });
         this._company = page.getByText('Company',{ exact: true });
         this._companies = page.getByText('Companies',{ exact: true });
+        this._dealers = page.getByText('Dealers',{ exact: true });
+        this._statistics = page.getByText('Statistics',{ exact: true });
         this._employees= page.getByText('Employees',{ exact: true });
         this._requests= page.getByText('Requests',{ exact: true });
         this._history= page.getByText('History',{ exact: true });
+        this._automation= page.getByText('Automation',{ exact: true });
         this._feedback = page.getByText('Feedback');
         this._permissions = page.getByText('Permissions');
         this._groupsOfCompanies = page.getByText('Groups of companies');
+        this._firmware = page.getByText('Firmware version');
+        this._utils = page.getByText('Utils');
+        this._consoleApplication = page.getByText('Console Application');
+        this._letterTemplates = page.getByText('Letter templates');
+        this._push = page.getByText('Push');
+        this._email = page.getByText('Email',{ exact: true });
+
+        this._testEmailButton = page.getByText('Test email for all language');
+        this._pushLetterLocalization = this.page.locator('.template-tab');
+        this._letterPreview = this.page.locator('.preview-section');
+        this._pushLetterTemplateTitle = this.page.locator('.constant_block-title');
+        this._letterParameters = this.page.locator('label.ng-star-inserted');
+        this._pushTestButton = page.getByText('Test push');
+        this._emailTestButton = page.getByText('Test email');
+        this._emailTestField = this.page.locator('.mat-mdc-form-field').locator(this.page.locator('.mat-mdc-input-element'));
+
+
+        this._uploadFirmwareButton = page.getByText('Upload panel firmware').or(page.getByText('Upload console application firmware'));
+        this._upLoadFirmwareSelectFile = this.page.locator('#file');
+        this._uploadFirmwareCode = this.page.locator('#mat-input-2');
+        this._uploadFirmwareName = this.page.locator('#mat-input-3');
+
+        this._utilsExtractVersionButton = page.getByText('Extract version');
+        this._utilsAddEmailToWhitelistButton = page.getByText('Add email to whitelist');
+        this._utilsWhitelistEmailBlock = this.page.locator('.blacklisted_panel');
+
         this._firstHub = this.page.locator('.part__item').first();
         this._secondHub = this.page.locator('.part__item').nth(1);
         this._languageChoice = this.page.locator('.header__lang');
@@ -191,7 +253,7 @@ export class ProfilePage extends BasePage {
         this._employeeDeleteManager = page.getByRole('button', { name: 'Delete' });
         this._employeeSearchField = this.page.locator('input[placeholder*="Enter the"]');
         this._employeeBlock = this.page.locator('div.part__item');
-        this._defaultCompanyLogo = this.page.locator('img[src="./assets/icons/gradient/gradient-company-default.svg"]');
+
     }
 
     get form(): Locator {
@@ -256,6 +318,22 @@ export class ProfilePage extends BasePage {
 
     get companies(): Locator {
         return this._companies;
+    }
+
+    get dealers(): Locator {
+        return this._dealers;
+    }
+
+    get statistics(): Locator {
+        return this._statistics;
+    }
+
+    get utils(): Locator {
+        return this._utils;
+    }
+
+    get automation(): Locator {
+        return this._automation;
     }
 
     get feedback(): Locator {
@@ -377,6 +455,14 @@ export class ProfilePage extends BasePage {
 
     get employees (): Locator {
         return this._employees;
+    }
+
+    get firmware (): Locator {
+        return this._firmware;
+    }
+
+    get uploadFirmwareButton (): Locator {
+        return this._uploadFirmwareButton;
     }
 
     get companySettingsTitle (): Locator {
@@ -504,8 +590,8 @@ export class ProfilePage extends BasePage {
         return this._companyDeleteLogoButton;
     }
 
-    get defaultCompanyLogo (): Locator {
-        return this._defaultCompanyLogo;
+    get companyDefaultLogo (): Locator {
+        return this._companyDefaultLogo;
     }
 
     get companyRemovePermissionButton (): Locator {
@@ -546,5 +632,78 @@ export class ProfilePage extends BasePage {
 
     get companySearchByHubField (): Locator {
         return this._companySearchByHubField;
+    }
+
+    get upLoadFirmwareSelectFile (): Locator {
+        return this._upLoadFirmwareSelectFile;
+    }
+
+    get uploadFirmwareCode (): Locator {
+        return this._uploadFirmwareCode;
+    }
+
+    get uploadFirmwareName (): Locator {
+        return this._uploadFirmwareName;
+    }
+
+    get consoleApplication (): Locator {
+        return this._consoleApplication;
+    }
+
+    get letterTemplates (): Locator {
+        return this._letterTemplates;
+    }
+
+    get push (): Locator {
+        return this._push;
+    }
+
+    get email (): Locator {
+        return this._email;
+    }
+
+    get testEmailButton (): Locator {
+        return this._testEmailButton;
+    }
+
+
+    get pushLetterLocalization (): Locator {
+        return this._pushLetterLocalization;
+    }
+
+    get letterPreview (): Locator {
+        return this._letterPreview;
+    }
+
+    get pushLetterTemplateTitle (): Locator {
+        return this._pushLetterTemplateTitle;
+    }
+
+    get letterParameters (): Locator {
+        return this._letterParameters;
+    }
+
+    get pushTestButton(): Locator {
+        return this._pushTestButton;
+    }
+
+    get emailTestButton (): Locator {
+        return this._emailTestButton;
+    }
+
+    get emailTestField (): Locator {
+        return this._emailTestField;
+    }
+
+    get utilsExtractVersionButton (): Locator {
+        return this._utilsExtractVersionButton;
+    }
+
+    get utilsAddEmailToWhitelistButton (): Locator {
+        return this._utilsAddEmailToWhitelistButton;
+    }
+
+    get utilsWhitelistEmailBlock (): Locator {
+        return this._utilsWhitelistEmailBlock;
     }
 }
