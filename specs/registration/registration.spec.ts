@@ -19,7 +19,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
     test.describe('Checking registration. Positive scenarios', () => {
 
-        test('positive: Checking registration (valid user data)', async ({ page }) => {
+        test('positive: Checking registration (valid user data)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "ClickUp_link",
                 description: "https://app.clickup.com/t/86946t9pv"
