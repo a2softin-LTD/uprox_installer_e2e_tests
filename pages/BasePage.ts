@@ -23,6 +23,7 @@ export class BasePage {
     private readonly _offButton: Locator;
     private readonly _editButton: Locator;
     private readonly _exportButton: Locator;
+    private readonly _exportSensorsButton: Locator;
     private readonly _changeButton: Locator;
     private readonly _applyButton: Locator;
     private readonly _inputFirstField: Locator;
@@ -40,13 +41,20 @@ export class BasePage {
     private readonly _inputField: Locator;
     private readonly _connectButton: Locator;
     private readonly _sendButton: Locator;
+    private readonly _addCountryButton: Locator;
     private readonly _resendEmailButton: Locator;
     private readonly _informationIcon: Locator
+    private readonly _updateFirmwareIcon: Locator
     private readonly _searchField: Locator;
     private readonly _searchButton: Locator;
+    private readonly _clearButton: Locator;
     private readonly _pageTitle: Locator;
     private readonly _adsIcon: Locator
+    private readonly _editIcon: Locator
     private readonly _saveInXLSButton: Locator;
+    private readonly _rowBlock: Locator;
+    private readonly _notExistEntity: Locator;
+    private readonly _existEntity: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -64,12 +72,16 @@ export class BasePage {
         this._yesButton = page.getByText('Yes');
         this._noButton = page.getByText('No');
         this._applyButton = page.getByText('Apply');
+        this._clearButton = page.getByText('Clear');
+        this._addCountryButton = page.getByText('Add country');
+
         this._okButton = page.getByRole('button', { name: 'ОК' });
         this._backButton = page.locator('use[*|href="#icon-arrow"]');
         this._onButton = page.getByText('On',{ exact: true });
         this._offButton = page.getByText('Turn off',{ exact: true });
         this._editButton = page.getByText('Edit',{ exact: true });
         this._exportButton = page.getByText('Export',{ exact: true });
+        this._exportSensorsButton = page.getByText('Export sensors to xls',{ exact: true });
         this._changeButton = page.getByText('Change',{ exact: true });
         this._inputFirstField = this.page.locator('.mat-mdc-input-element').nth(0).or(this.page.locator('.input_block-input').nth(0));;
         this._inputSecondField = this.page.locator('.mat-mdc-input-element').nth(1).or(this.page.locator('.input_block-input').nth(1));;
@@ -82,13 +94,18 @@ export class BasePage {
         this._selectSecondField = this.page.locator('.mat-mdc-select-value').nth(1).or(this.page.locator('.input-block__select-text').nth(1));;
         this._selectThirdField = this.page.locator('.mat-mdc-select-value').nth(2).or(this.page.locator('.input-block__select-text').nth(2));;
         this._entityBlock = this.page.locator('.part__item');
+        this._notExistEntity = this.page.locator('.color-not-exist');
+        this._existEntity = this.page.locator('.color-exist');
+        this._rowBlock = this.page.locator('.part__item-table-row');
         this._entityText = this.page.locator('.part__item-text');
         this._inputField = page.locator('input[type="text"]');
         this._connectButton = page.getByText('Connect',{ exact: true })
         this._sendButton = page.getByText('Send',{ exact: true });
         this._resendEmailButton = page.getByText('Resend Email',{ exact: true });
         this._banIcon = page.locator('use[*|href="#icon-ban"]');
+        this._editIcon = page.locator('use[*|href="#icon-edit-data"]');
         this._informationIcon = page.locator('use[*|href="#icon-About"]');
+        this._updateFirmwareIcon = page.locator('mat-icon[data-mat-icon-name="update-firmware"]');
         this._searchField = page.locator('input[placeholder*="Search"]');
         this._pageTitle = page.locator('h3');
         this._searchButton = page.getByText('Search',{ exact: true });
@@ -100,12 +117,25 @@ export class BasePage {
         return this._saveButton;
     }
 
+    get updateFirmwareIcon(): Locator {
+        return this._updateFirmwareIcon;
+    }
+
+
     get change_Button(): Locator {
         return this._change_Button;
     }
 
     get deleteButton(): Locator {
         return this._deleteButton;
+    }
+
+    get addCountryButton(): Locator {
+        return this._addCountryButton;
+    }
+
+    get clearButton(): Locator {
+        return this._clearButton;
     }
 
     get deleteUserButton(): Locator {
@@ -174,6 +204,10 @@ export class BasePage {
 
     get exportButton(): Locator {
         return this._exportButton;
+    }
+
+    get exportSensorsButton(): Locator {
+        return this._exportSensorsButton;
     }
 
     get changeButton(): Locator {
@@ -256,6 +290,10 @@ export class BasePage {
         return this._pageTitle  ;
     }
 
+    get rowBlock (): Locator {
+        return this._rowBlock  ;
+    }
+
     get applyButton (): Locator {
         return this._applyButton ;
     }
@@ -271,6 +309,21 @@ export class BasePage {
     get saveInXLSButton (): Locator {
         return this._saveInXLSButton ;
     }
+
+    get notExistEntity (): Locator {
+        return this._notExistEntity ;
+    }
+
+    get existEntity (): Locator {
+        return this._existEntity ;
+    }
+
+    get editIcon (): Locator {
+        return this._editIcon ;
+    }
+
+
+
 
     async openLoginPage(path: string) {
         await this.page.goto(path);

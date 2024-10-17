@@ -23,6 +23,21 @@ test.describe('Hub Page tests', () => {
 
     });
 
+    test('Checking UI elements on the hub groups page', { tag: '@smoke' }, async ({page}) => {
+        test.info().annotations.push({
+            type: "test_id",
+            description: ""
+        });
+        await profilePage.panels.click();
+        await profilePage.firstHub.click();
+        if (await page.getByText('Update firmware version').isVisible())
+        {  await hubPage.closeWindowButton.click()}
+        await hubPage.groups.click();
+
+        await expect(hubPage.groupAddGroupButton).toBeVisible();
+        await expect(profilePage.pageTitle.filter({has:page.getByText('Groups')})).toBeVisible();
+    });
+
     test.describe('Working with groups', () => {
 
         test('Add group', { tag: ['@smoke','@hub']}, async ({ page }) => {

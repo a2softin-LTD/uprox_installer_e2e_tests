@@ -69,6 +69,22 @@ test.describe('Profile Page tests', () => {
             await expect(profilePage.entityBlock).toHaveCount(1);
         });
 
+        test('Search by panel state outdated firmware version: hub', async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8678p0hwg"
+            });
+            const panelState: string = "Outdated firmware version";
+
+            await profilePage.panels.click();
+            await page.waitForTimeout(2000);
+            await page.getByText('All panels').first().click();
+            await page.getByText(panelState).first().click();
+
+            for (const hub of await profilePage.entityBlock.all())
+            {await expect(hub.filter({has:profilePage.updateFirmwareIcon})).toBeVisible();}
+        });
+
     });
 
 });

@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { DILER } from "../../utils/user_data";
 
-test.describe('Hubs under DILER role', { tag: '@stable' },() => {
+test.describe('Hubs under DEALER role', { tag: '@stable' },() => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
@@ -18,7 +18,7 @@ test.describe('Hubs under DILER role', { tag: '@stable' },() => {
         await expect(page).toHaveURL('/dealer/companies');
     });
 
-    test('Hubs list under DILER role', { tag: '@smoke' }, async ({ page }) => {
+    test('Hubs list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694vrf42"
@@ -39,9 +39,9 @@ test.describe('Hubs under DILER role', { tag: '@stable' },() => {
 
     });
 
-    test.describe('Hub search under DILER role', () => {
+    test.describe('Hub search under DEALER role', () => {
 
-        test('Hub search by serial number under role', { tag: '@smoke' }, async ({ page }) => {
+        test('Hub search by serial number under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf4c"
@@ -64,7 +64,7 @@ test.describe('Hubs under DILER role', { tag: '@stable' },() => {
             await expect(profilePage.entityBlock).toHaveCount(1);
         });
 
-        test('Hub search by account under DILER role', { tag: '@smoke' }, async ({ page }) => {
+        test('Hub search by account under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf48"
@@ -87,7 +87,7 @@ test.describe('Hubs under DILER role', { tag: '@stable' },() => {
             await expect(profilePage.entityBlock).toHaveCount(1);
         });
 
-        test('Hub search by company name under DILER role', { tag: '@smoke' }, async ({ page }) => {
+        test('Hub search by company name under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf4b"
@@ -112,7 +112,7 @@ test.describe('Hubs under DILER role', { tag: '@stable' },() => {
 
     });
 
-    test('Downloading hubs list under DILER role', { tag: '@smoke' }, async ({ page }) => {
+    test('Downloading hubs list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694phqe6"

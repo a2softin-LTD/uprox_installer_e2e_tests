@@ -282,11 +282,11 @@ test.describe('Service company profile editing', { tag: '@stable' },() => {
             await profilePage.company.click();
             await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
 
-            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+            await expect(profilePage.companyDefaultLogo).not.toBeVisible();
 
             await profilePage.companyDeleteLogoButton.click();
 
-            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+            await expect(profilePage.companyDefaultLogo.last()).toBeVisible();
         });
 
         test('Delete service company logo', async ({ page }) => {
@@ -298,11 +298,11 @@ test.describe('Service company profile editing', { tag: '@stable' },() => {
             await profilePage.company.click();
             await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
 
-            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+            await expect(profilePage.companyDefaultLogo).not.toBeVisible();
 
             await profilePage.companyDeleteLogoButton.click();
 
-            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+            await expect(profilePage.companyDefaultLogo.last()).toBeVisible();
         });
 
         test('Information about company editing:service', async ({ page }) => {

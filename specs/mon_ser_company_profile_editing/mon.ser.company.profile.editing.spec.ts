@@ -274,11 +274,11 @@ test.describe('Monitoring-service company profile editing ', { tag: '@stable' },
             await expect(page.getByText('Company settings')).toBeVisible();
             await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
 
-            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+            await expect(profilePage.companyDefaultLogo).not.toBeVisible();
 
             await profilePage.companyDeleteLogoButton.click();
 
-            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+            await expect(profilePage.companyDefaultLogo.last()).toBeVisible();
         });
 
         test('Delete monitoring-service company logo', { tag: '@smoke' }, async ({ page }) => {
@@ -290,11 +290,11 @@ test.describe('Monitoring-service company profile editing ', { tag: '@stable' },
             await profilePage.company.click();
             await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
 
-            await expect(profilePage.defaultCompanyLogo).not.toBeVisible();
+            await expect(profilePage.companyDefaultLogo).not.toBeVisible();
 
             await profilePage.companyDeleteLogoButton.click();
 
-            await expect(profilePage.defaultCompanyLogo.last()).toBeVisible();
+            await expect(profilePage.companyDefaultLogo.last()).toBeVisible();
         });
 
         test('Information about company editing: monitoring-service  company', { tag: '@smoke' }, async ({page}) => {
