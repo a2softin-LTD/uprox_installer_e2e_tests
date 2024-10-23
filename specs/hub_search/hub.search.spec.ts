@@ -7,7 +7,7 @@ import {
     TEXT_BY_NAME,
     TEXT_BY_SERIAL_NUMBER, TITLE_ALL_PANELS
 } from "../../utils/constants";
-import {HubPage} from "../../pages/hub/HubPage";
+import { HubPage } from "../../pages/hub/HubPage";
 
 test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
 

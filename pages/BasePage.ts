@@ -1,5 +1,4 @@
 import {  Locator, type Page } from "@playwright/test";
-import { INSTALLER_LOGIN_URL } from "../utils/path";
 
 export class BasePage {
     readonly page: Page;
@@ -56,7 +55,6 @@ export class BasePage {
     private readonly _editIcon: Locator
     private readonly _connectionOnlineIcon: Locator
     private readonly _tamperOpenIcon: Locator
-
     // SECTIONS
     private readonly _panels: Locator;
     private readonly _company: Locator;
@@ -74,7 +72,6 @@ export class BasePage {
     private readonly _users: Locator;
     private readonly _groups: Locator;
     private readonly _troubles: Locator;
-
     // OTHERS
     private readonly _pageTitle: Locator;
     private readonly _rowBlock: Locator;
@@ -83,8 +80,6 @@ export class BasePage {
     private readonly _entityBlock: Locator;
     private readonly _entityText: Locator;
     private readonly _entityText1: Locator;
-
-
 
     constructor(page: Page) {
         this.page = page;
@@ -171,7 +166,6 @@ export class BasePage {
         this._rowBlock = this.page.locator('.part__item-table-row');
         this._entityText = this.page.locator('.part__item-text');
         this._entityText1 = this.page.locator('.ellipsis');
-
     }
 
     get saveButton(): Locator {
@@ -181,7 +175,6 @@ export class BasePage {
     get updateFirmwareIcon(): Locator {
         return this._updateFirmwareIcon;
     }
-
 
     get change_Button(): Locator {
         return this._change_Button;
@@ -435,7 +428,6 @@ export class BasePage {
         return this._dealers;
     }
 
-
     get routing(): Locator {
         return this._routing;
     }
@@ -467,8 +459,6 @@ export class BasePage {
     get employees (): Locator {
         return this._employees;
     }
-
-
 
     async openLoginPage(path: string) {
         await this.page.goto(path);

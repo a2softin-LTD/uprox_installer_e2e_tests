@@ -1,7 +1,5 @@
 import { BasePage } from "../BasePage";
-import {Page, Locator, expect} from "@playwright/test";
-import {MONITORING_COMPANY} from "../../utils/user_data";
-import {ProfilePage} from "../profile/ProfilePage";
+import { Page, Locator, expect } from "@playwright/test";
 
 export class LoginPage extends BasePage {
     readonly page: Page;

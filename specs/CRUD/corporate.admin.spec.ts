@@ -8,7 +8,7 @@ import {
         TITLE_GROUPS_OF_COMPANIES,
         TITLE_TECHNICAL_SUPPORT
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page tests', () => {
 

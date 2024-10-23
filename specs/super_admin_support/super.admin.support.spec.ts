@@ -14,7 +14,7 @@ import {
     TITLE_TECHNICAL_SUPPORT,
     USER_EMAIL_SECOND
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {
 

@@ -1,5 +1,5 @@
 import { BasePage } from "../BasePage";
-import {Page, Locator, expect} from "@playwright/test";
+import { Page, Locator } from "@playwright/test";
 
 export class SuperAdminPage extends BasePage {
     readonly page: Page;
@@ -172,6 +172,5 @@ export class SuperAdminPage extends BasePage {
     get statistics(): Locator {
         return this._statistics;
     }
-
 
 }

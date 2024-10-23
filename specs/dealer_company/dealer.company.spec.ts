@@ -7,7 +7,7 @@ import {
     ROLE_MONITORING_SERVICE_COMPANIES,
     SETTING_SHOW_IN_ADS, TEXT_SAVE_IN_XLS, TITLE_COMPANIES
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
 

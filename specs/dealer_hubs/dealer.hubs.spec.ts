@@ -8,7 +8,7 @@ import {
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY, TEXT_SAVE_IN_XLS,
     TITLE_COMPANIES
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
 

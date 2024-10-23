@@ -5,8 +5,6 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { MONITORING_SERVICE_COMPANY_3, USER_3 } from "../../utils/user_data";
 import {
     USER_NAME,
-    USER,
-    TITLE_EMPLOYEES,
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
     TITLE_SYSTEM,
     TITLE_USERS
@@ -56,7 +54,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.submitButton.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect(page.getByText(USER)).not.toBeVisible();
+        await expect(page.getByText(USER_NAME)).not.toBeVisible();
     });
 
 });

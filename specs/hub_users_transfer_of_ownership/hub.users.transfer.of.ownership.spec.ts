@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
-import {TEXT_CHANGES_SAVED_SUCCESSFULLY, TITLE_UPDATE_FIRMWARE_VERSION, USER, USER_NAME} from "../../utils/constants";
+import { TEXT_CHANGES_SAVED_SUCCESSFULLY, TITLE_UPDATE_FIRMWARE_VERSION, USER_NAME} from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 
@@ -36,7 +36,7 @@ test.describe('Hub Page tests', () => {
         await hubPage.addUserName.fill(USER_NAME);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
-        await (page.getByText(USER)).click();
+        await (page.getByText(USER_NAME)).click();
         await hubPage.settingsMobileApp.click();
         await page.waitForTimeout(2000);
         await hubPage.enableButton.click();
@@ -46,7 +46,7 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.transferOwnershipButton.click();
         await page.waitForTimeout(2000);
-        await page.getByText((USER)).click();
+        await page.getByText((USER_NAME)).click();
         await hubPage.submitButton.click();
 
         await expect(page.getByText(TEXT_CHANGES_SAVED_SUCCESSFULLY)).toBeVisible();

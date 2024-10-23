@@ -4,8 +4,6 @@ export enum UIErrorMessages {
     REQUIRED_FIELD = 'Required field',
 }
 
-export const ENVIRONMENT: string = 'dev';
-
 export const EMAIL_NECESSARY_NAME_PART: string = 'sastest2398';
 
 export const USER_FULL_FIRST: string = '01 | Дмитро | snaut12@gmail.com';
@@ -289,9 +287,6 @@ export const NUMBER_7: string = '7';
 export const TEXT_ADRESS: string = 'Sinna, 45, 7';
 
 export const BUTTON_CREATE_SCHEDULE: string = 'Create schedule';
-
-
-
 
 export const TEXT_FIRST_REACTION: string = 'First reaction';
 

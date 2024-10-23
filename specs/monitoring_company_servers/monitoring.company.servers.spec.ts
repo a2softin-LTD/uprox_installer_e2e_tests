@@ -9,7 +9,7 @@ import {
     SERVER_PORT_SECOND,
     TITLE_COMPANY_SETTINGS
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page test', () => {
 

@@ -7,9 +7,9 @@ import {
     HUB_SERIAL_NUMBER_TRUE_THIRD, TEXT_ADD_USER_EMAIL, TEXT_ADDED_NEW_USER, TEXT_REMOVE_USER_EMAIL, TEXT_REMOVED_USER,
     TEXT_SAVE_IN_XLS,
     TITLE_HISTORY_FOR_ALL_PANELS, TITLE_SYSTEM,
-    TITLE_TECHNICAL_SUPPORT, USER_EMAIL_SECOND
+    USER_EMAIL_SECOND
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin']}, () => {
 

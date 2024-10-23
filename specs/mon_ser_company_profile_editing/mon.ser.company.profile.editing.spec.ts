@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
-import {TITLE_COMPANY_SETTINGS} from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
+import { TITLE_COMPANY_SETTINGS } from "../../utils/constants";
+import { CompanyPage } from "../../pages/company/CompanyPage";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
 
 test.describe('Company Page test', () => {
 

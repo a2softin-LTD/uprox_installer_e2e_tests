@@ -9,7 +9,7 @@ import {
         TEXT_TEST_DEALER_ROLE,
         TITLE_TECHNICAL_SUPPORT
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page tests', () => {
 

@@ -8,8 +8,8 @@ import {
     TITLE_GROUP_OF_COMPANIES,
     TITLE_GROUPS_OF_COMPANIES
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
-import {SuperAdminPage} from "../../pages/superAdmin/SuperAdminPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
+import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 
 test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
 

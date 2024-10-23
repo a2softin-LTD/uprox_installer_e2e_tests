@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
-import {TITLE_UPDATE_FIRMWARE_VERSION} from "../../utils/constants";
+import { TITLE_UPDATE_FIRMWARE_VERSION } from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 

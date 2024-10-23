@@ -11,7 +11,6 @@ import {
     TITLE_EMPLOYEES, USER_EMAIL_THIRD
 } from "../../utils/constants";
 
-
 test.describe('SuperAdmin page tests', () => {
 
     let loginPage: LoginPage;

@@ -8,8 +8,8 @@ import {
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
     TEXT_OK
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
-import {HubPage} from "../../pages/hub/HubPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
+import { HubPage } from "../../pages/hub/HubPage";
 
 test.describe('Hub Page tests', () => {
 

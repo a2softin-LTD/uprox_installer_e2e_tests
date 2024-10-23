@@ -8,7 +8,7 @@ import {
     TITLE_EMPLOYEES,
     TITLE_TECHNICAL_SUPPORT, USER_PASSWORD_FIRST
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page test',() => {
 

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { ENGINEER,USER_3 } from "../../utils/user_data";
-import {USER_NAME, USER_SHORT} from "../../utils/constants";
+import { USER_NAME } from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 
@@ -34,14 +34,14 @@ test.describe('Hub Page tests', () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
 
-        await expect (page.getByText((USER_SHORT))).toBeVisible();
+        await expect (page.getByText((USER_NAME))).toBeVisible();
 
         await page.waitForTimeout(2000);
         await page.getByText(USER_NAME).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
-        await expect (page.getByText((USER_SHORT))).not.toBeVisible();
+        await expect (page.getByText((USER_NAME))).not.toBeVisible();
     });
 
 });

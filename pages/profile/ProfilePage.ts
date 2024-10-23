@@ -1,10 +1,9 @@
 import { BasePage } from "../BasePage";
-import {Page,  Locator, expect} from "@playwright/test";
+import { Page,  Locator } from "@playwright/test";
 
 export class ProfilePage extends BasePage {
     readonly page: Page;
     private readonly _form: Locator;
-
     private readonly _userLogo: Locator;
     private readonly _userName: Locator;
     private readonly _userEditField: Locator;
@@ -20,7 +19,6 @@ export class ProfilePage extends BasePage {
     private readonly _myProfileButton: Locator;
     private readonly _logoutButton: Locator;
     private readonly _myProfileTitle: Locator;
-
     private readonly _message: Locator;
 
     constructor(page: Page) {
@@ -43,7 +41,6 @@ export class ProfilePage extends BasePage {
         this._logoutButton = this.page.locator('span:text-is("Logout")');
         this._message = page.getByText('Messages');
         this._myProfileTitle = this.page.locator('span:text-is("Email")');
-
 
     }
 
@@ -114,8 +111,5 @@ export class ProfilePage extends BasePage {
     get myProfileTitle(): Locator {
         return this._myProfileTitle;
     }
-
-
-
 
 }

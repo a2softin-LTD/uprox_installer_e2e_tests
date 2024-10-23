@@ -7,8 +7,8 @@ import {
     COMPANY_SERVICE_PHONE_NEW, COMPANY_SERVICE_PHONE_OLD, LANGUAGE_FRENCH, LANGUAGE_UKRAINIAN,
     TITLE_COMPANY_SETTINGS
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
 
 test.describe('Company Page test', () => {
 

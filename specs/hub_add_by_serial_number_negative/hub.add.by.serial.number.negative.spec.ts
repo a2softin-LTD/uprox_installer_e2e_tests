@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
-import {HUB_SERIAL_NUMBER_FALSE_FIRST, TEXT_SERIAL_NUMBER_WRONG_FORMAT} from "../../utils/constants";
+import { HUB_SERIAL_NUMBER_FALSE_FIRST, TEXT_SERIAL_NUMBER_WRONG_FORMAT } from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 

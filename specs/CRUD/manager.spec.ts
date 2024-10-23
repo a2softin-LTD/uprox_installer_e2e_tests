@@ -9,7 +9,7 @@ import {
     TEXT_EDIT_EMPLOYEE,
     TITLE_EMPLOYEES, USER_NAME_NEW
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page tests', () => {
 

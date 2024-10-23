@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { faker } from "@faker-js/faker";
-import {EMAIL_NECESSARY_NAME_PART, USER_EMAIL, USER_EMAIL_NON_REGISTERED} from "../../utils/constants";
+import { EMAIL_NECESSARY_NAME_PART, USER_EMAIL, USER_EMAIL_NON_REGISTERED } from "../../utils/constants";
 
 test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
 

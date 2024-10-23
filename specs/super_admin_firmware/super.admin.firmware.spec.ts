@@ -13,7 +13,7 @@ import {
     TITLE_CONSOLE_FIRMWARE_VERSIONS,
     TITLE_PANEL_FIRMWARE_VERSIONS, VERSION_CODE, VERSION_NAME
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('SuperAdmin Page test', () => {
 

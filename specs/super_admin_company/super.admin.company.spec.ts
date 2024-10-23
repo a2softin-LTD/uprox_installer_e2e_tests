@@ -21,7 +21,7 @@ import {
     TITLE_COMPANIES,
     TITLE_COMPANY_SETTINGS
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('SuperAdmin page tests',() => {
 
