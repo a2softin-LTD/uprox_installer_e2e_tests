@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { CORP_ADMIN, MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
-import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
+import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 

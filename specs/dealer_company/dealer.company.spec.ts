@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {DILER } from "../../utils/user_data";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { DILER } from "../../utils/user_data";
 
 test.describe('Companies under DEALER role', { tag: '@stable' },() => {
 

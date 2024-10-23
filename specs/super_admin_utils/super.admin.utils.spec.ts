@@ -1,9 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
-import { HubPage } from "../../pages/hub/HubPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
-import * as path from "node:path";
 
 test.describe('Utils under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
 

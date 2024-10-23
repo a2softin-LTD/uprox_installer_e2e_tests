@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
-import { MIXED,MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
+import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 
 test.describe('Monitoring-service company servers', { tag: '@stable' },() => {
 

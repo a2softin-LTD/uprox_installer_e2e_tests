@@ -121,7 +121,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
             }
         });
 
-        test.skip('2. Get data from PROD DB and save to QA DB', async () => {
+        test('2. Get data from PROD DB and save to QA DB', async () => {
             console.log('STARTING THE TEST: ' +  moment().format('LTS'));
             console.log("**********************************************************************************************");
             console.log("**********************************************************************************************");
@@ -153,7 +153,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                 let offset: number = 1;
                 console.log("Offset = " + offset);
 
-                let fetch: number = 10000;
+                let fetch: number = 5000;
                 
                 let arrRecords10: Array<string> = [];
                 let arrRecords20: Array<string> = [];
@@ -364,7 +364,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
             }
         });
 
-        test.skip('3. Executing SQL Selects to PROD DB and measurementing response times', async () => {
+        test.skip('3. Executing SQL Selects to PROD DB and measurementing response times', { tag: '@db' }, async () => {
             let stage: number = 0;
             let count: number = 0;
             let startTime: Date;

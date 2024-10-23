@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
-import {USER_1, USER_3} from "../../utils/user_data";
+import { USER_1, USER_3 } from "../../utils/user_data";
 
 test.describe('Hub users page', { tag: ['@stable']  }, () => {
 

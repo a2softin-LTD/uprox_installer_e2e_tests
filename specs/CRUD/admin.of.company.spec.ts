@@ -6,7 +6,7 @@ import {
     SYSTEM_ADMIN,
 } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
-import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
+import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
 
 test.describe('Login Page tests', () => {
 

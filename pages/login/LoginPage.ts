@@ -1,5 +1,5 @@
 import { BasePage } from "../BasePage";
-import {Page, Locator, expect} from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 
 export class LoginPage extends BasePage {
     readonly page: Page;
@@ -22,7 +22,7 @@ export class LoginPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.page = page;
-        this._logo = page.locator('mat-icon[svgicon="login-logo-desktop"]')
+        this._logo = page.locator('mat-icon[svgicon="login-logo-desktop"]');
         this._form = page.locator('form');
         this._emailField = this.form.locator('#mat-input-0');
         this._passwordField = this.form.locator('#mat-input-1');

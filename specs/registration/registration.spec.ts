@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { RegistrationModel } from "../../models/RegistrationModel";
 import { faker } from "@faker-js/faker";
 import { RegistrationPage } from "../../pages/registration/RegistrationPage";
-import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
+import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
 
 test.describe('Login Page tests', {tag: '@stable'}, () => {
 

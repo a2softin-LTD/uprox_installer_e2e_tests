@@ -4,6 +4,4 @@ export enum UIErrorMessages {
     REQUIRED_FIELD = 'Required field',
 }
 
-export const ENVIRONMENT: string = 'dev';
-
 export const EMAIL_NECESSARY_NAME_PART: string = 'sastest2398';

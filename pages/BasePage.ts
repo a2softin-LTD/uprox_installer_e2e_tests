@@ -1,5 +1,4 @@
 import {  Locator, type Page } from "@playwright/test";
-import { INSTALLER_LOGIN_URL } from "../utils/path";
 
 export class BasePage {
     readonly page: Page;
@@ -321,9 +320,6 @@ export class BasePage {
     get editIcon (): Locator {
         return this._editIcon ;
     }
-
-
-
 
     async openLoginPage(path: string) {
         await this.page.goto(path);
