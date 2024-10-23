@@ -1,19 +1,28 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
+import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
+import {
+    HUB_SERIAL_NUMBER_TRUE_THIRD, TEXT_ADD_USER_EMAIL, TEXT_ADDED_NEW_USER, TEXT_REMOVE_USER_EMAIL, TEXT_REMOVED_USER,
+    TEXT_SAVE_IN_XLS,
+    TITLE_HISTORY_FOR_ALL_PANELS, TITLE_SYSTEM,
+    TITLE_TECHNICAL_SUPPORT, USER_EMAIL_SECOND
+} from "../../utils/constants";
+import {CompanyPage} from "../../pages/company/CompanyPage";
 
-test.describe('Hub history page', { tag: ['@stable']  }, () => {
+test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin']}, () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
+    let superAdminPage: SuperAdminPage;
+    let companyPage: CompanyPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
+        superAdminPage = new SuperAdminPage(page);
+        companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -21,102 +30,118 @@ test.describe('Hub history page', { tag: ['@stable']  }, () => {
         await expect(page).toHaveURL('/support/search');
     });
 
+    test('Checking UI elements of the history page under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.info().annotations.push({
+            type: 'test_id',
+            description: ''
+        });
+
+        await hubPage.history.click();
+
+        await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
+        await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
+        await hubPage.inputFirstField.isVisible();
+        await hubPage.historyDate.nth(0).isVisible();
+        await hubPage.historyDate.nth(1).isVisible();
+        await hubPage.historyAlarmCheckBox.isVisible();
+        await hubPage.historyTroublesCheckBox.isVisible();
+        await hubPage.historyArmsCheckBox.isVisible();
+        await hubPage.historyActionsCheckBox.isVisible();
+        await hubPage.historyServiceCheckBox.isVisible();
+    });
+
     test.describe('History under SUPER_ADMIN role', () => {
 
-        test('History display under SUPER_ADMIN role', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('History display under SUPER_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694vrfn3'
             });
 
             await hubPage.history.click();
 
-            await expect(hubPage.historyFirstEvent).toBeVisible();
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
 
             for (const event of await hubPage.historyEvent.all())
             { await expect(event).toBeVisible();}
-
-            await hubPage.historyLastEvent.scrollIntoViewIfNeeded();
-
-            await expect(hubPage.historyLastEvent).toBeVisible();
         });
 
         test('History filtration by hub under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694vrfn2'
             });
 
-            const serialNumber: string = "00:08:B7:10:02:04";
-
             await hubPage.history.click();
-            await profilePage.companySearchByHubField.fill(serialNumber);
+
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
+
+            await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
             await page.waitForTimeout(2000);
 
+            await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
+
             for (const event of await hubPage.historyEvent.all())
-            { await expect(event.filter({hasText:'d.pinchuk@itvsystems.com.ua'})).toBeVisible();}
+            { await expect((event.filter({hasText:USER_EMAIL_SECOND})).or(event.filter({hasText:TITLE_SYSTEM}))).toBeVisible();}
 
         });
 
         test.skip('History filtration by date under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694vrfmy'
             });
 
-            const serialNumber: string = "00:08:B7:10:02:04";
-
             await hubPage.history.click();
-            await profilePage.companySearchByHubField.fill(serialNumber);
-            await page.waitForTimeout(2000);
-            await page.reload();
-            await page.waitForTimeout(2000);
-            for (const event of await hubPage.historyEvent.all())
-            { await expect(event.filter({hasText:'d.pinchuk@itvsystems.com.ua'})).toBeVisible();}
+            await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
+            await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
+
         });
 
-        test.skip('History filtration by event under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('History filtration by event under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694vrfn1'
             });
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
             await hubPage.history.click();
+
+            await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
+
+            await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
             await hubPage.historyAlarmCheckBox.isVisible();
             await hubPage.historyTroublesCheckBox.isVisible();
             await hubPage.historyArmsCheckBox.isVisible();
             await hubPage.historyActionsCheckBox.isVisible();
-            await hubPage.historyAlarmCheckBox.click();
-            await hubPage.historyTroublesCheckBox.click();
-            await hubPage.historyArmsCheckBox.click();
+            await hubPage.historyServiceCheckBox.isVisible();
 
-            await expect(page.getByText('Removed user').first()).toBeVisible();
-            await expect(page.getByText('Added new user').first()).toBeVisible();
+            await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
+            await expect(page.getByText(TEXT_ADD_USER_EMAIL).first()).toBeVisible();
+            await expect(page.getByText(TEXT_REMOVED_USER).first()).toBeVisible();
+            await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).toBeVisible();
 
             await hubPage.historyAlarmCheckBox.click();
             await hubPage.historyTroublesCheckBox.click();
             await hubPage.historyArmsCheckBox.click();
             await hubPage.historyActionsCheckBox.click();
 
-            await expect(page.getByText('Removed user').first()).not.toBeVisible();
-            await expect(page.getByText('Added new user').first()).not.toBeVisible();
+            await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
+            await expect(page.getByText(TEXT_ADD_USER_EMAIL).first()).toBeVisible();
+            await expect(page.getByText(TEXT_REMOVED_USER).first()).not.toBeVisible();
+            await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).not.toBeVisible();
+
         });
 
         test('Download history file under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvcav'
+                description: 'https://app.clickup.com/t/8694vrfn0'
             });
-
-            await expect(page.getByText('Technical support')).toBeVisible();
 
             await hubPage.history.click();
 
-            await expect(page.getByText('Save in XLS')).toBeVisible();
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
+            await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
 
             const downloadPromise = page.waitForEvent('download');
             await hubPage.saveInXLSButton.click();

@@ -1,16 +1,22 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MIXED } from "../../utils/user_data";
+import {
+    HUB_ACCOUNT_NAME, HUB_NAME_SECOND,
+    HUB_SERIAL_NUMBER_TRUE_FIRST, PANEL_STATE, TEXT_BY_ACCOUNT,
+    TEXT_BY_NAME,
+    TEXT_BY_SERIAL_NUMBER, TITLE_ALL_PANELS
+} from "../../utils/constants";
+import {HubPage} from "../../pages/hub/HubPage";
 
-test.describe('Profile Page tests', () => {
+test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -20,69 +26,64 @@ test.describe('Profile Page tests', () => {
 
     test.describe('Hub search', () => {
 
-        test('Search by name: hub', async ({ page }) => {
+        test('Search by name: hub', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678p0hwg"
             });
-            const name: string = "Os-au";
 
-            await profilePage.panels.click();
+            await hubPage.panels.click();
             await page.waitForTimeout(2000);
-            await page.getByText('By name').click();
-            await profilePage.searchField.fill(name);
+            await page.getByText(TEXT_BY_NAME).click();
+            await hubPage.searchField.fill(HUB_NAME_SECOND);
 
-            await expect(profilePage.entityBlock.filter({hasText:name})).toBeVisible();
-            await expect(profilePage.entityBlock).toHaveCount(1);
+            await expect(hubPage.entityBlock.filter({hasText:HUB_NAME_SECOND})).toBeVisible();
+            await expect(hubPage.entityBlock).toHaveCount(1);
         });
 
-        test('Search by serial number: hub', async ({ page }) => {
+        test('Search by serial number: hub', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678p0hwg"
             });
 
-            const serialNumber: string = "00:08:9B:10:0B:EB";
-
-            await profilePage.panels.click();
+            await hubPage.panels.click();
             await page.waitForTimeout(2000);
-            await page.getByText('By serial number').click();
-            await profilePage.searchField.fill(serialNumber);
+            await page.getByText(TEXT_BY_SERIAL_NUMBER).click();
+            await hubPage.searchField.fill(HUB_SERIAL_NUMBER_TRUE_FIRST);
 
-            await expect(profilePage.entityBlock.filter({hasText:serialNumber})).toBeVisible();
-            await expect(profilePage.entityBlock).toHaveCount(1);
+            await expect(hubPage.entityBlock.filter({hasText:HUB_SERIAL_NUMBER_TRUE_FIRST})).toBeVisible();
+            await expect(hubPage.entityBlock).toHaveCount(1);
         });
 
-        test('Search by account: hub', async ({ page }) => {
+        test('Search by account: hub', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678p0hwg"
             });
-            const account: string = "331C";
 
-            await profilePage.panels.click();
+            await hubPage.panels.click();
             await page.waitForTimeout(2000);
-            await page.getByText('By account').click();
-            await profilePage.searchField.fill(account);
+            await page.getByText(TEXT_BY_ACCOUNT).click();
+            await hubPage.searchField.fill(HUB_ACCOUNT_NAME);
 
-            await expect(profilePage.entityBlock.filter({hasText:account})).toBeVisible();
-            await expect(profilePage.entityBlock).toHaveCount(1);
+            await expect(hubPage.entityBlock.filter({hasText:HUB_ACCOUNT_NAME})).toBeVisible();
+            await expect(hubPage.entityBlock).toHaveCount(1);
         });
 
-        test('Search by panel state outdated firmware version: hub', async ({ page }) => {
+        test('Search by panel state outdated firmware version: hub', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678p0hwg"
             });
-            const panelState: string = "Outdated firmware version";
 
-            await profilePage.panels.click();
+            await hubPage.panels.click();
             await page.waitForTimeout(2000);
-            await page.getByText('All panels').first().click();
-            await page.getByText(panelState).first().click();
+            await page.getByText(TITLE_ALL_PANELS).first().click();
+            await page.getByText(PANEL_STATE).first().click();
 
-            for (const hub of await profilePage.entityBlock.all())
-            {await expect(hub.filter({has:profilePage.updateFirmwareIcon})).toBeVisible();}
+            for (const hub of await hubPage.entityBlock.all())
+            {await expect(hub.filter({has:hubPage.updateFirmwareIcon})).toBeVisible();}
         });
 
     });

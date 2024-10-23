@@ -1,16 +1,17 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MONITORING_COMPANY_1 } from "../../utils/user_data";
+import {PANEL_STATE, TITLE_ALL_PANELS} from "../../utils/constants";
+import {CompanyPage} from "../../pages/company/CompanyPage";
 
-test.describe('Profile Page tests', () => {
+test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']}, () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let companyPage: CompanyPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -18,20 +19,19 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/panels');
     });
 
-    test('Search by panel state outdated firmware version: monitoring company', async ({ page }) => {
+    test('Search by panel state outdated firmware version: monitoring company', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678p0hwg"
+                description: "https://app.clickup.com/t/86957f77h"
             });
-            const panelState: string = "Outdated firmware version";
 
-            await profilePage.panels.click();
+            await companyPage.panels.click();
             await page.waitForTimeout(2000);
-            await page.getByText('All panels').first().click();
-            await page.getByText(panelState).first().click();
+            await page.getByText(TITLE_ALL_PANELS).first().click();
+            await page.getByText(PANEL_STATE).first().click();
 
-            for (const hub of await profilePage.entityBlock.all())
-            {await expect(hub.filter({has:profilePage.updateFirmwareIcon})).toBeVisible();}
+            for (const hub of await companyPage.entityBlock.all())
+            {await expect(hub.filter({has:companyPage.updateFirmwareIcon})).toBeVisible();}
     });
 
 });

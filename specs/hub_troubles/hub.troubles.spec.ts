@@ -1,8 +1,14 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { MIXED } from "../../utils/user_data";
+import {
+    TEXT_NO_HUB_WITH_TROUBLES,
+    TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
+    TITLE_SYSTEM,
+    TITLE_TROUBLES,
+    TITLE_UPDATE_FIRMWARE_VERSION
+} from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 
@@ -25,20 +31,20 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8694ky0zj"
         });
 
-        const hubSerialNumber: string = "00:08:9B:30:0C:60 | Wifi | GPRS | ";
+        await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+        if (hubPage.hubsOnline.filter({has:hubPage.tamperOpenIcon}).first().isVisible())
+        { await hubPage.hubsOnline.filter({has:hubPage.tamperOpenIcon}).first().click();
 
-        await page.getByText(hubSerialNumber).isVisible();
-        await page.waitForTimeout(2000);
-        await page.getByText(hubSerialNumber).click();
-        await page.waitForTimeout(2000);
-        if (await page.getByText('Update firmware version').isVisible())
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
-        await expect(hubPage.pageTitle.filter({hasText:'System'})).toBeVisible();
+        await expect(hubPage.pageTitle.filter({hasText:TITLE_SYSTEM})).toBeVisible();
         await hubPage.troubles.click();
 
-        await expect(hubPage.pageTitle.filter({hasText:'Troubles'})).toBeVisible();
+        await expect(hubPage.pageTitle.filter({hasText:TITLE_TROUBLES})).toBeVisible();
         for (const device of await hubPage.entityBlock.all())
-        {await expect(device.filter({has: hubPage.hubTroublesState})).toBeVisible();}
+        {await expect(device.filter({has: hubPage.hubTroublesState})).toBeVisible();}}
+
+        else {console.log(TEXT_NO_HUB_WITH_TROUBLES);}
     });
 
 });

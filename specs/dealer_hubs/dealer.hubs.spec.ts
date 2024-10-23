@@ -1,16 +1,23 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { DILER } from "../../utils/user_data";
+import {
+    COMPANY_FIRST,
+    HUB_ACCOUNT_NAME,
+    HUB_NAME_SECOND, HUB_SERIAL_NUMBER_TRUE_FIRST, TEXT_BY_NAME, TEXT_BY_SERIAL_NUMBER,
+    TEXT_NUMBER_OF_DEVICES_IM_COMPANY, TEXT_SAVE_IN_XLS,
+    TITLE_COMPANIES
+} from "../../utils/constants";
+import {CompanyPage} from "../../pages/company/CompanyPage";
 
-test.describe('Hubs under DEALER role', { tag: '@stable' },() => {
+test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let companyPage: CompanyPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -21,93 +28,83 @@ test.describe('Hubs under DEALER role', { tag: '@stable' },() => {
     test('Hubs list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694vrf42"
+            description: "https://app.clickup.com/t/8695e8e1a"
         });
-        const company: string = "AVL";
 
-        await expect(page.getByText('Companies:')).toBeVisible();
-        await expect(page.getByText(company)).toBeVisible();
+        await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+        await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
 
-        await page.getByText(company).click();
+        await page.getByText(COMPANY_FIRST).click();
 
-        await expect(page.getByText('Number of devices in the company')).toBeVisible();
+        await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
-        for (const hub of await profilePage.entityBlock.all())
+        for (const hub of await companyPage.entityBlock.all())
             await expect(hub).toBeVisible();
-        for (const hub of await profilePage.entityBlock.all())
-        {await expect(hub.filter({has: profilePage.entityText})).toBeVisible();}
+        for (const hub of await companyPage.entityBlock.all())
+        {await expect(hub.filter({has: companyPage.entityText})).toBeVisible();}
 
     });
 
-    test.describe('Hub search under DEALER role', () => {
+    test.describe('Hub search under DEALER role',() => {
 
         test('Hub search by serial number under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694vrf4c"
+                description: "https://app.clickup.com/t/8695e8trb"
             });
 
-            const company: string = "AVL";
-            const serialNumber: string = "00:08:9B:10:0B:EB";
+            await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
 
-            await expect(page.getByText('Companies:')).toBeVisible();
-            await expect(page.getByText(company)).toBeVisible();
+            await page.getByText(COMPANY_FIRST).click();
 
-            await page.getByText(company).click();
+            await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
-            await expect(page.getByText('Number of devices in the company')).toBeVisible();
+            await page.getByText(TEXT_BY_SERIAL_NUMBER).click();
+            await companyPage.searchField.fill(HUB_SERIAL_NUMBER_TRUE_FIRST);
 
-            await page.getByText('By serial number').click();
-            await profilePage.searchField.fill(serialNumber);
-
-            await expect(profilePage.entityBlock.filter({hasText:serialNumber})).toBeVisible();
-            await expect(profilePage.entityBlock).toHaveCount(1);
+            await expect(companyPage.entityBlock.filter({hasText:HUB_SERIAL_NUMBER_TRUE_FIRST})).toBeVisible();
+            await expect(companyPage.entityBlock).toHaveCount(1);
         });
 
         test('Hub search by account under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694vrf48"
+                description: "https://app.clickup.com/t/8695e9b9n"
             });
 
-            const company: string = "AVL";
-            const account: string = "331C";
+            await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
 
-            await expect(page.getByText('Companies:')).toBeVisible();
-            await expect(page.getByText(company)).toBeVisible();
+            await page.getByText(COMPANY_FIRST).click();
 
-            await page.getByText(company).click();
+            await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
-            await expect(page.getByText('Number of devices in the company')).toBeVisible();
+            await page.getByText(TEXT_BY_SERIAL_NUMBER).click();
+            await companyPage.searchField.fill(HUB_ACCOUNT_NAME);
 
-            await page.getByText('By account').click();
-            await profilePage.searchField.fill(account);
-
-            await expect(profilePage.entityBlock.filter({hasText:account})).toBeVisible();
-            await expect(profilePage.entityBlock).toHaveCount(1);
+            await expect(companyPage.entityBlock.filter({hasText:HUB_ACCOUNT_NAME})).toBeVisible();
+            await expect(companyPage.entityBlock).toHaveCount(1);
         });
 
-        test('Hub search by company name under DEALER role', { tag: '@smoke' }, async ({ page }) => {
+        test('Hub search by name under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694vrf4b"
+                description: "https://app.clickup.com/t/8695e9b7n"
             });
 
-            const company: string = "AVL";
-            const name: string = "Os-au";
+            await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
 
-            await expect(page.getByText('Companies:')).toBeVisible();
-            await expect(page.getByText(company)).toBeVisible();
+            await page.getByText(COMPANY_FIRST).click();
 
-            await page.getByText(company).click();
+            await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
-            await expect(page.getByText('Number of devices in the company')).toBeVisible();
+            await page.getByText(TEXT_BY_NAME).click();
+            await companyPage.searchField.fill(HUB_NAME_SECOND);
 
-            await page.getByText('By name').click();
-            await profilePage.searchField.fill(name);
-
-            await expect(profilePage.entityBlock.filter({hasText:name})).toBeVisible();
-            await expect(profilePage.entityBlock).toHaveCount(1);
+            await expect(companyPage.entityBlock.filter({hasText:HUB_NAME_SECOND})).toBeVisible();
+            await expect(companyPage.entityBlock).toHaveCount(1);
         });
 
     });
@@ -115,24 +112,22 @@ test.describe('Hubs under DEALER role', { tag: '@stable' },() => {
     test('Downloading hubs list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694phqe6"
+            description: "https://app.clickup.com/t/8695e9ff0"
         });
 
-        const company: string = "AVL";
+        await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+        await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
 
-        await expect(page.getByText('Companies:')).toBeVisible();
-        await expect(page.getByText(company)).toBeVisible();
+        await page.getByText(COMPANY_FIRST).click();
 
-        await page.getByText(company).click();
-
-        await expect(page.getByText('Number of devices in the company')).toBeVisible();
+        await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
         const downloadPromise = page.waitForEvent('download');
-        await profilePage.saveInXLSButton.click();
+        await companyPage.saveInXLSButton.click();
 
-        await expect(page.getByText('Save in XLS')).toBeVisible();
+        await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
 
-        await page.getByText('Save in XLS').click();
+        await page.getByText(TEXT_SAVE_IN_XLS).click();
         const download = await downloadPromise;
         await download.saveAs(download.suggestedFilename());
     });

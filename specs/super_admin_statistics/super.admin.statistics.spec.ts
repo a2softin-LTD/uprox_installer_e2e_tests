@@ -1,91 +1,114 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
-import { HubPage } from "../../pages/hub/HubPage";
+import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
+import {
+    COMPANY_FIRST,
+    COMPANY_FOURTH, COUNTRY_AUSTRALIA, TEXT_COUNT_OF_DEVICES_IN_COUNTRY,
+    TEXT_SAVE_IN_XLS,
+    TEXT_TOTAL_NUMBER_OF_DEVICES,
+    TEXT_TOTAL_NUMBER_OF_RADIO_DEVICES,
+    TITLE_COMPANIES, TITLE_COMPANIES_,
+    TITLE_PANELS,
+    TITLE_RADIO_DEVICES,
+    TITLE_STATISTICS,
+    TITLE_STATISTICS_COMPANIES,
+    TITLE_STATISTICS_PANELS,
+    TITLE_STATISTICS_RADIO_DEVICES,
+    TITLE_TECHNICAL_SUPPORT
+} from "../../utils/constants";
 
-test.describe('Statistics under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
+test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
-    let hubPage: HubPage;
+    let superAdminPage: SuperAdminPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
+        superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(SUPER_ADMIN);
         await expect(page).toHaveURL('/support/search');
     });
-    test('Checking UI elements of the statistics page', async ({ page }) => {
+    test('Checking UI elements of the statistics page', { tag: ['@smoke']  },async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
         });
 
-        await profilePage.statistics.click();
+        await superAdminPage.statistics.click();
 
-        await expect(profilePage.pageTitle.first().filter({hasText:'Statistics'})).toBeVisible();
-        await expect(profilePage.pageTitle.last().filter({hasText:'Statistics: Panels'})).toBeVisible();
-        await expect(profilePage.saveInXLSButton).toBeVisible();
-        await expect(page.getByText('Panels', {exact:true})).toBeVisible();
-        await expect(page.getByText('Radio devices')).toBeVisible();
-        await expect(page.getByText('Total number of devices:')).toBeVisible();
+        await expect(superAdminPage.pageTitle.first().filter({hasText:TITLE_STATISTICS})).toBeVisible();
+        await expect(superAdminPage.pageTitle.last().filter({hasText:TITLE_STATISTICS_PANELS})).toBeVisible();
+        await expect(superAdminPage.saveInXLSButton).toBeVisible();
+        await expect(page.getByText(TITLE_PANELS, {exact:true})).toBeVisible();
+        await expect(page.getByText(TITLE_RADIO_DEVICES)).toBeVisible();
+        await expect(page.getByText(TITLE_COMPANIES_).nth(1)).toBeVisible();
+        await expect(page.getByText(TEXT_TOTAL_NUMBER_OF_DEVICES)).toBeVisible();
 
     });
 
-    test.skip('Statistics editing under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+    test('Statistics panel under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694p41mv'
             });
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.history.click();
-            await hubPage.historyAlarmCheckBox.isVisible();
-            await hubPage.historyTroublesCheckBox.isVisible();
-            await hubPage.historyArmsCheckBox.isVisible();
-            await hubPage.historyActionsCheckBox.isVisible();
-            await hubPage.historyAlarmCheckBox.click();
-            await hubPage.historyTroublesCheckBox.click();
-            await hubPage.historyArmsCheckBox.click();
+        await superAdminPage.statistics.click();
 
-            await expect(page.getByText('Removed user').first()).toBeVisible();
-            await expect(page.getByText('Added new user').first()).toBeVisible();
+        await expect(superAdminPage.pageTitle.first().filter({hasText:TITLE_STATISTICS})).toBeVisible();
 
-            await hubPage.historyAlarmCheckBox.click();
-            await hubPage.historyTroublesCheckBox.click();
-            await hubPage.historyArmsCheckBox.click();
-            await hubPage.historyActionsCheckBox.click();
+        await page.getByText(TITLE_PANELS, {exact:true}).click();
 
-            await expect(page.getByText('Removed user').first()).not.toBeVisible();
-            await expect(page.getByText('Added new user').first()).not.toBeVisible();
-        });
+        await expect(superAdminPage.pageTitle.nth(1).filter({hasText:TITLE_STATISTICS_PANELS})).toBeVisible();
+        await expect(page.getByText(TEXT_TOTAL_NUMBER_OF_DEVICES)).toBeVisible();
+
+        for (const entity of await superAdminPage.statisticsEntity.all())
+        { await expect(entity).toBeVisible();}
+
+        await page.getByText(TITLE_RADIO_DEVICES, {exact:true}).click();
+
+        await expect(superAdminPage.pageTitle.nth(1).filter({hasText:TITLE_STATISTICS_RADIO_DEVICES})).toBeVisible();
+        await expect(page.getByText(TEXT_TOTAL_NUMBER_OF_RADIO_DEVICES)).toBeVisible()
+
+        for (const entity of await superAdminPage.statisticsEntity.all())
+        { await expect(entity).toBeVisible();}
+
+        await page.getByText(TITLE_COMPANIES_).nth(1).click();
+
+        await expect(superAdminPage.pageTitle.nth(1).filter({hasText:TITLE_STATISTICS_COMPANIES})).toBeVisible();
+        await expect(page.getByText(TEXT_COUNT_OF_DEVICES_IN_COUNTRY)).toBeVisible();
+
+        for (const entity of await superAdminPage.statisticsEntity.all())
+        { await expect(entity).toBeVisible();}
+
+        await superAdminPage.statisticsFilter.click();
+        await page.getByText(COUNTRY_AUSTRALIA).click();
+
+        await expect(page.getByText(COMPANY_FOURTH)).toBeVisible();
+        await expect(page.getByText(COMPANY_FIRST)).not.toBeVisible();
+    });
 
     test('Download statistics file under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvcav'
+                description: 'https://app.clickup.com/t/8694p41np'
             });
 
-            await expect(page.getByText('Technical support')).toBeVisible();
+            await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
 
-            await profilePage.statistics.click();
+            await superAdminPage.statistics.click();
 
-            await expect(profilePage.pageTitle.filter({hasText:'Statistics: Panels'})).toBeVisible();
+            await expect(superAdminPage.pageTitle.filter({hasText:TITLE_STATISTICS_PANELS})).toBeVisible();
 
-            await expect(page.getByText('Save in XLS')).toBeVisible();
+            await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
 
             const downloadPromise = page.waitForEvent('download');
-            await profilePage.saveInXLSButton.click();
+            await superAdminPage.saveInXLSButton.click();
             const download = await downloadPromise;
             await download.saveAs(download.suggestedFilename());
-        });
+    });
 
 });

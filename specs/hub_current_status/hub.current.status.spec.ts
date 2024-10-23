@@ -1,18 +1,16 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
+import {TITLE_UPDATE_FIRMWARE_VERSION} from "../../utils/constants";
 
-test.describe('Hub Page tests', () => {
+test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
@@ -24,15 +22,14 @@ test.describe('Hub Page tests', () => {
     test('Display of hub current status ', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678t0fxq"
+            description: ""
         });
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-
-        if (await page.getByText('Update firmware version').isVisible()) {
-            await hubPage.closeWindowButton.click();
-        }
+        await hubPage.panels.click();
+        await hubPage.firstHub.click();
+        await page.waitForTimeout(2000);
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible()) {
+            await hubPage.closeWindowButton.click();}
 
         await expect((hubPage.hubPowerNormalIcon).or(hubPage.hubPowerTroubleIcon)).toBeVisible();
         await expect((hubPage.hubTamperOpenIcon).or(hubPage.hubTamperCloseIcon)).toBeVisible();

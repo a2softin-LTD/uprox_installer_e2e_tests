@@ -1,5 +1,7 @@
 import { BasePage } from "../BasePage";
 import {Page, Locator, expect} from "@playwright/test";
+import {MONITORING_COMPANY} from "../../utils/user_data";
+import {ProfilePage} from "../profile/ProfilePage";
 
 export class LoginPage extends BasePage {
     readonly page: Page;
@@ -107,5 +109,6 @@ export class LoginPage extends BasePage {
         expect(this.page.getByText(user['password'])).toBeDefined();
         await this.loginButton.click();
     }
+
 
 }

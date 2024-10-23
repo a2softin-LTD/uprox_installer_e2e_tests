@@ -1,18 +1,16 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
+import {BUTTON_ADD_WIRELESS_DEVICE} from "../../utils/constants";
 
-test.describe('Hub history page', { tag: ['@stable']  }, () => {
+test.describe('Hub Page tests',{ tag: ['@smoke', '@stable']}, () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
@@ -24,13 +22,13 @@ test.describe('Hub history page', { tag: ['@stable']  }, () => {
     test('Export wireless devices list', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvcav'
+                description: 'https://app.clickup.com/t/8678t0fvw'
             });
 
-            await profilePage.panels.click();
-            await profilePage.secondHub.click();
+            await hubPage.panels.click();
+            await hubPage.secondHub.click();
 
-            await expect(page.getByText('Add wireless device')).toBeVisible();
+            await expect(page.getByText(BUTTON_ADD_WIRELESS_DEVICE)).toBeVisible();
 
             await (page.getByText('...')).click();
             const downloadPromise = page.waitForEvent('download');

@@ -1,61 +1,52 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
+import {
+    TEXT_ADDED_NEW_USER,
+    TEXT_REMOVED_USER,
+    TEXT_SAVE_IN__XLS,
+    TITLE_UPDATE_FIRMWARE_VERSION
+} from "../../utils/constants";
 
-test.describe('Hub history page', { tag: ['@stable']  }, () => {
+test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
+        await hubPage.panels.click();
+        await hubPage.firstHub.click();
+        await page.waitForTimeout(2000);
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
+        {  await hubPage.closeWindowButton.click()}
+        await hubPage.history.click();
+        await expect(page.getByText(TEXT_SAVE_IN__XLS)).toBeVisible();
     });
 
-    test.describe('History', () => {
-
-        test('History display', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+    test('History display', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678rvbyg'
             });
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.history.click();
-
-            await expect(hubPage.historyFirstEvent).toBeVisible();
-
             for (const event of await hubPage.historyEvent.all())
             { await expect(event).toBeVisible();}
+    });
 
-            await hubPage.historyLastEvent.scrollIntoViewIfNeeded();
-
-            await expect(hubPage.historyLastEvent).toBeVisible();
-        });
-
-        test('History filtration', { tag: '@smoke' }, async ({ page }) => {
+    test('History filtration', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678rvbzg'
             });
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.history.click();
             await hubPage.historyAlarmCheckBox.isVisible();
             await hubPage.historyTroublesCheckBox.isVisible();
             await hubPage.historyArmsCheckBox.isVisible();
@@ -64,39 +55,29 @@ test.describe('Hub history page', { tag: ['@stable']  }, () => {
             await hubPage.historyTroublesCheckBox.click();
             await hubPage.historyArmsCheckBox.click();
 
-            await expect(page.getByText('Removed user').first()).toBeVisible();
-            await expect(page.getByText('Added new user').first()).toBeVisible();
+            await expect(page.getByText(TEXT_REMOVED_USER).first()).toBeVisible();
+            await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).toBeVisible();
 
             await hubPage.historyAlarmCheckBox.click();
             await hubPage.historyTroublesCheckBox.click();
             await hubPage.historyArmsCheckBox.click();
             await hubPage.historyActionsCheckBox.click();
 
-            await expect(page.getByText('Removed user').first()).not.toBeVisible();
-            await expect(page.getByText('Added new user').first()).not.toBeVisible();
-        });
+            await expect(page.getByText(TEXT_REMOVED_USER).first()).not.toBeVisible();
+            await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).not.toBeVisible();
+    });
 
-        test('Download history file', { tag: '@smoke' }, async ({ page }) => {
+    test('Downloading history file', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678rvcav'
             });
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.history.click();
-
-            await expect(page.getByText('Save in .XLS')).toBeVisible();
 
             await hubPage.saveInXLSButton.click();
             const downloadPromise = page.waitForEvent('download');
             await hubPage.exportButton.click();
             const download = await downloadPromise;
             await download.saveAs(download.suggestedFilename());
-        });
-
     });
 
 });

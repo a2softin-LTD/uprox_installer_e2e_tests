@@ -1,24 +1,44 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
+import {
+    BUTTON_CREATE_SCHEDULE,
+    DAY_MONDAY,
+    GROUP_NAME,
+    REACTION_ERROR_MESSAGE, REACTION_WARNING_DELETE_MESSAGE,
+    REACTION_WARNING_MESSAGE,
+    SETTINGS_DISARMING,
+    SETTINGS_TIME_ZONE,
+    TEXT_FIRST_REACTION,
+    TEXT_SECOND_REACTION,
+    TEXT_SELECT_CONTROLLER_TIME_ZONE, TIME_ZONE_FIRST, TIME_ZONE_SECOND,
+    TITLE_AUTOMATION,
+    TITLE_UPDATE_FIRMWARE_VERSION
+} from "../../utils/constants";
 
-test.describe('Hub reactions', { tag: ['@stable']  }, () => {
+test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
+
+        await hubPage.panels.click();
+        await hubPage.firstHub.click();
+        await page.waitForTimeout(2000);
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
+        {  await hubPage.closeWindowButton.click()}
+        await hubPage.automation.click();
+
+        await expect(page.getByText(BUTTON_CREATE_SCHEDULE)).toBeVisible();
     });
 
     test('Checking UI elements on the hub reactions page', { tag: '@smoke' }, async ({page}) => {
@@ -26,32 +46,19 @@ test.describe('Hub reactions', { tag: ['@stable']  }, () => {
             type: "test_id",
             description: ""
         });
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await profilePage.automation.click();
 
-        await expect(page.getByText('Time zone')).toBeVisible();
+        await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
         await expect(hubPage.automationCreateReactionButton).toBeVisible();
-        await expect(profilePage.pageTitle.filter({has:page.getByText('Automation')})).toBeVisible();
+        await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
     });
 
     test.describe('Reactions', () => {
 
-        test('Reactions list display', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Reactions list display', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694kxg6v'
             });
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await profilePage.automation.click();
-
-            await expect(page.getByText('Create schedule')).toBeVisible();
 
             for (const reaction of await hubPage.entityBlock.all())
                 await expect(reaction).toBeVisible();
@@ -67,141 +74,133 @@ test.describe('Hub reactions', { tag: ['@stable']  }, () => {
         test('Add reaction', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694fch75'
             });
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await profilePage.automation.click();
-
-            await expect(page.getByText('Create schedule')).toBeVisible();
+            await page.waitForTimeout(2000);
+            if (await (page.getByText(TEXT_FIRST_REACTION)).isVisible()) {
+                await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
+                await hubPage.submitButton.click();}
 
             await hubPage.automationCreateReactionButton.click();
 
-            await expect(page.getByText('At least 1 day of the week must be selected')).toBeVisible();
+            await expect(page.getByText(REACTION_WARNING_MESSAGE)).toBeVisible();
 
-            await hubPage.inputFirstField.fill('First reaction');
+            await hubPage.inputFirstField.fill(TEXT_FIRST_REACTION);
             await hubPage.inputSecondField.click();
             await hubPage.submitButton.click();
             await hubPage.selectFirstField.click();
-            await page.getByText('Disarming',{exact:true}).click();
+            await page.getByText(SETTINGS_DISARMING,{exact:true}).click();
             await hubPage.selectSecondField.click();
-            await page.getByText('Group 1',{exact:true}).click();
-            await page.getByText('Mo',{exact:true}).click();
+            await page.getByText(GROUP_NAME,{exact:true}).click();
+            await page.getByText(DAY_MONDAY,{exact:true}).click();
             await hubPage.saveButton.click();
 
-            await expect(page.getByText('Time zone')).toBeVisible();
-            await expect(page.getByText('First reaction')).toBeVisible();
+            await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
+            await expect(page.getByText(TEXT_FIRST_REACTION)).toBeVisible();
 
-            await  (((hubPage.entityBlock).filter({hasText:'First reaction'})).locator(hubPage.trashIcon)).click();
+            await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
 
-            await expect(page.getByText('Are you sure you want to delete reaction?')).toBeVisible();
+            await expect(page.getByText(REACTION_WARNING_DELETE_MESSAGE)).toBeVisible();
 
             await hubPage.submitButton.click();
 
-            if (await page.getByText('Error code: {{CODE}}').isVisible())
+            if (await page.getByText(REACTION_ERROR_MESSAGE).isVisible())
             {  await hubPage.closeWindowButton.click()}
 
-            await expect(page.getByText('First reaction')).not.toBeVisible();
+            await expect(page.getByText(TEXT_FIRST_REACTION)).not.toBeVisible();
 
         });
 
         test('Delete reaction', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvcav'
+                description: 'https://app.clickup.com/t/8694fchq3'
             });
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await profilePage.automation.click();
-
-            await expect(page.getByText('Create schedule')).toBeVisible();
+            await page.waitForTimeout(2000);
+            if (await (page.getByText(TEXT_FIRST_REACTION)).isVisible()) {
+                await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
+                await hubPage.submitButton.click();}
 
             await hubPage.automationCreateReactionButton.click();
 
-            await expect(page.getByText('At least 1 day of the week must be selected')).toBeVisible();
+            await expect(page.getByText(REACTION_WARNING_MESSAGE)).toBeVisible();
 
-            await hubPage.inputFirstField.fill('First reaction');
+            await hubPage.inputFirstField.fill(TEXT_FIRST_REACTION);
             await hubPage.inputSecondField.click();
             await hubPage.submitButton.click();
             await hubPage.selectFirstField.click();
-            await page.getByText('Disarming',{exact:true}).click();
+            await page.getByText(SETTINGS_DISARMING,{exact:true}).click();
             await hubPage.selectSecondField.click();
-            await page.getByText('Group 1',{exact:true}).click();
-            await page.getByText('Mo',{exact:true}).click();
+            await page.getByText(GROUP_NAME,{exact:true}).click();
+            await page.getByText(DAY_MONDAY,{exact:true}).click();
             await hubPage.saveButton.click();
 
-            await expect(page.getByText('Time zone')).toBeVisible();
-            await expect(page.getByText('First reaction')).toBeVisible();
+            await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
+            await expect(page.getByText(TEXT_FIRST_REACTION)).toBeVisible();
 
-            await  (((hubPage.entityBlock).filter({hasText:'First reaction'})).locator(hubPage.trashIcon)).click();
+            await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
 
-            await expect(page.getByText('Are you sure you want to delete reaction?')).toBeVisible();
+            await expect(page.getByText(REACTION_WARNING_DELETE_MESSAGE)).toBeVisible();
 
             await hubPage.submitButton.click();
 
-            if (await page.getByText('Error code: {{CODE}}').isVisible())
+            if (await page.getByText(REACTION_ERROR_MESSAGE).isVisible())
             {  await hubPage.closeWindowButton.click()}
 
-            await expect(page.getByText('First reaction')).not.toBeVisible();
+            await expect(page.getByText(TEXT_FIRST_REACTION)).not.toBeVisible();
         });
 
         test('Edit reaction', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvcav'
+                description: 'https://app.clickup.com/t/8694fchp2'
             });
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await profilePage.automation.click();
-
-            await expect(page.getByText('Create schedule')).toBeVisible();
+            await page.waitForTimeout(2000);
+            if (await (page.getByText(TEXT_FIRST_REACTION)).isVisible()) {
+                await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
+                await expect(page.getByText(REACTION_WARNING_DELETE_MESSAGE)).toBeVisible();
+                await hubPage.submitButton.click();}
 
             await hubPage.automationCreateReactionButton.click();
 
-            await expect(page.getByText('At least 1 day of the week must be selected')).toBeVisible();
+            await expect(page.getByText(REACTION_WARNING_MESSAGE)).toBeVisible();
 
-            await hubPage.inputFirstField.fill('First reaction');
+            await hubPage.inputFirstField.fill(TEXT_FIRST_REACTION);
             await hubPage.inputSecondField.click();
             await hubPage.submitButton.click();
             await hubPage.selectFirstField.click();
-            await page.getByText('Disarming',{exact:true}).click();
+            await page.getByText(SETTINGS_DISARMING,{exact:true}).click();
             await hubPage.selectSecondField.click();
-            await page.getByText('Group 1',{exact:true}).click();
-            await page.getByText('Mo',{exact:true}).click();
+            await page.getByText(GROUP_NAME,{exact:true}).click();
+            await page.getByText(DAY_MONDAY,{exact:true}).click();
             await hubPage.saveButton.click();
 
-            await expect(page.getByText('Time zone')).toBeVisible();
-            await expect(page.getByText('First reaction')).toBeVisible();
+            await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
+            await expect(page.getByText(TEXT_FIRST_REACTION)).toBeVisible();
 
-            await page.getByText('First reaction').click();
+            await page.getByText(TEXT_FIRST_REACTION).click();
 
-            await expect(page.getByText('At least 1 day of the week must be selected')).toBeVisible();
+            await expect(page.getByText(REACTION_WARNING_MESSAGE)).toBeVisible();
 
-            await hubPage.inputFirstField.fill('Second reaction');
+            await hubPage.inputFirstField.fill(TEXT_SECOND_REACTION);
             await hubPage.saveButton.click();
 
-            await expect(page.getByText('Time zone')).toBeVisible();
-            await expect(page.getByText('Second reaction')).toBeVisible();
+            await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
+            await expect(page.getByText(TEXT_SECOND_REACTION)).toBeVisible();
 
-            await  (((hubPage.entityBlock).filter({hasText:'Second reaction'})).locator(hubPage.trashIcon)).click();
+            await  (((hubPage.entityBlock).filter({hasText:TEXT_SECOND_REACTION})).locator(hubPage.trashIcon)).click();
 
-            await expect(page.getByText('Are you sure you want to delete reaction?')).toBeVisible();
+            await expect(page.getByText(REACTION_WARNING_DELETE_MESSAGE)).toBeVisible();
 
             await hubPage.submitButton.click();
 
-            if (await page.getByText('Error code: {{CODE}}').isVisible())
+            if (await page.getByText(REACTION_ERROR_MESSAGE).isVisible())
             {  await hubPage.closeWindowButton.click()}
 
-            await expect(page.getByText('Second reaction')).not.toBeVisible();
+            await expect(page.getByText(TEXT_SECOND_REACTION)).not.toBeVisible();
         });
 
     });
@@ -209,38 +208,30 @@ test.describe('Hub reactions', { tag: ['@stable']  }, () => {
     test('Time zone editing', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8678rvcav'
+            description: 'https://app.clickup.com/t/8694kxc3a'
         });
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await profilePage.automation.click();
+        await page.getByText(SETTINGS_TIME_ZONE).click();
 
-        await expect(page.getByText('Create schedule')).toBeVisible();
-
-        await page.getByText('Time zone').click();
-
-        await expect(page.getByText('Select controller time zone')).toBeVisible();
+        await expect(page.getByText(TEXT_SELECT_CONTROLLER_TIME_ZONE)).toBeVisible();
 
         await hubPage.inputField.click();
-        await page.getByText('Kabul (+04:30 UTC)').click();
+        await page.getByText(TIME_ZONE_SECOND).click();
         await hubPage.submitButton.click();
 
-        await expect(page.getByText('Create schedule')).toBeVisible();
-        await expect(page.getByText('Kabul (+04:30 UTC)')).toBeVisible();
+        await expect(page.getByText(BUTTON_CREATE_SCHEDULE)).toBeVisible();
+        await expect(page.getByText(TIME_ZONE_SECOND)).toBeVisible();
 
-        await page.getByText('Time zone').click();
+        await page.getByText(SETTINGS_TIME_ZONE).click();
 
-        await expect(page.getByText('Select controller time zone')).toBeVisible();
+        await expect(page.getByText(TEXT_SELECT_CONTROLLER_TIME_ZONE)).toBeVisible();
 
         await hubPage.inputField.click();
-        await page.getByText('Kyiv (+03:00 UTC) ').click();
+        await page.getByText(TIME_ZONE_FIRST).click();
         await hubPage.submitButton.click();
 
-        await expect(page.getByText('Create schedule')).toBeVisible();
-        await expect(page.getByText('Kyiv (+03:00 UTC) ')).toBeVisible();
+        await expect(page.getByText(BUTTON_CREATE_SCHEDULE)).toBeVisible();
+        await expect(page.getByText(TIME_ZONE_FIRST)).toBeVisible();
     });
 
 });

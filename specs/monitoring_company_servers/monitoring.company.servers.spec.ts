@@ -1,26 +1,38 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MONITORING_COMPANY } from "../../utils/user_data";
+import {
+    SERVER_DNS_FIRST,
+    SERVER_DNS_SECOND,
+    SERVER_NAME_FIRST,
+    SERVER_NAME_SECOND, SERVER_PORT_FIRST,
+    SERVER_PORT_SECOND,
+    TITLE_COMPANY_SETTINGS
+} from "../../utils/constants";
+import {CompanyPage} from "../../pages/company/CompanyPage";
 
-test.describe('Monitoring company servers',{ tag: '@stable' }, () => {
+test.describe('Company Page test', () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let companyPage: CompanyPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login')
         await loginPage.auth(MONITORING_COMPANY);
         await expect(page).toHaveURL('/panels');
-        await profilePage.company.click();
-        await profilePage.companyServerList.click();
-        for (const server of await profilePage.entityBlock.all())
-        {   await  profilePage.trashIcon.click()
-            await profilePage.submitButton.click();}
+        await companyPage.company.click();
+        await companyPage.companyServerList.click();
+        await page.waitForTimeout(2000);
+        for (const server of await companyPage.entityBlock.all())
+        {   await  (server).locator(companyPage.trashIcon).click();
+            await page.waitForTimeout(2000);
+            await companyPage.submitButton.click();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeEnabled();}
     });
 
     test('Servers list: monitoring company', { tag: '@smoke' }, async ({ page }) => {
@@ -29,18 +41,18 @@ test.describe('Monitoring company servers',{ tag: '@stable' }, () => {
             description: "https://app.clickup.com/t/8694fb8kd"
         });
 
-        await profilePage.company.click();
-        await profilePage.companyServerList.click();
+        await companyPage.company.click();
+        await companyPage.companyServerList.click();
 
-        await expect(profilePage.companyServerAddButton).toBeVisible();
-        for (const server of await profilePage.entityBlock.all())
+        await expect(companyPage.companyServerAddButton).toBeVisible();
+        for (const server of await companyPage.entityBlock.all())
             await expect(server).toBeVisible();
-        for (const server of await profilePage.entityBlock.all())
-        {await expect(server.filter({has: profilePage.companyServerNameInfo})).toBeVisible();}
-        for (const server of await profilePage.entityBlock.all())
-        {await expect(server.filter({has: profilePage.companyServerDnsPortInfo})).toBeVisible();}
-        for (const server of await profilePage.entityBlock.all())
-        {await expect(server.filter({has: profilePage.trashIcon})).toBeVisible();}
+        for (const server of await companyPage.entityBlock.all())
+        {await expect(server.filter({has: companyPage.companyServerNameInfo})).toBeVisible();}
+        for (const server of await companyPage.entityBlock.all())
+        {await expect(server.filter({has: companyPage.companyServerDnsPortInfo})).toBeVisible();}
+        for (const server of await companyPage.entityBlock.all())
+        {await expect(server.filter({has: companyPage.trashIcon})).toBeVisible();}
     });
 
     test('Add server: monitoring company', { tag: '@smoke' }, async ({ page }) => {
@@ -49,27 +61,23 @@ test.describe('Monitoring company servers',{ tag: '@stable' }, () => {
             description: "https://app.clickup.com/t/8694fb8nk"
         });
 
-        const newName: string = "New server";
-        const newDNS: string = "179.36.500.218";
-        const newPort: string = "4480";
+        await companyPage.company.click();
+        await companyPage.companyServerList.click();
+        await companyPage.companyServerAddButton.click();
+        await companyPage.companyNameServerField.fill(SERVER_NAME_FIRST);
+        await companyPage.companyDnsServerField.fill(SERVER_DNS_FIRST);
+        await companyPage.companyPortServerField.fill(SERVER_PORT_FIRST);
+        await companyPage.saveButton.click();
 
-        await profilePage.company.click();
-        await profilePage.companyServerList.click();
-        await profilePage.companyServerAddButton.click();
-        await profilePage.companyNameServerField.fill(newName);
-        await profilePage.companyDnsServerField.fill(newDNS);
-        await profilePage.companyPortServerField.fill(newPort);
-        await profilePage.saveButton.click();
+        await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible({timeout:10000});
+        await expect(page.getByText(SERVER_NAME_FIRST)).toBeVisible();
 
-        await expect(page.getByText(newName)).toBeVisible();
-
-        await profilePage.trashIcon.last().click();
-        await profilePage.submitButton.click();
+        await companyPage.trashIcon.last().click();
+        await companyPage.submitButton.click();
         await page.waitForTimeout(2000);
         await page.reload();
-        await page.waitForTimeout(2000);
 
-        await expect(page.getByText(newName)).not.toBeVisible();
+        await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 
     test('Delete server: monitoring company', { tag: '@smoke' }, async ({ page }) => {
@@ -78,27 +86,23 @@ test.describe('Monitoring company servers',{ tag: '@stable' }, () => {
             description: "https://app.clickup.com/t/8694mgxr1"
         });
 
-        const newName: string = "Best server";
-        const newDNS: string = "179.36.500.218";
-        const newPort: string = "4480";
+        await companyPage.company.click();
+        await companyPage.companyServerList.click();
+        await companyPage.companyServerAddButton.click();
+        await companyPage.companyNameServerField.fill(SERVER_NAME_FIRST);
+        await companyPage.companyDnsServerField.fill(SERVER_DNS_FIRST);
+        await companyPage.companyPortServerField.fill(SERVER_PORT_FIRST);
+        await companyPage.saveButton.click();
 
-        await profilePage.company.click();
-        await profilePage.companyServerList.click();
-        await profilePage.companyServerAddButton.click();
-        await profilePage.companyNameServerField.fill(newName);
-        await profilePage.companyDnsServerField.fill(newDNS);
-        await profilePage.companyPortServerField.fill(newPort);
-        await profilePage.saveButton.click();
+        await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible({timeout:10000});
+        await expect(page.getByText(SERVER_NAME_FIRST)).toBeVisible();
 
-        await expect(page.getByText(newName)).toBeVisible();
-
-        await profilePage.trashIcon.last().click();
-        await profilePage.submitButton.click();
+        await companyPage.trashIcon.last().click();
+        await companyPage.submitButton.click();
         await page.waitForTimeout(2000);
         await page.reload();
-        await page.waitForTimeout(2000);
 
-        await expect(page.getByText(newName)).not.toBeVisible();
+        await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 
     test('Server settings editing: monitoring company', { tag: '@smoke' }, async ({ page }) => {
@@ -107,38 +111,31 @@ test.describe('Monitoring company servers',{ tag: '@stable' }, () => {
             description: "https://app.clickup.com/t/8694mh0qb"
         });
 
-        const newName: string = "Best new server";
-        const newDNS: string = "179.36.500.218";
-        const newPort: string = "4480";
+        await companyPage.company.click();
+        await companyPage.companyServerList.click();
+        await companyPage.companyServerAddButton.click();
+        await companyPage.companyNameServerField.fill(SERVER_NAME_SECOND);
+        await companyPage.companyDnsServerField.fill(SERVER_DNS_SECOND);
+        await companyPage.companyPortServerField.fill(SERVER_PORT_SECOND);
+        await companyPage.saveButton.click();
 
-        const oldName: string = "Worst server";
-        const oldDNS: string = "345.345.346";
-        const oldPort: string = "4455";
+        await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible({timeout:10000});
+        await expect(page.getByText(SERVER_NAME_SECOND)).toBeVisible();
 
-        await profilePage.company.click();
-        await profilePage.companyServerList.click();
-        await profilePage.companyServerAddButton.click();
-        await profilePage.companyNameServerField.fill(oldName);
-        await profilePage.companyDnsServerField.fill(oldDNS);
-        await profilePage.companyPortServerField.fill(oldPort);
-        await profilePage.saveButton.click();
+        await page.getByText((SERVER_NAME_SECOND)).click();
+        await companyPage.companyNameServerField.fill(SERVER_NAME_FIRST);
+        await companyPage.companyDnsServerField.fill(SERVER_DNS_FIRST);
+        await companyPage.companyPortServerField.fill(SERVER_PORT_FIRST);
+        await companyPage.saveButton.click();
 
-        await expect(page.getByText(oldName)).toBeVisible();
+        await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible({timeout:10000});
+        await expect(page.getByText(SERVER_NAME_FIRST)).toBeVisible();
 
-        await page.getByText((oldName)).click();
-        await profilePage.companyNameServerField.fill(newName);
-        await profilePage.companyDnsServerField.fill(newDNS);
-        await profilePage.companyPortServerField.fill(newPort);
-        await profilePage.saveButton.click();
-
-        await expect(page.getByText(newName)).toBeVisible();
-
-        await profilePage.trashIcon.last().click();
-        await profilePage.submitButton.click();
+        await companyPage.trashIcon.last().click();
+        await companyPage.submitButton.click();
         await page.waitForTimeout(2000);
         await page.reload();
-        await page.waitForTimeout(2000);
 
-        await expect(page.getByText(newName)).not.toBeVisible();
+        await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 });

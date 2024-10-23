@@ -1,17 +1,26 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
-import { HubPage } from "../../pages/hub/HubPage";
 import { MIXED } from "../../utils/user_data";
+import {
+    ENGINEER_EMAIL,
+    ENGINEER_NUMBER_FINAL,
+    ENGINEER_NUMBER_START,
+    TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
+    TEXT_OK
+} from "../../utils/constants";
+import {CompanyPage} from "../../pages/company/CompanyPage";
+import {HubPage} from "../../pages/hub/HubPage";
 
 test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let companyPage: CompanyPage;
+    let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        companyPage = new CompanyPage(page);
+        hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -19,43 +28,51 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/panels');
     });
 
-    test('Access for engineer (company hub)', { tag: '@smoke' }, async ({ page }) => {
+    test('Access for engineer: company hub', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678p0k8b"
         });
 
-        const engineerEmail: string = "jan.macao@gmail.com";
-        const engineersNumberStart: string = "(1)";
-        const engineersNumberFinal: string = "(2)";
+        await companyPage.panels.click();
 
-        await profilePage.panels.click();
+        await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
-        if (await ((profilePage.hubEngineerIcon).filter(({ hasText: engineersNumberFinal }))).isVisible())
-        {        await profilePage.hubEngineerIcon.click();
-            await page.getByText((engineerEmail)).click();
-            await page.getByText('ОК').click();
-            await page.waitForTimeout(1000)
-            page.reload()
-            await page.waitForTimeout(1000);}
-
-        await profilePage.hubEngineerIcon.click();
-        await page.getByText((engineerEmail)).click();
-        await page.getByText('ОК').click();
-        await page.waitForTimeout(2000);
-        page.reload()
         await page.waitForTimeout(2000);
 
-        await expect(profilePage.hubEngineerIcon).toHaveText(engineersNumberFinal);
+        if (await ((hubPage.hubEngineerIcon).filter(({ hasText: ENGINEER_NUMBER_FINAL }))).isVisible())
+        {        await hubPage.hubEngineerIcon.click();
+            await page.getByText((ENGINEER_EMAIL)).click();
+            await companyPage.okButton.click();
 
-        await profilePage.hubEngineerIcon.click();
-        await page.getByText((engineerEmail)).click();
-        await page.getByText('ОК').click();
-        await page.waitForTimeout(2000);
-        page.reload()
+            await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+
+            await page.reload();
+            await page.waitForTimeout(1000);
+
+            await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+            await expect(hubPage.hubEngineerIcon).toHaveText(ENGINEER_NUMBER_START);
+        }
+
+        await hubPage.hubEngineerIcon.click();
+        await page.getByText((ENGINEER_EMAIL)).click();
+        await companyPage.okButton.click();
+        await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+        await page.reload();
         await page.waitForTimeout(2000);
 
-        await expect(profilePage.hubEngineerIcon).toHaveText(engineersNumberStart);
+        await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+        await expect(hubPage.hubEngineerIcon).toHaveText(ENGINEER_NUMBER_FINAL);
+
+        await hubPage.hubEngineerIcon.click();
+        await page.getByText((ENGINEER_EMAIL)).click();
+        await companyPage.okButton.click();
+        await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+        await page.reload();
+        await page.waitForTimeout(2000);
+
+        await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+        await expect(hubPage.hubEngineerIcon).toHaveText(ENGINEER_NUMBER_START);
     });
 
 });

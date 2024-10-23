@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { USER_1 } from "../../utils/user_data";
 
-test.describe('Profile Page tests', () => {
+test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']}, () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;

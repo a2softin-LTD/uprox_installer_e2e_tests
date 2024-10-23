@@ -1,16 +1,22 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {ProfilePage} from "../../pages/profile/ProfilePage";
-import {DILER } from "../../utils/user_data";
+import { DILER } from "../../utils/user_data";
+import {
+    COMPANY_FIRST,
+    COUNTRY_UKRAINE,
+    ROLE_MONITORING_SERVICE_COMPANIES,
+    SETTING_SHOW_IN_ADS, TEXT_SAVE_IN_XLS, TITLE_COMPANIES
+} from "../../utils/constants";
+import {CompanyPage} from "../../pages/company/CompanyPage";
 
-test.describe('Companies under DEALER role', { tag: '@stable' },() => {
+test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let companyPage: CompanyPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -18,18 +24,18 @@ test.describe('Companies under DEALER role', { tag: '@stable' },() => {
         await expect(page).toHaveURL('/dealer/companies');
     });
 
-    test('Checking UI elements on companies page under DEALER role', { tag: '@smoke' }, async ({ page }) => {
+    test('Checking UI elements on companies page under DEALER role', { tag: '@smoke'}, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             })
 
-            await expect(profilePage.companyCountryFilter).toBeVisible();
-            await expect(profilePage.companyRoleFilter).toBeVisible();
-            await expect(profilePage.companyAllFilter).toBeVisible();
-            await expect(profilePage.companySearchField).toBeVisible();
-           // await expect(profilePage.applyButton).toBeVisible();
-            await expect(profilePage.pageTitle.filter({has:page.getByText('Companies:')})).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANIES)})).toBeVisible();
+            await expect(companyPage.companyCountryFilter).toBeVisible();
+            await expect(companyPage.companyRoleFilter).toBeVisible();
+            await expect(companyPage.companyAllFilter).toBeVisible();
+            await expect(companyPage.companySearchField).toBeVisible();
+            await expect(companyPage.saveInXLSButton).toBeVisible();
     });
 
     test('Company list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
@@ -38,12 +44,12 @@ test.describe('Companies under DEALER role', { tag: '@stable' },() => {
                 description: "https://app.clickup.com/t/8694vrf42"
             });
 
-            await expect(page.getByText('Companies:')).toBeVisible();
+            await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
 
-            for (const company of await profilePage.entityBlock.all())
+            for (const company of await companyPage.entityBlock.all())
                 await expect(company).toBeVisible();
-            for (const hub of await profilePage.entityBlock.all())
-            {await expect(hub.filter({has: profilePage.entityText})).toBeVisible();}
+            for (const hub of await companyPage.entityBlock.all())
+            {await expect(hub.filter({has: companyPage.entityText})).toBeVisible();}
 
     });
 
@@ -54,22 +60,23 @@ test.describe('Companies under DEALER role', { tag: '@stable' },() => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf4a"
             });
-            const country: string = "Ukraine";
+
             let companiesNumber=0;
 
-            await expect(page.getByText('Companies:')).toBeVisible();
+            await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+            await page.waitForTimeout(2000);
 
-            for (const hub of await profilePage.entityBlock.filter({hasText:'Ukraine'}).all())
+            for (const hub of await companyPage.entityBlock.filter({hasText:COUNTRY_UKRAINE}).all())
             { await expect(hub).toBeVisible();
                 companiesNumber=companiesNumber+1;}
 
-            await profilePage.companyCountryFilter.click();
-            await page.getByText(country,{ exact: true }).first().click();
+            await companyPage.companyCountryFilter.click();
+            await page.getByText(COUNTRY_UKRAINE,{ exact: true }).first().click();
 
-            for (const hub of await profilePage.entityBlock.filter({hasText:'Ukraine'}).all())
+            for (const hub of await companyPage.entityBlock.filter({hasText:COUNTRY_UKRAINE}).all())
             { await expect(hub).toBeVisible();}
 
-            await expect(profilePage.employeeBlock).toHaveCount(companiesNumber);
+            await expect(companyPage.employeeBlock).toHaveCount(companiesNumber);
         });
 
         test('Company search by role under DEALER role', { tag: '@smoke' }, async ({ page }) => {
@@ -78,18 +85,18 @@ test.describe('Companies under DEALER role', { tag: '@stable' },() => {
                 description: "https://app.clickup.com/t/8694vrf4c"
             });
 
-            const role: string = "Monitoring-service companies";
-
-            await expect(page.getByText('Companies:')).toBeVisible();
+            await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+            await page.waitForTimeout(2000);
 
             let companiesNumber=((await page.$$('div:text-is("Monitoring-service companies")')).length)-1;
-            await profilePage.companyRoleFilter.click();
-            await page.getByText(role, { exact: true }).first().click();
 
-            for (const company of await profilePage.entityBlock.filter({hasText:'Monitoring-service companies'}).all())
+            await companyPage.companyRoleFilter.click();
+            await page.getByText(ROLE_MONITORING_SERVICE_COMPANIES, { exact: true }).first().click();
+
+            for (const company of await companyPage.entityBlock.filter({hasText:ROLE_MONITORING_SERVICE_COMPANIES}).all())
             { await expect(company).toBeVisible();}
 
-            await expect(profilePage.employeeBlock).toHaveCount(companiesNumber);
+            await expect(companyPage.employeeBlock).toHaveCount(companiesNumber);
         });
 
         test('Company search by setting under DEALER role', { tag: '@smoke' }, async ({ page }) => {
@@ -97,36 +104,35 @@ test.describe('Companies under DEALER role', { tag: '@stable' },() => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf48"
             });
-            const setting: string = "Shown in ADS";
 
-            await expect(page.getByText('Companies:')).toBeVisible();
+            await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+            await page.waitForTimeout(2000);
 
             let companiesNumber=((await page.$$('use[*|href="#icon-ads"]')).length);
-            console.log(companiesNumber);
-            await profilePage.companyAllFilter.click();
-            await page.getByText(setting, { exact: true }).click();
 
-            for (const company of await profilePage.entityBlock.filter({has:profilePage.adsIcon}).all())
+            await companyPage.companyAllFilter.click();
+            await page.getByText(SETTING_SHOW_IN_ADS, { exact: true }).click();
+
+            for (const company of await companyPage.entityBlock.filter({has:companyPage.adsIcon}).all())
             { await expect(company).toBeVisible();}
 
             await page.waitForTimeout(2000);
-            await expect(profilePage.employeeBlock).toHaveCount(companiesNumber);
+            await expect(companyPage.employeeBlock).toHaveCount(companiesNumber);
         });
 
         test('Company search by company name under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694vrf4b"
+                description: "https://app.clickup.com/t/8695e9b7n"
             });
-            const company: string = "AVL";
 
-            await expect(page.getByText('Companies:')).toBeVisible();
-            await expect(page.getByText(company)).toBeVisible();
+            await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
 
-            await profilePage.companySearchField.fill(company);
+            await companyPage.companySearchField.fill(COMPANY_FIRST);
 
-            await expect(page.getByText(company)).toBeVisible();
-            await expect(profilePage.employeeBlock).toHaveCount(1);
+            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
+            await expect(companyPage.employeeBlock).toHaveCount(1);
         });
 
     });
@@ -134,15 +140,17 @@ test.describe('Companies under DEALER role', { tag: '@stable' },() => {
     test('Downloading companies list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694phqe6"
+                description: "https://app.clickup.com/t/8695e9dz1"
             });
 
-        await expect(page.getByText('Companies:')).toBeVisible();
+        await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
 
         const downloadPromise = page.waitForEvent('download');
-        await profilePage.saveInXLSButton.click();
-        await expect(page.getByText('Save in XLS')).toBeVisible();
-        await page.getByText('Save in XLS').click();
+        await companyPage.saveInXLSButton.click();
+
+        await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
+
+        await page.getByText(TEXT_SAVE_IN_XLS).click();
         const download = await downloadPromise;
         await download.saveAs(download.suggestedFilename());
         });
