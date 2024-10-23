@@ -4,13 +4,11 @@ import { Page, Locator } from "@playwright/test";
 export class HubPage extends BasePage {
     readonly page: Page;
     private readonly _modal: Locator;
-
     // USERS
     private readonly _addUserName: Locator;
     private readonly _addUserEmail: Locator;
     private readonly _transferOwnershipButton: Locator;
     private readonly _userAllowMobileAppManagementFromHome: Locator;
-
     // PANEL
     private readonly _hubPanel: Locator;
     private readonly _firstHub: Locator;
@@ -23,13 +21,11 @@ export class HubPage extends BasePage {
     private readonly _hubEngineerModeSwitch: Locator;
     private readonly _hubsCounter: Locator;
     private readonly _hubTroublesState: Locator;
-
     // GROUPS
     private readonly _groupAddGroupButton: Locator;
     private readonly _groupDeleteButton: Locator;
     private readonly _groupBlockWithName: Locator;
     private readonly _groupBlock: Locator;
-
     // ICONS
     private readonly _hubPowerNormalIcon: Locator;
     private readonly _hubPowerTroubleIcon: Locator;
@@ -58,7 +54,6 @@ export class HubPage extends BasePage {
     private readonly _wirelessDeviceTamperOpenIcon: Locator;
     private readonly _wirelessDeviceBatteryIcon: Locator;
     private readonly _wirelessDeviceAddButton: Locator;
-
    // HISTORY
     private readonly _historyAlarmCheckBox: Locator;
     private readonly _historyTroublesCheckBox: Locator;
@@ -67,7 +62,6 @@ export class HubPage extends BasePage {
     private readonly _historyServiceCheckBox: Locator;
     private readonly _historyEvent: Locator;
     private readonly _historyDate: Locator;
-
     // SETTINGS
     private readonly _settingsAirAlarm: Locator;
     private readonly _settingsKeypadCodeLength: Locator;
@@ -91,7 +85,6 @@ export class HubPage extends BasePage {
     private readonly _settingsUserManagement: Locator;
     private readonly _settingsMobileApp: Locator;
     private readonly _settingsWifiNetwork: Locator;
-
     private readonly _firstWirelessDevice: Locator;
     private readonly _automationCreateReactionButton: Locator;
     private readonly _hubCorpNameAccountInfo: Locator;
@@ -104,7 +97,6 @@ export class HubPage extends BasePage {
         super(page);
         this.page = page;
         this._modal = page.locator('.main__modal.active');
-
 
         // USERS
         this._addUserName = this.page.locator('#name');
@@ -382,8 +374,6 @@ export class HubPage extends BasePage {
         return this._firstWirelessDevice ;
     }
 
-
-
     get historyAlarmCheckBox (): Locator {
         return this._historyAlarmCheckBox ;
     }
@@ -447,7 +437,6 @@ export class HubPage extends BasePage {
     get hubEngineerModeSwitch (): Locator {
         return this._hubEngineerModeSwitch ;
     }
-
 
 
     get settingsWifiNetwork (): Locator {
@@ -526,7 +515,6 @@ export class HubPage extends BasePage {
     get automationCreateReactionButton(): Locator {
         return this._automationCreateReactionButton ;
     }
-
 
 
     get hubArmStateIcon(): Locator {

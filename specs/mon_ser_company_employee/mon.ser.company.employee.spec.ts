@@ -16,7 +16,7 @@ import {
     USER_NAME_NEW,
     USER_NAME_OLD
 } from "../../utils/constants";
-import {CompanyPage} from "../../pages/company/CompanyPage";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page tests', () => {
 

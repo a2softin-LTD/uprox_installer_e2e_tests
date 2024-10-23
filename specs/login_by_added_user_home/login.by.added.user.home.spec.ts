@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
-import {BUTTON_TRANSFER_OWNERSHIP, TITLE_UPDATE_FIRMWARE_VERSION} from "../../utils/constants";
+import { BUTTON_TRANSFER_OWNERSHIP, TITLE_UPDATE_FIRMWARE_VERSION } from "../../utils/constants";
 
 test.describe('Profile Page tests', () => {
 
