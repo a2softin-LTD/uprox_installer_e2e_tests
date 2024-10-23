@@ -1,159 +1,196 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
+import {
+    BUTTON_RESTART_PANEL,
+    BUTTON_TRANSFER_OWNERSHIP,
+    COUNTRY_MOLDOVA,
+    COUNTRY_UKRAINE,
+    HUB_NAME_FIRST,
+    HUB_NAME_THIRD, SETTINGS_10_SECONDS, SETTINGS_30_SECONDS,
+    SETTINGS_AUTOMATICALLY,
+    SETTINGS_MANUALLY,
+    TEXT_SELECT_CONTROLLER_TIME_ZONE,
+    TIME_ZONE_FIRST,
+    TIME_ZONE_SECOND
+} from "../../utils/constants";
 
-test.describe('Hub settings', () => {
+test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
-    });
 
-    test('Hub name setting', { tag: '@smoke' }, async ({ page }) => {
-        test.info().annotations.push({
-            type: "test_id",
-            description: "https://app.clickup.com/t/8693q67d2"
-        });
+        await hubPage.panels.click();
+        await hubPage.firstHub.click();
 
-        const nameOld: string = "PIN@dev";
-        const nameNew: string = "PIN@devNew";
-
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
+        await page.waitForTimeout(2000);
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.hubPanel.click();
-        await hubPage.settingsHubName.click();
-        await hubPage.inputField.fill(nameNew);
+    });
+
+    test('Name setting', { tag: '@smoke' }, async ({ page }) => {
+        test.info().annotations.push({
+            type: "test_id",
+            description: "https://app.clickup.com/t/8694etg0f"
+        });
+
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+
+        await page.waitForTimeout(2000);
+        if (await hubPage.settingsHubName.filter({hasText:HUB_NAME_THIRD}).isVisible()){
+            await hubPage.settingsHubName.click();
+            await hubPage.inputField.fill(HUB_NAME_FIRST);
+            await hubPage.saveButton.click();
+            await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+            await expect(hubPage.settingsHubName.filter({hasText:HUB_NAME_FIRST})).toBeVisible();}
+
+        else { await hubPage.settingsHubName.click();
+        await hubPage.inputField.fill(HUB_NAME_THIRD);
         await hubPage.saveButton.click();
 
-        await expect(hubPage.settingsHubName.filter({hasText:nameNew})).toBeVisible();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+        await expect(hubPage.settingsHubName.filter({hasText:HUB_NAME_THIRD})).toBeVisible();
 
         await hubPage.settingsHubName.click();
-        await hubPage.inputField.fill(nameOld);
+        await hubPage.inputField.fill(HUB_NAME_FIRST);
         await hubPage.saveButton.click();
 
-        await expect(hubPage.settingsHubName.filter({hasText:nameOld})).toBeVisible();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+        await expect(hubPage.settingsHubName.filter({hasText:HUB_NAME_FIRST})).toBeVisible();}
     });
     test('Country setting', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8693q67d2"
+            description: "https://app.clickup.com/t/8694etg0f"
         });
 
-        const countryNew: string = "Moldova";
-        const countryOld: string = "Ukraine";
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
-        await hubPage.settingsCountry.click();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
-        await expect(page.getByText('Installation Country')).toBeVisible();
-
-        await hubPage.inputField.click();
-        await page.getByText(countryNew, {exact: true}).click();
-
-        await hubPage.submitButton.click();
-
-        await expect(hubPage.settingsCountry.filter({hasText:countryNew})).toBeVisible();
-
-        await hubPage.settingsCountry.click();
-
-        await expect(page.getByText('Installation Country')).toBeVisible();
-
-        await hubPage.inputField.click();
-        await page.getByText(countryOld, {exact: true}).click();
-        await hubPage.submitButton.click();
         await page.waitForTimeout(2000);
+        if (await hubPage.settingsCountry.filter({hasText:COUNTRY_MOLDOVA}).isVisible()){
+            await hubPage.settingsCountry.click();
 
-        await expect(hubPage.settingsCountry.filter({hasText:countryOld})).toBeVisible();
+            await expect(page.getByText('Installation Country')).toBeVisible();
+
+            await hubPage.inputField.click();
+            await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
+            await hubPage.submitButton.click();
+            await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+            await expect(hubPage.settingsCountry.filter({hasText:COUNTRY_UKRAINE})).toBeVisible();}
+
+        else {await hubPage.settingsCountry.click();
+
+        await expect(page.getByText('Installation Country')).toBeVisible();
+
+        await hubPage.inputField.click();
+        await page.getByText(COUNTRY_MOLDOVA, {exact: true}).click();
+
+        await hubPage.submitButton.click();
+
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+        await expect(hubPage.settingsCountry.filter({hasText:COUNTRY_MOLDOVA})).toBeVisible();
+
+        await hubPage.settingsCountry.click();
+
+        await expect(page.getByText('Installation Country')).toBeVisible();
+
+        await hubPage.inputField.click();
+        await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
+        await hubPage.submitButton.click();
+
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+        await expect(hubPage.settingsCountry.filter({hasText:COUNTRY_UKRAINE})).toBeVisible();}
     });
 
     test('Firmware update setting', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8693q67d2"
+            description: "https://app.clickup.com/t/8694etg0f"
         });
 
-        const automatically: string = "Automatically";
-        const manually: string = "Manually";
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
-        await hubPage.settingsFirmwareUpdate.click();
-        await page.getByText(manually, {exact: true}).click();
+        await page.waitForTimeout(2000);
+        if (await hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_MANUALLY}).isVisible()){
+            await hubPage.settingsFirmwareUpdate.click();
+            await page.getByText(SETTINGS_AUTOMATICALLY, {exact: true}).click();
+            await hubPage.saveButton.click();
+            await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+            await expect(hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_AUTOMATICALLY})).toBeVisible();}
+
+        else {await hubPage.settingsFirmwareUpdate.click();
+        await page.getByText(SETTINGS_MANUALLY, {exact: true}).click();
         await hubPage.saveButton.click();
 
-        await expect(hubPage.settingsFirmwareUpdate.filter({hasText:manually})).toBeVisible();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+        await expect(hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_MANUALLY})).toBeVisible();
 
         await hubPage.settingsFirmwareUpdate.click();
-        await page.getByText(automatically, {exact: true}).click();
+        await page.getByText(SETTINGS_AUTOMATICALLY, {exact: true}).click();
         await hubPage.saveButton.click();
 
-        await expect(hubPage.settingsFirmwareUpdate.filter({hasText:automatically})).toBeVisible();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+        await expect(hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_AUTOMATICALLY})).toBeVisible();}
     });
 
     test('Light Indication setting', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8693q67d2"
+            description: "https://app.clickup.com/t/8694etg0f"
         });
 
         const turnOn: string = "Turn on";
         const turnOff: string = "Turn off";
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
-        await hubPage.settingsLightIndication.click();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+
+        await page.waitForTimeout(2000);
+        if (await hubPage.settingsLightIndication.filter({hasText:turnOff}).isVisible()){
+            await hubPage.settingsLightIndication.click();
+            await (page.getByText(turnOn, {exact: true}).first()).click();
+            await hubPage.saveButton.click();
+            await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+            await expect(hubPage.settingsLightIndication.filter({hasText:turnOn})).toBeVisible();}
+
+        else {await hubPage.settingsLightIndication.click();
         await (page.getByText(turnOff, {exact: true}).first()).click();
         await hubPage.saveButton.click();
 
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
         await expect(page.getByText(turnOff).first()).toBeVisible();
 
         await hubPage.settingsLightIndication.click();
         await page.getByText(turnOn, {exact: true}).click();
         await hubPage.saveButton.click();
 
-        await expect(page.getByText(turnOn)).toBeVisible();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+        await expect(page.getByText(turnOn)).toBeVisible();}
     });
 
-    test.skip('Hub air alarm setting', { tag: ['@smoke','@hub'] }, async ({ page }) => {
+    test.skip('Hub air alarm setting', { tag: ['@smoke'] }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: ""
+            description: "https://app.clickup.com/t/8694etg0f"
         });
 
         const region: string = "Дніпропетровська область";
         const district: string = "Дніпровський район";
         const community: string = "Любимівська територіальна громада";
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        await page.waitForTimeout(2000);
-        if (await page.getByText('Update firmware version').isVisible())
-        {   await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+
         await hubPage.settingsAirAlarm.click();
         await hubPage.onButton.click();
         await page.getByText('Select region').click();
@@ -167,98 +204,110 @@ test.describe('Hub settings', () => {
         await hubPage.offButton.click();
         await hubPage.saveButton.click();
 
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
         await expect(page.getByText('Turn off')).toBeVisible();
     });
 
     test('Track Sim-Card Expenses setting', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8693q67d2"
+            description: "https://app.clickup.com/t/8694etg0f"
         });
 
         const track: string = "Track";
         const disabled: string = "Disabled";
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
-        await hubPage.settingsTrackSimCardExpenses.click();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+
+        await page.waitForTimeout(2000);
+        if (await hubPage.settingsTrackSimCardExpenses.filter({hasText:track, hasNotText:'Disable'}).isVisible()){
+            await hubPage.settingsTrackSimCardExpenses.click();
+            await hubPage.disableButton.click();
+            await hubPage.saveButton.click();
+            await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+            await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:disabled})).toBeVisible();}
+
+        else {await hubPage.settingsTrackSimCardExpenses.click();
         await page.getByText(track, {exact: true}).click();
         await hubPage.saveButton.click();
 
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
         await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:track})).toBeVisible();
 
         await hubPage.settingsTrackSimCardExpenses.click();
-        await page.getByText(disabled, {exact: true}).click();
+        await hubPage.disableButton.click();
         await hubPage.saveButton.click();
 
-        await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:disabled})).toBeVisible();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+        await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:disabled})).toBeVisible();}
     });
 
     test('Auto cansel alarm setting', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8693q67d2"
+            description: "https://app.clickup.com/t/8694etg0f"
         });
 
-        const sec10: string = "10 seconds";
-        const sec30: string = "30 seconds";
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
-        await hubPage.settingsAutoCancelAlarm.click();
-        await page.getByText(sec10, {exact: true}).click();
+        await page.waitForTimeout(2000);
+        if (await hubPage.settingsAutoCancelAlarm.filter({hasText:SETTINGS_30_SECONDS}).isVisible()){
+            await hubPage.settingsAutoCancelAlarm.click();
+            await page.getByText(SETTINGS_30_SECONDS, {exact: true}).click();
+            await hubPage.saveButton.click();
+            await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+            await expect(hubPage.settingsAutoCancelAlarm.filter({hasText:SETTINGS_30_SECONDS})).toBeVisible();}
+
+        else {await hubPage.settingsAutoCancelAlarm.click();
+        await page.getByText(SETTINGS_10_SECONDS, {exact: true}).click();
         await hubPage.saveButton.click();
 
-        await expect(page.getByText(sec10)).toBeVisible();
+        await expect(page.getByText(SETTINGS_10_SECONDS)).toBeVisible();
 
         await hubPage.settingsAutoCancelAlarm.click();
-        await page.getByText(sec30, {exact: true}).click();
+        await page.getByText(SETTINGS_30_SECONDS, {exact: true}).click();
         await hubPage.saveButton.click();
 
-        await expect(page.getByText(sec30)).toBeVisible();
+        await expect(page.getByText(SETTINGS_30_SECONDS)).toBeVisible();}
     });
 
     test('Time zone setting', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8693q67d2"
+            description: "https://app.clickup.com/t/8694etg0f"
         });
 
-        const timeZoneNew: string = "Kabul (+04:30 UTC)";
-        const timeZoneOld: string = "Kyiv (+03:00 UTC)";
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
-        await hubPage.settingsTimeZone.click();
+        await page.waitForTimeout(2000);
+        if (await hubPage.settingsTimeZone.filter({hasText:TIME_ZONE_SECOND}).isVisible()){
+            await hubPage.settingsTimeZone.click();
+            await page.getByText(TIME_ZONE_FIRST, {exact: true}).click();
+            await hubPage.saveButton.click();
+            await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+            await expect(hubPage.settingsTimeZone.filter({hasText:TIME_ZONE_FIRST})).toBeVisible();}
 
-        await expect(page.getByText('Select controller time zone')).toBeVisible();
+        else {await hubPage.settingsTimeZone.click();
+
+        await expect(page.getByText(TEXT_SELECT_CONTROLLER_TIME_ZONE)).toBeVisible();
 
         await hubPage.inputField.click();
-        await page.getByText(timeZoneNew, {exact: true}).click();
+        await page.getByText(TIME_ZONE_SECOND, {exact: true}).click();
 
         await hubPage.submitButton.click();
 
-        await expect(hubPage.settingsTimeZone.filter({hasText:timeZoneNew})).toBeVisible();
+        await expect(hubPage.settingsTimeZone.filter({hasText:TIME_ZONE_SECOND})).toBeVisible();
 
         await hubPage.settingsTimeZone.click();
 
-        await expect(page.getByText('Select controller time zone')).toBeVisible();
+        await expect(page.getByText(TEXT_SELECT_CONTROLLER_TIME_ZONE)).toBeVisible();
 
         await hubPage.inputField.click();
-        await page.getByText(timeZoneOld, {exact: true}).click();
+        await page.getByText(TIME_ZONE_FIRST, {exact: true}).click();
         await hubPage.submitButton.click();
         await page.waitForTimeout(2000);
 
-        await expect(hubPage.settingsTimeZone.filter({hasText:timeZoneOld})).toBeVisible();
+        await expect(hubPage.settingsTimeZone.filter({hasText:TIME_ZONE_FIRST})).toBeVisible();}
     });
 
 
@@ -269,14 +318,11 @@ test.describe('Hub settings', () => {
         });
 
         const name: string = "Дмитро";
-        const mail: string = "| snaut12@gmail.com";
+        const user: string = "01 | Дмитро | snaut12@gmail.com";
         const code: string = "1111";
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+
         await hubPage.settingsKeypadCodeLength.click();
         await hubPage.settingsKeypadCodeLength4digits.click();
         if (await hubPage.changeButton.isDisabled())
@@ -301,7 +347,15 @@ test.describe('Hub settings', () => {
         await hubPage.addUserName.fill(name);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
-        await page.getByText(mail).click();
+
+        try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:10000});}
+        catch (error) {console.error(`An error occurred: ${error.message}`);
+            await page.reload();
+            await page.waitForTimeout(1000);
+            await hubPage.backButton.click();}
+        finally {await expect(page.getByText(user)).toBeVisible();}
+
+        await page.getByText(user).click();
         await hubPage.settingsArmKeypadCode.click();
         await hubPage.settingsKeypadCodeField.fill(code);
         await hubPage.saveButton.click()
@@ -325,14 +379,10 @@ test.describe('Hub settings', () => {
     test('Special settings', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8693q67d2"
+            description: "https://app.clickup.com/t/8694etg0f"
         });
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.hubPanel.click();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
         await page.getByText('Special settings', {exact: true}).click();
         await page.getByText('Disable tamper', {exact: true}).click();
         await page.getByText('Disable radio jam detection', {exact: true}).click();

@@ -1,16 +1,22 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
+import {
+    TEXT_CHANGES_SAVED_SUCCESSFULLY, TEXT_CREATE_COUNTRY,
+    TEXT_DELETE_COUNTRY, TEXT_EDIT_COUNTRY,
+    TEXT_LIST_OF_COUNTRIES,
+    TITLE_COUNTRY_CONTROL
+} from "../../utils/constants";
 
-test.describe('Utils under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
+test.describe('SuperAdmin page tests', () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let superAdminPage: SuperAdminPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -18,18 +24,18 @@ test.describe('Utils under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
         await expect(page).toHaveURL('/support/search');
     });
 
-    test('Utils panel under SUPER_ADMIN role', async ({ page }) => {
+    test('Utils panel under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
         });
 
-        await profilePage.utils.click();
+        await superAdminPage.utils.click();
 
-        await expect(profilePage.addCountryButton).toBeVisible();
+        await expect(superAdminPage.addCountryButton).toBeVisible();
 
-        await expect(profilePage.utilsAddEmailToWhitelistButton).toBeVisible();
-        await expect(profilePage.utilsExtractVersionButton).toBeVisible();
+        await expect(superAdminPage.utilsAddEmailToWhitelistButton).toBeVisible();
+        await expect(superAdminPage.utilsExtractVersionButton).toBeVisible();
         await expect(page.getByText('Account Server')).toBeVisible();
         await expect(page.getByText('Country control')).toBeVisible();
         await expect(page.getByText('Captcha white list')).toBeVisible();
@@ -40,112 +46,146 @@ test.describe('Utils under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
         await (page.getByText('Account Server')).click();
 
         await expect(page.getByText('Clearing the cache on the Account server')).toBeVisible();
-        await expect(profilePage.clearButton).toBeVisible();
+        await expect(superAdminPage.clearButton).toBeVisible();
 
     });
 
     test('Clearing the cache on the Account server', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8678rvbzg'
+            description: 'https://app.clickup.com/t/8694pyudd'
         });
 
-        await profilePage.utils.click();
+        await superAdminPage.utils.click();
 
         await (page.getByText('Account Server')).click();
 
         await expect(page.getByText('Clearing the cache on the Account server')).toBeVisible();
-        await profilePage.clearButton.click();
+        await superAdminPage.clearButton.click();
 
         await expect(page.getByText('Are you sure you want to clear the cache on Account server?')).toBeVisible();
-        await profilePage.clearButton.click();
-        await expect(page.getByText('Changes saved successfully')).toBeVisible();
+        await superAdminPage.clearButton.click();
+        await expect(page.getByText(TEXT_CHANGES_SAVED_SUCCESSFULLY)).toBeVisible();
     });
 
     test.describe('Captcha whitelist', () => {
-        test('Captcha whitelist: email searching', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Captcha whitelist: email searching', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694pyvf0'
             });
 
             const email: string = "zajac@ukr.net";
 
-            await profilePage.utils.click();
-
+            await superAdminPage.utils.click();
             await (page.getByText('Captcha white list')).click();
 
             await expect(page.getByText('Search by email')).toBeVisible();
-            await profilePage.inputFirstField.fill(email);
 
-            await expect(profilePage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
-            await expect(profilePage.utilsWhitelistEmailBlock).toHaveCount(1);
+            await superAdminPage.inputFirstField.fill(email);
+
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
+            await expect(superAdminPage.utilsWhitelistEmailBlock).toHaveCount(1);
         });
 
-        test('Captcha whitelist: add email', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Captcha whitelist: add email', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694pyvgf'
             });
 
             const email: string = "d.pinchuk@itvsystems.com.ua";
 
-            await profilePage.utils.click();
-
+            await superAdminPage.utils.click();
             await (page.getByText('Captcha white list')).click();
 
             await expect(page.getByText('Search by email')).toBeVisible();
-            await profilePage.utilsAddEmailToWhitelistButton.click();
+
+            await page.waitForTimeout(2000);
+
+            if (await page.getByText(email).isVisible()){
+                await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(superAdminPage.trashIcon).click();
+                await expect(page.getByText('Search by email')).toBeVisible();
+
+                await expect(page.getByText('Remove user from whitelist?')).toBeVisible();
+
+                await superAdminPage.submitButton.click();
+                await expect(page.getByText('Add email to whitelist')).toBeVisible();
+                await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
+            }
+
+            await superAdminPage.utilsAddEmailToWhitelistButton.click();
+
             await expect(page.getByText('Add user to captcha white list')).toBeVisible();
-            await profilePage.inputField.fill(email);
-            await profilePage.saveButton.click();
 
-            await expect(profilePage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
+            await superAdminPage.inputField.fill(email);
+            await superAdminPage.saveButton.click();
 
-            await (profilePage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(profilePage.trashIcon).click();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
+
+            await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(superAdminPage.trashIcon).click();
+
             await expect(page.getByText('Remove user from whitelist?')).toBeVisible();
-            await profilePage.submitButton.click();
+
+            await superAdminPage.submitButton.click();
 
             await expect(page.getByText('Search by email')).toBeVisible();
-            await expect(profilePage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
         });
 
-        test('Captcha whitelist: delete email', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Captcha whitelist: delete email', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694qbjc1'
             });
 
             const email: string = "d.pinchuk@itvsystems.com.ua";
 
-            await profilePage.utils.click();
-
+            await superAdminPage.utils.click();
             await (page.getByText('Captcha white list')).click();
 
             await expect(page.getByText('Search by email')).toBeVisible();
-            await profilePage.utilsAddEmailToWhitelistButton.click();
+
+            await page.waitForTimeout(2000);
+
+            if (await page.getByText(email).isVisible()){
+                await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(superAdminPage.trashIcon).click();
+                await expect(page.getByText('Search by email')).toBeVisible();
+
+                await expect(page.getByText('Remove user from whitelist?')).toBeVisible();
+
+                await superAdminPage.submitButton.click();
+                await expect(page.getByText('Add email to whitelist')).toBeVisible();
+                await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
+            }
+
+            await superAdminPage.utilsAddEmailToWhitelistButton.click();
+
             await expect(page.getByText('Add user to captcha white list')).toBeVisible();
-            await profilePage.inputFirstField.fill(email);
-            await profilePage.saveButton.click();
 
-            await expect(profilePage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
+            await superAdminPage.inputField.fill(email);
+            await superAdminPage.saveButton.click();
 
-            await (profilePage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(profilePage.trashIcon).click();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
+
+            await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(superAdminPage.trashIcon).click();
+
             await expect(page.getByText('Remove user from whitelist?')).toBeVisible();
-            await profilePage.submitButton.click();
+
+            await superAdminPage.submitButton.click();
 
             await expect(page.getByText('Search by email')).toBeVisible();
-            await expect(profilePage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
         });
 
     });
 
     test.describe('Country control', () => {
 
-        test('Country control: add country', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Country control: add country', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/86966x7qf'
             });
 
             const countryCode: string = "DD";
@@ -153,53 +193,53 @@ test.describe('Utils under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
             const countryEN: string = "dddr";
             const countryRU: string = "ddddr";
 
-            await profilePage.utils.click();
+            await superAdminPage.utils.click();
 
-            await (page.getByText('Country control')).click();
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
-            await expect(page.getByText('List of available countries:')).toBeVisible();
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
 
-            await profilePage.addCountryButton.click();
+            await superAdminPage.addCountryButton.click();
 
-            await expect(page.getByText('Create country')).toBeVisible();
+            await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
-            await profilePage.inputFirstField.fill(countryCode);
-            await profilePage.inputSecondField.fill(countryUK);
-            await profilePage.inputThirdField.fill(countryEN);
-            await profilePage.inputFourthField.fill(countryRU);
-            await profilePage.submitButton.click();
+            await superAdminPage.inputFirstField.fill(countryCode);
+            await superAdminPage.inputSecondField.fill(countryUK);
+            await superAdminPage.inputThirdField.fill(countryEN);
+            await superAdminPage.inputFourthField.fill(countryRU);
+            await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText('Country control')).toBeVisible();
+            await expect(page.getByText(TITLE_COUNTRY_CONTROL)).toBeVisible();
 
-            await (page.getByText('Country control')).click();
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
-            await expect(page.getByText('List of available countries:')).toBeVisible();
-            await expect(profilePage.rowBlock.filter({hasText:countryCode})).toBeVisible();
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).toBeVisible();
 
-            await (profilePage.rowBlock.filter({hasText: countryCode})).locator(profilePage.trashIcon).click();
+            await (superAdminPage.rowBlock.filter({hasText: countryCode})).locator(superAdminPage.trashIcon).click();
 
-            await expect(page.getByText('Delete country', {exact:true})).toBeVisible();
+            await expect(page.getByText(TEXT_DELETE_COUNTRY, {exact:true})).toBeVisible();
 
-            await profilePage.submitButton.click();
+            await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText('Country control')).toBeVisible();
+            await expect(page.getByText(TITLE_COUNTRY_CONTROL)).toBeVisible();
 
-            await (page.getByText('Country control')).click();
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
-            await expect(page.getByText('List of available countries:')).toBeVisible();
-            await expect(profilePage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
         });
 
-        test('Country control: delete country', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Country control: delete country', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694pyv1f'
             });
 
             const countryCode: string = "DD";
@@ -207,53 +247,53 @@ test.describe('Utils under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
             const countryEN: string = "dddr";
             const countryRU: string = "ddddr";
 
-            await profilePage.utils.click();
+            await superAdminPage.utils.click();
 
-            await (page.getByText('Country control')).click();
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
-            await expect(page.getByText('List of available countries:')).toBeVisible();
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
 
-            await profilePage.addCountryButton.click();
+            await superAdminPage.addCountryButton.click();
 
-            await expect(page.getByText('Create country')).toBeVisible();
+            await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
-            await profilePage.inputFirstField.fill(countryCode);
-            await profilePage.inputSecondField.fill(countryUK);
-            await profilePage.inputThirdField.fill(countryEN);
-            await profilePage.inputFourthField.fill(countryRU);
-            await profilePage.submitButton.click();
+            await superAdminPage.inputFirstField.fill(countryCode);
+            await superAdminPage.inputSecondField.fill(countryUK);
+            await superAdminPage.inputThirdField.fill(countryEN);
+            await superAdminPage.inputFourthField.fill(countryRU);
+            await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText('Country control')).toBeVisible();
+            await expect(page.getByText(TITLE_COUNTRY_CONTROL)).toBeVisible();
 
-            await (page.getByText('Country control')).click();
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
-            await expect(page.getByText('List of available countries:')).toBeVisible();
-            await expect(profilePage.rowBlock.filter({hasText:countryCode})).toBeVisible();
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).toBeVisible();
 
-            await (profilePage.rowBlock.filter({hasText: countryCode})).locator(profilePage.trashIcon).click();
+            await (superAdminPage.rowBlock.filter({hasText: countryCode})).locator(superAdminPage.trashIcon).click();
 
-            await expect(page.getByText('Delete country', {exact:true})).toBeVisible();
+            await expect(page.getByText(TEXT_DELETE_COUNTRY, {exact:true})).toBeVisible();
 
-            await profilePage.submitButton.click();
+            await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText('Country control')).toBeVisible();
+            await expect(page.getByText(TITLE_COUNTRY_CONTROL)).toBeVisible();
 
-            await (page.getByText('Country control')).click();
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
-            await expect(page.getByText('List of available countries:')).toBeVisible();
-            await expect(profilePage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
         });
 
-        test.skip('Country control: country editing', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Country control: country editing', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694pyuyj'
             });
 
             const countryCode: string = "DD";
@@ -265,70 +305,70 @@ test.describe('Utils under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
             const countryENNew: string = "bbbr";
             const countryRUNew: string = "bbbbr";
 
-            await profilePage.utils.click();
+            await superAdminPage.utils.click();
 
-            await (page.getByText('Country control')).click();
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
-            await expect(page.getByText('List of available countries:')).toBeVisible();
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
 
-            await profilePage.addCountryButton.click();
+            await superAdminPage.addCountryButton.click();
 
-            await expect(page.getByText('Create country')).toBeVisible();
+            await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
-            await profilePage.inputFirstField.fill(countryCode);
-            await profilePage.inputSecondField.fill(countryUK);
-            await profilePage.inputThirdField.fill(countryEN);
-            await profilePage.inputFourthField.fill(countryRU);
-            await profilePage.submitButton.click();
+            await superAdminPage.inputFirstField.fill(countryCode);
+            await superAdminPage.inputSecondField.fill(countryUK);
+            await superAdminPage.inputThirdField.fill(countryEN);
+            await superAdminPage.inputFourthField.fill(countryRU);
+            await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText('Country control')).toBeVisible();
+            await expect(page.getByText(TITLE_COUNTRY_CONTROL)).toBeVisible();
 
-            await (page.getByText('Country control')).click();
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
-            await expect(page.getByText('List of available countries:')).toBeVisible();
-            await expect(profilePage.rowBlock.filter({hasText:countryCode})).toBeVisible();
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).toBeVisible();
 
             await page.waitForTimeout(3000);
-           // await (profilePage.rowBlock.filter({hasText:countryCode})).locator(profilePage.editIcon).click();
-            await profilePage.editIcon.last().click();
 
-            await expect(page.getByText('Edit country')).toBeVisible();
+           await (superAdminPage.rowBlock.filter({hasText:countryCode})).locator(superAdminPage.editIcon).click({force:true});
 
-            // await profilePage.inputSecondField.fill(countryUKNew);
-            // await profilePage.inputThirdField.fill(countryENNew);
-            // await profilePage.inputFourthField.fill(countryRUNew);
-            // await profilePage.submitButton.click();
-            // await page.waitForTimeout(2000);
-            // page.reload();
-            // await page.waitForTimeout(2000);
-            //
-            // await expect(page.getByText('Country control')).toBeVisible();
-            //
-            // await (page.getByText('Country control')).click();
-            //
-            // await expect(page.getByText('List of available countries:')).toBeVisible();
-            // await expect(profilePage.rowBlock.filter({hasText:countryUKNew})).toBeVisible();
-            // await expect(profilePage.rowBlock.filter({hasText:countryRUNew})).toBeVisible();
-            // await expect(profilePage.rowBlock.filter({hasText:countryENNew})).toBeVisible();
-            //
-            // await (profilePage.rowBlock.filter({hasText: countryCode})).locator(profilePage.trashIcon).click();
-            //
-            // await expect(page.getByText('Delete country', {exact:true})).toBeVisible();
-            //
-            // await profilePage.submitButton.click();
-            // await page.waitForTimeout(2000);
-            // page.reload();
-            // await page.waitForTimeout(2000);
-            //
-            // await expect(page.getByText('Country control')).toBeVisible();
-            //
-            // await (page.getByText('Country control')).click();
-            //
-            // await expect(page.getByText('List of available countries:')).toBeVisible();
-            // await expect(profilePage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
+            await expect(page.getByText(TEXT_EDIT_COUNTRY)).toBeVisible();
+
+            await superAdminPage.inputSecondField.fill(countryUKNew);
+            await superAdminPage.inputThirdField.fill(countryENNew);
+            await superAdminPage.inputFourthField.fill(countryRUNew);
+            await superAdminPage.submitButton.click();
+            await page.waitForTimeout(2000);
+            page.reload();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(TITLE_COUNTRY_CONTROL)).toBeVisible();
+
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
+
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryUKNew})).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryRUNew})).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryENNew})).toBeVisible();
+
+            await (superAdminPage.rowBlock.filter({hasText: countryCode})).locator(superAdminPage.trashIcon).click();
+
+            await expect(page.getByText(TEXT_DELETE_COUNTRY, {exact:true})).toBeVisible();
+
+            await superAdminPage.submitButton.click();
+            await page.waitForTimeout(2000);
+            page.reload();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(TITLE_COUNTRY_CONTROL)).toBeVisible();
+
+            await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
+
+            await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
         });
 
     });

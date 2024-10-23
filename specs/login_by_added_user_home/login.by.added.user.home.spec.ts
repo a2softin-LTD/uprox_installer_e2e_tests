@@ -2,8 +2,8 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
-import { USER_1 } from "../../utils/user_data";
-import { USER_3 } from "../../utils/user_data";
+import { USER_1, USER_3 } from "../../utils/user_data";
+import {BUTTON_TRANSFER_OWNERSHIP, TITLE_UPDATE_FIRMWARE_VERSION} from "../../utils/constants";
 
 test.describe('Profile Page tests', () => {
 
@@ -22,7 +22,7 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/profile/panels');
     });
 
-    test('Login by user added from Home app', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+    test('Login by user added from Home app', { tag: ['@smoke']  }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -30,9 +30,12 @@ test.describe('Profile Page tests', () => {
 
         const name: string = "Дмитро";
 
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
+        await hubPage.panels.click();
+        await hubPage.firstHub.click();
+
+        await page.waitForTimeout(2000);
+
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
         if (await (page.getByText(name)).isVisible()) {
@@ -45,7 +48,12 @@ test.describe('Profile Page tests', () => {
         await hubPage.userAllowMobileAppManagementFromHome.click();
         await hubPage.addButton.click();
 
-        await expect(page.getByText((name))).toBeVisible();
+        try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();}
+        catch (error) {console.error(`An error occurred: ${error.message}`);
+            await page.reload();
+            await page.waitForTimeout(1000);
+            await hubPage.backButton.click();}
+        finally {await expect(page.getByText(name)).toBeVisible();}
 
         await profilePage.logoutButton.click();
         await loginPage.openLoginPage('/');

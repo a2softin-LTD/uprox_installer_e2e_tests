@@ -48,6 +48,11 @@ export const MONITORING_SERVICE_COMPANY_2: object = {
     password: 'asdASD123',
 }
 
+export const MONITORING_SERVICE_COMPANY_3: object = {
+    login: 'andrianaslobozheniuk+2@gmail.com',
+    password: 'asdASD123',
+}
+
 export const MONITORING_COMPANY: object = {
     login: 'd.pinchuk+002@itvsystems.com.ua',
     password: 'asdASD123',

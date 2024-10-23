@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { faker } from "@faker-js/faker";
-import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
+import { EMAIL_NECESSARY_NAME_PART, USER_EMAIL, USER_EMAIL_NON_REGISTERED } from "../../utils/constants";
 
-test.describe('Login Page tests', () => {
+test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
 
     let loginPage: LoginPage;
 
@@ -22,7 +22,6 @@ test.describe('Login Page tests', () => {
                 description: "https://app.clickup.com/t/8692udm64"
             });
 
-            const email: string = "snaut12@gmail.com";
 
             await loginPage.forgotYourPasswordLink.click();;
             await page.waitForTimeout(2000);
@@ -40,11 +39,10 @@ test.describe('Login Page tests', () => {
                 description: "https://app.clickup.com/t/8692udm64"
             });
 
-            const email: string = "snaut12@gmail.com";
 
             await loginPage.forgotYourPasswordLink.click();;
             await page.waitForTimeout(2000);
-            await loginPage.recoveryEmailField.fill(email);
+            await loginPage.recoveryEmailField.fill(USER_EMAIL);
             await loginPage.sendButton.click();
 
             if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible()}
@@ -57,11 +55,10 @@ test.describe('Login Page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8692udp0v"
             });
-            const email: string = "valera123gmail.com";
 
             await loginPage.forgotYourPasswordLink.click();
             await page.waitForTimeout(2000);
-            await loginPage.recoveryEmailField.fill(email);
+            await loginPage.recoveryEmailField.fill(USER_EMAIL_NON_REGISTERED);
             await loginPage.sendButton.click();
             await page.waitForTimeout(2000);
 

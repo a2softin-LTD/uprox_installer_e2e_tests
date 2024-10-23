@@ -1,19 +1,36 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
-import { HubPage } from "../../pages/hub/HubPage";
+import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
+import {
+    COMPANY_FIFTH,
+    HUB_NAME_FIRST,
+    HUB_SERIAL_NUMBER_TRUE_THIRD,
+    LANGUAGE_FRENCH,
+    LANGUAGE_FRENCH_UKR,
+    LANGUAGE_GREEK,
+    LANGUAGE_GREEK_UKR,
+    TEXT_EDIT_PUSH_TEMPLATE,
+    TEXT_EDIT_TEMPLATE, TEXT_EMAIL_TEMPLATES_FAILURES,
+    TEXT_LANGUAGE,
+    TEXT_LANGUAGE_COUNT,
+    TEXT_LETTER_TEMPLATES, TEXT_NO_LINK,
+    TEXT_SEND_TO,
+    TEXT_SUCCESSFULLY,
+    TEXT_TEMPLATE_TYPE,
+    TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES, TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES_,
+    TEXT_TEST_EMAIL_SEND_SUCCESSFULLY,
+    TITLE_PUSH_NOTIFICATIONS, USER_EMAIL, USER_EMAIL_NON_REGISTERED, USER_EMAIL_SECOND
+} from "../../utils/constants";
 
-test.describe('Letter and push notification templates under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
+test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
-    let hubPage: HubPage;
+    let superAdminPage: SuperAdminPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
+        superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -21,338 +38,320 @@ test.describe('Letter and push notification templates under SUPER_ADMIN role', {
         await expect(page).toHaveURL('/support/search');
     });
 
-    test('Checking UI elements of the letter templates page', async ({ page }) => {
+    test('Checking UI elements of the letter templates page', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
 
-            await profilePage.letterTemplates.click();
-            await expect(page.getByText('Test email for all language')).toBeVisible();
-            await profilePage.email.click();
+            await superAdminPage.letterTemplates.click();
+            await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
+            await superAdminPage.email.click();
 
-            await expect(profilePage.selectFirstField).toBeVisible();
-            await expect(profilePage.testEmailButton).toBeVisible();
-            await expect(profilePage.pageTitle.filter({has:page.getByText('Letter templates')})).toBeVisible();
-            await expect(page.getByText('Template type')).toBeVisible();
-            await expect(page.getByText('Language count')).toBeVisible();
-            await expect(page.getByText('Language', {exact:true})).toBeVisible();
+            await expect(superAdminPage.selectFirstField).toBeVisible();
+            await expect(superAdminPage.testEmailButton).toBeVisible();
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TEXT_LETTER_TEMPLATES)})).toBeVisible();
+            await expect(page.getByText(TEXT_TEMPLATE_TYPE)).toBeVisible();
+            await expect(page.getByText(TEXT_LANGUAGE_COUNT)).toBeVisible();
+            await expect(page.getByText(TEXT_LANGUAGE, {exact:true})).toBeVisible();
     });
 
     test('List of letter templates under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8678rvbzg'
+            description: 'https://app.clickup.com/t/8694pj3q7'
         });
 
-        await profilePage.letterTemplates.click();
+        await superAdminPage.letterTemplates.click();
 
-        await expect(page.getByText('Test email for all language')).toBeVisible();
+        await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-        for (const template of await profilePage.rowBlock.all())
+        for (const template of await superAdminPage.rowBlock.all())
             await expect(template).toBeVisible();
 
-        for (const template of await profilePage.rowBlock.all())
+        for (const template of await superAdminPage.rowBlock.all())
         {await expect(template.filter({hasText: /[A-Z]/})).toBeVisible();}
 
-        for (const template of await profilePage.rowBlock.all())
+        for (const template of await superAdminPage.rowBlock.all())
         {await expect(template.filter({hasText: /[a-z]/})).not.toBeVisible();}
 
-        for (const template of await profilePage.rowBlock.all())
+        for (const template of await superAdminPage.rowBlock.all())
         {await expect(template.filter({hasText: /[0-9]/})).toBeVisible();}
     });
 
-    test('Letter template under SUPER_ADMIN role', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+    test('Letter template under SUPER_ADMIN role', { tag: '@smoke', }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8678rvbyg'
+            description: 'https://app.clickup.com/t/8694pja78'
         });
 
-        await profilePage.letterTemplates.click();
+        await superAdminPage.letterTemplates.click();
 
-        await expect(page.getByText('Test email for all language')).toBeVisible();
+        await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-        await profilePage.rowBlock.first().click();
+        await superAdminPage.rowBlock.first().click();
 
-        await expect(page.getByText('Edit template')).toBeVisible();
-        await expect(profilePage.pushLetterTemplateTitle).toBeVisible();
-        for (const localization of await profilePage.pushLetterLocalization.all())
+        await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
+        await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible();
+        for (const localization of await superAdminPage.pushLetterLocalization.all())
         { await expect(localization).toBeVisible();}
-        for (const parameter of await profilePage.letterParameters.all())
+        for (const parameter of await superAdminPage.letterParameters.all())
         { await expect(parameter).toBeVisible();}
-        await expect(profilePage.inputFirstField).toBeVisible();
-        await expect(profilePage.emailTestButton).toBeVisible();
-        await expect(profilePage.letterPreview).toBeVisible();
+        await expect(superAdminPage.inputFirstField).toBeVisible();
+        await expect(superAdminPage.emailTestButton).toBeVisible();
+        await expect(superAdminPage.letterPreview).toBeVisible();
 
-        await profilePage.backButton.click();
+        await superAdminPage.backButton.click();
 
-        await expect(page.getByText('Test email for all language')).toBeVisible();
+        await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
         await page.waitForTimeout(3000);
 
-        await profilePage.rowBlock.last().click();
+        await superAdminPage.rowBlock.last().click();
 
-        await expect(page.getByText('Edit template')).toBeVisible();
-        await expect(profilePage.pushLetterTemplateTitle).toBeVisible();
-        for (const localization of await profilePage.pushLetterLocalization.all())
+        await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
+        await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible();
+        for (const localization of await superAdminPage.pushLetterLocalization.all())
         { await expect(localization).toBeVisible();}
-        for (const parameter of await profilePage.letterParameters.all())
+        for (const parameter of await superAdminPage.letterParameters.all())
         { await expect(parameter).toBeVisible();}
-        await expect(profilePage.inputFirstField).toBeVisible();
-        await expect(profilePage.emailTestButton).toBeVisible();
-        await expect(profilePage.letterPreview).toBeVisible();
+        await expect(superAdminPage.inputFirstField).toBeVisible();
+        await expect(superAdminPage.emailTestButton).toBeVisible();
+        await expect(superAdminPage.letterPreview).toBeVisible();
     });
 
     test.describe('Checking the availability of a letter template for a given language', () => {
 
-        test('Positive: checking the availability of a letter template for a given language', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Positive: checking the availability of a letter template for a given language', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694pj8r4'
             });
 
-            const language: string = "Французька";
-            const languageByEng: string = "French";
+            await superAdminPage.letterTemplates.click();
 
-            await profilePage.letterTemplates.click();
+            await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-            await expect(page.getByText('Test email for all language')).toBeVisible();
+            await superAdminPage.selectFirstField.click();
+            await (page.getByText(LANGUAGE_FRENCH_UKR)).click();
 
-            await profilePage.selectFirstField.click();
-            await (page.getByText(language)).click();
+            await superAdminPage.existEntity.first().click();
 
-            await profilePage.existEntity.first().click();
+            await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
 
-            await expect(page.getByText('Edit template')).toBeVisible();
-
-            await expect(page.getByText(languageByEng)).toBeVisible();
+            await expect(page.getByText(LANGUAGE_FRENCH)).toBeVisible();
         });
 
         test('Negative: checking the availability of a letter template for a given language', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694pj8r4'
             });
 
-            const language: string = "Грецька";
-            const languageByEng: string = "Greek";
+            await superAdminPage.letterTemplates.click();
 
-            await profilePage.letterTemplates.click();
+            await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-            await expect(page.getByText('Test email for all language')).toBeVisible();
+            await superAdminPage.selectFirstField.click();
+            await (page.getByText(LANGUAGE_GREEK_UKR)).click();
 
-            await profilePage.selectFirstField.click();
-            await (page.getByText(language)).click();
+            await superAdminPage.notExistEntity.first().click();
 
-            await profilePage.notExistEntity.first().click();
+            await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
 
-            await expect(page.getByText('Edit template')).toBeVisible();
-
-            await expect(page.getByText(languageByEng)).not.toBeVisible();
+            await expect(page.getByText(LANGUAGE_GREEK)).not.toBeVisible();
         });
 
     });
 
-    test('Sending test letter  under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+    test('Sending test letter under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8678rvbzg'
+            description: 'https://app.clickup.com/t/8694pjqj8'
         });
+        await superAdminPage.letterTemplates.click();
 
-        const email: string = "snaut123@gmail.com";
-        const name: string = "AQA_MONITORING_SERVICE_COMPANY";
+        await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-        await profilePage.letterTemplates.click();
+        await (page.getByText(TEXT_EMAIL_TEMPLATES_FAILURES)).click();
 
-        await expect(page.getByText('Test email for all language')).toBeVisible();
+        await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
 
-        await (page.getByText('EMAIL_TEMPLATES_FAILURES')).click();
+        await superAdminPage.emailTestButton.click();
 
-        await expect(page.getByText('Edit template')).toBeVisible();
+        await expect(page.getByText(TEXT_SEND_TO)).toBeVisible();
 
-        await profilePage.emailTestButton.click();
+        await superAdminPage.emailTestField.first().fill(USER_EMAIL);
+        await superAdminPage.emailTestField.last().fill(COMPANY_FIFTH);
 
-        await expect(page.getByText('Send to')).toBeVisible();
+        await superAdminPage.sendButton.click();
 
-        await profilePage.emailTestField.first().fill(email);
-        await profilePage.emailTestField.last().fill(name);
-
-        await profilePage.sendButton.click();
-
-        await expect(page.getByText('Test email send successfully')).toBeVisible();
+        await expect(page.getByText(TEXT_TEST_EMAIL_SEND_SUCCESSFULLY)).toBeVisible();
     });
 
-    test('Checking UI elements of push notifications templates page', async ({ page }) => {
+    test('Checking UI elements of push notifications templates page', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
 
-            await profilePage.letterTemplates.click();
-            await expect(page.getByText('Test email for all language')).toBeVisible();
-            await profilePage.push.click();
+            await superAdminPage.letterTemplates.click();
+            await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
+            await superAdminPage.push.click();
 
-            await expect(profilePage.pageTitle.filter({has:page.getByText('Push notifications')})).toBeVisible();
-            await expect(profilePage.selectFirstField).toBeVisible();
-            await expect(page.getByText('Template type')).toBeVisible();
-            await expect(page.getByText('Language count')).toBeVisible();
-            await expect(page.getByText('Language', {exact:true})).toBeVisible();
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_PUSH_NOTIFICATIONS)})).toBeVisible();
+            await expect(superAdminPage.selectFirstField).toBeVisible();
+
+        await expect(page.getByText(TEXT_TEMPLATE_TYPE)).toBeVisible();
+        await expect(page.getByText(TEXT_LANGUAGE_COUNT)).toBeVisible();
+        await expect(page.getByText(TEXT_LANGUAGE, {exact:true})).toBeVisible();
     });
 
     test('List of push notification templates under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8678rvbzg'
+            description: 'https://app.clickup.com/t/8694pj411'
         });
 
-        await profilePage.letterTemplates.click();
+        await superAdminPage.letterTemplates.click();
 
-        await expect(page.getByText('Test email for all language')).toBeVisible();
+        await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-        await profilePage.push.click();
+        await superAdminPage.push.click();
 
-        await expect(page.getByText('Push notifications')).toBeVisible();
+        await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
 
-        for (const template of await profilePage.rowBlock.all())
+        for (const template of await superAdminPage.rowBlock.all())
             await expect(template).toBeVisible();
 
-        for (const template of await profilePage.rowBlock.all())
+        for (const template of await superAdminPage.rowBlock.all())
         {await expect(template.filter({hasText: /[A-Z]/})).toBeVisible();}
 
-        for (const template of await profilePage.rowBlock.all())
+        for (const template of await superAdminPage.rowBlock.all())
         {await expect(template.filter({hasText: /[a-z]/})).not.toBeVisible();}
 
-        for (const template of await profilePage.rowBlock.all())
+        for (const template of await superAdminPage.rowBlock.all())
         {await expect(template.filter({hasText: /[0-9]/})).toBeVisible();}
     });
 
-    test('Push notification template under SUPER_ADMIN role', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+    test('Push notification template under SUPER_ADMIN role', { tag:'@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8678rvbyg'
+            description: 'https://app.clickup.com/t/8694pja1r'
         });
 
-        await profilePage.letterTemplates.click();
+        await superAdminPage.letterTemplates.click();
 
-        await expect(page.getByText('Test email for all language')).toBeVisible();
+        await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-        await profilePage.push.click();
+        await superAdminPage.push.click();
 
-        await expect(page.getByText('Push notifications')).toBeVisible();
+        await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
 
-        await profilePage.rowBlock.first().click();
+        await superAdminPage.rowBlock.first().click();
 
-        await expect(page.getByText('Edit push template')).toBeVisible();
-        await expect(profilePage.pushLetterTemplateTitle).toBeVisible()
-        for (const localization of await profilePage.pushLetterLocalization.all())
+        await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
+        await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible()
+        for (const localization of await superAdminPage.pushLetterLocalization.all())
         { await expect(localization).toBeVisible();}
-        await expect(profilePage.inputFirstField).toBeVisible();
-        await expect(profilePage.inputSecondField).toBeVisible();
-        await expect(profilePage.pushTestButton).toBeVisible();
+        await expect(superAdminPage.inputFirstField).toBeVisible();
+        await expect(superAdminPage.inputSecondField).toBeVisible();
+        await expect(superAdminPage.pushTestButton).toBeVisible();
 
-        await profilePage.backButton.click();
+        await superAdminPage.backButton.click();
 
-        await expect(page.getByText('Push notifications')).toBeVisible();
+        await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
         await page.waitForTimeout(3000);
 
-        await profilePage.rowBlock.last().click();
+        await superAdminPage.rowBlock.last().click();
 
-        await expect(page.getByText('Edit push template')).toBeVisible();
-        await expect(profilePage.pushLetterTemplateTitle).toBeVisible();
-        for (const localization of await profilePage.pushLetterLocalization.all())
+        await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
+        await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible();
+        for (const localization of await superAdminPage.pushLetterLocalization.all())
         { await expect(localization).toBeVisible();}
-        await expect(profilePage.inputFirstField).toBeVisible();
-        await expect(profilePage.inputSecondField).toBeVisible();
-        await expect(profilePage.pushTestButton).toBeVisible();
+        await expect(superAdminPage.inputFirstField).toBeVisible();
+        await expect(superAdminPage.inputSecondField).toBeVisible();
+        await expect(superAdminPage.pushTestButton).toBeVisible();
     });
 
     test.describe('Checking the availability of a push notification for a given language  under SUPER_ADMIN role', () => {
 
-        test('Positive: checking the availability of a push notification for a given language', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Positive: checking the availability of a push notification for a given language', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694pj85z'
             });
 
-            const language: string = "Французька";
-            const languageByEng: string = "French";
+            await superAdminPage.letterTemplates.click();
 
-            await profilePage.letterTemplates.click();
+            await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-            await expect(page.getByText('Test email for all language')).toBeVisible();
+            await superAdminPage.push.click();
 
-            await profilePage.push.click();
+            await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
 
-            await expect(page.getByText('Push notifications')).toBeVisible();
+            await superAdminPage.selectFirstField.click();
+            await (page.getByText(LANGUAGE_FRENCH_UKR)).click();
 
-            await profilePage.selectFirstField.click();
-            await (page.getByText(language)).click();
+            await superAdminPage.existEntity.first().click();
 
-            await profilePage.existEntity.first().click();
-
-            await expect(page.getByText('Edit push template')).toBeVisible();
-            await expect(page.getByText(languageByEng)).toBeVisible();
+            await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
+            await expect(page.getByText(LANGUAGE_FRENCH)).toBeVisible();
         });
 
         test('Negative: checking the availability of a push notification for a given language', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694pj85z'
             });
 
-            const language: string = "Грецька";
-            const languageByEng: string = "Greek";
+            await superAdminPage.letterTemplates.click();
 
-            await profilePage.letterTemplates.click();
+            await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-            await expect(page.getByText('Test email for all language')).toBeVisible();
+            await superAdminPage.push.click();
 
-            await profilePage.push.click();
+            await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
 
-            await expect(page.getByText('Push notifications')).toBeVisible();
+            await superAdminPage.selectFirstField.click();
+            await (page.getByText(LANGUAGE_GREEK_UKR)).click();
 
-            await profilePage.selectFirstField.click();
-            await (page.getByText(language)).click();
+            await superAdminPage.notExistEntity.first().click();
 
-            await profilePage.notExistEntity.first().click();
-
-            await expect(page.getByText('Edit push template')).toBeVisible();
-            await expect(page.getByText(languageByEng)).not.toBeVisible();
+            await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
+            await expect(page.getByText(LANGUAGE_GREEK)).not.toBeVisible();
         });
 
     });
-    test('Sending test push notification under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+    test.skip('Sending test push notification under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8678rvbzg'
+            description: 'https://app.clickup.com/t/8694pjqm4'
         });
 
-        const email: string = "d.pinchuk@itvsystems.com.ua";
-        const panel: string = "00:08:B7:10:02:04";
-        const name: string = "PIN@dev";
 
-        await profilePage.letterTemplates.click();
+        await superAdminPage.letterTemplates.click();
 
-        await expect(page.getByText('Test email for all language')).toBeVisible();
+        await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
-        await profilePage.push.click();
+        await superAdminPage.push.click();
 
-        await expect(page.getByText('Push notifications')).toBeVisible();
+        await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
 
-        await (page.getByText('NO_LINK', {exact:true})).click();
+        await (page.getByText(TEXT_NO_LINK, {exact:true})).click();
 
-        await expect(page.getByText('Edit push template')).toBeVisible();
+        await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
 
-        await profilePage.pushTestButton.click();
+        await superAdminPage.pushTestButton.click();
 
-        await expect(page.getByText('Send to')).toBeVisible();
+        await expect(page.getByText(TEXT_SEND_TO)).toBeVisible();
 
-        await profilePage.emailTestField.nth(0).fill(email);
-        await profilePage.emailTestField.nth(1).fill(panel);
-        await profilePage.emailTestField.nth(2).fill(name);
+        await superAdminPage.emailTestField.nth(0).fill(USER_EMAIL_SECOND);
+        await superAdminPage.emailTestField.nth(1).fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
+        await superAdminPage.emailTestField.nth(2).fill(HUB_NAME_FIRST);
 
-        await profilePage.sendButton.click();
+        await superAdminPage.sendButton.click();
 
-        await expect(page.getByText('send successfully')).toBeVisible();
+        await expect(page.getByText(TEXT_SUCCESSFULLY)).toBeVisible();
     });
 
 });

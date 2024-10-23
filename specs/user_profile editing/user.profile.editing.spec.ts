@@ -2,8 +2,23 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MIXED,USER_1 } from "../../utils/user_data";
+import {
+    PASSWORD_TEXT,
+    SUPPORT_EMAIL,
+    SUPPORT_TEXT,
+    TITLE_MY_PROFILE,
+    TITLE_MY_PROFILE_FRENCH,
+    USER_LANGUAGE_FOR_EMAIL_NEW,
+    USER_LANGUAGE_FOR_EMAIL_OLD, USER_LANGUAGE_SHORT_NEW,
+    USER_LANGUAGE_SHORT_OLD,
+    USER_NAME,
+    USER_NAME_FULL,
+    USER_NAME_NEW, USER_PASSWORD_NEW, USER_PASSWORD_OLD,
+    USER_PHONE_NEW,
+    USER_PHONE_OLD
+} from "../../utils/constants";
 
-test.describe('Profile Page tests', {tag: '@stable'},() => {
+test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
@@ -18,9 +33,7 @@ test.describe('Profile Page tests', {tag: '@stable'},() => {
         await expect(page).toHaveURL('/profile/panels');
     });
 
-    test.describe('Checking UI elements of the Profile Page', () => {
-
-        test('Checking UI elements on the Profile Page', { tag: '@smoke' }, async () => {
+    test('Checking UI elements on the Profile Page of autonomous user', { tag: '@smoke' }, async () => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -39,97 +52,88 @@ test.describe('Profile Page tests', {tag: '@stable'},() => {
             await expect(profilePage.logoutButton).toBeVisible();
             await expect(profilePage.languageChoice).toBeVisible();
             await expect(profilePage.myProfileTitle).toBeVisible();
-        });
     });
 
-    test.describe('Profile edit.', () => {
+    test.describe('Profile edit: autonomous user', () => {
 
-        test('Name edit', { tag: '@smoke' }, async ({ page }) => {
+        test('Name edit: autonomous user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9at"
             });
 
-            const newName: string = "Дмитро Дмитрук";
-            const oldName: string = "Дмитро Анатольович Пінчук";
-
             await profilePage.userName.click();
-            await profilePage.userEditField.fill(newName);
+            await profilePage.userEditField.fill(USER_NAME_NEW);
             await profilePage.userEditSubmit.click();
 
-            await expect(page.getByText(newName)).toBeVisible();
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
+            await expect(page.getByText(USER_NAME_NEW)).toBeVisible();
 
             await profilePage.userName.click();
-            await profilePage.userEditField.fill(oldName);
+            await profilePage.userEditField.fill(USER_NAME_FULL);
             await profilePage.userEditSubmit.click();
 
-            await expect(page.getByText(oldName)).toBeVisible();
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
+            await expect(page.getByText(USER_NAME_FULL)).toBeVisible();
         });
 
-        test('Phone edit', { tag: '@smoke' }, async ({ page }) => {
+        test('Phone edit: autonomous user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9uy"
             });
 
-            const newPhone: string = "+380508888888";
-            const oldPhone: string = "+380507777777";
-
             await profilePage.userPhone.click();
-            await profilePage.userEditField.fill(newPhone);
+            await profilePage.userEditField.fill(USER_PHONE_NEW);
             await profilePage.userEditSubmit.click();
 
-            await expect(page.getByText(newPhone)).toBeVisible();
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
+            await expect(page.getByText(USER_PHONE_NEW)).toBeVisible();
 
             await profilePage.userPhone.click();
-            await profilePage.userEditField.fill(oldPhone);
+            await profilePage.userEditField.fill(USER_PHONE_OLD);
             await profilePage.userEditSubmit.click();
 
-            await expect(page.getByText(oldPhone)).toBeVisible();
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
+            await expect(page.getByText(USER_PHONE_OLD)).toBeVisible();
         });
 
-        test('Language for emails edit', { tag: '@smoke' }, async ({ page }) => {
+        test('Language for emails edit: autonomous user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rcapf"
             });
 
-            const languageOld: string = "English";
-            const languageNew: string = "French";
-
             await profilePage.userLanguageForEmails.click();
-            await page.getByText(languageNew).click();
+            await page.getByText(USER_LANGUAGE_FOR_EMAIL_NEW).click();
             await profilePage.saveButton.click();
 
-            await expect(page.getByText(languageNew)).toBeVisible();
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
+            await expect(page.getByText(USER_LANGUAGE_FOR_EMAIL_NEW)).toBeVisible();
 
             await profilePage.userLanguageForEmails.click();
-            await page.getByText(languageOld).click();
+            await page.getByText(USER_LANGUAGE_FOR_EMAIL_OLD).click();
             await profilePage.saveButton.click();
 
-            await expect(page.getByText(languageOld)).toBeVisible();
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
+            await expect(page.getByText(USER_LANGUAGE_FOR_EMAIL_OLD)).toBeVisible();
         });
 
-        test('Language edit', { tag: '@smoke' }, async ({ page }) => {
+        test('Language edit: autonomous user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694f8kwd"
             });
 
-            const languageNew: string = "FR";
-            const languageOld: string = "EN";
-            const newTitle: string = "Mon profil";
-            const oldTitle: string = "My profile";
+            await profilePage.languageChoice.click();
+            await page.getByText(USER_LANGUAGE_SHORT_NEW, { exact: true }).click();
+
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
 
             await profilePage.languageChoice.click();
-            await page.getByText(languageNew, { exact: true }).click();
+            await page.getByText(USER_LANGUAGE_SHORT_OLD, { exact: true }).click();
 
-            await expect(page.getByRole('heading', {name: newTitle})).toBeVisible();
-
-            await profilePage.languageChoice.click();
-            await page.getByText(languageOld, { exact: true }).click();
-
-            await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
         });
 
         test('Support: autonomous user', { tag: '@smoke' }, async ({ page }) => {
@@ -138,23 +142,17 @@ test.describe('Profile Page tests', {tag: '@stable'},() => {
                 description: "https://app.clickup.com/t/8678rcauf"
             });
 
-            const supportText: string = "You can send your question or message to the technical support service at:";
-            const supportEmail: string = "support@u-prox.systems";
-
             await profilePage.feedback.click();
 
-            await expect(page.getByText(supportText)).toBeVisible();
-            await expect(page.getByText(supportEmail)).toBeVisible();
+            await expect(page.getByText(SUPPORT_TEXT)).toBeVisible();
+            await expect(page.getByText(SUPPORT_EMAIL)).toBeVisible();
         });
 
-        test('Support: admin', { tag: '@smoke' }, async ({ page }) => {
+        test('Support and messages: admin', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rcauf"
             });
-
-            const supportText: string = "You can send your question or message to the technical support service at:";
-            const supportEmail: string = "support@u-prox.systems";
 
             await profilePage.logoutButton.click();
             await loginPage.openLoginPage('/');
@@ -165,8 +163,8 @@ test.describe('Profile Page tests', {tag: '@stable'},() => {
             await profilePage.myProfileButton.click();
             await profilePage.feedback.click();
 
-            await expect(page.getByText(supportText)).toBeVisible();
-            await expect(page.getByText(supportEmail)).toBeVisible();
+            await expect(page.getByText(SUPPORT_TEXT)).toBeVisible();
+            await expect(page.getByText(SUPPORT_EMAIL)).toBeVisible();
 
             await profilePage.message.click();
 
@@ -177,29 +175,27 @@ test.describe('Profile Page tests', {tag: '@stable'},() => {
                 await expect(message).toHaveText(/\b[0-2]?\d:[0-5]\d\b/mg);
         });
 
-        test('Password edit', { tag: '@smoke' }, async ({ page }) => {
+        test('Password edit: autonomous user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rc9y0"
             });
 
-            const passwordCurrent: string = "lepidoptera111278DAP!@#";
-            const passwordNew: string = "lepidoptera111278DAP!";
 
             await profilePage.userPassword.click();
-            await profilePage.userEditCurrentPasswordField.fill(passwordCurrent);
+            await profilePage.userEditCurrentPasswordField.fill(USER_PASSWORD_OLD);
             await profilePage.userEditNewPasswordField.click();
-            await profilePage.userEditNewPasswordField.fill(passwordNew);
+            await profilePage.userEditNewPasswordField.fill(USER_PASSWORD_NEW);
             await profilePage.userEditSubmit.click();
             await page.waitForTimeout(3000);
             await profilePage.userPassword.click();
-            await profilePage.userEditCurrentPasswordField.fill(passwordNew);
+            await profilePage.userEditCurrentPasswordField.fill(USER_PASSWORD_NEW);
             await profilePage.userEditNewPasswordField.click();
-            await profilePage.userEditNewPasswordField.fill(passwordCurrent);
+            await profilePage.userEditNewPasswordField.fill(USER_PASSWORD_OLD);
             await profilePage.userEditSubmit.click();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText('The password must be at least 8 characters, contain numbers and, at least, one uppercase and one lowercase letter')).not.toBeVisible();
+            await expect(page.getByText(PASSWORD_TEXT)).not.toBeVisible();
         });
 
     });

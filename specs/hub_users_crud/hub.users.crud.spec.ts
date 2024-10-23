@@ -1,209 +1,152 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
+import {
+    BUTTON_DELETE_USER,
+    BUTTON_TRANSFER_OWNERSHIP, TEXT_CHANGE_USER_NAME,
+    TEXT_EDITING_EMAIL,
+    TITLE_EDIT_USER,
+    TITLE_UPDATE_FIRMWARE_VERSION,
+    USER_EMAIL,
+    USER_EMAIL_NON_REGISTERED,
+    USER_FULL_FIRST,
+    USER_FULL_SECOND,
+    USER_NAME,
+    USER_NAME_NEW, USER_SHORT_FIRST, USER_SHORT_SECOND
+} from "../../utils/constants";
 
-test.describe('Hub users page', { tag: ['@stable']  }, () => {
+test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
+
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
+
+        await hubPage.panels.click();
+        await hubPage.firstHub.click();
+        await page.waitForTimeout(2000);
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
+        {  await hubPage.closeWindowButton.click()}
+        await hubPage.users.click();
+        await page.waitForTimeout(1000);
+        if (await (page.getByText(USER_NAME)).isVisible())
+        {   await page.getByText(USER_NAME).click();
+            await hubPage.deleteUserButton.click();
+            await hubPage.submitButton.click();}
+        await page.waitForTimeout(1000);
+        await hubPage.addButton.click();
+        await hubPage.addUserName.fill(USER_NAME);
+        await hubPage.addUserEmail.fill(USER_3['login']);
+        await hubPage.addButton.click();
+
+        try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:15000});}
+        catch (error) {console.error(`An error occurred: ${error.message}`);
+            await page.reload();
+            await page.waitForTimeout(1000);
+            await hubPage.backButton.click();}
+        finally {await expect(page.getByText(USER_SHORT_FIRST)).toBeVisible();}
     });
 
     test.describe('Hub users CRUD', () => {
 
-        test('Add user to hub', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Add user to hub', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694ey1vn'
             });
 
-            const name: string = "Дмитро";
-            const newUser: string = "Дмитро | snaut12@gmail.com";
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            await page.waitForTimeout(1000);
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click();
-            if (await (page.getByText(name)).isVisible())
-            {   await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await page.waitForTimeout(1000);
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
             await page.waitForTimeout(2000);
+            await page.getByText(USER_SHORT_FIRST).click();
 
-            await expect (page.getByText((name))).toBeVisible();
-
-            await page.waitForTimeout(2000);
-            await page.getByText(name).click();
-
-            expect(page.getByText('Delete user'));
+            expect(page.getByText(BUTTON_DELETE_USER));
 
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();
             await page.waitForTimeout(1000);
 
-            await expect (page.getByText((newUser))).not.toBeVisible();
+            await expect (page.getByText((USER_SHORT_FIRST))).not.toBeVisible();
         });
 
         test('Delete user from hub', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694ey1xd'
             });
 
-            const name: string = "01 | Дмитро ";
-            const newUser: string = "Дмитро | snaut12@gmail.com";
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await page.waitForTimeout(2000);
-            await hubPage.users.click();
-            if (await (page.getByText(name)).isVisible()) {
-                await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
-            await page.waitForTimeout(5000);
-
-            await expect(page.getByText(newUser)).toBeVisible();
-
-            await page.getByText(newUser).click();
+            await page.getByText(USER_SHORT_FIRST).click();
             await page.waitForTimeout(2000);
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();
 
-            await expect(page.getByText((newUser))).not.toBeVisible();
+            await expect(page.getByText((USER_SHORT_FIRST))).not.toBeVisible();
         });
 
     });
 
     test.describe('Hub users profile editing', () => {
 
-        test('Change name: hub user', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Change name: hub user', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694ey157'
             });
 
-            const name: string = "Дмитро";
-            const nameNew: string = "Петро";
-            const newUser1: string = "01 | Дмитро | snaut12@gmail.com";
-            const newUser2: string = "| snaut12@gmail.com";
-            const newUser3: string = "01 | Петро ";
+            await page.getByText(USER_FULL_FIRST).click();
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            await page.waitForTimeout(1000);
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click();
-            if (await (page.getByText(name)).isVisible())
-            {   await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await page.waitForTimeout(1000);
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
+            await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
+            await page.getByText(USER_NAME).click();
 
-            await expect (page.getByText((newUser1))).toBeVisible();
-            await page.getByText(newUser1).click();
-
-            await expect(page.getByText('Edit user')).toBeVisible();
-
-            await page.getByText(name).click();
-
-            await expect(page.getByText('Change username')).toBeVisible();
-            await hubPage.inputFirstField.fill(nameNew);
+            await expect(page.getByText(TEXT_CHANGE_USER_NAME)).toBeVisible();
+            await hubPage.inputFirstField.fill(USER_NAME_NEW);
             await hubPage.saveButton.click();
 
-            await expect(page.getByText('Delete user')).toBeVisible();
-            await expect(page.getByText(nameNew)).toBeVisible();
+            await expect(page.getByText(BUTTON_DELETE_USER)).toBeVisible();
+            await expect(page.getByText(USER_NAME_NEW)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();
 
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
-            await expect (page.getByText((newUser3))).not.toBeVisible();
+            await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();
+            await expect (page.getByText((USER_SHORT_SECOND))).not.toBeVisible();
         });
 
         test('Change email: hub user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694ey139'
             });
 
-            const name: string = "Дмитро";
-            const email: string = "snaut12@gmail.com";
-            const emailNew: string = "wiseman12@gmail.com";
-            const user: string = "01 | Дмитро | snaut12@gmail.com";
-            const newUser: string = "01 | Дмитро | wiseman12@gmail.com";
+            await page.getByText(USER_FULL_FIRST).click();
 
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            await page.waitForTimeout(1000);
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click();
-            if (await (page.getByText(name)).isVisible())
-            {   await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await page.waitForTimeout(1000);
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
+            await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
-            await expect (page.getByText((user))).toBeVisible();
+            await page.getByText(USER_EMAIL).click();
 
-            await page.getByText(user).click();
-
-            await expect(page.getByText('Edit user')).toBeVisible();
-
-            await page.getByText(email).click();
-
-            await expect(page.getByText('Editing Email')).toBeVisible();
-            await hubPage.inputFirstField.fill(emailNew);
+            await expect(page.getByText(TEXT_EDITING_EMAIL)).toBeVisible();
+            await hubPage.inputFirstField.fill(USER_EMAIL_NON_REGISTERED);
             await hubPage.saveButton.click();
 
-            await expect(page.getByText('Delete user')).toBeVisible();
-            await expect(page.getByText(emailNew)).toBeVisible();
+            await expect(page.getByText(BUTTON_DELETE_USER)).toBeVisible();
+            await expect(page.getByText(USER_EMAIL_NON_REGISTERED)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();
             await page.waitForTimeout(1000);
 
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
-            await expect (page.getByText((newUser))).not.toBeVisible();
+            await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();
+            await expect (page.getByText((USER_FULL_SECOND))).not.toBeVisible();
         });
 
     });
+
 });

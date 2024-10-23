@@ -1,18 +1,26 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
-import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
+import {
+    COMPANY_THIRD,
+    EMAIL_NECESSARY_NAME_PART,
+    TITLE_GROUP_OF_COMPANIES,
+    TITLE_GROUPS_OF_COMPANIES
+} from "../../utils/constants";
+import { CompanyPage } from "../../pages/company/CompanyPage";
+import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 
-test.describe('Profile Page tests', () => {
+test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let companyPage: CompanyPage;
+    let superAdminPage: SuperAdminPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        companyPage = new CompanyPage(page);
+        superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -20,151 +28,159 @@ test.describe('Profile Page tests', () => {
         await expect(page).toHaveURL('/support/search');
     });
 
-    test.describe('Checking UI elements of the Page', () => {
-
-        test('Checking UI elements on groups of companies page', async ({ page }) => {
+    test('Checking UI elements on groups of companies page', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
 
-            await profilePage.companies.click();
-            await profilePage.groupsOfCompanies.click();
+            await superAdminPage.companies.click();
+            await superAdminPage.groupsOfCompanies.click();
             await page.waitForTimeout(2000);
 
-            await expect(profilePage.companyAddNewGroupButton).toBeVisible();
-            await expect(profilePage.pageTitle.filter({has:page.getByText('Groups of companies')})).toBeVisible();
-        });
+            await expect(companyPage.companyAddNewGroupButton).toBeVisible();
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
     });
 
-    test.describe('Groups of companies editing', () => {
+    test.describe('Groups of companies editing', { tag: '@smoke' }, () => {
 
-        test('List of  groups', async ({ page }) => {
+        test('List of  groups', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694p40dv"
+                description: "https://app.clickup.com/t/8694p415n"
             });
 
-            await profilePage.companies.click();
-            await profilePage.groupsOfCompanies.click();
-            await page.waitForTimeout(2000);
+            await superAdminPage.companies.click();
+            await superAdminPage.groupsOfCompanies.click();
 
-            for (const employee of await profilePage.entityBlock.all())
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
+
+            for (const employee of await superAdminPage.entityBlock.all())
                 await expect(employee).toBeVisible();
 
-            for (const hub of await profilePage.entityBlock.all())
-                await expect(hub.filter({has: profilePage.entityText})).toBeVisible();
+            for (const hub of await superAdminPage.entityBlock.all())
+                await expect(hub.filter({has: superAdminPage.entityText})).toBeVisible();
 
-            for (const hub of await profilePage.entityBlock.all())
+            for (const hub of await superAdminPage.entityBlock.all())
             {await expect(hub.filter({hasText:/.+@.+\..+/i})).toBeVisible();}
 
-            for (const hub of await profilePage.entityBlock.all())
-                await expect(hub.filter({has: profilePage.informationIcon})).toBeVisible();
+            for (const hub of await superAdminPage.entityBlock.all())
+                await expect(hub.filter({has: superAdminPage.informationIcon})).toBeVisible();
         });
 
-        test('Add company to group', async ({ page }) => {
+        test('Add company to group', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694p407a"
+                description: "https://app.clickup.com/30937733/v/l/xg4m5-4967"
             });
 
-            const company: string = 'Handcrafted Concrete Mouse';
+            await superAdminPage.companies.click();
+            await superAdminPage.groupsOfCompanies.click();
 
-            await profilePage.companies.click();
-            await profilePage.groupsOfCompanies.click();
-            await profilePage.entityBlock.first().click();
-            await profilePage.companyAddToGroupButton.click();
-            await page.getByText(company).click();
-            await profilePage.okButton.click();
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
-            await profilePage.trashIcon.last().click();
-            await profilePage.submitButton.click();
-            page.reload()
+            await superAdminPage.entityBlock.first().click();
+            await companyPage.companyAddToGroupButton.click();
+            await page.getByText(COMPANY_THIRD).click();
+            await superAdminPage.okButton.click();
 
-            await expect(page.getByText(company)).not.toBeVisible();
+            await superAdminPage.trashIcon.last().click();
+            await superAdminPage.submitButton.click();
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUP_OF_COMPANIES)})).toBeVisible();
+            await expect(page.getByText(COMPANY_THIRD)).not.toBeVisible();
         });
 
-        test('Delete company from the group', async ({ page }) => {
+        test('Delete company from the group', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694p40z1"
+                description: "https://app.clickup.com/t/8694phzya"
             });
 
-            const company: string = 'Handcrafted Concrete Mouse';
+            await superAdminPage.companies.click();
+            await superAdminPage.groupsOfCompanies.click();
 
-            await profilePage.companies.click();
-            await profilePage.groupsOfCompanies.click();
-            await profilePage.entityBlock.first().click();
-            await profilePage.companyAddToGroupButton.click();
-            await page.getByText(company).click();
-            await profilePage.okButton.click();
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
-            await profilePage.trashIcon.last().click();
-            await profilePage.submitButton.click();
-            page.reload()
+            await superAdminPage.entityBlock.first().click();
+            await companyPage.companyAddToGroupButton.click();
+            await page.getByText(COMPANY_THIRD).click();
+            await superAdminPage.okButton.click();
 
-            await expect(page.getByText(company)).not.toBeVisible();
+            await superAdminPage.trashIcon.last().click();
+            await superAdminPage.submitButton.click();
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUP_OF_COMPANIES)})).toBeVisible();
+            await expect(page.getByText(COMPANY_THIRD)).not.toBeVisible();
         });
 
-        test('Add group of companies', async ({ page }) => {
+        test('Create group of companies', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694p40z1"
+                description: "https://app.clickup.com/t/8694p4175"
             });
 
             const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
             const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
-            await profilePage.companies.click();
-            await profilePage.groupsOfCompanies.click();
-            await profilePage.companyAddNewGroupButton.click();
-            await profilePage.inputFirstField.fill(name);
-            await profilePage.inputSecondField.fill(email);
-            await profilePage.connectButton.click();
-            await profilePage.connectButton.last().click();
-            await profilePage.companies.first().click();
-            await profilePage.groupsOfCompanies.click();
-            page.reload();
+            await superAdminPage.companies.click();
+            await superAdminPage.groupsOfCompanies.click();
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
+
+            await companyPage.companyAddNewGroupButton.click();
+            await superAdminPage.inputFirstField.fill(name);
+            await superAdminPage.inputSecondField.fill(email);
+            await superAdminPage.connectButton.click();
+            await superAdminPage.connectButton.last().click();
+            await superAdminPage.companies.first().click();
+            await superAdminPage.groupsOfCompanies.click();
+            await page.reload();
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(name)).toBeVisible();
 
             await page.getByText(name).click();
-            await profilePage.deleteButton.click();
-            await profilePage.deleteButton.last().click();
+            await superAdminPage.deleteButton.click();
+            await superAdminPage.deleteButton.last().click();
             await page.waitForTimeout(2000);
 
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
             await expect(page.getByText(name)).not.toBeVisible();
         });
 
-        test('Delete  group of companies', async ({ page }) => {
+        test('Delete  group of companies',{ tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694p40z1"
+                description: "https://app.clickup.com/t/8694p41at"
             });
 
             const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
             const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
-            await profilePage.companies.click();
-            await profilePage.groupsOfCompanies.click();
-            await profilePage.companyAddNewGroupButton.click();
-            await profilePage.inputFirstField.fill(name);
-            await profilePage.inputSecondField.fill(email);
-            await profilePage.connectButton.click();
-            await profilePage.connectButton.last().click();
-            await profilePage.companies.first().click();
-            await profilePage.groupsOfCompanies.click();
-            page.reload();
+            await superAdminPage.companies.click();
+            await superAdminPage.groupsOfCompanies.click();
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
+
+            await companyPage.companyAddNewGroupButton.click();
+            await superAdminPage.inputFirstField.fill(name);
+            await superAdminPage.inputSecondField.fill(email);
+            await superAdminPage.connectButton.click();
+            await superAdminPage.connectButton.last().click();
+            await superAdminPage.companies.first().click();
+            await superAdminPage.groupsOfCompanies.click();
+            await page.reload();
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(name)).toBeVisible();
 
             await page.getByText(name).click();
-            await profilePage.deleteButton.click();
-            await profilePage.deleteButton.last().click();
+            await superAdminPage.deleteButton.click();
+            await superAdminPage.deleteButton.last().click();
             await page.waitForTimeout(2000);
 
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
             await expect(page.getByText(name)).not.toBeVisible();
         });
 

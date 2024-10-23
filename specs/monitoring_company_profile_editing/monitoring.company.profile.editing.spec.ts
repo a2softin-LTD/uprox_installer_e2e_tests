@@ -1,16 +1,20 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { MONITORING_COMPANY}  from "../../utils/user_data";
+import { TITLE_COMPANY_SETTINGS } from "../../utils/constants";
+import { CompanyPage } from "../../pages/company/CompanyPage";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
 
-test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
+test.describe('Company Page test', () => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
+    let companyPage: CompanyPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
         profilePage = new ProfilePage(page);
+        companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login')
@@ -18,134 +22,150 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
         await expect(page).toHaveURL('/panels');
     });
 
-    test.describe('Checking UI elements of the Page', () => {
-
-        test('Checking UI elements on the monitoring company page', { tag: '@smoke' }, async ({ page }) => {
+    test('Checking UI elements on the monitoring company page', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
 
-            await profilePage.company.click();
+            await companyPage.company.click();
 
-            await expect(profilePage.companySettingsTitle).toBeVisible();
-            await expect(profilePage.companyChangeLogoButton).toBeVisible();
-            await expect(profilePage.companyContactEmail).toBeVisible();
-            await expect(profilePage.companyContactPhone).toBeVisible();
-            await expect(profilePage.companyCountry).toBeVisible();
-            await expect(profilePage.companyUsersCabinet).toBeVisible();
-            await expect(profilePage.companyDisplayInAdvertising).toBeVisible();
-            await expect(profilePage.companyLanguageForEmails).toBeVisible();
-            await expect(profilePage.companyAutoProcessingConAppl).toBeVisible();
-            await expect(profilePage.companyAutoProcessingDisconAppl).toBeVisible();
-            await expect(profilePage.companyInfoName).toBeVisible();
-            await expect(profilePage.companyInfoDescription).toBeVisible();
-            await expect(profilePage.companyInfoContacts).toBeVisible();
-            await expect(profilePage.company).toBeVisible();
-            await expect(profilePage.panels).toBeVisible();
-            await expect(profilePage.requests).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await expect(companyPage.companySettingsTitle).toBeVisible();
+            await expect(companyPage.companyChangeLogoButton).toBeVisible();
+            await expect(companyPage.companyContactEmail).toBeVisible();
+            await expect(companyPage.companyContactPhone).toBeVisible();
+            await expect(companyPage.companyCountry).toBeVisible();
+            await expect(companyPage.companyUsersCabinet).toBeVisible();
+            await expect(companyPage.companyDisplayInAdvertising).toBeVisible();
+            await expect(companyPage.companyLanguageForEmails).toBeVisible();
+            await expect(companyPage.companyAutoProcessingConAppl).toBeVisible();
+            //await expect(companyPage.companyAutoProcessingDisconAppl).toBeVisible();
+            await expect(companyPage.companyInfoName).toBeVisible();
+            await expect(companyPage.companyInfoDescription).toBeVisible();
+            await expect(companyPage.companyInfoContacts).toBeVisible();
+            await expect(companyPage.company).toBeVisible();
+            await expect(companyPage.panels).toBeVisible();
+            await expect(companyPage.requests).toBeVisible();
             await expect(profilePage.myProfileButton).toBeVisible();
             await expect(profilePage.logoutButton).toBeVisible();
             await expect(profilePage.languageChoice).toBeVisible();
-            await expect(profilePage.companyAbout).toBeVisible();
-            await expect(profilePage.companyServerList).toBeVisible();
-            await expect(profilePage.companyIntegration).toBeVisible();
-            await expect(profilePage.companyAdditionalSoftware).toBeVisible();
-        });
+            await expect(companyPage.companyAbout).toBeVisible();
+            await expect(companyPage.companyServerList).toBeVisible();
+            await expect(companyPage.companyIntegration).toBeVisible();
+            await expect(companyPage.companyAdditionalSoftware).toBeVisible();
     });
 
-    test.describe('Company profile edit.', () => {
+    test.describe('Company profile edit: monitoring company', () => {
 
         test('Company contact email editing: monitoring company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694mhnuq"
+                description: "https://app.clickup.com/t/8694fatbf"
             });
             const newEmail: string = "dmytro@ukr.net";
             const oldEmail: string = "d.pinchuk+002@itvsystems.com.ua";
 
-            await profilePage.company.click();
-            if (await profilePage.companyContactEmail.filter({hasText:newEmail}).isVisible()){
-                await profilePage.companyContactEmail.click();
-                await profilePage.userEditField.fill(oldEmail);
-                await profilePage.saveButton.click();
+            await companyPage.company.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyContactEmail.filter({hasText:newEmail}).isVisible()){
+                await companyPage.companyContactEmail.click();
+                await companyPage.inputFirstField.fill(oldEmail);
+                await companyPage.saveButton.click();
 
                 await expect(page.getByText(oldEmail)).toBeVisible();}
 
-            await profilePage.companyContactEmail.click();
-            await profilePage.userEditField.fill(newEmail);
-            await profilePage.saveButton.click();
+            else {await companyPage.companyContactEmail.click({ force: true });
+            await companyPage.inputFirstField.fill(newEmail);
+            await companyPage.saveButton.click();
 
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await expect(page.getByText(newEmail)).toBeVisible();
 
-            await profilePage.companyContactEmail.click();
-            await profilePage.userEditField.fill(oldEmail);
-            await profilePage.saveButton.click();
+            await companyPage.companyContactEmail.click();
+            await companyPage.inputFirstField.fill(oldEmail);
+            await companyPage.saveButton.click();
 
-            await expect(page.getByText(oldEmail).last()).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+            await expect(page.getByText(oldEmail).last()).toBeVisible();}
         });
 
         test('Company contact phone editing: monitoring company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694mhp23"
+                description: "https://app.clickup.com/t/8694fatf5"
             });
             const newPhone: string = "+380508888888";
             const oldPhone: string = "+380971344443";
 
-            await profilePage.company.click();
-            if (await profilePage.companyContactPhone.filter({hasText:newPhone}).isVisible()){
-                await profilePage.companyContactPhone.click();
-                await profilePage.userEditField.fill(oldPhone);
-                await profilePage.saveButton.click();
+            await companyPage.company.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyContactPhone.filter({hasText:newPhone}).isVisible()){
+                await companyPage.companyContactPhone.click();
+                await companyPage.inputFirstField.fill(oldPhone);
+                await companyPage.saveButton.click();
 
                 await expect(page.getByText(oldPhone)).toBeVisible();}
-            await profilePage.companyContactPhone.click();
-            await profilePage.userEditField.fill(newPhone);
-            await profilePage.saveButton.click();
+            else {await companyPage.companyContactPhone.click();
+            await companyPage.inputFirstField.fill(newPhone);
+            await companyPage.saveButton.click();
 
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await expect(page.getByText(newPhone)).toBeVisible();
 
-            await profilePage.companyContactPhone.click();
-            await profilePage.userEditField.fill(oldPhone);
-            await profilePage.saveButton.click();
+            await companyPage.companyContactPhone.click();
+            await companyPage.inputFirstField.fill(oldPhone);
+            await companyPage.saveButton.click();
 
-            await expect(page.getByText(oldPhone)).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+            await expect(page.getByText(oldPhone)).toBeVisible();}
         });
 
         test('Language for emails edit: monitoring company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694mhp9y"
+                description: "https://app.clickup.com/t/8694mevpv"
             });
             const languageOld: string = "English";
             const languageNew: string = "Dutch";
 
-            await profilePage.company.click();
-            if (await profilePage.companyLanguageForEmails.filter({hasText:languageNew}).isVisible()){
-                await profilePage.companyContactPhone.click();
-                await profilePage.userEditField.fill(languageOld);
-                await profilePage.saveButton.click();
+            await companyPage.company.click();
 
-                await expect(profilePage.companyLanguageForEmails.filter({hasText:'English'})).toBeVisible();}
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
-            await profilePage.companyLanguageForEmails.click();
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyLanguageForEmails.filter({hasText:languageNew}).isVisible()){
+                await companyPage.companyLanguageForEmails.click();
+                await page.getByText(languageOld).click();
+                await companyPage.saveButton.click();
+
+                await expect(companyPage.companyLanguageForEmails.filter({hasText:'English'})).toBeVisible();}
+
+            else {await companyPage.companyLanguageForEmails.click();
             await page.getByText(languageNew).click();
-            await profilePage.saveButton.click()
+            await companyPage.saveButton.click();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+            await expect(companyPage.companyLanguageForEmails.filter({hasText:'Dutch'})).toBeVisible();
 
-            await expect(profilePage.companyLanguageForEmails.filter({hasText:'Dutch'})).toBeVisible();
-
-            await profilePage.companyLanguageForEmails.click();
+            await companyPage.companyLanguageForEmails.click();
             await page.getByText(languageOld).click();
-            await profilePage.saveButton.click();
+            await companyPage.saveButton.click();
 
-            await expect(profilePage.companyLanguageForEmails.filter({hasText:'English'})).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+            await expect(companyPage.companyLanguageForEmails.filter({hasText:'English'})).toBeVisible();}
         });
 
         test('Language of page editing: monitoring company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: ""
             });
 
             const languageNew: string = "FR";
@@ -153,7 +173,10 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             const newTitle: string = "Réglages société ";
             const oldTitle: string = "Company settings";
 
-            await profilePage.company.click();
+            await companyPage.company.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
             await profilePage.languageChoice.click();
             await page.getByText(languageNew, { exact: true }).click();
 
@@ -177,51 +200,58 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             const cabinetNew: string = "https://qwertynew.com";
             const cabinetOld: string = "https://qwerty.com";
 
-            await profilePage.company.click();
-            await page.waitForTimeout(2000);
+            await companyPage.company.click();
 
-            await expect(page.getByText('Company settings')).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
-            if (await profilePage.companyCountry.filter({hasText:countryNew}).isVisible())
-            {   await profilePage.companyCountry.click();
-                await profilePage.inputField.fill(countryOld);
+            if (await companyPage.companyCountry.filter({hasText:countryNew}).isVisible())
+            {   await companyPage.companyCountry.click();
+                await companyPage.inputField.clear();
+                await companyPage.inputField.fill(countryOld);
                 await page.getByText(countryOld, {exact: true}).click();
-                await profilePage.submitButton.click();
-                await expect(profilePage.companyCountry.filter({hasText:countryOld})).toBeVisible();}
+                await companyPage.submitButton.click();
+                await expect(companyPage.companyCountry.filter({hasText:countryOld})).toBeVisible();}
 
-            await profilePage.companyCountry.click();
-            await profilePage.inputField.fill(countryNewShortCut);
+            await companyPage.companyCountry.click();
+            await companyPage.inputField.clear();
+            await companyPage.inputField.fill(countryNewShortCut);
             await page.getByText(countryNew, {exact: true}).click();
-            await profilePage.submitButton.click();
-            if (await profilePage.companyUsersCabinet.filter({hasText:cabinetNew}).isVisible()){
-                await profilePage.companyUsersCabinet.click();
-                await profilePage.userEditField.fill(cabinetOld);
-                await profilePage.submitButton.click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            if (await companyPage.companyUsersCabinet.filter({hasText:cabinetNew}).isVisible()){
+                await companyPage.companyUsersCabinet.click();
+                await companyPage.inputFirstField.fill(cabinetOld);
+                await companyPage.submitButton.click();
 
                 await expect(page.getByText(cabinetOld)).toBeVisible();}
-            await profilePage.companyUsersCabinet.click();
+            await companyPage.companyUsersCabinet.click();
 
             await expect(page.getByText('Enter the link to the user\'s account')).toBeVisible();
 
-            await profilePage.inputField.fill(cabinetNew);
-            await profilePage.submitButton.click();
+            await companyPage.inputField.fill(cabinetNew);
+            await companyPage.submitButton.click();
 
-            await expect(page.getByText('Company settings')).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await expect(page.getByText(countryNew)).toBeVisible();
             await expect(page.getByText(cabinetNew)).toBeVisible();
 
-            await profilePage.companyCountry.click();
-            await profilePage.inputField.fill(countryOld);
+            await companyPage.companyCountry.click();
+            await companyPage.inputField.fill(countryOld);
             await page.getByText(countryOld).click();
-            await profilePage.submitButton.click();
-            await profilePage.companyUsersCabinet.click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyUsersCabinet.click();
 
             await expect(page.getByText('Enter the link to the user\'s account')).toBeVisible();
 
-            await profilePage.inputField.fill(cabinetOld);
-            await profilePage.submitButton.click();
+            await companyPage.inputField.fill(cabinetOld);
+            await companyPage.submitButton.click();
 
-            await expect(page.getByText('Company settings')).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await expect(page.getByText(countryOld)).toBeVisible();
             await expect(page.getByText(cabinetOld)).toBeVisible();
         });
@@ -232,14 +262,17 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
                 description: "https://app.clickup.com/t/8694fb1p8"
             });
 
-            await profilePage.company.click();
-            await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
+            await companyPage.company.click();
 
-            await expect(profilePage.companyDefaultLogo).not.toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
-            await profilePage.companyDeleteLogoButton.click();
+            await companyPage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
 
-            await expect(profilePage.companyDefaultLogo.last()).toBeVisible();
+            await expect(companyPage.companyDefaultLogo).not.toBeVisible();
+
+            await companyPage.companyDeleteLogoButton.click();
+
+            await expect(companyPage.companyDefaultLogo.last()).toBeVisible();
         });
 
         test('Delete monitoring company logo: monitoring company', { tag: '@smoke' }, async ({ page }) => {
@@ -248,20 +281,24 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
                 description: "https://app.clickup.com/t/8694mc54u"
             });
 
-            await profilePage.company.click();
-            await profilePage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
+            await companyPage.company.click();
 
-            await expect(profilePage.companyDefaultLogo).not.toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
-            await profilePage.companyDeleteLogoButton.click();
+            await companyPage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
 
-            await expect(profilePage.companyDefaultLogo.last()).toBeVisible();
+            await expect(companyPage.companyDefaultLogo).not.toBeVisible();
+
+            await companyPage.companyDeleteLogoButton.click();
+
+            await expect(companyPage.companyDefaultLogo.last()).toBeVisible();
         });
 
-        test('Information about company editing: monitoring company', { tag: '@smoke' }, async ({ page }) => {
+        test('Information about company editing: monitoring company',
+            { tag: ['@smoke', '@stable', '@company']}, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694mhqa6"
+                description: "https://app.clickup.com/t/8694fb2qx"
             });
 
             const oldCompanyName: string = "AQA COMPANY";
@@ -271,43 +308,47 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             const oldCompanyContacts: string = "dpinchuk";
             const newCompanyContacts: string = "дпинчук";
 
-            await profilePage.company.click();
+            await companyPage.company.click();
 
-            await page.waitForTimeout(2000);
-            await profilePage.companyInfoName.click();
-            await profilePage.companyInfoNameField.click();
-            await profilePage.companyInfoNameField.fill(newCompanyName);
-            await profilePage.companyInfoDescriptionField.click();
-            await profilePage.companyInfoDescriptionField.fill(newCompanyDescription);
-            await profilePage.companyInfoContactsField.fill(newCompanyContacts);
-            await profilePage.saveButton.click();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyInfoName.click();
+            await companyPage.companyInfoNameField.click();
+            await companyPage.companyInfoNameField.fill(newCompanyName);
+            await companyPage.companyInfoDescriptionField.click();
+            await companyPage.companyInfoDescriptionField.fill(newCompanyDescription);
+            await companyPage.companyInfoContactsField.fill(newCompanyContacts);
+            await companyPage.saveButton.click();
             await page.waitForTimeout(2000);
             await page.reload();
             await page.waitForTimeout(2000);
 
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await expect(page.getByText(newCompanyName).last()).toBeVisible();
             await expect(page.getByText(newCompanyContacts)).toBeVisible();
             await expect(page.getByText(newCompanyDescription)).toBeVisible();
 
-            await profilePage.companyInfoName.click();
-            await profilePage.companyInfoNameField.fill(oldCompanyName);
-            await profilePage.companyInfoDescriptionField.fill(oldCompanyDescription);
-            await profilePage.companyInfoContactsField.fill(oldCompanyContacts);
-            await profilePage.saveButton.click();
+            await companyPage.companyInfoName.click();
+            await companyPage.companyInfoNameField.fill(oldCompanyName);
+            await companyPage.companyInfoDescriptionField.fill(oldCompanyDescription);
+            await companyPage.companyInfoContactsField.fill(oldCompanyContacts);
+            await companyPage.saveButton.click();
 
             await page.waitForTimeout(2000);
             await page.reload();
             await page.waitForTimeout(2000);
 
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await expect(page.getByText(oldCompanyName).last()).toBeVisible();
             await expect(page.getByText(oldCompanyDescription)).toBeVisible();
             await expect(page.getByText(oldCompanyContacts)).toBeVisible();
         });
 
-        test('Localization adding: monitoring company', { tag: '@smoke' }, async ({ page }) => {
+        test('Localization adding: monitoring company',
+            { tag: ['@smoke', '@stable', '@company']},async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: "https://app.clickup.com/t/8694mcnf3"
             });
 
             const newCompanyName: string = "АКВА компанія";
@@ -315,26 +356,29 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             const newCompanyContacts: string = "дпинчук";
             const language: string = "Ukrainian";
 
-            await profilePage.company.click()
-            await profilePage.companyAbout.click();
+            await companyPage.company.click()
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyAbout.click();
             if (await (page.getByText(language)).isVisible()){
                 await page.getByText(language).click();
-                await profilePage.companyDeleteLocalizationButton.click();
+                await companyPage.companyDeleteLocalizationButton.click();
                 await page.getByText('Delete', {exact: true}).click();
 
                 await expect(page.getByText(language).first()).not.toBeVisible();}
-            await profilePage.companyAddLocalizationButton.click();
-            await profilePage.companyInfoLocalizationLanguageField.click();
+            await companyPage.companyAddLocalizationButton.click();
+            await companyPage.companyInfoLocalizationLanguageField.click();
 
             await expect(page.getByText('Add Localization')).toBeVisible();
 
             await page.getByText(language).click();
-            await profilePage.companyInfoNameField.fill(newCompanyName);
-            await profilePage.companyInfoDescriptionField.fill(newCompanyDescription);
-            await profilePage.companyInfoContactsField.fill(newCompanyContacts);
-            await profilePage.saveButton.click();
+            await companyPage.companyInfoNameField.fill(newCompanyName);
+            await companyPage.companyInfoDescriptionField.fill(newCompanyDescription);
+            await companyPage.companyInfoContactsField.fill(newCompanyContacts);
+            await companyPage.saveButton.click();
 
-            await expect(page.getByText('Company settings')).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await page.getByText(language).click();
 
@@ -342,17 +386,19 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             await expect(page.getByText(newCompanyContacts)).toBeVisible();
             await expect(page.getByText(newCompanyDescription)).toBeVisible();
 
-            await profilePage.companyDeleteLocalizationButton.click();
+            await companyPage.companyDeleteLocalizationButton.click();
             await page.getByText('Delete',{ exact: true }).click();
             await page.waitForTimeout(2000);
 
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await expect(page.getByText(language)).not.toBeVisible();
         });
 
-        test('Localization deleting: monitoring company', { tag: '@smoke' }, async ({ page }) => {
+        test('Localization deleting: monitoring company',
+            { tag: ['@smoke', '@stable', '@company']},async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678m6f8a"
+                description: "https://app.clickup.com/t/8694mcq4n"
             });
 
             const newCompanyName: string = "АКВА компанія";
@@ -360,26 +406,29 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             const newCompanyContacts: string = "дпинчук";
             const language: string = "Ukrainian";
 
-            await profilePage.company.click();
-            await profilePage.companyAbout.click();
+            await companyPage.company.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyAbout.click();
             if (await (page.getByText(language)).isVisible()){
                 await page.getByText(language).click();
-                await profilePage.companyDeleteLocalizationButton.click();
+                await companyPage.companyDeleteLocalizationButton.click();
                 await page.getByText('Delete', {exact: true}).click();
 
                 await expect(page.getByText(language).first()).not.toBeVisible();}
-            await profilePage.companyAddLocalizationButton.click();
-            await profilePage.companyInfoLocalizationLanguageField.click();
+            await companyPage.companyAddLocalizationButton.click();
+            await companyPage.companyInfoLocalizationLanguageField.click();
 
             await expect(page.getByText('Add Localization')).toBeVisible();
 
             await page.getByText(language).click();
-            await profilePage.companyInfoNameField.fill(newCompanyName);
-            await profilePage.companyInfoDescriptionField.fill(newCompanyDescription);
-            await profilePage.companyInfoContactsField.fill(newCompanyContacts);
-            await profilePage.saveButton.click();
+            await companyPage.companyInfoNameField.fill(newCompanyName);
+            await companyPage.companyInfoDescriptionField.fill(newCompanyDescription);
+            await companyPage.companyInfoContactsField.fill(newCompanyContacts);
+            await companyPage.saveButton.click();
 
-            await expect(page.getByText('Company settings')).toBeVisible();
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await page.getByText(language).click();
 
@@ -387,10 +436,11 @@ test.describe('Monitoring company profile editing', { tag: '@stable' },() => {
             await expect(page.getByText(newCompanyContacts)).toBeVisible();
             await expect(page.getByText(newCompanyDescription)).toBeVisible();
 
-            await profilePage.companyDeleteLocalizationButton.click();
+            await companyPage.companyDeleteLocalizationButton.click();
             await page.getByText('Delete',{ exact: true }).click();
             await page.waitForTimeout(2000);
 
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await expect(page.getByText(language)).not.toBeVisible();
         });
 

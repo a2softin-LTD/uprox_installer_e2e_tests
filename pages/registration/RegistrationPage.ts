@@ -12,6 +12,7 @@ export class RegistrationPage extends BasePage {
     private readonly _registerButton: Locator;
     private readonly _signInLink: Locator;
     private readonly _privacyPolicyLink: Locator;
+    private readonly _termsOfRegistrationLink: Locator;
     private readonly _termsOfServiceLink: Locator;
     private readonly _languagesList: Locator;
     private readonly _matWarn: Locator;
@@ -31,6 +32,7 @@ export class RegistrationPage extends BasePage {
         this._registerButton = this.form.locator('.mdc-button');
         this._signInLink = page.getByText('Sign in');
         this._privacyPolicyLink = page.locator('a[href="https://policies.google.com/privacy?hl=en"]');
+        this._termsOfRegistrationLink = page.getByText('terms of registration');
         this._termsOfServiceLink = page.locator('a[href="https://policies.google.com/terms?hl=en"]');
         this._languagesList = page.locator('.language-dd');
         this._matWarn = this.form.locator('button .mat-warn');
@@ -73,6 +75,10 @@ export class RegistrationPage extends BasePage {
 
     get privacyPolicyLink(): Locator {
         return this._privacyPolicyLink;
+    }
+
+    get termsOfRegistrationLink(): Locator {
+        return this._termsOfRegistrationLink;
     }
 
     get termsOfServiceLink(): Locator {

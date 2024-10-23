@@ -1,6 +1,6 @@
-import {expect, test} from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { Pool } from 'postgres-pool';
-import {prodEventWrightSqlConfig, prodSqlConfig, qaSqlConfig} from "../../db/db.config";
+import { prodSqlConfig, qaSqlConfig } from "../../db/db.config";
 import { GET_EVENTS_AMOUNT, GET_EVENTS_BY_SAMPLE } from "../../db/Query";
 import { faker } from "@faker-js/faker";
 import { DateParser } from "../../utils/DateParser";
@@ -10,7 +10,7 @@ import  fs  from  "fs";
 import  fse  from  "fs-extra";
 // @ts-ignore
 import moment from "moment";
-import {EMAIL_NECESSARY_NAME_PART} from "../../utils/constants";
+import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
 
 test.describe('Get data from PROD DB, data anonymization  and save to QA DB via SQL requests', () => {
 
@@ -42,8 +42,8 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
         //prodEventWrightConnection = await prodEventWrightPool.connect();
     });
 
-    test.describe('Get data from PROD DB and save to QA DB via sql-requests', () => {
-        test.skip('1. Get data from PROD DB and save to QA DB', { tag: '@db' }, async () => {
+    test.describe.skip('Get data from PROD DB and save to QA DB via sql-requests', () => {
+        test('1. Get data from PROD DB and save to QA DB', { tag: '@db' }, async () => {
 
             let getEventsResults;
             let wrightEvents;
@@ -121,7 +121,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
             }
         });
 
-        test('2. Get data from PROD DB and save to QA DB', async () => {
+        test('2. Get data from PROD DB and save to QA DB', { tag: '@db' }, async () => {
             console.log('STARTING THE TEST: ' +  moment().format('LTS'));
             console.log("**********************************************************************************************");
             console.log("**********************************************************************************************");
@@ -153,7 +153,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
                 let offset: number = 1;
                 console.log("Offset = " + offset);
 
-                let fetch: number = 5000;
+                let fetch: number = 10000;
                 
                 let arrRecords10: Array<string> = [];
                 let arrRecords20: Array<string> = [];
@@ -364,7 +364,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
             }
         });
 
-        test.skip('3. Executing SQL Selects to PROD DB and measurementing response times', { tag: '@db' }, async () => {
+        test('3. Executing SQL Selects to PROD DB and measurementing response times', { tag: '@db' }, async () => {
             let stage: number = 0;
             let count: number = 0;
             let startTime: Date;

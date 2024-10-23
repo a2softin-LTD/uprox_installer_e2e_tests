@@ -2,14 +2,14 @@ import {  Locator, type Page } from "@playwright/test";
 
 export class BasePage {
     readonly page: Page;
+    // BUTTONS
     private readonly _saveButton: Locator;
     private readonly _change_Button: Locator;
     private readonly _submitButton: Locator;
     private readonly _deleteButton: Locator;
     private readonly _deleteUserButton: Locator;
     private readonly _addButton: Locator;
-    private readonly _trashIcon: Locator;
-    private readonly _banIcon: Locator;
+    private readonly _deleteNotExactButton: Locator;
     private readonly _closeWindowButton: Locator;
     private readonly _disableButton: Locator;
     private readonly _enableButton: Locator;
@@ -24,7 +24,16 @@ export class BasePage {
     private readonly _exportButton: Locator;
     private readonly _exportSensorsButton: Locator;
     private readonly _changeButton: Locator;
+    private readonly _closeButton: Locator;
     private readonly _applyButton: Locator;
+    private readonly _connectButton: Locator;
+    private readonly _sendButton: Locator;
+    private readonly _addCountryButton: Locator;
+    private readonly _resendEmailButton: Locator;
+    private readonly _searchButton: Locator;
+    private readonly _clearButton: Locator;
+    private readonly _saveInXLSButton: Locator;
+    // FIELDS
     private readonly _inputFirstField: Locator;
     private readonly _inputSecondField: Locator;
     private readonly _inputThirdField: Locator;
@@ -35,45 +44,65 @@ export class BasePage {
     private readonly _selectFirstField: Locator;
     private readonly _selectSecondField: Locator;
     private readonly _selectThirdField: Locator;
-    private readonly _entityBlock: Locator;
-    private readonly _entityText: Locator;
     private readonly _inputField: Locator;
-    private readonly _connectButton: Locator;
-    private readonly _sendButton: Locator;
-    private readonly _addCountryButton: Locator;
-    private readonly _resendEmailButton: Locator;
+    private readonly _searchField: Locator;
+    // ICONS
+    private readonly _trashIcon: Locator;
+    private readonly _banIcon: Locator;
     private readonly _informationIcon: Locator
     private readonly _updateFirmwareIcon: Locator
-    private readonly _searchField: Locator;
-    private readonly _searchButton: Locator;
-    private readonly _clearButton: Locator;
-    private readonly _pageTitle: Locator;
     private readonly _adsIcon: Locator
     private readonly _editIcon: Locator
-    private readonly _saveInXLSButton: Locator;
+    private readonly _connectionOnlineIcon: Locator
+    private readonly _tamperOpenIcon: Locator
+    // SECTIONS
+    private readonly _panels: Locator;
+    private readonly _company: Locator;
+    private readonly _companies: Locator;
+    private readonly _dealers: Locator;
+    private readonly _feedback: Locator;
+    private readonly _permissions: Locator;
+    private readonly _routing: Locator;
+    private readonly _requests: Locator;
+    private readonly _history: Locator;
+    private readonly _automation: Locator;
+    private readonly _employees: Locator;
+    private readonly _groupsOfCompanies: Locator;
+    private readonly _system: Locator;
+    private readonly _users: Locator;
+    private readonly _groups: Locator;
+    private readonly _troubles: Locator;
+    // OTHERS
+    private readonly _pageTitle: Locator;
     private readonly _rowBlock: Locator;
     private readonly _notExistEntity: Locator;
     private readonly _existEntity: Locator;
+    private readonly _entityBlock: Locator;
+    private readonly _entityText: Locator;
+    private readonly _entityText1: Locator;
 
     constructor(page: Page) {
         this.page = page;
+
+        // BUTTONS
         this._saveButton = page.getByText('Save',{ exact: true });
         this._change_Button = page.getByText('Change',{ exact: true });
         this._deleteButton = page.getByRole('button', { name: 'Delete' });
         this._deleteUserButton = page.getByText('Delete user');
         this._addButton = page.getByRole('button', { name: 'Add' });
-        this._trashIcon = page.locator('use[*|href="#icon-trash"]');
         this._submitButton = page.getByText('Submit');
-        this._closeWindowButton = this.page.locator('.button__cancel-icon');
-        this._disableButton = page.getByText('Disable');
-        this._enableButton = page.getByText('Enable');
+        this._closeWindowButton = page.locator('.button__cancel-icon');
+        this._searchButton = page.getByText('Search',{ exact: true });
+        this._closeButton = page.getByRole('button', { name: 'Close' });
+        this._disableButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('Disable'));
+        this._enableButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('Enable'));
+        this._saveInXLSButton = page.getByText(' Save in .XLS ').or(page.getByText(' Save in XLS')).or(this.page.locator('.threepoints-block'));
         this._nextButton = page.getByText('Next');
         this._yesButton = page.getByText('Yes');
         this._noButton = page.getByText('No');
         this._applyButton = page.getByText('Apply');
-        this._clearButton = page.getByText('Clear');
+        this._clearButton = page.getByText('Clear',{ exact: true });
         this._addCountryButton = page.getByText('Add country');
-
         this._okButton = page.getByRole('button', { name: 'ОК' });
         this._backButton = page.locator('use[*|href="#icon-arrow"]');
         this._onButton = page.getByText('On',{ exact: true });
@@ -82,6 +111,12 @@ export class BasePage {
         this._exportButton = page.getByText('Export',{ exact: true });
         this._exportSensorsButton = page.getByText('Export sensors to xls',{ exact: true });
         this._changeButton = page.getByText('Change',{ exact: true });
+        this._connectButton = page.getByText('Connect',{ exact: true })
+        this._sendButton = page.getByText('Send',{ exact: true });
+        this._resendEmailButton = page.getByText('Resend Email',{ exact: true });
+        this._deleteNotExactButton = page.getByText('Delete');
+
+        // FIELDS
         this._inputFirstField = this.page.locator('.mat-mdc-input-element').nth(0).or(this.page.locator('.input_block-input').nth(0));;
         this._inputSecondField = this.page.locator('.mat-mdc-input-element').nth(1).or(this.page.locator('.input_block-input').nth(1));;
         this._inputThirdField = this.page.locator('.mat-mdc-input-element').nth(2).or(this.page.locator('.input_block-input').nth(2));;
@@ -92,24 +127,45 @@ export class BasePage {
         this._selectFirstField = this.page.locator('.mat-mdc-select-value').nth(0).or(this.page.locator('.input-block__select-text').nth(0));
         this._selectSecondField = this.page.locator('.mat-mdc-select-value').nth(1).or(this.page.locator('.input-block__select-text').nth(1));;
         this._selectThirdField = this.page.locator('.mat-mdc-select-value').nth(2).or(this.page.locator('.input-block__select-text').nth(2));;
+        this._inputField = page.locator('input[type="text"]');
+        this._searchField = page.locator('input[placeholder*="Search"]');
+
+        // ICONS
+        this._trashIcon = page.locator('use[*|href="#icon-trash"]');
+        this._banIcon = page.locator('use[*|href="#icon-ban"]');
+        this._editIcon = page.locator('use[*|href="#icon-edit-data"]');
+        this._informationIcon = page.locator('use[*|href="#icon-About"]');
+        this._updateFirmwareIcon = page.locator('mat-icon[data-mat-icon-name="update-firmware"]');
+        this._connectionOnlineIcon = page.locator('mat-icon[data-mat-icon-name="connection-online"]');
+        this._tamperOpenIcon = page.locator('mat-icon[data-mat-icon-name="tamper-open"]');
+        this._adsIcon = page.locator('use[*|href="#icon-ads"]');
+
+        // SECTIONS
+        this._panels = page.getByText('Panels',{ exact: true });
+        this._company = page.getByText('Company',{ exact: true });
+        this._companies = page.getByText('Companies',{ exact: true });
+        this._dealers = page.getByText('Dealers',{ exact: true });
+        this._employees= page.getByText('Employees',{ exact: true });
+        this._requests= page.getByText('Requests',{ exact: true });
+        this._history= page.getByText('History',{ exact: true });
+        this._routing= page.getByText('Routing',{ exact: true });
+        this._automation= page.getByText('Automation',{ exact: true });
+        this._feedback = page.getByText('Feedback');
+        this._permissions = page.getByText('Permissions');
+        this._groupsOfCompanies = page.getByText('Groups of companies');
+        this._users = page.getByText('Users').and(this.page.locator('.navbar__sub-text'));
+        this._system = page.getByText('System',{ exact: true });
+        this._troubles = page.getByText('Troubles',{ exact: true });
+        this._groups = page.getByText('Groups',{ exact: true });
+
+        // OTHERS
+        this._pageTitle = page.locator('h3');
         this._entityBlock = this.page.locator('.part__item');
         this._notExistEntity = this.page.locator('.color-not-exist');
         this._existEntity = this.page.locator('.color-exist');
         this._rowBlock = this.page.locator('.part__item-table-row');
         this._entityText = this.page.locator('.part__item-text');
-        this._inputField = page.locator('input[type="text"]');
-        this._connectButton = page.getByText('Connect',{ exact: true })
-        this._sendButton = page.getByText('Send',{ exact: true });
-        this._resendEmailButton = page.getByText('Resend Email',{ exact: true });
-        this._banIcon = page.locator('use[*|href="#icon-ban"]');
-        this._editIcon = page.locator('use[*|href="#icon-edit-data"]');
-        this._informationIcon = page.locator('use[*|href="#icon-About"]');
-        this._updateFirmwareIcon = page.locator('mat-icon[data-mat-icon-name="update-firmware"]');
-        this._searchField = page.locator('input[placeholder*="Search"]');
-        this._pageTitle = page.locator('h3');
-        this._searchButton = page.getByText('Search',{ exact: true });
-        this._adsIcon = page.locator('use[*|href="#icon-ads"]');
-        this._saveInXLSButton = page.getByText(' Save in .XLS ').or(page.getByText(' Save in XLS')).or(this.page.locator('.threepoints-block'));
+        this._entityText1 = this.page.locator('.ellipsis');
     }
 
     get saveButton(): Locator {
@@ -120,7 +176,6 @@ export class BasePage {
         return this._updateFirmwareIcon;
     }
 
-
     get change_Button(): Locator {
         return this._change_Button;
     }
@@ -129,12 +184,40 @@ export class BasePage {
         return this._deleteButton;
     }
 
+    get connectionOnlineIcon(): Locator {
+        return this._connectionOnlineIcon;
+    }
+
+    get tamperOpenIcon(): Locator {
+        return this._tamperOpenIcon;
+    }
+
+    get troubles (): Locator {
+        return this._troubles ;
+    }
+
     get addCountryButton(): Locator {
         return this._addCountryButton;
     }
 
+    get users(): Locator {
+        return this._users;
+    }
+
+    get system(): Locator {
+        return this._system;
+    }
+
     get clearButton(): Locator {
         return this._clearButton;
+    }
+
+    get groups(): Locator {
+        return this._groups;
+    }
+
+    get closeButton(): Locator {
+        return this._closeButton;
     }
 
     get deleteUserButton(): Locator {
@@ -151,6 +234,10 @@ export class BasePage {
 
     get submitButton(): Locator {
         return this._submitButton;
+    }
+
+    get deleteNotExactButton (): Locator {
+        return this._deleteNotExactButton ;
     }
 
     get addButton(): Locator {
@@ -261,6 +348,10 @@ export class BasePage {
         return this._entityText;
     }
 
+    get entityText1(): Locator {
+        return this._entityText1;
+    }
+
     get inputField(): Locator {
         return this._inputField;
     }
@@ -319,6 +410,54 @@ export class BasePage {
 
     get editIcon (): Locator {
         return this._editIcon ;
+    }
+
+    get panels(): Locator {
+        return this._panels;
+    }
+
+    get company(): Locator {
+        return this._company;
+    }
+
+    get companies(): Locator {
+        return this._companies;
+    }
+
+    get dealers(): Locator {
+        return this._dealers;
+    }
+
+    get routing(): Locator {
+        return this._routing;
+    }
+
+    get automation(): Locator {
+        return this._automation;
+    }
+
+    get feedback(): Locator {
+        return this._feedback;
+    }
+
+    get permissions(): Locator {
+        return this._permissions;
+    }
+
+    get groupsOfCompanies(): Locator {
+        return this._groupsOfCompanies;
+    }
+
+    get requests (): Locator {
+        return this._requests;
+    }
+
+    get history (): Locator {
+        return this._history;
+    }
+
+    get employees (): Locator {
+        return this._employees;
     }
 
     async openLoginPage(path: string) {

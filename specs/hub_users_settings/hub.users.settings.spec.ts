@@ -1,55 +1,29 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
+import { BUTTON_TRANSFER_OWNERSHIP } from "../../utils/constants";
 
-test.describe('Hub users settings', { tag: ['@stable']  }, () => {
+test.describe('Hub Page tests',  () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
+
+        const name: string = "Дмитро";
+        const user: string = "01 | Дмитро | snaut12@gmail.com";
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL('/profile/panels');
-    });
 
-    test('Checking UI elements on the hub users page', { tag: '@smoke' }, async ({page}) => {
-        test.info().annotations.push({
-            type: "test_id",
-            description: ""
-        });
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-        if (await page.getByText('Update firmware version').isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await hubPage.users.click();
-
-        await expect(hubPage.transferOwnershipButton).toBeVisible();
-        await expect(hubPage.addButton).toBeVisible();
-        await expect(profilePage.pageTitle.filter({has:page.getByText('Users')})).toBeVisible();
-
-
-    });
-
-    test('Checking UI elements on the hub user edit page', { tag: '@smoke' }, async ({page}) => {
-        test.info().annotations.push({
-            type: "test_id",
-            description: ""
-        });
-        const name: string = "Дмитро";
-        const user: string = "01 | Дмитро | snaut12@gmail.com";
-
-        await profilePage.panels.click();
-        await profilePage.firstHub.click();
-
+        await hubPage.panels.click();
+        await hubPage.firstHub.click();
+        await page.waitForTimeout(2000);
         if (await page.getByText('Update firmware version').isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
@@ -63,12 +37,35 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
 
-        await expect(page.getByText('Transfer ownership')).toBeVisible();
-        await expect(page.getByText(user)).toBeVisible();
+        try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:15000});}
+        catch (error) {console.error(`An error occurred: ${error.message}`);
+        await page.reload();
+            await page.waitForTimeout(1000);
+        await hubPage.backButton.click();}
+        finally {await expect(page.getByText(user)).toBeVisible();}
+    });
+
+    test('Checking UI elements on the hub users page', { tag: '@smoke' }, async ({page}) => {
+        test.info().annotations.push({
+            type: "test_id",
+            description: ""
+        });
+
+        await expect(hubPage.transferOwnershipButton).toBeVisible();
+        await expect(hubPage.addButton).toBeVisible();
+        await expect(hubPage.pageTitle.filter({has:page.getByText('Users')})).toBeVisible();
+    });
+
+    test('Checking UI elements on the hub user edit page', { tag: '@smoke' }, async ({page}) => {
+        test.info().annotations.push({
+            type: "test_id",
+            description: ""
+        });
+        const user: string = "01 | Дмитро | snaut12@gmail.com";
 
         await page.getByText(user).click();
 
-        await expect(profilePage.pageTitle.filter({has:page.getByText('Edit user')})).toBeVisible();
+        await expect(hubPage.pageTitle.filter({has:page.getByText('Edit user')})).toBeVisible();
         await expect(hubPage.settingsKeyfob).toBeVisible();
         await expect(hubPage.settingsMobileApp).toBeVisible();
         await expect(hubPage.settingsArmKeypadCode).toBeVisible();
@@ -83,33 +80,15 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
 
     test.describe('Hub users settings', () => {
 
-        test('Arm keypad code', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Arm keypad code', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694ey1cv'
             });
 
-            const name: string = "Дмитро";
             const code: string = "111111";
             const codeHide: string = "******";
             const user: string = "01 | Дмитро | snaut12@gmail.com";
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click();
-            if (await (page.getByText(name)).isVisible()) {
-                await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
-
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
-            await expect(page.getByText(user)).toBeVisible();
 
             await page.getByText(user).click();
 
@@ -132,29 +111,10 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
         test('Mobile application', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694ey1cv'
             });
 
-            const name: string = "Дмитро";
             const user: string = "01 | Дмитро | snaut12@gmail.com";
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click()
-            if (await (page.getByText(name)).isVisible()) {
-                await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
-            await page.waitForTimeout(3000);
-
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
-            await expect(page.getByText(user)).toBeVisible();
 
             await (page.getByText(user)).click();
 
@@ -183,29 +143,10 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
         test('User management', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694ey1cv'
             });
 
-            const name: string = "Дмитро";
             const user: string = "01 | Дмитро | snaut12@gmail.com";
-            const userManagement: string = "| Дмитро | snaut12@gmail.com Mobile | User management";
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click()
-            if (await (page.getByText(name)).isVisible()) {
-                await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
-            await page.waitForTimeout(3000);
-
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
 
             await (page.getByText(user)).click();
 
@@ -217,8 +158,8 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
 
             await expect(page.getByText('Edit user')).toBeVisible();
 
-            await hubPage.userManagement.click();
-            await hubPage.userManagementEnable.click();
+            await hubPage.settingsUserManagement.click();
+            await hubPage.enableButton.click();
             await hubPage.saveButton.click();
             await hubPage.users.click();
 
@@ -240,29 +181,10 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
         test('Mobile panic button', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694ey1cv'
             });
 
-            const name: string = "Дмитро";
             const user: string = "01 | Дмитро | snaut12@gmail.com";
-            const userManagement: string = "| Дмитро | snaut12@gmail.com Mobile | User management";
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click()
-            if (await (page.getByText(name)).isVisible()) {
-                await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
-            await page.waitForTimeout(3000);
-
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
 
             await (page.getByText(user)).click();
 
@@ -275,7 +197,7 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
             await expect(page.getByText('Edit user')).toBeVisible();
 
             await hubPage.settingsPanicButton.click();
-            await hubPage.enableButton.first().click();
+            await hubPage.enableButton.click();
             await hubPage.saveButton.click();
 
             await expect(page.getByText('Edit user')).toBeVisible();
@@ -299,29 +221,10 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
         test('Keyfob', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694ey1cv'
             });
 
-            const name: string = "Дмитро";
             const user: string = "01 | Дмитро | snaut12@gmail.com";
-
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click()
-            if (await (page.getByText(name)).isVisible()) {
-                await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
-            await page.waitForTimeout(3000);
-
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
 
             await (page.getByText(user)).click();
 
@@ -374,29 +277,11 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
         test('Call on alarm', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694ey1cv'
             });
 
-            const name: string = "Дмитро";
             const user: string = "01 | Дмитро | snaut12@gmail.com";
             const phone: string = "+38067890678";
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click()
-            if (await (page.getByText(name)).isVisible()) {
-                await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
-            await page.waitForTimeout(3000);
-
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
 
             await (page.getByText(user)).click();
 
@@ -409,7 +294,7 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
             await expect(page.getByText('Edit user')).toBeVisible();
 
             await hubPage.settingsCallOnAlarm.click();
-            await hubPage.enableButton.last().click();
+            await hubPage.enableButton.click();
             await hubPage.inputFirstField.fill(phone);
             await hubPage.saveButton.click();
 
@@ -434,29 +319,10 @@ test.describe('Hub users settings', { tag: ['@stable']  }, () => {
         test('Event categories', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694ey1cv'
             });
 
-            const name: string = "Дмитро";
             const user: string = "01 | Дмитро | snaut12@gmail.com";
-            const phone: string = "+38067890678";
-
-            await profilePage.panels.click();
-            await profilePage.firstHub.click();
-            if (await page.getByText('Update firmware version').isVisible())
-            {  await hubPage.closeWindowButton.click()}
-            await hubPage.users.click()
-            if (await (page.getByText(name)).isVisible()) {
-                await page.getByText(name).click();
-                await hubPage.deleteUserButton.click();
-                await hubPage.submitButton.click();}
-            await hubPage.addButton.click();
-            await hubPage.addUserName.fill(name);
-            await hubPage.addUserEmail.fill(USER_3['login']);
-            await hubPage.addButton.click();
-            await page.waitForTimeout(3000);
-
-            await expect(page.getByText('Transfer ownership')).toBeVisible();
 
             await (page.getByText(user)).click();
 

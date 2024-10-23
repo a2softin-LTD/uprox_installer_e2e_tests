@@ -1,25 +1,28 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
-import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
+import {
+    EMAIL_NECESSARY_NAME_PART, ROLE_SUPPORT_ADMIN_SMALL,
+    ROLE_SYS_ADMIN_SMALL, TEXT_ADD_SUPPORT, TEXT_EDIT_SUPPORT,
+    TITLE_EMPLOYEES,
+    TITLE_TECHNICAL_SUPPORT, USER_PASSWORD_FIRST
+} from "../../utils/constants";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
-test.describe('Creation of the Tech Support  by SUPER_ADMIN', () => {
+test.describe('Company Page test',() => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
+    let companyPage: CompanyPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
+        companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
     });
 
-    test.describe('Creation of the Tech Support  by SUPER_ADMIN with and without password', () => {
-
-        test('Creation of the Tech Support  under the Role = SUPER_ADMIN with password', { tag: '@smoke' }, async ({ page }) => {
+    test('Creation of the Tech Support  under the Role = SUPER_ADMIN with password', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694ayqex"
@@ -27,35 +30,42 @@ test.describe('Creation of the Tech Support  by SUPER_ADMIN', () => {
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
             const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const password: string = 'asdASD123';
-            const role: string = 'system_admin';
 
             await loginPage.auth(SUPER_ADMIN);
 
-            await expect(page.getByText('Technical support')).toBeVisible();
+            await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
             expect(page.url()).toContain('/support/search');
 
-            await profilePage.permissions.click();
-            await profilePage.addButton.click();
-            await profilePage.inputFirstField.fill(email);
-            await profilePage.inputSecondField.fill(password);
-            await profilePage.inputThirdField.fill(name);
-            await profilePage.selectFirstField.click();
-            await (page.getByText(role, {exact:true})).click();
-            await profilePage.addButton.click();
+            await companyPage.permissions.click();
 
-            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(companyPage.pageTitle.filter({hasText:TITLE_EMPLOYEES})).toBeVisible();
+
+            await companyPage.addButton.click();
+
+            await expect(page.getByText(TEXT_ADD_SUPPORT)).toBeVisible();
+
+            await companyPage.inputFirstField.fill(email);
+            await companyPage.inputSecondField.fill(USER_PASSWORD_FIRST);
+            await companyPage.inputThirdField.fill(name);
+            await companyPage.selectFirstField.click();
+            await (page.getByText(ROLE_SYS_ADMIN_SMALL, {exact:true})).click();
+            await companyPage.addButton.click();
+
+            await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
             await expect(page.getByText(email)).toBeVisible();
 
-            await (page.getByText(name)).click()
-            await profilePage.deleteUserButton.click();
-            await profilePage.submitButton.click();
+            await (page.getByText(name)).click();
 
-            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
+
+            await companyPage.deleteUserButton.click();
+            await companyPage.submitButton.click();
+
+            await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 10000 });
             await expect(page.getByText(email)).not.toBeVisible();
         });
 
-        test('Creation of the Tech Support  under the Role = SUPER_ADMIN without password', { tag: '@smoke' }, async ({ page }) => {
+    test('Creation of the Tech Support  under the Role = SUPER_ADMIN without password', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694atwq3"
@@ -63,32 +73,38 @@ test.describe('Creation of the Tech Support  by SUPER_ADMIN', () => {
 
             const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
             const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const role: string = 'support';
 
             await loginPage.auth(SUPER_ADMIN);
 
-            await expect(page.getByText('Technical support')).toBeVisible();
+            await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
             expect(page.url()).toContain('/support/search');
 
-            await profilePage.permissions.click();
-            await profilePage.addButton.click();
-            await profilePage.inputFirstField.fill(email);
-            await profilePage.inputThirdField.fill(name);
-            await profilePage.selectFirstField.click();
-            await (page.getByText(role, {exact:true})).click();
-            await profilePage.addButton.click();
+            await companyPage.permissions.click();
 
-            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(companyPage.pageTitle.filter({hasText:TITLE_EMPLOYEES})).toBeVisible();
+
+            await companyPage.addButton.click();
+
+            await expect(page.getByText(TEXT_ADD_SUPPORT)).toBeVisible();
+
+            await companyPage.inputFirstField.fill(email);
+            await companyPage.inputThirdField.fill(name);
+            await companyPage.selectFirstField.click();
+            await (page.getByText(ROLE_SUPPORT_ADMIN_SMALL, {exact:true})).click();
+            await companyPage.addButton.click();
+
+            await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
             await expect(page.getByText(email)).toBeVisible();
 
-            await (page.getByText(name)).click()
-            await profilePage.deleteUserButton.click();
-            await profilePage.submitButton.click();
+            await (page.getByText(name)).click();
 
-            await expect(page.getByText('Employees')).toBeVisible();
+            await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
+
+            await companyPage.deleteUserButton.click();
+            await companyPage.submitButton.click();
+
+            await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 10000 });
             await expect(page.getByText(email)).not.toBeVisible();
-        });
-
     });
 
 });

@@ -1,19 +1,30 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
-import { HubPage } from "../../pages/hub/HubPage";
+import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
+import {
+    TEXT_CHANNEL,
+    TEXT_DELETING_VERSION,
+    TEXT_DEPLOY_PERCENTAGE,
+    TEXT_DEVICE_TYPE, TEXT_FILENAME,
+    TEXT_FTP_LINK,
+    TEXT_VERSION_CODE,
+    TEXT_VERSION_TYPE,
+    TITLE_CONSOLE_FIRMWARE_VERSIONS,
+    TITLE_PANEL_FIRMWARE_VERSIONS, VERSION_CODE, VERSION_NAME
+} from "../../utils/constants";
+import { CompanyPage } from "../../pages/company/CompanyPage";
 
-test.describe('Firmware under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
+test.describe('SuperAdmin Page test', () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
-    let hubPage: HubPage;
+    let companyPage: CompanyPage;
+    let superAdminPage: SuperAdminPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
-        hubPage = new HubPage(page);
+        companyPage = new CompanyPage(page);
+        superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL('/login');
@@ -21,246 +32,228 @@ test.describe('Firmware under SUPER_ADMIN role', { tag: ['@stable']  }, () => {
         await expect(page).toHaveURL('/support/search');
     });
 
-    test.describe('Checking UI elements of the panel firmware versions page', () => {
-
-        test('Checking UI elements of the panel firmware versions page', async ({ page }) => {
+    test('Checking UI elements of the panel firmware versions page', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
 
-            await profilePage.firmware.click();
+            await superAdminPage.firmware.click();
 
-            await expect(profilePage.uploadFirmwareButton).toBeVisible();
-            await expect(profilePage.pageTitle.filter({has:page.getByText('Panel firmware versions')})).toBeVisible();
-            await expect(page.getByText('Channel')).toBeVisible();
-            await expect(page.getByText('Device type')).toBeVisible();
-            await expect(page.getByText('Version code')).toBeVisible();
-            await expect(page.getByText('Version type')).toBeVisible();
-            await expect(page.getByText('Deploy percentage')).toBeVisible();
-            await expect(page.getByText('ftp-link')).toBeVisible();
-        });
+            await expect(superAdminPage.uploadFirmwareButton).toBeVisible();
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS)})).toBeVisible();
+            await expect(page.getByText(TEXT_CHANNEL)).toBeVisible();
+            await expect(page.getByText(TEXT_DEVICE_TYPE)).toBeVisible();
+            await expect(page.getByText(TEXT_VERSION_CODE)).toBeVisible();
+            await expect(page.getByText(TEXT_VERSION_TYPE)).toBeVisible();
+            await expect(page.getByText(TEXT_DEPLOY_PERCENTAGE)).toBeVisible();
+            await expect(page.getByText(TEXT_FTP_LINK)).toBeVisible();
     });
 
     test.describe('Firmware under SUPER_ADMIN role', () => {
 
-        test('Add panel firmware version under SUPER_ADMIN role', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test('Add panel firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694p4320'
             });
 
-            const versionCode: string = "2279";
-            const versionName: string = "22.79";
+            await superAdminPage.firmware.click();
 
-            await profilePage.firmware.click();
+            await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible();
 
-            await expect(page.getByText('Panel firmware versions').first()).toBeVisible();
+            await superAdminPage.uploadFirmwareButton.click();
 
-            await profilePage.uploadFirmwareButton.click();
-
-            await expect(page.getByText('Filename').first()).toBeVisible();
+            await expect(page.getByText(TEXT_FILENAME).first()).toBeVisible();
 
             await page.waitForTimeout(1000);
-            await profilePage.upLoadFirmwareSelectFile.setInputFiles("./test-data/mpx_ua_dev_22_79.ebin");
+            await superAdminPage.upLoadFirmwareSelectFile.setInputFiles("./test-data/mpx_ua_dev_22_79.ebin");
             await page.waitForTimeout(1000);
-            await profilePage.uploadFirmwareCode.fill(versionCode);
+            await superAdminPage.uploadFirmwareCode.fill(VERSION_CODE);
             await page.waitForTimeout(1000);
-            await profilePage.uploadFirmwareName.fill(versionName);
+            await superAdminPage.uploadFirmwareName.fill(VERSION_NAME);
 
             await page.waitForTimeout(1000);
-            await profilePage.submitButton.click();
+            await superAdminPage.submitButton.click();
 
             await page.waitForTimeout(5000);
-            await expect(page.getByText('Panel firmware versions').first()).toBeVisible();
-            await expect(page.getByText(versionCode)).toBeVisible();
+            await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible({timeout:10000});
+            await expect(page.getByText(VERSION_CODE)).toBeVisible();
 
-            await (profilePage.rowBlock.filter({hasText: '2279'})).locator(profilePage.trashIcon).click();
-            await expect(page.getByText('Deleting version')).toBeVisible();
-            await profilePage.deleteButton.click();
+            await (superAdminPage.rowBlock.filter({hasText: VERSION_CODE})).locator(superAdminPage.trashIcon).click();
+            await expect(page.getByText(TEXT_DELETING_VERSION)).toBeVisible();
+            await superAdminPage.deleteButton.click();
 
-            await expect(page.getByText('Panel firmware versions').first()).toBeVisible();
-            await expect(page.getByText(versionCode)).not.toBeVisible();
+            await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible();
+            await expect(page.getByText(VERSION_CODE)).not.toBeVisible();
         });
 
         test('Delete panel firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694p434a'
             });
 
-            const versionCode: string = "2279";
-            const versionName: string = "22.79";
 
-            await profilePage.firmware.click();
+            await superAdminPage.firmware.click();
 
-            await expect(page.getByText('Panel firmware versions').first()).toBeVisible();
+            await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible();
 
-            await profilePage.uploadFirmwareButton.click();
+            await superAdminPage.uploadFirmwareButton.click();
 
-            await expect(page.getByText('Filename').first()).toBeVisible();
+            await expect(page.getByText(TEXT_FILENAME).first()).toBeVisible();
 
             await page.waitForTimeout(1000);
-            await profilePage.upLoadFirmwareSelectFile.setInputFiles("./test-data/mpx_ua_dev_22_79.ebin");
+            await superAdminPage.upLoadFirmwareSelectFile.setInputFiles("./test-data/mpx_ua_dev_22_79.ebin");
             await page.waitForTimeout(1000);
-            await profilePage.uploadFirmwareCode.fill(versionCode);
+            await superAdminPage.uploadFirmwareCode.fill(VERSION_CODE);
             await page.waitForTimeout(1000);
-            await profilePage.uploadFirmwareName.fill(versionName);
+            await superAdminPage.uploadFirmwareName.fill(VERSION_NAME);
 
             await page.waitForTimeout(1000);
-            await profilePage.submitButton.click();
+            await superAdminPage.submitButton.click();
 
             await page.waitForTimeout(5000);
-            await expect(page.getByText('Panel firmware versions').first()).toBeVisible();
-            await expect(page.getByText(versionCode)).toBeVisible();
+            await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible({timeout:10000});
+            await expect(page.getByText(VERSION_CODE)).toBeVisible();
 
-            await (profilePage.rowBlock.filter({hasText: '2279'})).locator(profilePage.trashIcon).click();
-            await expect(page.getByText('Deleting version')).toBeVisible();
-            await profilePage.deleteButton.click();
+            await (superAdminPage.rowBlock.filter({hasText: VERSION_CODE})).locator(superAdminPage.trashIcon).click();
+            await expect(page.getByText(TEXT_DELETING_VERSION)).toBeVisible();
+            await superAdminPage.deleteButton.click();
 
-            await expect(page.getByText('Panel firmware versions').first()).toBeVisible();
-            await expect(page.getByText(versionCode)).not.toBeVisible();
+            await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible();
+            await expect(page.getByText(VERSION_CODE)).not.toBeVisible();
 
         });
 
         test('List of panel firmware versions under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694p42zr'
             });
 
-            await profilePage.firmware.click();
+            await superAdminPage.firmware.click();
 
-            await expect(page.getByText('Panel firmware versions').first()).toBeVisible();
+            await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible();
 
-            for (const firmware of await hubPage.rowBlock.all())
+            for (const firmware of await superAdminPage.rowBlock.all())
                 await expect(firmware).toBeVisible();
 
-            for (const firmware of await profilePage.rowBlock.all())
-            {await expect(firmware.filter({has: profilePage.trashIcon})).toBeVisible();}
+            for (const firmware of await superAdminPage.rowBlock.all())
+            {await expect(firmware.filter({has: superAdminPage.trashIcon})).toBeVisible();}
         });
-
 
     });
 
-    test.describe('Checking UI elements of the console app firmware versions page', () => {
-
-        test('Checking UI elements of the console app firmware versions page', async ({ page }) => {
+    test('Checking UI elements of the console app firmware versions page', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
 
-            await profilePage.firmware.click();
-            await profilePage.consoleApplication.click();
+            await superAdminPage.firmware.click();
+            await superAdminPage.consoleApplication.click();
 
-            await expect(profilePage.uploadFirmwareButton).toBeVisible();
-            await expect(profilePage.pageTitle.filter({has:page.getByText('Console application firmware versions')})).toBeVisible();
-            await expect(page.getByText('Version code')).toBeVisible();
-            await expect(page.getByText('Version type')).toBeVisible();
-            await expect(page.getByText('ftp-link')).toBeVisible();
-        });
+            await expect(superAdminPage.uploadFirmwareButton).toBeVisible();
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS)})).toBeVisible();
+            await expect(page.getByText(TEXT_VERSION_CODE)).toBeVisible();
+            await expect(page.getByText(TEXT_VERSION_TYPE)).toBeVisible();
+            await expect(page.getByText(TEXT_FTP_LINK)).toBeVisible();
     });
 
     test.describe('Firmware under SUPER_ADMIN role', () => {
 
-        test.skip('Add console app firmware version under SUPER_ADMIN role', { tag: ['@smoke','@hub']  }, async ({ page }) => {
+        test.skip('Add console app firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbyg'
+                description: 'https://app.clickup.com/t/8694p43de'
             });
 
-            const versionCode: string = "2279";
-            const versionName: string = "22.79";
+            await superAdminPage.firmware.click();
+            await superAdminPage.consoleApplication.click();
 
-            await profilePage.firmware.click();
-            await profilePage.consoleApplication.click();
+            await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
 
-            await expect(page.getByText('Console application firmware versions').first()).toBeVisible();
+            await superAdminPage.uploadFirmwareButton.click();
 
-            await profilePage.uploadFirmwareButton.click();
-
-            await expect(page.getByText('Filename').first()).toBeVisible();
+            await expect(page.getByText(TEXT_FILENAME).first()).toBeVisible();
 
             await page.waitForTimeout(1000);
-            await profilePage.upLoadFirmwareSelectFile.setInputFiles("./test-data/console_2,456.exe");
+            await superAdminPage.upLoadFirmwareSelectFile.setInputFiles("./test-data/console_2,456.exe");
             await page.waitForTimeout(1000);
-            await profilePage.uploadFirmwareCode.fill(versionCode);
+            await superAdminPage.uploadFirmwareCode.fill(VERSION_CODE);
             await page.waitForTimeout(1000);
-            await profilePage.uploadFirmwareName.fill(versionName);
+            await superAdminPage.uploadFirmwareName.fill(VERSION_NAME);
 
             await page.waitForTimeout(1000);
-            await profilePage.submitButton.click();
+            await superAdminPage.submitButton.click();
 
             await page.waitForTimeout(5000);
-            await expect(page.getByText('Console application firmware versions').first()).toBeVisible();
-            await expect(page.getByText(versionCode)).toBeVisible();
+            await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
+            await expect(page.getByText(VERSION_CODE)).toBeVisible();
 
-            await (profilePage.rowBlock.filter({hasText: '2279'})).locator(profilePage.trashIcon).click();
-            await expect(page.getByText('Deleting version')).toBeVisible();
-            await profilePage.deleteButton.click();
+            await (superAdminPage.rowBlock.filter({hasText: VERSION_CODE})).locator(superAdminPage.trashIcon).click();
+            await expect(page.getByText(TEXT_DELETING_VERSION)).toBeVisible();
+            await superAdminPage.deleteButton.click();
 
-            await expect(page.getByText('Console application firmware versions').first()).toBeVisible();
-            await expect(page.getByText(versionCode)).not.toBeVisible();
+            await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
+            await expect(page.getByText(VERSION_CODE)).not.toBeVisible();
         });
 
         test.skip('Delete console app firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694pk0nj'
             });
 
-            const versionCode: string = "2279";
-            const versionName: string = "22.79";
+            await superAdminPage.firmware.click();
+            await superAdminPage.consoleApplication.click();
 
-            await profilePage.firmware.click();
-            await profilePage.consoleApplication.click();
+            await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
 
-            await expect(page.getByText('Console application firmware versions').first()).toBeVisible();
+            await superAdminPage.uploadFirmwareButton.click();
 
-            await profilePage.uploadFirmwareButton.click();
-
-            await expect(page.getByText('Filename').first()).toBeVisible();
+            await expect(page.getByText(TEXT_FILENAME).first()).toBeVisible();
 
             await page.waitForTimeout(1000);
-            await profilePage.upLoadFirmwareSelectFile.setInputFiles("./test-data/mpx_ua_dev_22_79.ebin");
+            await superAdminPage.upLoadFirmwareSelectFile.setInputFiles("./test-data/mpx_ua_dev_22_79.ebin");
             await page.waitForTimeout(1000);
-            await profilePage.uploadFirmwareCode.fill(versionCode);
+            await superAdminPage.uploadFirmwareCode.fill(VERSION_CODE);
             await page.waitForTimeout(1000);
-            await profilePage.uploadFirmwareName.fill(versionName);
+            await superAdminPage.uploadFirmwareName.fill(VERSION_NAME);
 
             await page.waitForTimeout(1000);
-            await profilePage.submitButton.click();
+            await superAdminPage.submitButton.click();
 
             await page.waitForTimeout(5000);
-            await expect(page.getByText('Console application firmware versions').first()).toBeVisible();
-            await expect(page.getByText(versionCode)).toBeVisible();
+            await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
+            await expect(page.getByText(VERSION_CODE)).toBeVisible();
 
-            await (profilePage.rowBlock.filter({hasText: '2279'})).locator(profilePage.trashIcon).click();
-            await expect(page.getByText('Deleting version')).toBeVisible();
-            await profilePage.deleteButton.click();
+            await (superAdminPage.rowBlock.filter({hasText: VERSION_CODE})).locator(superAdminPage.trashIcon).click();
+            await expect(page.getByText(TEXT_DELETING_VERSION)).toBeVisible();
+            await superAdminPage.deleteButton.click();
 
-            await expect(page.getByText('Console application firmware versions').first()).toBeVisible();
-            await expect(page.getByText(versionCode)).not.toBeVisible();
+            await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
+            await expect(page.getByText(VERSION_CODE)).not.toBeVisible();
 
         });
 
         test('List of console app firmware versions under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8678rvbzg'
+                description: 'https://app.clickup.com/t/8694p43cq'
             });
 
-            await profilePage.firmware.click();
-            await profilePage.consoleApplication.click();
+            await superAdminPage.firmware.click();
+            await superAdminPage.consoleApplication.click();
 
-            await expect(page.getByText('Console application firmware versions').first()).toBeVisible();
+            await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
 
-            for (const firmware of await hubPage.rowBlock.all())
+            for (const firmware of await superAdminPage.rowBlock.all())
                 await expect(firmware).toBeVisible();
 
-            for (const firmware of await profilePage.rowBlock.all())
-            {await expect(firmware.filter({has: profilePage.trashIcon})).toBeVisible();}
+            for (const firmware of await superAdminPage.rowBlock.all())
+            {await expect(firmware.filter({has: superAdminPage.trashIcon})).toBeVisible();}
         });
 
     });

@@ -5,7 +5,7 @@ import { faker } from "@faker-js/faker";
 import { RegistrationPage } from "../../pages/registration/RegistrationPage";
 import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
 
-test.describe('Login Page tests', {tag: '@stable'}, () => {
+test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
 
     let loginPage: LoginPage;
     let registrationPage: RegistrationPage;
@@ -55,7 +55,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
         });
     });
 
-    test.describe('Checking registration. Negative scenarios', () => {
+    test.describe('Checking registration. Negative scenarios', { tag: '@smoke' }, () => {
 
         test('negative: Checking registration (non-valid user email)', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
@@ -122,6 +122,21 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             {await expect(page.getByText('Email already exists')).toBeVisible();}
         });
 
+    });
+
+    test('Registration conditions', { tag: '@smoke' }, async ({ page }) => {
+        test.info().annotations.push({
+            type: "ClickUp_link",
+            description: "https://app.clickup.com/t/86946t9q2"
+        });
+
+        registrationPage = new RegistrationPage(page);
+
+        await registrationPage.termsOfRegistrationLink.click();
+        await expect(page.getByText('Users with no access to Alarm Station Monitoring')).toBeVisible();
+        await registrationPage.closeButton.click();
+
+        await expect(page.getByText('Registration',{exact:true})).toBeVisible();
     });
 
 });
