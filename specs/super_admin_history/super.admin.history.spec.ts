@@ -109,6 +109,9 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
 
             await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
+
+            await page.waitForTimeout(2000);
+
             await hubPage.historyAlarmCheckBox.isVisible();
             await hubPage.historyTroublesCheckBox.isVisible();
             await hubPage.historyArmsCheckBox.isVisible();
@@ -124,6 +127,8 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await hubPage.historyTroublesCheckBox.click();
             await hubPage.historyArmsCheckBox.click();
             await hubPage.historyActionsCheckBox.click();
+
+            await page.waitForTimeout(2000);
 
             await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
             await expect(page.getByText(TEXT_ADD_USER_EMAIL).first()).toBeVisible();
@@ -143,9 +148,9 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
             await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
 
-            const downloadPromise = page.waitForEvent('download');
-            await hubPage.saveInXLSButton.click();
-            const download = await downloadPromise;
+            const [download]=await
+                Promise.all([page.waitForEvent('download'), hubPage.saveInXLSButton.click()] );
+
             await download.saveAs(download.suggestedFilename());
         });
 

@@ -67,16 +67,21 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
             await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).not.toBeVisible();
     });
 
-    test('Downloading history file', { tag: '@smoke' }, async ({ page }) => {
+    test('Downloading history file: user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678rvcav'
             });
 
             await hubPage.saveInXLSButton.click();
-            const downloadPromise = page.waitForEvent('download');
-            await hubPage.exportButton.click();
-            const download = await downloadPromise;
+           // const downloadPromise = page.waitForEvent('download');
+            //await hubPage.exportButton.click();
+           // const download = await downloadPromise;
+           // await download.saveAs(download.suggestedFilename());
+
+            const [download]=await
+                Promise.all([page.waitForEvent('download'), hubPage.exportButton.click()] );
+
             await download.saveAs(download.suggestedFilename());
     });
 

@@ -72,11 +72,11 @@ test.describe('Company Page test', () => {
         await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible({timeout:10000});
         await expect(page.getByText(SERVER_NAME_FIRST)).toBeVisible();
 
-        await companyPage.trashIcon.last().click();
+        await companyPage.trashIcon.click();
         await companyPage.submitButton.click();
         await page.waitForTimeout(2000);
         await page.reload();
-
+        await page.waitForTimeout(2000);
         await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 
@@ -97,11 +97,11 @@ test.describe('Company Page test', () => {
         await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible({timeout:10000});
         await expect(page.getByText(SERVER_NAME_FIRST)).toBeVisible();
 
-        await companyPage.trashIcon.last().click();
+        await companyPage.trashIcon.click();
         await companyPage.submitButton.click();
         await page.waitForTimeout(2000);
         await page.reload();
-
+        await page.waitForTimeout(2000);
         await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 
@@ -131,11 +131,11 @@ test.describe('Company Page test', () => {
         await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible({timeout:10000});
         await expect(page.getByText(SERVER_NAME_FIRST)).toBeVisible();
 
-        await companyPage.trashIcon.last().click();
+        await companyPage.trashIcon.click();
         await companyPage.submitButton.click();
         await page.waitForTimeout(2000);
         await page.reload();
-
+        await page.waitForTimeout(2000);
         await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 });
