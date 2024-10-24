@@ -3,6 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
 import {
+    BUTTON_ADD_WIRELESS_DEVICE,
     BUTTON_RESTART_PANEL,
     BUTTON_TRANSFER_OWNERSHIP,
     COUNTRY_MOLDOVA,
@@ -366,7 +367,10 @@ test.describe('Hub Page tests', () => {
         await page.getByText(name).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
-        await hubPage.system.click();
+        await hubPage.system.click()
+
+        await expect(page.getByText(BUTTON_ADD_WIRELESS_DEVICE)).toBeVisible();
+
         await hubPage.hubPanel.click();
         await hubPage.settingsKeypadCodeLength.click();
         await expect(page.getByText('Change keypad code length')).toBeVisible();

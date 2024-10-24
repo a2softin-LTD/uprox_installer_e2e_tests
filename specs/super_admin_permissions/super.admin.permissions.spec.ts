@@ -195,6 +195,10 @@ test.describe('SuperAdmin page tests', () => {
             await superAdminPage.submitButton.click();
             await superAdminPage.backButton.click();
 
+            await page.waitForTimeout(2000);
+            await page.reload();
+            await page.waitForTimeout(2000);
+
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
             await expect(page.getByText(email)).not.toBeVisible();
         });

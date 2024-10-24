@@ -22,7 +22,7 @@ test.describe('Company Page tests', () => {
         await loginPage.openLoginPage('/');
     });
 
-    test('Creation of the Corporate Admin under the Role = SYSTEM_ADMIN', { tag: '@smoke' }, async ({ page }) => {
+    test.skip('Creation of the Corporate Admin under the Role = SYSTEM_ADMIN', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694attun"

@@ -87,6 +87,10 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             await superAdminPage.trashIcon.last().click();
             await superAdminPage.submitButton.click();
 
+            await page.waitForTimeout(2000);
+            await page.reload();
+            await page.waitForTimeout(2000);
+
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUP_OF_COMPANIES)})).toBeVisible();
             await expect(page.getByText(COMPANY_THIRD)).not.toBeVisible();
         });
@@ -109,6 +113,10 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
 
             await superAdminPage.trashIcon.last().click();
             await superAdminPage.submitButton.click();
+
+
+            await page.waitForTimeout(2000);
+            await page.reload();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUP_OF_COMPANIES)})).toBeVisible();
             await expect(page.getByText(COMPANY_THIRD)).not.toBeVisible();

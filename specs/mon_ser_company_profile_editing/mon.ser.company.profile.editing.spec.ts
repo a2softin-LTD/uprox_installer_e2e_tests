@@ -393,7 +393,8 @@ test.describe('Company Page test', () => {
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
-            await companyPage.companyAbout.click();
+            await page.waitForTimeout(2000);
+
             if (await (page.getByText(language)).isVisible()){
                 await page.getByText(language).click();
                 await companyPage.companyDeleteLocalizationButton.click();
@@ -413,6 +414,10 @@ test.describe('Company Page test', () => {
             await companyPage.saveButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await page.waitForTimeout(2000);
+            await page.reload();
+            await page.waitForTimeout(2000);
 
             await page.getByText(language).click();
 
@@ -444,6 +449,7 @@ test.describe('Company Page test', () => {
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await companyPage.companyAbout.click();
+            await page.waitForTimeout(2000);
             if (await (page.getByText(language)).isVisible()){
                 await page.getByText(language).click();
                 await companyPage.companyDeleteLocalizationButton.click();
@@ -463,6 +469,10 @@ test.describe('Company Page test', () => {
             await companyPage.saveButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await page.waitForTimeout(2000);
+            await page.reload();
+            await page.waitForTimeout(2000);
 
             await page.getByText(language).click();
 
