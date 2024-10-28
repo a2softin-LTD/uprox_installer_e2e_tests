@@ -3,14 +3,14 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
-    EMAIL_NECESSARY_NAME_PART,
+    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST, FAKER_PHONE_FIRST, FAKER_PHONE_SECOND,
     ROLE_MANAGER,
     SETTINGS_ENABLE,
     TEXT_BLOCK_EMPLOYEE, TEXT_CONFIGURING_PANELS,
     TEXT_EDIT_EMPLOYEE, TEXT_FULL_NAME,
     TEXT_PHONE,
-    TEXT_YES,
-    TITLE_EMPLOYEES,
+    TEXT_YES, TITLE_COMPANY_SETTINGS,
+    TITLE_EMPLOYEES, URL_LOGIN, URL_PANELS,
     USER_NAME,
     USER_NAME_NEW,
     USER_NAME_OLD
@@ -27,9 +27,9 @@ test.describe('Company Page tests', () => {
         companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
-        await expect(page).toHaveURL('/panels');
+        await expect(page).toHaveURL(URL_PANELS);
 
         await companyPage.employees.click();
         await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
@@ -52,6 +52,17 @@ test.describe('Company Page tests', () => {
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();}
 
     });
+    test('Checking UI elements on the employee page', { tag: '@smoke' }, async ({page}) => {
+        test.info().annotations.push({
+            type: "test_id",
+            description: ""
+        });
+
+        await expect(companyPage.pageTitle.filter({has: page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
+        await expect(companyPage.addButton).toBeVisible();
+        await expect(companyPage.employeeSearchField).toBeVisible();
+
+    });
 
     test.describe('Employees: monitoring-service company', () => {
 
@@ -61,31 +72,28 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8678rju80"
             });
 
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const phone: string = faker.phone.number();
-
             await companyPage.addButton.click();
-            await companyPage.employeeEmailField.fill(email);
+            await companyPage.employeeEmailField.fill(FAKER_EMAIL_FIRST);
             await companyPage.employeeNameField.fill(USER_NAME);
-            await companyPage.employeePhoneField.fill(phone);
+            await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
             await companyPage.employeeRoleField.click();
             await page.getByText(ROLE_MANAGER).click();
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
-            await expect(page.getByText(email)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
-            await page.getByText(email).click();
+            await page.getByText(FAKER_EMAIL_FIRST).click();
             await companyPage.employeeDeleteManager.click();
             await companyPage.deleteButton.click();
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
 
             await companyPage.panels.click();
             await companyPage.employees.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
-            await expect(page.getByText(email)).not.toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
 
         test('Delete employee: monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
@@ -94,31 +102,28 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8694v0c04"
             });
 
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const phone: string = faker.phone.number();
-
             await companyPage.addButton.click();
-            await companyPage.employeeEmailField.fill(email);
+            await companyPage.employeeEmailField.fill(FAKER_EMAIL_FIRST);
             await companyPage.employeeNameField.fill(USER_NAME);
-            await companyPage.employeePhoneField.fill(phone);
+            await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
             await companyPage.employeeRoleField.click();
             await page.getByText(ROLE_MANAGER).click();
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
-            await expect(page.getByText(email)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
-            await page.getByText(email).click();
+            await page.getByText(FAKER_EMAIL_FIRST).click();
             await companyPage.employeeDeleteManager.click();
             await companyPage.deleteButton.click();
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
 
             await companyPage.panels.click();
             await companyPage.employees.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
-            await expect(page.getByText(email)).not.toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
 
         test('Employee data editing: monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
@@ -127,30 +132,26 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8678rju83"
             });
 
-            const emailOld: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const phoneOld: string = faker.phone.number();
-            const phoneNew: string = faker.phone.number();
-
             await companyPage.addButton.click();
-            await companyPage.employeeEmailField.fill(emailOld);
+            await companyPage.employeeEmailField.fill(FAKER_EMAIL_FIRST);
             await companyPage.employeeNameField.fill(USER_NAME_OLD);
-            await companyPage.employeePhoneField.fill(phoneOld);
+            await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
             await companyPage.employeeRoleField.click();
             await page.getByText(ROLE_MANAGER).click();
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
-            await expect(page.getByText(emailOld)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
-            await page.getByText(emailOld).click();
+            await page.getByText(FAKER_EMAIL_FIRST).click();
             await page.getByText(TEXT_FULL_NAME).click();
             await companyPage.inputFirstField.fill(USER_NAME_NEW);
             await companyPage.saveButton.click();
             await page.getByText(TEXT_PHONE).click();
-            await companyPage.inputFirstField.fill(phoneNew);
+            await companyPage.inputFirstField.fill(FAKER_PHONE_SECOND);
             await companyPage.saveButton.click();
             await page.getByText(TEXT_CONFIGURING_PANELS).click();
-            await companyPage.enableButton.click();
+            await companyPage.enabledButton.click();
             await companyPage.saveButton.click()
             await page.getByText(TEXT_BLOCK_EMPLOYEE).click();
             await companyPage.yesButton.click();
@@ -164,7 +165,7 @@ test.describe('Company Page tests', () => {
             await companyPage.employeeDeleteManager.click();
             await companyPage.deleteButton.click();
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
 
             await companyPage.panels.click();
             await companyPage.employees.click();
@@ -180,13 +181,10 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8678rju7u"
             });
 
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const phone: string = faker.phone.number();
-
             await companyPage.addButton.click();
-            await companyPage.employeeEmailField.fill(email);
+            await companyPage.employeeEmailField.fill(FAKER_EMAIL_FIRST);
             await companyPage.employeeNameField.fill(USER_NAME_NEW);
-            await companyPage.employeePhoneField.fill(phone);
+            await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
             await companyPage.employeeRoleField.click();
             await page.getByText(ROLE_MANAGER).click();
             await companyPage.addButton.click();
@@ -199,16 +197,16 @@ test.describe('Company Page tests', () => {
             await expect(page.getByText(USER_NAME_NEW)).toBeVisible();
             await expect(companyPage.employeeBlock).toHaveCount(1);
 
-            await companyPage.employeeSearchField.fill(email);
+            await companyPage.employeeSearchField.fill(FAKER_EMAIL_FIRST);
 
-            await expect(page.getByText(email)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
             await expect(companyPage.employeeBlock).toHaveCount(1);
 
             await page.getByText(USER_NAME_NEW).click();
             await companyPage.employeeDeleteManager.click();
             await companyPage.deleteButton.click();
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
             await expect(page.getByText(USER_NAME_NEW,{ exact: true })).not.toBeVisible();
         });
 

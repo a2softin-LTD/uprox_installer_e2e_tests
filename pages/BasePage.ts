@@ -1,4 +1,5 @@
 import {  Locator, type Page } from "@playwright/test";
+import {TITLE_UPDATE_FIRMWARE_VERSION} from "../utils/constants";
 
 export class BasePage {
     readonly page: Page;
@@ -6,6 +7,7 @@ export class BasePage {
     private readonly _saveButton: Locator;
     private readonly _change_Button: Locator;
     private readonly _submitButton: Locator;
+    private readonly _submitModalButton: Locator;
     private readonly _deleteButton: Locator;
     private readonly _deleteUserButton: Locator;
     private readonly _addButton: Locator;
@@ -13,6 +15,7 @@ export class BasePage {
     private readonly _closeWindowButton: Locator;
     private readonly _disableButton: Locator;
     private readonly _enableButton: Locator;
+    private readonly _enabledButton: Locator;
     private readonly _nextButton: Locator;
     private readonly _yesButton: Locator;
     private readonly _noButton: Locator;
@@ -90,16 +93,22 @@ export class BasePage {
         this._deleteButton = page.getByRole('button', { name: 'Delete' });
         this._deleteUserButton = page.getByText('Delete user');
         this._addButton = page.getByRole('button', { name: 'Add' });
+        this._submitModalButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('Submit'));
         this._submitButton = page.getByText('Submit');
         this._closeWindowButton = page.locator('.button__cancel-icon');
         this._searchButton = page.getByText('Search',{ exact: true });
         this._closeButton = page.getByRole('button', { name: 'Close' });
-        this._disableButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('Disable'));
-        this._enableButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('Enable'));
+        this._disableButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('Disable')).
+        or((this.page.locator('.main__modal.active')).locator(this.page.getByText('Disabled')));
+       // this._enableButton = ((this.page.locator('.main__modal.active')).locator(this.page.getByText('Enable'))).
+       // or((this.page.locator('.main__modal.active')).locator(this.page.getByText('Enabled')));
+        this._enableButton = ((this.page.locator('.main__modal.active')).locator(this.page.getByText('Enable')));
+        this._enabledButton = ((this.page.locator('.main__modal.active')).locator(this.page.getByText('Enabled')));
+
         this._saveInXLSButton = page.getByText(' Save in .XLS ').or(page.getByText(' Save in XLS')).or(this.page.locator('.threepoints-block'));
         this._nextButton = page.getByText('Next');
-        this._yesButton = page.getByText('Yes');
-        this._noButton = page.getByText('No');
+        this._yesButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('Yes'))
+        this._noButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('No'))
         this._applyButton = page.getByText('Apply');
         this._clearButton = page.getByText('Clear',{ exact: true });
         this._addCountryButton = page.getByText('Add country');
@@ -180,6 +189,10 @@ export class BasePage {
         return this._change_Button;
     }
 
+    get submitModalButton(): Locator {
+        return this._submitModalButton;
+    }
+
     get deleteButton(): Locator {
         return this._deleteButton;
     }
@@ -254,6 +267,10 @@ export class BasePage {
 
     get enableButton(): Locator {
         return this._enableButton;
+    }
+
+    get enabledButton(): Locator {
+        return this._enabledButton;
     }
 
     get nextButton(): Locator {
@@ -474,6 +491,12 @@ export class BasePage {
 
     async findByTextExact(text: string) {
         return this.page.getByText((text), { exact: true });
+    }
+
+    async updateFirmwareChecking(page1: BasePage) {
+        await this.page.waitForTimeout(2000);
+        if (await this.page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible()) {
+            await page1.closeWindowButton.click();}
     }
 
 }

@@ -4,9 +4,9 @@ import { SUPER_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
     COMPANY_THIRD,
-    EMAIL_NECESSARY_NAME_PART,
+    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
     TITLE_GROUP_OF_COMPANIES,
-    TITLE_GROUPS_OF_COMPANIES
+    TITLE_GROUPS_OF_COMPANIES, URL_LOGIN, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
@@ -23,9 +23,9 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
         superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
     test('Checking UI elements on groups of companies page', { tag: '@smoke' },async ({ page }) => {
@@ -128,17 +128,14 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
                 description: "https://app.clickup.com/t/8694p4175"
             });
 
-            const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await superAdminPage.companies.click();
             await superAdminPage.groupsOfCompanies.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
             await companyPage.companyAddNewGroupButton.click();
-            await superAdminPage.inputFirstField.fill(name);
-            await superAdminPage.inputSecondField.fill(email);
+            await superAdminPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await superAdminPage.inputSecondField.fill(FAKER_EMAIL_FIRST);
             await superAdminPage.connectButton.click();
             await superAdminPage.connectButton.last().click();
             await superAdminPage.companies.first().click();
@@ -146,15 +143,15 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             await page.reload();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
-            await page.getByText(name).click();
+            await page.getByText(FAKER_NAME_OF_COMPANY_SECOND).click();
             await superAdminPage.deleteButton.click();
             await superAdminPage.deleteButton.last().click();
             await page.waitForTimeout(2000);
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
-            await expect(page.getByText(name)).not.toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).not.toBeVisible();
         });
 
         test('Delete  group of companies',{ tag: '@smoke' },async ({ page }) => {
@@ -163,17 +160,14 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
                 description: "https://app.clickup.com/t/8694p41at"
             });
 
-            const name: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } })
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await superAdminPage.companies.click();
             await superAdminPage.groupsOfCompanies.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
             await companyPage.companyAddNewGroupButton.click();
-            await superAdminPage.inputFirstField.fill(name);
-            await superAdminPage.inputSecondField.fill(email);
+            await superAdminPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await superAdminPage.inputSecondField.fill(FAKER_EMAIL_FIRST);
             await superAdminPage.connectButton.click();
             await superAdminPage.connectButton.last().click();
             await superAdminPage.companies.first().click();
@@ -181,15 +175,15 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             await page.reload();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
-            await page.getByText(name).click();
+            await page.getByText(FAKER_NAME_OF_COMPANY_SECOND).click();
             await superAdminPage.deleteButton.click();
             await superAdminPage.deleteButton.last().click();
             await page.waitForTimeout(2000);
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
-            await expect(page.getByText(name)).not.toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).not.toBeVisible();
         });
 
     });

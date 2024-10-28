@@ -5,8 +5,7 @@ import {
     ENGINEER_EMAIL,
     ENGINEER_NUMBER_FINAL,
     ENGINEER_NUMBER_START,
-    TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
-    TEXT_OK
+    TEXT_NUMBER_OF_DEVICES_IM_COMPANY, URL_LOGIN, URL_PANELS,
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import { HubPage } from "../../pages/hub/HubPage";
@@ -23,9 +22,9 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(MIXED);
-        await expect(page).toHaveURL('/panels');
+        await expect(page).toHaveURL(URL_PANELS);
     });
 
     test('Access for engineer: company hub', { tag: '@smoke' }, async ({ page }) => {

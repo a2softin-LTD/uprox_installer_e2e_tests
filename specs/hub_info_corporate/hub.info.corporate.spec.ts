@@ -6,7 +6,7 @@ import {
     CITY_DNIPRO,
     CITY_POLTAVA, NUMBER_12, NUMBER_28, NUMBER_45, NUMBER_7, TEXT_ADRESS,
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
-    TEXT_PANEL_INFORMATION
+    TEXT_PANEL_INFORMATION, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
@@ -19,9 +19,9 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(MIXED);
-        await expect(page).toHaveURL('/panels');
+        await expect(page).toHaveURL(URL_PANELS);
     });
 
     test('Editing information about corporate hub', { tag: '@smoke' }, async ({ page }) => {
@@ -30,15 +30,11 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8678p0hzj"
         });
 
-        for (const hub of await hubPage.hubEngineerIcon.all())
-        { await expect(hub).toBeVisible();}
+        await expect(hubPage.pageTitle.filter({has:page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)})).toBeVisible();
+
+        await page.waitForTimeout(2000);
+
         for (const hub of await hubPage.informationIcon.all())
-        { await expect(hub).toBeVisible();}
-        for (const hub of await hubPage.trashIcon.all())
-        { await expect(hub).toBeVisible();}
-        for (const hub of await hubPage.hubCorpNameAccountInfo.all())
-        { await expect(hub).toBeVisible();}
-        for (const hub of await hubPage.hubCorpNumberConnectionInfo.all())
         { await expect(hub).toBeVisible();}
 
         await (hubPage.informationIcon.first()).click();

@@ -6,9 +6,18 @@ import { CompanyPage } from "../../pages/company/CompanyPage";
 import {
     ADMIN_EMAIL,
     BUTTON_ADD_COMPANY,
-    COUNTRY_UKRAINE, COUNTRY_UKRAINE_SHORT,
-    ROLE_MONITORING_COMPANY, TEXT_ABSENT, TEXT_INTERNATIONAL, TEXT_NO,
-    TEXT_TEST_DEALER_ROLE
+    COUNTRY_UKRAINE,
+    COUNTRY_UKRAINE_SHORT, FAKER_EMAIL_FIFTH,
+    FAKER_EMAIL_FOURTH,
+    FAKER_NAME_OF_COMPANY_FIRST,
+    FAKER_NAME_OF_COMPANY_SECOND, FAKER_PHONE_FIRST,
+    ROLE_MONITORING_COMPANY,
+    TEXT_ABSENT,
+    TEXT_INTERNATIONAL,
+    TEXT_NO,
+    TEXT_TEST_DEALER_ROLE,
+    URL_LOGIN,
+    URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
 test.describe('Company Page tests', () => {
@@ -21,9 +30,9 @@ test.describe('Company Page tests', () => {
         companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
     test.describe('Create new monitoring company under the Role = SYSTEM_ADMIN ', () => {
@@ -34,18 +43,13 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8678m6f6g"
             });
 
-            const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email();
-            const contactEmail: string = faker.internet.email();
-            const contactPhone: string = faker.phone.number();
-
             await companyPage.companies.click();
 
             await expect(page.getByText(BUTTON_ADD_COMPANY)).toBeVisible();
 
             await companyPage.companyAddButton.click();
-            await companyPage.inputFirstField.fill(name);
-            await companyPage.inputSecondField.fill(adminEmail);
+            await companyPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await companyPage.inputSecondField.fill(FAKER_EMAIL_FOURTH);
             await companyPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
             await page.getByText(COUNTRY_UKRAINE).click();
             await companyPage.selectFirstField.click();
@@ -54,17 +58,17 @@ test.describe('Company Page tests', () => {
             await page.getByText(TEXT_TEST_DEALER_ROLE).click();
             await companyPage.selectThirdField.click();
             await page.getByText(ROLE_MONITORING_COMPANY).click();
-            await companyPage.inputFourthField.fill(contactEmail);
-            await companyPage.inputFifthField.fill(contactPhone);
+            await companyPage.inputFourthField.fill(FAKER_EMAIL_FIFTH);
+            await companyPage.inputFifthField.fill(FAKER_PHONE_FIRST);
             await companyPage.inputSixthtField.fill(TEXT_NO);
             await companyPage.inputSeventhField.fill(TEXT_ABSENT);
             await companyPage.submitButton.click();
 
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
-            await (page.getByText(name)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
 
-            await expect(page.getByText(adminEmail)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FOURTH)).toBeVisible();
         });
 
         test.skip('Create new monitoring company with mandatory fields only', { tag: '@smoke' }, async ({ page }) => {
@@ -73,14 +77,10 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8678m6f6k"
             });
 
-            const name: string = faker.commerce.productName();
-
-            await companyPage.companies.click();
-
             await expect(page.getByText(BUTTON_ADD_COMPANY)).toBeVisible();
 
             await companyPage.companyAddButton.click();
-            await companyPage.inputFirstField.fill(name);
+            await companyPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_FIRST);
             await companyPage.inputSecondField.fill(ADMIN_EMAIL);
             await companyPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
             await page.getByText(COUNTRY_UKRAINE).click();
@@ -92,9 +92,9 @@ test.describe('Company Page tests', () => {
             await page.getByText(ROLE_MONITORING_COMPANY).click();
             await companyPage.submitButton.click();
 
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_FIRST)).toBeVisible();
 
-            await (page.getByText(name)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_FIRST)).click();
 
             await expect(page.getByText(ADMIN_EMAIL)).toBeVisible();
         });
@@ -105,16 +105,12 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8678m6f6n"
             });
 
-            const name: string = faker.commerce.productName();
-            const contactEmail: string = faker.internet.email();
-            const contactPhone: string = faker.phone.number();
-
             await companyPage.companies.click();
 
             await expect(page.getByText(BUTTON_ADD_COMPANY)).toBeVisible();
 
             await companyPage.companyAddButton.click();
-            await companyPage.inputFirstField.fill(name);
+            await companyPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_FIRST);
             await companyPage.inputSecondField.fill(ADMIN_EMAIL);
             await companyPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
             await page.getByText(COUNTRY_UKRAINE).click();
@@ -124,15 +120,15 @@ test.describe('Company Page tests', () => {
             await page.getByText(TEXT_TEST_DEALER_ROLE).click();
             await companyPage.selectThirdField.click();
             await page.getByText(ROLE_MONITORING_COMPANY).click();
-            await companyPage.inputFourthField.fill(contactEmail);
-            await companyPage.inputFifthField.fill(contactPhone);
+            await companyPage.inputFourthField.fill(FAKER_EMAIL_FOURTH);
+            await companyPage.inputFifthField.fill(FAKER_PHONE_FIRST);
             await companyPage.inputSixthtField.fill(TEXT_NO);
             await companyPage.inputSeventhField.fill(TEXT_ABSENT);
             await companyPage.submitButton.click();
 
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_FIRST)).toBeVisible();
 
-            await (page.getByText(name)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_FIRST)).click();
 
             await expect(page.getByText(ADMIN_EMAIL)).toBeVisible();
         });

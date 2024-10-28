@@ -2,7 +2,12 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
-import { TEXT_CHANGES_SAVED_SUCCESSFULLY, TITLE_UPDATE_FIRMWARE_VERSION, USER_NAME} from "../../utils/constants";
+import {
+    TEXT_CHANGES_SAVED_SUCCESSFULLY,
+    TITLE_UPDATE_FIRMWARE_VERSION,
+    URL_LOGIN, URL_PROFILE_PANELS,
+    USER_NAME
+} from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 
@@ -14,9 +19,9 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
     test.skip('Transfer of ownership to new user', { tag: '@smoke' }, async ({ page }) => {

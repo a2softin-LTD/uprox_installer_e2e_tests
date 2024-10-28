@@ -3,7 +3,14 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import { CompanyPage } from "../../pages/company/CompanyPage";
-import { TITLE_COMPANIES, TITLE_DEALERS, TITLE_TECHNICAL_SUPPORT } from "../../utils/constants";
+import {
+    FAKER_EMAIL_ADMIN,
+    FAKER_NAME_OF_COMPANY_SECOND,
+    TITLE_COMPANIES,
+    TITLE_DEALERS,
+    TITLE_TECHNICAL_SUPPORT,
+    URL_SUPPORT_SEARCH
+} from "../../utils/constants";
 
 test.describe('Company Page tests', () => {
 
@@ -23,13 +30,10 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8695ehy9m"
             });
 
-            const nameCompany: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email({ firstName: 'sastest2398_' });
-
             await loginPage.auth(SUPER_ADMIN);
 
             await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
-            expect(page.url()).toContain('/support/search');
+            expect(page.url()).toContain(URL_SUPPORT_SEARCH);
 
             await companyPage.companies.click();
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
@@ -38,21 +42,21 @@ test.describe('Company Page tests', () => {
             await expect(companyPage.pageTitle.filter({hasText:TITLE_DEALERS})).toBeVisible();
 
             await companyPage.addButton.click();
-            await companyPage.inputFirstField.fill(adminEmail);
-            await companyPage.inputSecondField.fill(nameCompany);
+            await companyPage.inputFirstField.fill(FAKER_EMAIL_ADMIN);
+            await companyPage.inputSecondField.fill(FAKER_NAME_OF_COMPANY_SECOND);
 
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_DEALERS})).toBeVisible({ timeout: 10000 });
-            await expect(page.getByText(nameCompany)).toBeVisible();
-            await expect(page.getByText(adminEmail)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_ADMIN)).toBeVisible();
 
-            await (page.getByText(nameCompany)).click()
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click()
             await companyPage.deleteUserButton.click();
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_DEALERS})).toBeVisible({ timeout: 10000 });
-            await expect(page.getByText(nameCompany)).not.toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).not.toBeVisible();
         });
 
 });

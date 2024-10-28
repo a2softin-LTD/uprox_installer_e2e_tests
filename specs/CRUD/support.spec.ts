@@ -3,10 +3,10 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
-    EMAIL_NECESSARY_NAME_PART, ROLE_SUPPORT_ADMIN_SMALL,
+    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND, ROLE_SUPPORT_ADMIN_SMALL,
     ROLE_SYS_ADMIN_SMALL, TEXT_ADD_SUPPORT, TEXT_EDIT_SUPPORT,
     TITLE_EMPLOYEES,
-    TITLE_TECHNICAL_SUPPORT, USER_PASSWORD_FIRST
+    TITLE_TECHNICAL_SUPPORT, URL_SUPPORT_SEARCH, USER_PASSWORD_FIRST
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -28,13 +28,10 @@ test.describe('Company Page test',() => {
                 description: "https://app.clickup.com/t/8694ayqex"
             });
 
-            const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await loginPage.auth(SUPER_ADMIN);
 
             await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
-            expect(page.url()).toContain('/support/search');
+            expect(page.url()).toContain(URL_SUPPORT_SEARCH);
 
             await companyPage.permissions.click();
 
@@ -44,17 +41,16 @@ test.describe('Company Page test',() => {
 
             await expect(page.getByText(TEXT_ADD_SUPPORT)).toBeVisible();
 
-            await companyPage.inputFirstField.fill(email);
+            await companyPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
             await companyPage.inputSecondField.fill(USER_PASSWORD_FIRST);
-            await companyPage.inputThirdField.fill(name);
+            await companyPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
             await companyPage.selectFirstField.click();
             await (page.getByText(ROLE_SYS_ADMIN_SMALL, {exact:true})).click();
             await companyPage.addButton.click();
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
-            await expect(page.getByText(email)).toBeVisible();
 
-            await (page.getByText(name)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
 
             await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
 
@@ -62,7 +58,7 @@ test.describe('Company Page test',() => {
             await companyPage.submitButton.click();
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 10000 });
-            await expect(page.getByText(email)).not.toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
 
     test('Creation of the Tech Support  under the Role = SUPER_ADMIN without password', { tag: '@smoke' }, async ({ page }) => {
@@ -71,13 +67,10 @@ test.describe('Company Page test',() => {
                 description: "https://app.clickup.com/t/8694atwq3"
             });
 
-            const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await loginPage.auth(SUPER_ADMIN);
 
             await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
-            expect(page.url()).toContain('/support/search');
+            expect(page.url()).toContain(URL_SUPPORT_SEARCH);
 
             await companyPage.permissions.click();
 
@@ -87,16 +80,15 @@ test.describe('Company Page test',() => {
 
             await expect(page.getByText(TEXT_ADD_SUPPORT)).toBeVisible();
 
-            await companyPage.inputFirstField.fill(email);
-            await companyPage.inputThirdField.fill(name);
+            await companyPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await companyPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
             await companyPage.selectFirstField.click();
             await (page.getByText(ROLE_SUPPORT_ADMIN_SMALL, {exact:true})).click();
             await companyPage.addButton.click();
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
-            await expect(page.getByText(email)).toBeVisible();
 
-            await (page.getByText(name)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
 
             await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
 
@@ -104,7 +96,7 @@ test.describe('Company Page test',() => {
             await companyPage.submitButton.click();
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 10000 });
-            await expect(page.getByText(email)).not.toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
     });
 
 });

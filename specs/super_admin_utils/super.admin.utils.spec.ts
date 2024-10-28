@@ -3,10 +3,31 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    TEXT_CHANGES_SAVED_SUCCESSFULLY, TEXT_CREATE_COUNTRY,
-    TEXT_DELETE_COUNTRY, TEXT_EDIT_COUNTRY,
+    COMPANY_MONITORING_SERVICE_EMAIL_FIRST,
+    COUNTRY_CODE_EN_FIRST, COUNTRY_CODE_EN_SECOND,
+    COUNTRY_CODE_FIRST,
+    COUNTRY_CODE_RU_FIRST, COUNTRY_CODE_RU_SECOND,
+    COUNTRY_CODE_UK_FIRST, COUNTRY_CODE_UK_SECOND,
+    TEXT_ADD_EMAIL_TO_WHITELIST,
+    TEXT_ADD_USER_TO_CAPTCHA__WHITELIST,
+    TEXT_CHANGES_SAVED_SUCCESSFULLY,
+    TEXT_CLEARING_CACHE,
+    TEXT_CLEARING_CACHE_CONFIRMATION,
+    TEXT_CREATE_COUNTRY,
+    TEXT_DELETE_COUNTRY,
+    TEXT_EDIT_COUNTRY,
     TEXT_LIST_OF_COUNTRIES,
-    TITLE_COUNTRY_CONTROL
+    TEXT_PANEL_NODE_FIRST,
+    TEXT_PANEL_NODE_SECOND,
+    TEXT_PANEL_NODE_THIRD,
+    TEXT_REMOVE_USER_FROM_WHITELIST,
+    TEXT_SEARCH_BY_EMAIL,
+    TITLE_ACCOUNT_SERVER,
+    TITLE_CAPTCHA_WHITE_LIST,
+    TITLE_COUNTRY_CONTROL,
+    URL_LOGIN,
+    URL_SUPPORT_SEARCH,
+    USER_EMAIL_SECOND
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', () => {
@@ -19,9 +40,9 @@ test.describe('SuperAdmin page tests', () => {
         superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
     test('Utils panel under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
@@ -36,16 +57,16 @@ test.describe('SuperAdmin page tests', () => {
 
         await expect(superAdminPage.utilsAddEmailToWhitelistButton).toBeVisible();
         await expect(superAdminPage.utilsExtractVersionButton).toBeVisible();
-        await expect(page.getByText('Account Server')).toBeVisible();
-        await expect(page.getByText('Country control')).toBeVisible();
-        await expect(page.getByText('Captcha white list')).toBeVisible();
-        await expect(page.getByText('Panel Server Node: devpanel-1.maks.systems')).toBeVisible();
-        await expect(page.getByText('Panel Server Node: devpanel-2.maks.systems')).toBeVisible();
-        await expect(page.getByText('Panel Server Node: devpanel-3.maks.systems')).toBeVisible();
+        await expect(page.getByText(TITLE_ACCOUNT_SERVER)).toBeVisible();
+        await expect(page.getByText(TITLE_COUNTRY_CONTROL)).toBeVisible();
+        await expect(page.getByText(TITLE_CAPTCHA_WHITE_LIST)).toBeVisible();
+        await expect(page.getByText(TEXT_PANEL_NODE_FIRST)).toBeVisible();
+        await expect(page.getByText(TEXT_PANEL_NODE_SECOND)).toBeVisible();
+        await expect(page.getByText(TEXT_PANEL_NODE_THIRD)).toBeVisible();
 
-        await (page.getByText('Account Server')).click();
+        await (page.getByText(TITLE_ACCOUNT_SERVER)).click();
 
-        await expect(page.getByText('Clearing the cache on the Account server')).toBeVisible();
+        await expect(page.getByText(TEXT_CLEARING_CACHE)).toBeVisible();
         await expect(superAdminPage.clearButton).toBeVisible();
 
     });
@@ -58,12 +79,12 @@ test.describe('SuperAdmin page tests', () => {
 
         await superAdminPage.utils.click();
 
-        await (page.getByText('Account Server')).click();
+        await (page.getByText(TITLE_ACCOUNT_SERVER)).click();
 
-        await expect(page.getByText('Clearing the cache on the Account server')).toBeVisible();
+        await expect(page.getByText(TEXT_CLEARING_CACHE)).toBeVisible();
         await superAdminPage.clearButton.click();
 
-        await expect(page.getByText('Are you sure you want to clear the cache on Account server?')).toBeVisible();
+        await expect(page.getByText(TEXT_CLEARING_CACHE_CONFIRMATION)).toBeVisible();
         await superAdminPage.clearButton.click();
         await expect(page.getByText(TEXT_CHANGES_SAVED_SUCCESSFULLY)).toBeVisible();
     });
@@ -75,16 +96,14 @@ test.describe('SuperAdmin page tests', () => {
                 description: 'https://app.clickup.com/t/8694pyvf0'
             });
 
-            const email: string = "zajac@ukr.net";
-
             await superAdminPage.utils.click();
-            await (page.getByText('Captcha white list')).click();
+            await (page.getByText(TITLE_CAPTCHA_WHITE_LIST)).click();
 
-            await expect(page.getByText('Search by email')).toBeVisible();
+            await expect(page.getByText(TEXT_SEARCH_BY_EMAIL)).toBeVisible();
 
-            await superAdminPage.inputFirstField.fill(email);
+            await superAdminPage.inputFirstField.fill(COMPANY_MONITORING_SERVICE_EMAIL_FIRST);
 
-            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:COMPANY_MONITORING_SERVICE_EMAIL_FIRST})).toBeVisible();
             await expect(superAdminPage.utilsWhitelistEmailBlock).toHaveCount(1);
         });
 
@@ -94,43 +113,41 @@ test.describe('SuperAdmin page tests', () => {
                 description: 'https://app.clickup.com/t/8694pyvgf'
             });
 
-            const email: string = "d.pinchuk@itvsystems.com.ua";
-
             await superAdminPage.utils.click();
-            await (page.getByText('Captcha white list')).click();
+            await (page.getByText(TITLE_CAPTCHA_WHITE_LIST)).click();
 
-            await expect(page.getByText('Search by email')).toBeVisible();
+            await expect(page.getByText(TEXT_SEARCH_BY_EMAIL)).toBeVisible();
 
             await page.waitForTimeout(2000);
 
-            if (await page.getByText(email).isVisible()){
-                await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(superAdminPage.trashIcon).click();
-                await expect(page.getByText('Search by email')).toBeVisible();
+            if (await page.getByText(USER_EMAIL_SECOND).isVisible()){
+                await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: USER_EMAIL_SECOND})).locator(superAdminPage.trashIcon).click();
+                await expect(page.getByText(TEXT_SEARCH_BY_EMAIL)).toBeVisible();
 
-                await expect(page.getByText('Remove user from whitelist?')).toBeVisible();
+                await expect(page.getByText(TEXT_REMOVE_USER_FROM_WHITELIST)).toBeVisible();
 
                 await superAdminPage.submitButton.click();
-                await expect(page.getByText('Add email to whitelist')).toBeVisible();
-                await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
+                await expect(page.getByText(TEXT_ADD_EMAIL_TO_WHITELIST)).toBeVisible();
+                await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).not.toBeVisible();
             }
 
             await superAdminPage.utilsAddEmailToWhitelistButton.click();
 
-            await expect(page.getByText('Add user to captcha white list')).toBeVisible();
+            await expect(page.getByText(TEXT_ADD_USER_TO_CAPTCHA__WHITELIST)).toBeVisible();
 
-            await superAdminPage.inputField.fill(email);
+            await superAdminPage.inputField.fill(USER_EMAIL_SECOND);
             await superAdminPage.saveButton.click();
 
-            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).toBeVisible();
 
-            await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(superAdminPage.trashIcon).click();
+            await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: USER_EMAIL_SECOND})).locator(superAdminPage.trashIcon).click();
 
-            await expect(page.getByText('Remove user from whitelist?')).toBeVisible();
+            await expect(page.getByText(TEXT_REMOVE_USER_FROM_WHITELIST)).toBeVisible();
 
             await superAdminPage.submitButton.click();
 
-            await expect(page.getByText('Search by email')).toBeVisible();
-            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
+            await expect(page.getByText(TEXT_SEARCH_BY_EMAIL)).toBeVisible();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).not.toBeVisible();
         });
 
         test('Captcha whitelist: delete email', { tag: '@smoke' }, async ({ page }) => {
@@ -139,43 +156,41 @@ test.describe('SuperAdmin page tests', () => {
                 description: 'https://app.clickup.com/t/8694qbjc1'
             });
 
-            const email: string = "d.pinchuk@itvsystems.com.ua";
-
             await superAdminPage.utils.click();
-            await (page.getByText('Captcha white list')).click();
+            await (page.getByText(TITLE_CAPTCHA_WHITE_LIST)).click();
 
-            await expect(page.getByText('Search by email')).toBeVisible();
+            await expect(page.getByText(TEXT_SEARCH_BY_EMAIL)).toBeVisible();
 
             await page.waitForTimeout(2000);
 
-            if (await page.getByText(email).isVisible()){
-                await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(superAdminPage.trashIcon).click();
-                await expect(page.getByText('Search by email')).toBeVisible();
+            if (await page.getByText(USER_EMAIL_SECOND).isVisible()){
+                await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: USER_EMAIL_SECOND})).locator(superAdminPage.trashIcon).click();
+                await expect(page.getByText(TEXT_SEARCH_BY_EMAIL)).toBeVisible();
 
-                await expect(page.getByText('Remove user from whitelist?')).toBeVisible();
+                await expect(page.getByText(TEXT_REMOVE_USER_FROM_WHITELIST)).toBeVisible();
 
                 await superAdminPage.submitButton.click();
-                await expect(page.getByText('Add email to whitelist')).toBeVisible();
-                await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
+                await expect(page.getByText(TEXT_ADD_EMAIL_TO_WHITELIST)).toBeVisible();
+                await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).not.toBeVisible();
             }
 
             await superAdminPage.utilsAddEmailToWhitelistButton.click();
 
-            await expect(page.getByText('Add user to captcha white list')).toBeVisible();
+            await expect(page.getByText(TEXT_ADD_USER_TO_CAPTCHA__WHITELIST)).toBeVisible();
 
-            await superAdminPage.inputField.fill(email);
+            await superAdminPage.inputField.fill(USER_EMAIL_SECOND);
             await superAdminPage.saveButton.click();
 
-            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).toBeVisible();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).toBeVisible();
 
-            await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: email})).locator(superAdminPage.trashIcon).click();
+            await (superAdminPage.utilsWhitelistEmailBlock.filter({hasText: USER_EMAIL_SECOND})).locator(superAdminPage.trashIcon).click();
 
-            await expect(page.getByText('Remove user from whitelist?')).toBeVisible();
+            await expect(page.getByText(TEXT_REMOVE_USER_FROM_WHITELIST)).toBeVisible();
 
             await superAdminPage.submitButton.click();
 
-            await expect(page.getByText('Search by email')).toBeVisible();
-            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:email})).not.toBeVisible();
+            await expect(page.getByText(TEXT_SEARCH_BY_EMAIL)).toBeVisible();
+            await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).not.toBeVisible();
         });
 
     });
@@ -188,11 +203,6 @@ test.describe('SuperAdmin page tests', () => {
                 description: 'https://app.clickup.com/t/86966x7qf'
             });
 
-            const countryCode: string = "DD";
-            const countryUK: string = "ddr";
-            const countryEN: string = "dddr";
-            const countryRU: string = "ddddr";
-
             await superAdminPage.utils.click();
 
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
@@ -203,10 +213,10 @@ test.describe('SuperAdmin page tests', () => {
 
             await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
-            await superAdminPage.inputFirstField.fill(countryCode);
-            await superAdminPage.inputSecondField.fill(countryUK);
-            await superAdminPage.inputThirdField.fill(countryEN);
-            await superAdminPage.inputFourthField.fill(countryRU);
+            await superAdminPage.inputFirstField.fill(COUNTRY_CODE_FIRST);
+            await superAdminPage.inputSecondField.fill(COUNTRY_CODE_UK_FIRST);
+            await superAdminPage.inputThirdField.fill(COUNTRY_CODE_EN_FIRST);
+            await superAdminPage.inputFourthField.fill(COUNTRY_CODE_RU_FIRST);
             await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
@@ -217,9 +227,9 @@ test.describe('SuperAdmin page tests', () => {
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
             await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).toBeVisible();
 
-            await (superAdminPage.rowBlock.filter({hasText: countryCode})).locator(superAdminPage.trashIcon).click();
+            await (superAdminPage.rowBlock.filter({hasText: COUNTRY_CODE_FIRST})).locator(superAdminPage.trashIcon).click();
 
             await expect(page.getByText(TEXT_DELETE_COUNTRY, {exact:true})).toBeVisible();
 
@@ -233,7 +243,7 @@ test.describe('SuperAdmin page tests', () => {
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
             await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).not.toBeVisible();
         });
 
         test('Country control: delete country', { tag: '@smoke' }, async ({ page }) => {
@@ -242,11 +252,6 @@ test.describe('SuperAdmin page tests', () => {
                 description: 'https://app.clickup.com/t/8694pyv1f'
             });
 
-            const countryCode: string = "DD";
-            const countryUK: string = "ddr";
-            const countryEN: string = "dddr";
-            const countryRU: string = "ddddr";
-
             await superAdminPage.utils.click();
 
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
@@ -257,10 +262,10 @@ test.describe('SuperAdmin page tests', () => {
 
             await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
-            await superAdminPage.inputFirstField.fill(countryCode);
-            await superAdminPage.inputSecondField.fill(countryUK);
-            await superAdminPage.inputThirdField.fill(countryEN);
-            await superAdminPage.inputFourthField.fill(countryRU);
+            await superAdminPage.inputFirstField.fill(COUNTRY_CODE_FIRST);
+            await superAdminPage.inputSecondField.fill(COUNTRY_CODE_UK_FIRST);
+            await superAdminPage.inputThirdField.fill(COUNTRY_CODE_EN_FIRST);
+            await superAdminPage.inputFourthField.fill(COUNTRY_CODE_RU_FIRST);
             await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
@@ -271,9 +276,9 @@ test.describe('SuperAdmin page tests', () => {
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
             await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).toBeVisible();
 
-            await (superAdminPage.rowBlock.filter({hasText: countryCode})).locator(superAdminPage.trashIcon).click();
+            await (superAdminPage.rowBlock.filter({hasText: COUNTRY_CODE_FIRST})).locator(superAdminPage.trashIcon).click();
 
             await expect(page.getByText(TEXT_DELETE_COUNTRY, {exact:true})).toBeVisible();
 
@@ -287,7 +292,7 @@ test.describe('SuperAdmin page tests', () => {
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
             await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).not.toBeVisible();
         });
 
         test('Country control: country editing', { tag: '@smoke' }, async ({ page }) => {
@@ -296,14 +301,6 @@ test.describe('SuperAdmin page tests', () => {
                 description: 'https://app.clickup.com/t/8694pyuyj'
             });
 
-            const countryCode: string = "DD";
-            const countryUK: string = "ddr";
-            const countryEN: string = "dddr";
-            const countryRU: string = "ddddr";
-
-            const countryUKNew: string = "bbr";
-            const countryENNew: string = "bbbr";
-            const countryRUNew: string = "bbbbr";
 
             await superAdminPage.utils.click();
 
@@ -315,10 +312,10 @@ test.describe('SuperAdmin page tests', () => {
 
             await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
-            await superAdminPage.inputFirstField.fill(countryCode);
-            await superAdminPage.inputSecondField.fill(countryUK);
-            await superAdminPage.inputThirdField.fill(countryEN);
-            await superAdminPage.inputFourthField.fill(countryRU);
+            await superAdminPage.inputFirstField.fill(COUNTRY_CODE_FIRST);
+            await superAdminPage.inputSecondField.fill(COUNTRY_CODE_UK_FIRST);
+            await superAdminPage.inputThirdField.fill(COUNTRY_CODE_EN_FIRST);
+            await superAdminPage.inputFourthField.fill(COUNTRY_CODE_RU_FIRST);
             await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
@@ -329,17 +326,17 @@ test.describe('SuperAdmin page tests', () => {
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
             await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).toBeVisible();
 
             await page.waitForTimeout(3000);
 
-           await (superAdminPage.rowBlock.filter({hasText:countryCode})).locator(superAdminPage.editIcon).click({force:true});
+           await (superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).locator(superAdminPage.editIcon).click({force:true});
 
             await expect(page.getByText(TEXT_EDIT_COUNTRY)).toBeVisible();
 
-            await superAdminPage.inputSecondField.fill(countryUKNew);
-            await superAdminPage.inputThirdField.fill(countryENNew);
-            await superAdminPage.inputFourthField.fill(countryRUNew);
+            await superAdminPage.inputSecondField.fill(COUNTRY_CODE_UK_SECOND);
+            await superAdminPage.inputThirdField.fill(COUNTRY_CODE_EN_SECOND);
+            await superAdminPage.inputFourthField.fill(COUNTRY_CODE_RU_SECOND);
             await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
@@ -350,11 +347,10 @@ test.describe('SuperAdmin page tests', () => {
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
             await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryUKNew})).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryRUNew})).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryENNew})).toBeVisible();
 
-            await (superAdminPage.rowBlock.filter({hasText: countryCode})).locator(superAdminPage.trashIcon).click();
+            await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_EN_SECOND})).toBeVisible();
+
+            await (superAdminPage.rowBlock.filter({hasText: COUNTRY_CODE_FIRST})).locator(superAdminPage.trashIcon).click();
 
             await expect(page.getByText(TEXT_DELETE_COUNTRY, {exact:true})).toBeVisible();
 
@@ -368,7 +364,7 @@ test.describe('SuperAdmin page tests', () => {
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
             await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
-            await expect(superAdminPage.rowBlock.filter({hasText:countryCode})).not.toBeVisible();
+            await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).not.toBeVisible();
         });
 
     });

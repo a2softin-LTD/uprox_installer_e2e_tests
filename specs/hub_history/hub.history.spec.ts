@@ -6,7 +6,7 @@ import {
     TEXT_ADDED_NEW_USER,
     TEXT_REMOVED_USER,
     TEXT_SAVE_IN__XLS,
-    TITLE_UPDATE_FIRMWARE_VERSION
+    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS
 } from "../../utils/constants";
 
 test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
@@ -19,9 +19,10 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
+
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
@@ -36,6 +37,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678rvbyg'
             });
+            await page.waitForTimeout(2000);
 
             for (const event of await hubPage.historyEvent.all())
             { await expect(event).toBeVisible();}
@@ -74,11 +76,6 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
             });
 
             await hubPage.saveInXLSButton.click();
-           // const downloadPromise = page.waitForEvent('download');
-            //await hubPage.exportButton.click();
-           // const download = await downloadPromise;
-           // await download.saveAs(download.suggestedFilename());
-
             const [download]=await
                 Promise.all([page.waitForEvent('download'), hubPage.exportButton.click()] );
 

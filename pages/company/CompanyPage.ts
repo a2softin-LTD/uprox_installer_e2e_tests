@@ -14,6 +14,9 @@ export class CompanyPage extends BasePage {
     private readonly _companyCountry: Locator;
     private readonly _companyUsersCabinet: Locator;
     private readonly _companyDisplayInAdvertising: Locator;
+    private readonly _companyDealer: Locator;
+    private readonly _companyPermaconn: Locator;
+
     private readonly _companyLanguageForEmails: Locator;
     private readonly _companyGuestEngineers: Locator;
     private readonly _companyEventCategories: Locator;
@@ -83,10 +86,13 @@ export class CompanyPage extends BasePage {
         this._companyContactPhone = this.page.locator('state-property-view[propname="feature_company_fields_contact_phone"]');
         this._companyCountry = this.page.locator('state-property-view[propname="feature_panel_additional_info_country"]');
         this._companyUsersCabinet = this.page.locator('state-property-view[propname="feature_company_cabinet_header"]');
-        this._companyDisplayInAdvertising = page.getByText('Display in advertising');
+        this._companyDisplayInAdvertising = this.page.locator('state-property-view[propname="feature_company_ads_header"]');
+        this._companyDealer = this.page.locator('state-property-view[propname="feature_employee_role_dealer"]');
+        this._companyPermaconn = this.page.locator('state-property-view[propname="Permaconn"]');
+
         this._companyLanguageForEmails = this.page.locator('state-property-view[propname="feature_user_email_language_title"]');
         this._companyGuestEngineers = this.page.locator('state-property-view[propname="feature_guest_engineers_control_title"]');
-        this._companyAutoProcessingConAppl = page.getByText('Auto processing of connection applications');
+        this._companyAutoProcessingConAppl = this.page.locator('state-property-view[propname="feature_application_auto_processing"]');
         this._companyAutoProcessingDisconAppl = page.getByText('Auto processing of disconnection applications');
         this._companyEventCategories = this.page.locator('state-property-view[propname="feature_event_category_title"]');
         this._companyChangeLogoButton = page.getByText('Change logo');
@@ -183,6 +189,14 @@ export class CompanyPage extends BasePage {
 
     get companyAutoProcessingConAppl(): Locator {
         return this._companyAutoProcessingConAppl;
+    }
+
+    get companyDealer(): Locator {
+        return this._companyDealer;
+    }
+
+    get companyPermaconn(): Locator {
+        return this._companyPermaconn;
     }
 
     get companyAutoProcessingDisconAppl  (): Locator {

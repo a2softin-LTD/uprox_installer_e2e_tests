@@ -3,10 +3,10 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN, SYSTEM_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
-        EMAIL_NECESSARY_NAME_PART,
+        EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
         TEXT_ADDING_GROUPS_OF_COMPANIES, TEXT_DELETING_GROUPS_OF_COMPANIES,
         TITLE_GROUPS_OF_COMPANIES,
-        TITLE_TECHNICAL_SUPPORT
+        TITLE_TECHNICAL_SUPPORT, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -28,13 +28,10 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8694attun"
             });
 
-            const nameCompany: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await loginPage.auth(SYSTEM_ADMIN);
 
             await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
-            expect(page.url()).toContain('/support/search');
+            expect(page.url()).toContain(URL_SUPPORT_SEARCH);
 
             await companyPage.companies.click();
             await companyPage.groupsOfCompanies.click();
@@ -43,8 +40,8 @@ test.describe('Company Page tests', () => {
 
             await companyPage.companyAddGroupButton.click()
             await expect(page.getByText(TEXT_ADDING_GROUPS_OF_COMPANIES)).toBeVisible();
-            await companyPage.inputFirstField.fill(nameCompany);
-            await companyPage.inputSecondField.fill(adminEmail);
+            await companyPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await companyPage.inputSecondField.fill(FAKER_EMAIL_FIRST);
             await companyPage.connectButton.click();
             await companyPage.connectButton.last().click();
             await page.waitForTimeout(3000);
@@ -55,16 +52,16 @@ test.describe('Company Page tests', () => {
             await page.waitForTimeout(1000);
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible({ timeout: 10000 });
-            await expect(page.getByText(nameCompany)).toBeVisible({ timeout: 10000 });
-            await expect(page.getByText(adminEmail)).toBeVisible({ timeout: 10000 });
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible({ timeout: 10000 });
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible({ timeout: 10000 });
 
-            await (page.getByText(nameCompany)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
             await companyPage.deleteButton.click();
             await expect(page.getByText(TEXT_DELETING_GROUPS_OF_COMPANIES)).toBeVisible();
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
-            await expect(page.getByText(nameCompany)).not.toBeVisible({ timeout: 10000 });
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).not.toBeVisible({ timeout: 10000 });
     });
 
     test('Creation of the Corporate Admin under the Role = SUPER_ADMIN', { tag: '@smoke' }, async ({ page }) => {
@@ -73,13 +70,10 @@ test.describe('Company Page tests', () => {
                 description: "https://app.clickup.com/t/8694atuwv"
             });
 
-            const nameCompany: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const adminEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await loginPage.auth(SUPER_ADMIN);
 
             await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
-            expect(page.url()).toContain('/support/search');
+            expect(page.url()).toContain(URL_SUPPORT_SEARCH);
 
             await companyPage.companies.click();
             await companyPage.groupsOfCompanies.click();
@@ -90,8 +84,8 @@ test.describe('Company Page tests', () => {
 
             await expect(page.getByText(TEXT_ADDING_GROUPS_OF_COMPANIES)).toBeVisible();
 
-            await companyPage.inputFirstField.fill(nameCompany);
-            await companyPage.inputSecondField.fill(adminEmail);
+            await companyPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await companyPage.inputSecondField.fill(FAKER_EMAIL_FIRST);
 
             await companyPage.connectButton.click();
             await companyPage.connectButton.last().click()
@@ -103,16 +97,16 @@ test.describe('Company Page tests', () => {
             await page.waitForTimeout(2000)
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
-            await expect(page.getByText(nameCompany)).toBeVisible();
-            await expect(page.getByText(adminEmail)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
-            await (page.getByText(nameCompany)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
             await companyPage.deleteButton.click();
             await expect(page.getByText(TEXT_DELETING_GROUPS_OF_COMPANIES)).toBeVisible();
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
-            await expect(page.getByText(nameCompany)).not.toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).not.toBeVisible();
     });
 
 });

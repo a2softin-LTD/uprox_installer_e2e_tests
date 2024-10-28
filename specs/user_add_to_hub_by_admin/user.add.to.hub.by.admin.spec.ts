@@ -7,7 +7,7 @@ import {
     USER_NAME,
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
     TITLE_SYSTEM,
-    TITLE_USERS
+    TITLE_USERS, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
@@ -22,9 +22,9 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(MONITORING_SERVICE_COMPANY_3);
-        await expect(page).toHaveURL('/panels');
+        await expect(page).toHaveURL(URL_PANELS);
     });
 
     test.skip('Add new user by ADMIN', { tag: '@smoke' }, async ({ page }) => {

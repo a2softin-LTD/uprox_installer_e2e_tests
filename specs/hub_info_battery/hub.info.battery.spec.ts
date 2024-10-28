@@ -2,9 +2,14 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
-import { TEXT_DEVICE_BATTERY_STATISTICS, TITLE_UPDATE_FIRMWARE_VERSION } from "../../utils/constants";
+import {
+    TEXT_DEVICE_BATTERY_STATISTICS,
+    TITLE_UPDATE_FIRMWARE_VERSION,
+    URL_LOGIN,
+    URL_PROFILE_PANELS
+} from "../../utils/constants";
 
-test.describe('Hub Page tests', () => {
+test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -15,10 +20,9 @@ test.describe('Hub Page tests', () => {
 
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await page.waitForTimeout(2000);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
     test('Information about the hub battery state', { tag: ['@smoke', '@stable', '@hub']}, async ({ page }) => {

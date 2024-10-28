@@ -5,7 +5,7 @@ import { USER_1,USER_3 } from "../../utils/user_data";
 import {
     BUTTON_DELETE_USER,
     BUTTON_TRANSFER_OWNERSHIP,
-    TITLE_UPDATE_FIRMWARE_VERSION,
+    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS,
     USER_NAME, USER_SHORT_FIRST
 } from "../../utils/constants";
 
@@ -19,9 +19,9 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
         await hubPage.firstHub.click();

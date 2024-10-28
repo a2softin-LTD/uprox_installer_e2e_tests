@@ -7,7 +7,7 @@ import {
     BUTTON_TRANSFER_OWNERSHIP, TEXT_CHANGE_USER_NAME,
     TEXT_EDITING_EMAIL,
     TITLE_EDIT_USER,
-    TITLE_UPDATE_FIRMWARE_VERSION,
+    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS,
     USER_EMAIL,
     USER_EMAIL_NON_REGISTERED,
     USER_FULL_FIRST,
@@ -16,7 +16,7 @@ import {
     USER_NAME_NEW, USER_SHORT_FIRST, USER_SHORT_SECOND
 } from "../../utils/constants";
 
-test.describe('Hub Page tests', () => {
+test.describe('Hub Page tests', { tag: '@hub' }, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -25,11 +25,10 @@ test.describe('Hub Page tests', () => {
         loginPage = new LoginPage(page);
         hubPage = new HubPage(page);
 
-
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
         await hubPage.firstHub.click();

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { ENGINEER,USER_3 } from "../../utils/user_data";
-import { USER_NAME } from "../../utils/constants";
+import {URL_LOGIN, URL_PROFILE_FEEDBACK, USER_NAME} from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 
@@ -14,9 +14,9 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(ENGINEER);
-        await expect(page).toHaveURL('/profile/feedback');
+        await expect(page).toHaveURL(URL_PROFILE_FEEDBACK);
     });
 
     test.skip('Add new user by ENGINEER', { tag: '@smoke' }, async ({ page }) => {

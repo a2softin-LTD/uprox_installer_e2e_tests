@@ -3,21 +3,35 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
 import {
+    BUTTON_ADD_COMPANY, BUTTON_ADD_USER,
     BUTTON_ADD_WIRELESS_DEVICE,
     BUTTON_RESTART_PANEL,
-    BUTTON_TRANSFER_OWNERSHIP,
+    BUTTON_TRANSFER_OWNERSHIP, CODE_FIRST,
     COUNTRY_MOLDOVA,
     COUNTRY_UKRAINE,
     HUB_NAME_FIRST,
-    HUB_NAME_THIRD, SETTINGS_10_SECONDS, SETTINGS_30_SECONDS,
+    HUB_NAME_THIRD,
+    SETTINGS_10_SECONDS,
+    SETTINGS_30_SECONDS,
     SETTINGS_AUTOMATICALLY,
+    SETTINGS_DISABLE,
+    SETTINGS_DISABLED,
     SETTINGS_MANUALLY,
-    TEXT_SELECT_CONTROLLER_TIME_ZONE,
+    SETTINGS_TRACK,
+    SETTINGS_TURN_OFF,
+    SETTINGS_TURN_ON, TEXT_4_SYMBOLS, TEXT_6_SYMBOLS,
+    TEXT_CHANGE_KEYPAD_CODE_LENGTH, TEXT_COMMUNITY, TEXT_DISABLE_RADIO_JAM, TEXT_DISABLE_TAMPER, TEXT_DISTRICT,
+    TEXT_INSTALLATION_COUNTRY, TEXT_PANEL_TAMPER_DISABLED, TEXT_RADIO_JAM_DISABLED, TEXT_REGION, TEXT_SELECT_COMMUNITY,
+    TEXT_SELECT_CONTROLLER_TIME_ZONE, TEXT_SELECT_DISTRICT, TEXT_SELECT_REGION,
     TIME_ZONE_FIRST,
-    TIME_ZONE_SECOND
+    TIME_ZONE_SECOND, TITLE_SPECIAL_SETTINGS,
+    TITLE_UPDATE_FIRMWARE_VERSION,
+    TITLE_USERS,
+    URL_LOGIN,
+    URL_PROFILE_PANELS, USER_FULL_FIRST, USER_NAME
 } from "../../utils/constants";
 
-test.describe('Hub Page tests', () => {
+test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -27,15 +41,15 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
         await hubPage.firstHub.click();
 
         await page.waitForTimeout(2000);
-        if (await page.getByText('Update firmware version').isVisible())
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.hubPanel.click();
     });
@@ -76,14 +90,13 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8694etg0f"
         });
 
-
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
         if (await hubPage.settingsCountry.filter({hasText:COUNTRY_MOLDOVA}).isVisible()){
             await hubPage.settingsCountry.click();
 
-            await expect(page.getByText('Installation Country')).toBeVisible();
+            await expect(page.getByText(TEXT_INSTALLATION_COUNTRY)).toBeVisible();
 
             await hubPage.inputField.click();
             await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
@@ -93,7 +106,7 @@ test.describe('Hub Page tests', () => {
 
         else {await hubPage.settingsCountry.click();
 
-        await expect(page.getByText('Installation Country')).toBeVisible();
+        await expect(page.getByText(TEXT_INSTALLATION_COUNTRY)).toBeVisible();
 
         await hubPage.inputField.click();
         await page.getByText(COUNTRY_MOLDOVA, {exact: true}).click();
@@ -105,7 +118,7 @@ test.describe('Hub Page tests', () => {
 
         await hubPage.settingsCountry.click();
 
-        await expect(page.getByText('Installation Country')).toBeVisible();
+        await expect(page.getByText(TEXT_INSTALLATION_COUNTRY)).toBeVisible();
 
         await hubPage.inputField.click();
         await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
@@ -152,32 +165,29 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8694etg0f"
         });
 
-        const turnOn: string = "Turn on";
-        const turnOff: string = "Turn off";
-
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
-        if (await hubPage.settingsLightIndication.filter({hasText:turnOff}).isVisible()){
+        if (await hubPage.settingsLightIndication.filter({hasText:SETTINGS_TURN_OFF}).isVisible()){
             await hubPage.settingsLightIndication.click();
-            await (page.getByText(turnOn, {exact: true}).first()).click();
+            await (page.getByText(SETTINGS_TURN_ON, {exact: true}).first()).click();
             await hubPage.saveButton.click();
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
-            await expect(hubPage.settingsLightIndication.filter({hasText:turnOn})).toBeVisible();}
+            await expect(hubPage.settingsLightIndication.filter({hasText:SETTINGS_TURN_ON})).toBeVisible();}
 
         else {await hubPage.settingsLightIndication.click();
-        await (page.getByText(turnOff, {exact: true}).first()).click();
+        await (page.getByText(SETTINGS_TURN_OFF, {exact: true}).first()).click();
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
-        await expect(page.getByText(turnOff).first()).toBeVisible();
+        await expect(page.getByText(SETTINGS_TURN_OFF).first()).toBeVisible();
 
         await hubPage.settingsLightIndication.click();
-        await page.getByText(turnOn, {exact: true}).click();
+        await page.getByText(SETTINGS_TURN_ON, {exact: true}).click();
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
-        await expect(page.getByText(turnOn)).toBeVisible();}
+        await expect(page.getByText(SETTINGS_TURN_ON)).toBeVisible();}
     });
 
     test.skip('Hub air alarm setting', { tag: ['@smoke'] }, async ({ page }) => {
@@ -186,27 +196,23 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8694etg0f"
         });
 
-        const region: string = "Дніпропетровська область";
-        const district: string = "Дніпровський район";
-        const community: string = "Любимівська територіальна громада";
-
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await hubPage.settingsAirAlarm.click();
         await hubPage.onButton.click();
-        await page.getByText('Select region').click();
-        await page.getByText((region)).click();
-        await page.getByText('Select district').click();
-        await page.getByText((district)).click();
-        await page.getByText('Select community').click();
-        await page.getByText((community)).click();
+        await page.getByText(TEXT_SELECT_REGION).click();
+        await page.getByText((TEXT_REGION)).click();
+        await page.getByText(TEXT_SELECT_DISTRICT).click();
+        await page.getByText((TEXT_DISTRICT)).click();
+        await page.getByText(TEXT_SELECT_COMMUNITY).click();
+        await page.getByText((TEXT_COMMUNITY)).click();
         await hubPage.saveButton.click();
         await hubPage.settingsAirAlarm.click();
         await hubPage.offButton.click();
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
-        await expect(page.getByText('Turn off')).toBeVisible();
+        await expect(page.getByText(SETTINGS_TURN_OFF)).toBeVisible();
     });
 
     test('Track Sim-Card Expenses setting', { tag: '@smoke' }, async ({ page }) => {
@@ -215,32 +221,29 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8694etg0f"
         });
 
-        const track: string = "Track";
-        const disabled: string = "Disabled";
-
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
-        if (await hubPage.settingsTrackSimCardExpenses.filter({hasText:track, hasNotText:'Disable'}).isVisible()){
+        if (await hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_TRACK, hasNotText:SETTINGS_DISABLE}).isVisible()){
             await hubPage.settingsTrackSimCardExpenses.click();
             await hubPage.disableButton.click();
             await hubPage.saveButton.click();
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
-            await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:disabled})).toBeVisible();}
+            await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_DISABLED})).toBeVisible();}
 
         else {await hubPage.settingsTrackSimCardExpenses.click();
-        await page.getByText(track, {exact: true}).click();
+        await page.getByText(SETTINGS_TRACK, {exact: true}).click();
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
-        await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:track})).toBeVisible();
+        await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_TRACK})).toBeVisible();
 
         await hubPage.settingsTrackSimCardExpenses.click();
         await hubPage.disableButton.click();
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
-        await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:disabled})).toBeVisible();}
+        await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_DISABLED})).toBeVisible();}
     });
 
     test('Auto cansel alarm setting', { tag: '@smoke' }, async ({ page }) => {
@@ -318,10 +321,6 @@ test.describe('Hub Page tests', () => {
             description: "https://app.clickup.com/t/8693q67d2"
         });
 
-        const name: string = "Дмитро";
-        const user: string = "01 | Дмитро | snaut12@gmail.com";
-        const code: string = "1111";
-
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await hubPage.settingsKeypadCodeLength.click();
@@ -329,23 +328,23 @@ test.describe('Hub Page tests', () => {
         if (await hubPage.changeButton.isDisabled())
         {   await hubPage.settingsKeypadCodeLength6digits.click()
             await hubPage.change_Button.click();
-            await expect(page.getByText('6 symbols')).toBeVisible();
+            await expect(page.getByText(TEXT_6_SYMBOLS)).toBeVisible();
             await hubPage.settingsKeypadCodeLength.click();
-            await expect(page.getByText('Change keypad code length')).toBeVisible();
+            await expect(page.getByText(TEXT_CHANGE_KEYPAD_CODE_LENGTH)).toBeVisible();
             await hubPage.settingsKeypadCodeLength4digits.click();}
         await hubPage.change_Button.click();
 
-        await expect(page.getByText('4 symbols')).toBeVisible();
-        await expect(page.getByText('Users', {exact: true})).toBeVisible();
+        await expect(page.getByText(TEXT_4_SYMBOLS)).toBeVisible();
+        await expect(page.getByText(TITLE_USERS, {exact: true})).toBeVisible();
 
         await hubPage.users.click();
-        if (await (page.getByText(name)).isVisible()) {
-            await page.getByText(name).click();
+        if (await (page.getByText(USER_NAME)).isVisible()) {
+            await page.getByText(USER_NAME).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
-        await expect(page.getByText('Add user')).toBeVisible();
+        await expect(page.getByText(BUTTON_ADD_USER)).toBeVisible();
         await hubPage.addButton.click();
-        await hubPage.addUserName.fill(name);
+        await hubPage.addUserName.fill(USER_NAME);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
 
@@ -354,17 +353,17 @@ test.describe('Hub Page tests', () => {
             await page.reload();
             await page.waitForTimeout(1000);
             await hubPage.backButton.click();}
-        finally {await expect(page.getByText(user)).toBeVisible();}
+        finally {await expect(page.getByText(USER_FULL_FIRST)).toBeVisible();}
 
-        await page.getByText(user).click();
+        await page.getByText(USER_FULL_FIRST).click();
         await hubPage.settingsArmKeypadCode.click();
-        await hubPage.settingsKeypadCodeField.fill(code);
+        await hubPage.settingsKeypadCodeField.fill(CODE_FIRST);
         await hubPage.saveButton.click()
 
-        await expect(page.getByText('Users', {exact: true})).toBeVisible();
+        await expect(page.getByText(TITLE_USERS, {exact: true})).toBeVisible();
 
         await hubPage.users.click();
-        await page.getByText(name).click();
+        await page.getByText(USER_NAME).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
         await hubPage.system.click()
@@ -373,11 +372,11 @@ test.describe('Hub Page tests', () => {
 
         await hubPage.hubPanel.click();
         await hubPage.settingsKeypadCodeLength.click();
-        await expect(page.getByText('Change keypad code length')).toBeVisible();
+        await expect(page.getByText(TEXT_CHANGE_KEYPAD_CODE_LENGTH)).toBeVisible();
         await hubPage.settingsKeypadCodeLength6digits.click();
         await hubPage.change_Button.click();
 
-        await expect(page.getByText('6 symbols')).toBeVisible();
+        await expect(page.getByText(TEXT_6_SYMBOLS)).toBeVisible();
     });
 
     test('Special settings', { tag: '@smoke' }, async ({ page }) => {
@@ -387,21 +386,21 @@ test.describe('Hub Page tests', () => {
         });
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
-        await page.getByText('Special settings', {exact: true}).click();
-        await page.getByText('Disable tamper', {exact: true}).click();
-        await page.getByText('Disable radio jam detection', {exact: true}).click();
+        await page.getByText(TITLE_SPECIAL_SETTINGS, {exact: true}).click();
+        await page.getByText(TEXT_DISABLE_TAMPER, {exact: true}).click();
+        await page.getByText(TEXT_DISABLE_RADIO_JAM, {exact: true}).click();
         await hubPage.submitButton.click();
 
-        await expect(page.getByText('Panel tamper disabled')).toBeVisible();
-        await expect(page.getByText('Radio jam detection disabled')).toBeVisible();
+        await expect(page.getByText(TEXT_PANEL_TAMPER_DISABLED)).toBeVisible();
+        await expect(page.getByText(TEXT_RADIO_JAM_DISABLED)).toBeVisible();
 
-        await page.getByText('Special settings', {exact: true}).click();
-        await page.getByText('Disable tamper', {exact: true}).click();
-        await page.getByText('Disable radio jam detection', {exact: true}).click();
+        await page.getByText(TITLE_SPECIAL_SETTINGS, {exact: true}).click();
+        await page.getByText(TEXT_DISABLE_TAMPER, {exact: true}).click();
+        await page.getByText(TEXT_DISABLE_RADIO_JAM, {exact: true}).click();
         await hubPage.submitButton.click();
 
-        await expect(page.getByText('Panel tamper disabled')).not.toBeVisible();
-        await expect(page.getByText('Radio jam detection disabled')).not.toBeVisible();
+        await expect(page.getByText(TEXT_PANEL_TAMPER_DISABLED)).not.toBeVisible();
+        await expect(page.getByText(TEXT_RADIO_JAM_DISABLED)).not.toBeVisible();
     });
 
 });

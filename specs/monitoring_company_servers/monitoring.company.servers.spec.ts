@@ -7,7 +7,7 @@ import {
     SERVER_NAME_FIRST,
     SERVER_NAME_SECOND, SERVER_PORT_FIRST,
     SERVER_PORT_SECOND,
-    TITLE_COMPANY_SETTINGS
+    TITLE_COMPANY_SETTINGS, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -21,9 +21,9 @@ test.describe('Company Page test', () => {
         companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login')
+        await expect(page).toHaveURL(URL_LOGIN)
         await loginPage.auth(MONITORING_COMPANY);
-        await expect(page).toHaveURL('/panels');
+        await expect(page).toHaveURL(URL_PANELS);
         await companyPage.company.click();
         await companyPage.companyServerList.click();
         await page.waitForTimeout(2000);
@@ -44,13 +44,18 @@ test.describe('Company Page test', () => {
         await companyPage.company.click();
         await companyPage.companyServerList.click();
 
+        await page.waitForTimeout(2000);
+
         await expect(companyPage.companyServerAddButton).toBeVisible();
         for (const server of await companyPage.entityBlock.all())
-            await expect(server).toBeVisible();
+        { await expect(server).toBeVisible();}
+
         for (const server of await companyPage.entityBlock.all())
         {await expect(server.filter({has: companyPage.companyServerNameInfo})).toBeVisible();}
+
         for (const server of await companyPage.entityBlock.all())
         {await expect(server.filter({has: companyPage.companyServerDnsPortInfo})).toBeVisible();}
+
         for (const server of await companyPage.entityBlock.all())
         {await expect(server.filter({has: companyPage.trashIcon})).toBeVisible();}
     });

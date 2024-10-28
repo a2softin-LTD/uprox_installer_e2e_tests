@@ -4,22 +4,37 @@ import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
+    CABINET_FIRST, CABINET_SECOND,
     COMPANY_FIRST,
     COMPANY_SECOND,
     COMPANY_THIRD,
-    COUNTRY_ALGERIA,
+    COUNTRY_ALGERIA, COUNTRY_MOLDOVA, COUNTRY_MOLDOVA_SHORT,
     COUNTRY_UKRAINE,
     COUNTRY_UKRAINE_SHORT,
+    DEALER_EMAIL_FIRST,
+    DEALER_EMAIL_FIRST_SHORT,
+    DEALER_EMAIL_SECOND,
+    DEALER_EMAIL_SECOND_SHORT,
     EMAIL_NECESSARY_NAME_PART,
+    FAKER_EMAIL_FIRST,
+    FAKER_EMAIL_SECOND, FAKER_EMAIL_THIRD,
+    FAKER_NAME_OF_COMPANY_FIRST,
+    FAKER_PHONE_FIRST,
     ROLE_MONITORING_COMPANY,
-    ROLE_SERVICE_COMPANIES,
+    ROLE_SERVICE_COMPANIES, SELECTOR_FIFTH, SELECTOR_FOURTH,
     SETTINGS_BLOCKED,
-    TEXT_ABSENT,
-    TEXT_NO, TEXT_SAVING_CHANGES,
+    TEXT_ABSENT, TEXT_CHANGE_COMPANY_DEALER,
+    TEXT_DISABLED,
+    TEXT_ENABLED, TEXT_ENTER_THE_LINK,
+    TEXT_NO,
+    TEXT_SAVING_CHANGES,
     TEXT_SUCCESSFULLY,
     TEXT_TEST_DEALER_ROLE,
+    TEXT_YES,
     TITLE_COMPANIES,
-    TITLE_COMPANY_SETTINGS
+    TITLE_COMPANY_SETTINGS,
+    URL_LOGIN,
+    URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -35,9 +50,9 @@ test.describe('SuperAdmin page tests',() => {
         superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
     test('Checking UI elements on company page under SUPER_ADMIN role',
@@ -70,6 +85,8 @@ test.describe('SuperAdmin page tests',() => {
 
             await superAdminPage.companies.click();
 
+            await page.waitForTimeout(2000);
+
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_COMPANIES)})).toBeVisible();
 
             for (const company of await superAdminPage.entityBlock.all())
@@ -85,38 +102,33 @@ test.describe('SuperAdmin page tests',() => {
                 description: "https://app.clickup.com/t/8694p407a"
             });
 
-            const name: string = faker.commerce.productName();
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const contactEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const contactPhone: string = faker.phone.number();
-
             await superAdminPage.companies.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_COMPANIES)})).toBeVisible();
 
             await companyPage.companyAddButton.click();
-            await superAdminPage.inputFirstField.fill(name);
-            await superAdminPage.inputSecondField.fill(email);
+            await superAdminPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_FIRST);
+            await superAdminPage.inputSecondField.fill(FAKER_EMAIL_FIRST);
             await superAdminPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
             await page.getByText(COUNTRY_UKRAINE).click();
             await superAdminPage.selectFirstField.click();
             await page.getByText(TEXT_TEST_DEALER_ROLE).click();
             await superAdminPage.selectSecondField.click();
             await page.getByText(ROLE_MONITORING_COMPANY).click();
-            await superAdminPage.inputFourthField.fill(contactEmail);
-            await superAdminPage.inputFifthField.fill(contactPhone);
+            await superAdminPage.inputFourthField.fill(FAKER_EMAIL_SECOND);
+            await superAdminPage.inputFifthField.fill(FAKER_PHONE_FIRST);
             await superAdminPage.inputSixthtField.fill(TEXT_NO);
             await superAdminPage.inputSeventhField.fill(TEXT_ABSENT);
             await superAdminPage.submitButton.click();
 
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_FIRST)).toBeVisible();
 
-            await page.getByText(name).click();
+            await page.getByText(FAKER_NAME_OF_COMPANY_FIRST).click();
             await companyPage.companyCloseButton.click();
             await page.getByText(COMPANY_FIRST).click();
             await superAdminPage.submitButton.click();
 
-            await expect(page.getByText(contactPhone)).not.toBeVisible();
+            await expect(page.getByText(FAKER_PHONE_FIRST)).not.toBeVisible();
         });
 
         test.skip('Delete company',{ tag: '@smoke' },async ({ page }) => {
@@ -125,36 +137,33 @@ test.describe('SuperAdmin page tests',() => {
                 description: "https://app.clickup.com/t/8694p40z1"
             });
 
-            const name: string = faker.commerce.productName();
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const contactEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-            const contactPhone: string = faker.phone.number();
-
-
             await superAdminPage.companies.click();
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_COMPANIES)})).toBeVisible();
+
             await companyPage.companyAddButton.click();
-            await superAdminPage.inputFirstField.fill(name);
-            await superAdminPage.inputSecondField.fill(email);
+            await superAdminPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_FIRST);
+            await superAdminPage.inputSecondField.fill(FAKER_EMAIL_FIRST);
             await superAdminPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
             await page.getByText(COUNTRY_UKRAINE).click();
             await superAdminPage.selectFirstField.click();
             await page.getByText(TEXT_TEST_DEALER_ROLE).click();
             await superAdminPage.selectSecondField.click();
             await page.getByText(ROLE_MONITORING_COMPANY).click();
-            await superAdminPage.inputFourthField.fill(contactEmail);
-            await superAdminPage.inputFifthField.fill(contactPhone);
+            await superAdminPage.inputFourthField.fill(FAKER_EMAIL_SECOND);
+            await superAdminPage.inputFifthField.fill(FAKER_PHONE_FIRST);
             await superAdminPage.inputSixthtField.fill(TEXT_NO);
             await superAdminPage.inputSeventhField.fill(TEXT_ABSENT);
             await superAdminPage.submitButton.click();
 
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_FIRST)).toBeVisible();
 
-            await page.getByText(name).click();
+            await page.getByText(FAKER_NAME_OF_COMPANY_FIRST).click();
             await companyPage.companyCloseButton.click();
             await page.getByText(COMPANY_FIRST).click();
             await superAdminPage.submitButton.click();
 
-           await expect(page.getByText(contactPhone)).not.toBeVisible();
+            await expect(page.getByText(FAKER_PHONE_FIRST)).not.toBeVisible();
         });
 
     });
@@ -192,7 +201,7 @@ test.describe('SuperAdmin page tests',() => {
 
             await superAdminPage.companies.click();
             await page.waitForTimeout(5000);
-            let hubsNumber=((await page.$$('div:text-is("Service companies")')).length)-1;
+            let hubsNumber=((await page.$$(SELECTOR_FOURTH)).length)-1;
             await companyPage.companyRoleFilter.click();
             await page.getByText(ROLE_SERVICE_COMPANIES, { exact: true }).first().click();
 
@@ -211,7 +220,7 @@ test.describe('SuperAdmin page tests',() => {
 
             await superAdminPage.companies.click();
             await page.waitForTimeout(5000);
-            let hubsNumber=((await page.$$('use[*|href="#icon-ban"]')).length);
+            let hubsNumber=((await page.$$(SELECTOR_FIFTH)).length);
             await companyPage.companyAllFilter.click();
             await page.getByText(SETTINGS_BLOCKED, { exact: true }).click();
 
@@ -267,8 +276,6 @@ test.describe('SuperAdmin page tests',() => {
                 description: "https://app.clickup.com/t/8694phr25"
             });
 
-            const email: string = faker.internet.email({ firstName: 'pol_' + EMAIL_NECESSARY_NAME_PART });
-
             await superAdminPage.companies.click();
             await page.waitForTimeout(2000);
             await page.getByText(COMPANY_THIRD).click();
@@ -276,14 +283,14 @@ test.describe('SuperAdmin page tests',() => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await companyPage.companyChangeAdminLogin.click();
-            await superAdminPage.inputFirstField.fill(email);
+            await superAdminPage.inputFirstField.fill(FAKER_EMAIL_THIRD);
             await superAdminPage.changeButton.click();
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await page.reload();
             await page.waitForTimeout(2000);
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            await expect(page.getByText(email)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_THIRD)).toBeVisible();
         });
 
         test('Another company settings editing under SUPER_ADMIN role', { tag: '@smoke'},async ({ page }) => {
@@ -298,11 +305,152 @@ test.describe('SuperAdmin page tests',() => {
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
-            await superAdminPage.resendEmailButton.click();
-            await superAdminPage.sendButton.click();
+            // COUNTRY
 
-            await expect(page.getByText(TEXT_SAVING_CHANGES)).toBeVisible();
-            await expect(page.getByText(TEXT_SUCCESSFULLY)).toBeVisible();
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyCountry.filter({hasText:COUNTRY_MOLDOVA}).isVisible())
+            {   await companyPage.companyCountry.click();
+                await companyPage.inputField.clear();
+                await companyPage.inputField.fill(COUNTRY_UKRAINE);
+                await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
+                await companyPage.submitButton.click();
+                await expect(companyPage.companyCountry.filter({hasText:COUNTRY_UKRAINE})).toBeVisible();}
+
+            await companyPage.companyCountry.click();
+            await companyPage.inputField.clear();
+            await companyPage.inputField.fill(COUNTRY_MOLDOVA_SHORT);
+            await page.getByText(COUNTRY_MOLDOVA, {exact: true}).click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            // USER CABINET
+
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyUsersCabinet.filter({hasText:CABINET_SECOND}).isVisible()){
+                await companyPage.companyUsersCabinet.click();
+                await companyPage.inputFirstField.first().fill(CABINET_FIRST);
+                await companyPage.submitButton.click();
+
+                await expect(page.getByText(CABINET_FIRST)).toBeVisible();}
+            await companyPage.companyUsersCabinet.click();
+
+            await expect(page.getByText(TEXT_ENTER_THE_LINK)).toBeVisible();
+
+            await companyPage.inputField.first().fill(CABINET_SECOND);
+            await companyPage.submitButton.click();
+
+            // DISPLAY IN ADVERTISING
+
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyDisplayInAdvertising.filter({hasText:TEXT_YES}).isVisible())
+            {   await companyPage.companyDisplayInAdvertising.click();
+                await companyPage.noButton.click();
+                await companyPage.submitButton.click();
+                await expect(companyPage.companyDisplayInAdvertising.filter({hasText:TEXT_NO})).toBeVisible();}
+
+            await companyPage.companyDisplayInAdvertising.click();
+            await companyPage.yesButton.click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.companyDisplayInAdvertising.filter({hasText:TEXT_YES})).toBeVisible();
+
+            // AUTO PROCESSING
+
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyAutoProcessingConAppl.filter({hasText:TEXT_ENABLED}).isVisible())
+            {   await companyPage.companyAutoProcessingConAppl.click();
+                await companyPage.disableButton.click();
+                await companyPage.submitButton.click();
+                await expect(companyPage.companyAutoProcessingConAppl.filter({hasText:TEXT_DISABLED})).toBeVisible();}
+
+            await companyPage.companyAutoProcessingConAppl.click();
+            await companyPage.enabledButton.click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            // PERMACONN
+
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyPermaconn.filter({hasText:TEXT_ENABLED}).isVisible())
+            {   await companyPage.companyPermaconn.click();
+                await companyPage.disableButton.click();
+                await companyPage.submitButton.click();
+                await expect(companyPage.companyPermaconn.filter({hasText:TEXT_DISABLED})).toBeVisible();}
+
+            await companyPage.companyPermaconn.click();
+            await companyPage.enabledButton.click();
+            await companyPage.submitButton.click();
+
+            // DEALER
+
+            await page.waitForTimeout(2000);
+            if (await companyPage.companyDealer.filter({hasText:DEALER_EMAIL_SECOND_SHORT}).isVisible())
+            {   await companyPage.companyDealer.click();
+                await expect(page.getByText(TEXT_CHANGE_COMPANY_DEALER)).toBeVisible();
+                await page.getByText(DEALER_EMAIL_FIRST).click();
+                await companyPage.submitButton.click();
+                await expect(companyPage.companyDealer.filter({hasText:DEALER_EMAIL_FIRST_SHORT})).toBeVisible();}
+
+            await companyPage.companyDealer.click();
+            await expect(page.getByText(TEXT_CHANGE_COMPANY_DEALER)).toBeVisible();
+            await page.getByText(DEALER_EMAIL_SECOND).click();
+            await companyPage.submitButton.click();
+
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+            await expect(companyPage.companyCountry.filter({hasText:COUNTRY_MOLDOVA})).toBeVisible();
+            await expect(companyPage.companyUsersCabinet.filter({hasText:CABINET_SECOND})).toBeVisible();
+            await expect(companyPage.companyDisplayInAdvertising.filter({hasText:TEXT_YES})).toBeVisible();
+            await expect(companyPage.companyAutoProcessingConAppl.filter({hasText:TEXT_ENABLED})).toBeVisible();
+            await expect(companyPage.companyPermaconn.filter({hasText:TEXT_ENABLED})).toBeVisible();
+            await expect(companyPage.companyDealer.filter({hasText:DEALER_EMAIL_SECOND_SHORT})).toBeVisible();
+
+            await companyPage.companyCountry.click();
+            await companyPage.inputField.fill(COUNTRY_UKRAINE);
+            await page.getByText(COUNTRY_UKRAINE).click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyUsersCabinet.click();
+            await expect(page.getByText(TEXT_ENTER_THE_LINK)).toBeVisible();
+            await companyPage.inputField.fill(CABINET_FIRST);
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyDisplayInAdvertising.click();
+            await companyPage.noButton.click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyAutoProcessingConAppl.click();
+            await companyPage.disableButton.click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyPermaconn.click();
+            await companyPage.disableButton.click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
+            await companyPage.companyDealer.click();
+            await expect(page.getByText(TEXT_CHANGE_COMPANY_DEALER)).toBeVisible();
+            await page.getByText(DEALER_EMAIL_FIRST).click();
+            await companyPage.submitButton.click();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+            await expect(companyPage.companyCountry.filter({hasText:COUNTRY_UKRAINE})).toBeVisible();
+            await expect(companyPage.companyUsersCabinet.filter({hasText:CABINET_FIRST})).toBeVisible();
+            await expect(companyPage.companyDisplayInAdvertising.filter({hasText:TEXT_NO})).toBeVisible();
+            await expect(companyPage.companyAutoProcessingConAppl.filter({hasText:TEXT_DISABLED})).toBeVisible();
+            await expect(companyPage.companyPermaconn.filter({hasText:TEXT_DISABLED})).toBeVisible();
+            await expect(companyPage.companyDealer.filter({hasText:DEALER_EMAIL_FIRST_SHORT})).toBeVisible();
         });
 
    });

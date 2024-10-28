@@ -6,7 +6,7 @@ import {
     HUB_ACCOUNT_NAME,
     HUB_NAME_SECOND, HUB_SERIAL_NUMBER_TRUE_FIRST, TEXT_BY_NAME, TEXT_BY_SERIAL_NUMBER,
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY, TEXT_SAVE_IN_XLS,
-    TITLE_COMPANIES
+    TITLE_COMPANIES, URL_DEALER_COMPANIES, URL_LOGIN
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -20,9 +20,9 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
         companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(DILER);
-        await expect(page).toHaveURL('/dealer/companies');
+        await expect(page).toHaveURL(URL_DEALER_COMPANIES);
     });
 
     test('Hubs list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
@@ -38,8 +38,11 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
 
         await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
+        await page.waitForTimeout(2000);
+
         for (const hub of await companyPage.entityBlock.all())
             await expect(hub).toBeVisible();
+
         for (const hub of await companyPage.entityBlock.all())
         {await expect(hub.filter({has: companyPage.entityText})).toBeVisible();}
 

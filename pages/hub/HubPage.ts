@@ -20,6 +20,8 @@ export class HubPage extends BasePage {
     private readonly _countryUkraine: Locator;
     private readonly _hubEngineerModeSwitch: Locator;
     private readonly _hubsCounter: Locator;
+    private readonly _devicesCounter: Locator;
+    private readonly _devicesCounterPanel: Locator;
     private readonly _hubTroublesState: Locator;
     // GROUPS
     private readonly _groupAddGroupButton: Locator;
@@ -54,6 +56,12 @@ export class HubPage extends BasePage {
     private readonly _wirelessDeviceTamperOpenIcon: Locator;
     private readonly _wirelessDeviceBatteryIcon: Locator;
     private readonly _wirelessDeviceAddButton: Locator;
+    private readonly _wirelessDeviceTextBlock: Locator;
+    private readonly _wirelessDeviceEntity: Locator;
+    private readonly _wirelessDeviceIcon: Locator;
+    private readonly _wirelessDeviceStateIcon: Locator;
+
+
    // HISTORY
     private readonly _historyAlarmCheckBox: Locator;
     private readonly _historyTroublesCheckBox: Locator;
@@ -61,7 +69,7 @@ export class HubPage extends BasePage {
     private readonly _historyActionsCheckBox: Locator;
     private readonly _historyServiceCheckBox: Locator;
     private readonly _historyEvent: Locator;
-    private readonly _historyDate: Locator;
+
     // SETTINGS
     private readonly _settingsAirAlarm: Locator;
     private readonly _settingsKeypadCodeLength: Locator;
@@ -93,6 +101,7 @@ export class HubPage extends BasePage {
     private readonly _hubsOnline: Locator;
 
 
+
     constructor(page: Page) {
         super(page);
         this.page = page;
@@ -116,6 +125,8 @@ export class HubPage extends BasePage {
         this._hubCorpNameAccountInfo = this.page.locator('div.part__item-text--main');
         this._hubCorpNumberConnectionInfo = this.page.locator('div.part__item-text--small');
         this._hubsCounter = this.page.locator('h3.list__header-text');
+        this._devicesCounterPanel = this.page.locator('.footer__state-text');
+        this._devicesCounter = this.page.locator('.nowrap');
         this._hubTroublesState = this.page.locator('.Warning').or(this.page.locator('.Trouble'));
         this._hubEngineerModeSwitch = this.page.locator('span.slider.round');
 
@@ -153,6 +164,10 @@ export class HubPage extends BasePage {
         this._wirelessDeviceTamperOpenIcon = this.page.locator('.part-content__device-list').filter({has:this.page.locator('mat-icon[data-mat-icon-name="tamper-open"]')});
         this._wirelessDeviceBatteryIcon = this.page.locator('.part-content__device-list').filter({has:this.page.locator('mat-icon[data-mat-icon-name="battery-full"]')});
         this._wirelessDeviceAddButton = page.getByText('Add wireless device');
+        this._wirelessDeviceEntity = page.locator('.part__item:not(.engineer-mode-info):not(.part__content)');
+        this._wirelessDeviceIcon = this.page.locator('.icon-device-type');
+        this._wirelessDeviceTextBlock = this.page.locator('.panel-header_text-block');
+        this._wirelessDeviceStateIcon = this.page.locator('.icon-state-small');
 
         // HISTORY
         this._historyAlarmCheckBox = this.page.locator('.checkbox__block').nth(0);
@@ -161,7 +176,7 @@ export class HubPage extends BasePage {
         this._historyActionsCheckBox = this.page.locator('.checkbox__block').nth(3);
         this._historyServiceCheckBox = this.page.locator('.checkbox__block').nth(4);
         this._historyEvent = this.page.locator('.part__item--checked');
-        this._historyDate = page.locator('.input-part-interval');
+
 
         // SETTINGS
         this._settingsAirAlarm = page.getByText('Air raid alarms');
@@ -191,6 +206,7 @@ export class HubPage extends BasePage {
         this._automationCreateReactionButton = page.getByText('Create schedule',{ exact: true });
         this._requestsCreateApplicationButton = page.getByText('Create application',{ exact: true });
         this._hubsOnline = page.locator('.part__item').filter({has: this.connectionOnlineIcon});
+
     }
 
     get modal(): Locator {
@@ -203,6 +219,22 @@ export class HubPage extends BasePage {
 
     get addUserEmail(): Locator {
         return this._addUserEmail;
+    }
+
+    get wirelessDeviceEntity(): Locator {
+        return this._wirelessDeviceEntity;
+    }
+
+    get wirelessDeviceIcon(): Locator {
+        return this._wirelessDeviceIcon;
+    }
+
+    get wirelessDeviceStateIcon(): Locator {
+        return this._wirelessDeviceStateIcon;
+    }
+
+    get wirelessDeviceTextBlock(): Locator {
+        return this._wirelessDeviceTextBlock;
     }
 
     get secondHub(): Locator {
@@ -394,10 +426,6 @@ export class HubPage extends BasePage {
         return this._historyServiceCheckBox ;
     }
 
-    get historyDate (): Locator {
-        return this._historyDate ;
-    }
-
     get historyEvent (): Locator {
         return this._historyEvent ;
     }
@@ -445,6 +473,14 @@ export class HubPage extends BasePage {
 
     get hubsCounter (): Locator {
         return this._hubsCounter ;
+    }
+
+    get devicesCounter (): Locator {
+        return this._devicesCounter ;
+    }
+
+    get devicesCounterPanel (): Locator {
+        return this._devicesCounterPanel;
     }
 
     get hubCorpNameAccountInfo (): Locator {

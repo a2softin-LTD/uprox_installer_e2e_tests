@@ -1,11 +1,13 @@
+
+
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { DILER } from "../../utils/user_data";
 import {
     COMPANY_FIRST,
     COUNTRY_UKRAINE,
-    ROLE_MONITORING_SERVICE_COMPANIES,
-    SETTING_SHOW_IN_ADS, TEXT_SAVE_IN_XLS, TITLE_COMPANIES
+    ROLE_MONITORING_SERVICE_COMPANIES, SELECTOR_FIRST, SELECTOR_SECOND,
+    SETTING_SHOW_IN_ADS, TEXT_SAVE_IN_XLS, TITLE_COMPANIES, URL_DEALER_COMPANIES, URL_LOGIN
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -19,9 +21,9 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
         companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(DILER);
-        await expect(page).toHaveURL('/dealer/companies');
+        await expect(page).toHaveURL(URL_DEALER_COMPANIES);
     });
 
     test('Checking UI elements on companies page under DEALER role', { tag: '@smoke'}, async ({ page }) => {
@@ -45,6 +47,8 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
             });
 
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+
+            await page.waitForTimeout(2000);
 
             for (const company of await companyPage.entityBlock.all())
                 await expect(company).toBeVisible();
@@ -73,6 +77,8 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
             await companyPage.companyCountryFilter.click();
             await page.getByText(COUNTRY_UKRAINE,{ exact: true }).first().click();
 
+            await page.waitForTimeout(2000);
+
             for (const hub of await companyPage.entityBlock.filter({hasText:COUNTRY_UKRAINE}).all())
             { await expect(hub).toBeVisible();}
 
@@ -88,10 +94,12 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
             await page.waitForTimeout(2000);
 
-            let companiesNumber=((await page.$$('div:text-is("Monitoring-service companies")')).length)-1;
+            let companiesNumber=((await page.$$(SELECTOR_FIRST)).length)-1;
 
             await companyPage.companyRoleFilter.click();
             await page.getByText(ROLE_MONITORING_SERVICE_COMPANIES, { exact: true }).first().click();
+
+            await page.waitForTimeout(2000);
 
             for (const company of await companyPage.entityBlock.filter({hasText:ROLE_MONITORING_SERVICE_COMPANIES}).all())
             { await expect(company).toBeVisible();}
@@ -108,7 +116,7 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
             await page.waitForTimeout(2000);
 
-            let companiesNumber=((await page.$$('use[*|href="#icon-ads"]')).length);
+            let companiesNumber=((await page.$$(SELECTOR_SECOND)).length);
 
             await companyPage.companyAllFilter.click();
             await page.getByText(SETTING_SHOW_IN_ADS, { exact: true }).click();
