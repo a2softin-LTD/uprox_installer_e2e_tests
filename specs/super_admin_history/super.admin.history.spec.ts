@@ -4,9 +4,15 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import {
-    HUB_SERIAL_NUMBER_TRUE_THIRD, TEXT_ADD_USER_EMAIL, TEXT_ADDED_NEW_USER, TEXT_REMOVE_USER_EMAIL, TEXT_REMOVED_USER,
-    TEXT_SAVE_IN_XLS,
-    TITLE_HISTORY_FOR_ALL_PANELS, TITLE_SYSTEM,
+    HUB_SERIAL_NUMBER_TRUE_THIRD,
+    TEN,
+    TEXT_ADD_USER_EMAIL,
+    TEXT_ADDED_NEW_USER, TEXT_DAY_FIRST, TEXT_DAY_SECOND,
+    TEXT_REMOVE_USER_EMAIL,
+    TEXT_REMOVED_USER,
+    TEXT_SAVE_IN_XLS, TEXT_SEPTEMBER_2024,
+    TITLE_HISTORY_FOR_ALL_PANELS,
+    TITLE_SYSTEM, URL_LOGIN, URL_SUPPORT_SEARCH,
     USER_EMAIL_SECOND
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
@@ -25,9 +31,9 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
         companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
     test('Checking UI elements of the history page under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
@@ -41,8 +47,8 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
         await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
         await hubPage.inputFirstField.isVisible();
-        await hubPage.historyDate.nth(0).isVisible();
-        await hubPage.historyDate.nth(1).isVisible();
+        await superAdminPage.historyDate.nth(0).isVisible();
+        await superAdminPage.historyDate.nth(1).isVisible();
         await hubPage.historyAlarmCheckBox.isVisible();
         await hubPage.historyTroublesCheckBox.isVisible();
         await hubPage.historyArmsCheckBox.isVisible();
@@ -61,6 +67,8 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await hubPage.history.click();
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
+
+            await page.waitForTimeout(2000);
 
             for (const event of await hubPage.historyEvent.all())
             { await expect(event).toBeVisible();}
@@ -86,15 +94,34 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test.skip('History filtration by date under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('History filtration by date under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfmy'
             });
 
             await hubPage.history.click();
+
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
+
             await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
+
+            await page.waitForTimeout(2000);
+
+            await superAdminPage.historyDate.nth(0).click();
+
+            while (await page.getByText(TEXT_SEPTEMBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
+                 await page.waitForTimeout(2000);}
+            await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
+            await page.waitForTimeout(2000);
+            await superAdminPage.historyDate.nth(1).click();
+            while (await page.getByText(TEXT_SEPTEMBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
+                await page.waitForTimeout(2000);}
+            await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
+            await page.waitForTimeout(2000);
+
+            await expect(page.getByText(TEXT_DAY_FIRST)).toBeVisible();
+            await expect(page.getByText(TEXT_DAY_SECOND)).not.toBeVisible();
 
         });
 

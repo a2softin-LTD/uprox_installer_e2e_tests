@@ -20,7 +20,7 @@ import {
     TEXT_TEMPLATE_TYPE,
     TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES, TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES_,
     TEXT_TEST_EMAIL_SEND_SUCCESSFULLY,
-    TITLE_PUSH_NOTIFICATIONS, USER_EMAIL, USER_EMAIL_NON_REGISTERED, USER_EMAIL_SECOND
+    TITLE_PUSH_NOTIFICATIONS, URL_LOGIN, URL_SUPPORT_SEARCH, USER_EMAIL, USER_EMAIL_NON_REGISTERED, USER_EMAIL_SECOND
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {
@@ -33,9 +33,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
     test('Checking UI elements of the letter templates page', { tag: '@smoke' }, async ({ page }) => {

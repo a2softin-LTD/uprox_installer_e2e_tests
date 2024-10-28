@@ -10,6 +10,7 @@ export class RegistrationPage extends BasePage {
     private readonly _passwordEye: Locator;
     private readonly _agreeCheckbox: Locator;
     private readonly _registerButton: Locator;
+    private readonly _resendLetterButton: Locator;
     private readonly _signInLink: Locator;
     private readonly _privacyPolicyLink: Locator;
     private readonly _termsOfRegistrationLink: Locator;
@@ -31,6 +32,7 @@ export class RegistrationPage extends BasePage {
         this._agreeCheckbox = this.form.locator('.mdc-checkbox__native-control');
         this._registerButton = this.form.locator('.mdc-button');
         this._signInLink = page.getByText('Sign in');
+        this._resendLetterButton = page.getByRole('button', { name: 'Resend email' });
         this._privacyPolicyLink = page.locator('a[href="https://policies.google.com/privacy?hl=en"]');
         this._termsOfRegistrationLink = page.getByText('terms of registration');
         this._termsOfServiceLink = page.locator('a[href="https://policies.google.com/terms?hl=en"]');
@@ -55,6 +57,10 @@ export class RegistrationPage extends BasePage {
 
     get passwordField(): Locator {
         return this._passwordField;
+    }
+
+    get resendLetterButton(): Locator {
+        return this._resendLetterButton;
     }
 
     get passwordEye(): Locator {

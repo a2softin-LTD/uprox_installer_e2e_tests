@@ -11,7 +11,7 @@ import {
     TEXT_SEARCH_RESULT,
     TEXT_SHOW_CONFIGURATION,
     TITLE_PANEL_OR_SENSOR_SERIAL,
-    TITLE_TECHNICAL_SUPPORT,
+    TITLE_TECHNICAL_SUPPORT, URL_LOGIN, URL_SUPPORT_SEARCH,
     USER_EMAIL_SECOND
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
@@ -28,9 +28,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
     test('Checking UI elements of the support page under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {

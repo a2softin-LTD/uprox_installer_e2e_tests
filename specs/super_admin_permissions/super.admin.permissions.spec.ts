@@ -4,11 +4,19 @@ import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
-    EMAIL_NECESSARY_NAME_PART, ROLE_SUPPORT_ADMIN_BIG, ROLE_SYS_ADMIN_BIG,
+    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST,
+    FAKER_NAME_OF_COMPANY_FIRST,
+    FAKER_NAME_OF_COMPANY_SECOND,
+    ROLE_SUPPORT_ADMIN_BIG,
+    ROLE_SYS_ADMIN_BIG,
     ROLE_SYS_ADMIN_SMALL,
-    TEXT_ALL_ROLES, TEXT_BLOCK_EMPLOYEE,
+    TEXT_ALL_ROLES,
+    TEXT_BLOCK_EMPLOYEE,
     TEXT_YES,
-    TITLE_EMPLOYEES, USER_EMAIL_THIRD
+    TITLE_EMPLOYEES,
+    URL_LOGIN,
+    URL_SUPPORT_SEARCH,
+    USER_EMAIL_THIRD
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', () => {
@@ -21,11 +29,10 @@ test.describe('SuperAdmin page tests', () => {
         superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
-
 
     test('Checking UI elements of the permissions page under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
@@ -102,16 +109,13 @@ test.describe('SuperAdmin page tests', () => {
                 description: "https://app.clickup.com/t/8694pw18d"
             });
 
-            const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await superAdminPage.permissions.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.addButton.click();
-            await superAdminPage.inputFirstField.fill(email);
-            await superAdminPage.inputThirdField.fill(name);
+            await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
             await page.waitForTimeout(1000);
             await superAdminPage.selectFirstField.click();
             await page.waitForTimeout(1000);
@@ -119,16 +123,16 @@ test.describe('SuperAdmin page tests', () => {
             await superAdminPage.addButton.click()
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
-            await (page.getByText(name)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
             await page.waitForTimeout(1000);
             await superAdminPage.deleteUserButton.click();
             await page.waitForTimeout(1000);
             await superAdminPage.submitButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
-            await expect(page.getByText(email)).not.toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
 
 
@@ -138,14 +142,13 @@ test.describe('SuperAdmin page tests', () => {
                 description: "https://app.clickup.com/t/8694pw1d6"
             });
 
-            const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await superAdminPage.permissions.click();
+
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
+
             await superAdminPage.addButton.click();
-            await superAdminPage.inputFirstField.fill(email);
-            await superAdminPage.inputThirdField.fill(name);
+            await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
             await page.waitForTimeout(1000);
             await superAdminPage.selectFirstField.click();
             await page.waitForTimeout(1000);
@@ -153,16 +156,16 @@ test.describe('SuperAdmin page tests', () => {
             await superAdminPage.addButton.click()
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
-            await (page.getByText(name)).click();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
             await page.waitForTimeout(1000);
             await superAdminPage.deleteUserButton.click();
             await page.waitForTimeout(1000);
             await superAdminPage.submitButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
-            await expect(page.getByText(email)).not.toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
 
         test('Remove permission', { tag: '@smoke' }, async ({ page }) => {
@@ -170,26 +173,24 @@ test.describe('SuperAdmin page tests', () => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694pw1gj"
             });
-            const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
             await superAdminPage.permissions.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.addButton.click();
-            await superAdminPage.inputFirstField.fill(email);
-            await superAdminPage.inputThirdField.fill(name);
+            await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
             await superAdminPage.selectFirstField.click();
             await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
             await superAdminPage.addButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
 
-            await expect(page.getByText(name)).toBeVisible();
-            await (page.getByText(name)).click()
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click()
 
-            await expect(page.getByText(name)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
             await superAdminPage.companyRemovePermissionButton.click();
             await superAdminPage.submitButton.click();
@@ -200,34 +201,32 @@ test.describe('SuperAdmin page tests', () => {
             await page.waitForTimeout(2000);
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
-            await expect(page.getByText(email)).not.toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
         test('Info about employee', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694pw1pu"
             });
-            const name: string = 'COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } })
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
 
             await superAdminPage.permissions.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.addButton.click();
-            await superAdminPage.inputFirstField.fill(email);
-            await superAdminPage.inputThirdField.fill(name);
+            await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
             await superAdminPage.selectFirstField.click();
             await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click()
             await superAdminPage.addButton.click()
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
-            await expect(page.getByText(email)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
-            await (page.getByText(name)).click()
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click()
 
-            await expect(page.getByText(name)).toBeVisible();
-            await expect(page.getByText(email)).toBeVisible();
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
             await expect(page.getByText(ROLE_SYS_ADMIN_SMALL)).toBeVisible();
             await expect(superAdminPage.deleteUserButton).toBeVisible();
             await expect(superAdminPage.companyRemovePermissionButton).toBeVisible();
@@ -242,7 +241,7 @@ test.describe('SuperAdmin page tests', () => {
             await superAdminPage.submitButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
-            await expect(page.getByText(email)).not.toBeVisible();
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
 
     });

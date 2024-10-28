@@ -15,7 +15,7 @@ import {
     TITLE_STATISTICS_COMPANIES,
     TITLE_STATISTICS_PANELS,
     TITLE_STATISTICS_RADIO_DEVICES,
-    TITLE_TECHNICAL_SUPPORT
+    TITLE_TECHNICAL_SUPPORT, URL_LOGIN, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {
@@ -28,9 +28,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
     test('Checking UI elements of the statistics page', { tag: ['@smoke']  },async ({ page }) => {
         test.info().annotations.push({

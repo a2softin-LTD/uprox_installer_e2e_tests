@@ -19,7 +19,13 @@ import {
     INVALID_EMAIL_WITHOUT_DOMAIN,
     UNKNOWN_EMAIL, INSTALLER_DACH, MIXED_DACH, MANAGER_DACH, MONITORING_COMPANY_DACH, ENGINEER_DACH, USER_DACH,
 } from "../../utils/user_data";
-import { UIErrorMessages } from "../../utils/constants";
+import {
+    UIErrorMessages,
+    URL_PANELS, URL_PROFILE_COMPANIES,
+    URL_PROFILE_FEEDBACK,
+    URL_PROFILE_PANELS,
+    URL_SUPPORT_SEARCH
+} from "../../utils/constants";
 
 test.describe('Login Page tests', {tag: '@stable'}, () => {
 
@@ -60,7 +66,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(SUPER_ADMIN);
-            await expect(page).toHaveURL('/support/search');
+            await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
         });
 
         test('positive: Checking auth with Role = CORP_ADMIN', { tag: ['@smoke', '@smoke_dach'] }, async ({ page }) => {
@@ -70,7 +76,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(CORP_ADMIN);
-            await expect(page).toHaveURL('/profile/companies');
+            await expect(page).toHaveURL(URL_PROFILE_COMPANIES);
         });
 
         test('positive: Checking auth with Role = SYSTEM_ADMIN', { tag: ['@smoke', '@smoke_dach'] }, async ({ page }) => {
@@ -80,7 +86,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(SYSTEM_ADMIN);
-            await expect(page).toHaveURL('/support/search');
+            await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
         });
 
         test('positive: Checking auth with Role = INSTALLER', { tag: '@smoke' }, async ({ page }) => {
@@ -90,7 +96,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(INSTALLER);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
         });
 
         test.skip('positive: Checking auth with Role = INSTALLER_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
@@ -100,7 +106,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(INSTALLER_DACH);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
         });
 
         test('positive: Checking auth with Role = SUPPORT', { tag: ['@smoke', '@smoke_dach'] }, async ({ page }) => {
@@ -110,7 +116,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(SUPPORT);
-            await expect(page).toHaveURL('/support/search');
+            await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
         });
 
         test('positive: Checking auth with Role = MIXED', { tag: '@smoke' }, async ({ page }) => {
@@ -120,7 +126,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(MIXED);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
         });
 
         test.skip('positive: Checking auth with Role = MIXED_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
@@ -130,7 +136,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(MIXED_DACH);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
         });
 
         test('positive: Checking auth with Role = MANAGER', { tag: '@smoke' }, async ({ page }) => {
@@ -140,7 +146,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(MANAGER);
-            await expect(page).toHaveURL('/profile/panels');
+            await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
 
         test.skip('positive: Checking auth with Role = MANAGER_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
@@ -150,7 +156,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(MANAGER_DACH);
-            await expect(page).toHaveURL('/profile/panels');
+            await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
 
         test('positive: Checking auth with Role = MONITORING_SERVICE_COMPANY_1', { tag: '@smoke' }, async ({ page }) => {
@@ -160,7 +166,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
         });
 
         test('positive: Checking auth with Role = MONITORING_SERVICE_COMPANY_2', { tag: '@smoke' }, async ({ page }) => {
@@ -170,7 +176,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(MONITORING_SERVICE_COMPANY_2);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
         });
 
         test('positive: Checking auth with Role = MONITORING_COMPANY', { tag: '@smoke' }, async ({ page }) => {
@@ -180,7 +186,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(MONITORING_COMPANY);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
         });
 
         test.skip('positive: Checking auth with Role = MONITORING_COMPANY_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
@@ -190,7 +196,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(MONITORING_COMPANY_DACH);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
         });
 
         test('positive: Checking auth with Role = ENGINEER', { tag: '@smoke' }, async ({ page }) => {
@@ -200,7 +206,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(ENGINEER);
-            await expect(page).toHaveURL('/profile/feedback');
+            await expect(page).toHaveURL(URL_PROFILE_FEEDBACK);
         });
 
         test.skip('positive: Checking auth with Role = ENGINEER_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
@@ -210,7 +216,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(ENGINEER_DACH);
-            await expect(page).toHaveURL('/profile/feedback');
+            await expect(page).toHaveURL(URL_PROFILE_FEEDBACK);
         });
 
         test.skip('positive: Checking auth with Role = USER_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
@@ -220,7 +226,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(USER_DACH);
-            await expect(page).toHaveURL('/profile/panels');
+            await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
 
         test('positive: Checking auth with Role = USER_1', { tag: '@smoke' }, async ({ page }) => {
@@ -230,7 +236,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(USER_1);
-            await expect(page).toHaveURL('/profile/panels');
+            await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
 
         test('positive: Checking auth with Role = USER_2', { tag: '@smoke' }, async ({ page }) => {
@@ -240,7 +246,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.auth(USER_2);
-            await expect(page).toHaveURL('/profile/panels');
+            await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
     });
 
@@ -257,12 +263,12 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await loginPage.passwordField.fill(USER_1['password']);
             await loginPage.rememberMeCheckbox.click();
             await loginPage.loginButton.click();
-            await expect(page).toHaveURL('/profile/panels');
+            await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
             await page.close();
             loginPage = new LoginPage(page);
             await loginPage.openLoginPage('/');
-            await expect(page).toHaveURL('/profile/panels');
+            await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         });
 

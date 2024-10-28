@@ -5,11 +5,11 @@ import {
     HUB_ACCOUNT_NAME, HUB_NAME_SECOND,
     HUB_SERIAL_NUMBER_TRUE_FIRST, PANEL_STATE, TEXT_BY_ACCOUNT,
     TEXT_BY_NAME,
-    TEXT_BY_SERIAL_NUMBER, TITLE_ALL_PANELS
+    TEXT_BY_SERIAL_NUMBER, TITLE_ALL_PANELS, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 import { HubPage } from "../../pages/hub/HubPage";
 
-test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
+test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -19,9 +19,9 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(MIXED);
-        await expect(page).toHaveURL('/panels');
+        await expect(page).toHaveURL(URL_PANELS);
     });
 
     test.describe('Hub search', () => {
@@ -81,6 +81,8 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await page.waitForTimeout(2000);
             await page.getByText(TITLE_ALL_PANELS).first().click();
             await page.getByText(PANEL_STATE).first().click();
+
+            await page.waitForTimeout(2000);
 
             for (const hub of await hubPage.entityBlock.all())
             {await expect(hub.filter({has:hubPage.updateFirmwareIcon})).toBeVisible();}

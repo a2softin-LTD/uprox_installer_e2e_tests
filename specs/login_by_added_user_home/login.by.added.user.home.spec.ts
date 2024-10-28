@@ -3,7 +3,12 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
-import { BUTTON_TRANSFER_OWNERSHIP, TITLE_UPDATE_FIRMWARE_VERSION } from "../../utils/constants";
+import {
+    BUTTON_TRANSFER_OWNERSHIP,
+    TITLE_UPDATE_FIRMWARE_VERSION,
+    URL_LOGIN,
+    URL_PROFILE_PANELS, USER_NAME
+} from "../../utils/constants";
 
 test.describe('Profile Page tests', () => {
 
@@ -17,9 +22,9 @@ test.describe('Profile Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
     test('Login by user added from Home app', { tag: ['@smoke']  }, async ({ page }) => {
@@ -27,8 +32,6 @@ test.describe('Profile Page tests', () => {
             type: "test_id",
             description: ""
         });
-
-        const name: string = "Дмитро";
 
         await hubPage.panels.click();
         await hubPage.firstHub.click();
@@ -38,12 +41,12 @@ test.describe('Profile Page tests', () => {
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
-        if (await (page.getByText(name)).isVisible()) {
-            await page.getByText(name).click();
+        if (await (page.getByText(USER_NAME)).isVisible()) {
+            await page.getByText(USER_NAME).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
         await hubPage.addButton.click();
-        await hubPage.addUserName.fill(name);
+        await hubPage.addUserName.fill(USER_NAME);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.userAllowMobileAppManagementFromHome.click();
         await hubPage.addButton.click();
@@ -53,12 +56,12 @@ test.describe('Profile Page tests', () => {
             await page.reload();
             await page.waitForTimeout(1000);
             await hubPage.backButton.click();}
-        finally {await expect(page.getByText(name)).toBeVisible();}
+        finally {await expect(page.getByText(USER_NAME)).toBeVisible();}
 
         await profilePage.logoutButton.click();
         await loginPage.openLoginPage('/');
         await loginPage.auth(USER_3);
 
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 });

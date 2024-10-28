@@ -8,7 +8,7 @@ import {
     TEXT_INFO,
     TEXT_NODES,
     TITLE_NODES,
-    TITLE_PANELS
+    TITLE_PANELS, URL_LOGIN, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {
@@ -21,9 +21,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL('/support/search');
+        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
         test('Checking UI elements of the routing page under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {

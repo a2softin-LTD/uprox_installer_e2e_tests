@@ -14,7 +14,7 @@ import {
     TEXT_SECOND_REACTION,
     TEXT_SELECT_CONTROLLER_TIME_ZONE, TIME_ZONE_FIRST, TIME_ZONE_SECOND,
     TITLE_AUTOMATION,
-    TITLE_UPDATE_FIRMWARE_VERSION
+    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS
 } from "../../utils/constants";
 
 test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
@@ -27,9 +27,9 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
         await hubPage.firstHub.click();
@@ -38,7 +38,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
         {  await hubPage.closeWindowButton.click()}
         await hubPage.automation.click();
 
-        await expect(page.getByText(BUTTON_CREATE_SCHEDULE)).toBeVisible();
+        await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
     });
 
     test('Checking UI elements on the hub reactions page', { tag: '@smoke' }, async ({page}) => {
@@ -60,6 +60,8 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
                 description: 'https://app.clickup.com/t/8694kxg6v'
             });
 
+
+            await page.waitForTimeout(2000);
             for (const reaction of await hubPage.entityBlock.all())
                 await expect(reaction).toBeVisible();
 
@@ -96,7 +98,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await page.getByText(DAY_MONDAY,{exact:true}).click();
             await hubPage.saveButton.click();
 
-            await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_FIRST_REACTION)).toBeVisible();
 
             await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
@@ -108,6 +110,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             if (await page.getByText(REACTION_ERROR_MESSAGE).isVisible())
             {  await hubPage.closeWindowButton.click()}
 
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_FIRST_REACTION)).not.toBeVisible();
 
         });
@@ -137,7 +140,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await page.getByText(DAY_MONDAY,{exact:true}).click();
             await hubPage.saveButton.click();
 
-            await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_FIRST_REACTION)).toBeVisible();
 
             await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
@@ -149,6 +152,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             if (await page.getByText(REACTION_ERROR_MESSAGE).isVisible())
             {  await hubPage.closeWindowButton.click()}
 
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_FIRST_REACTION)).not.toBeVisible();
         });
 
@@ -178,7 +182,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await page.getByText(DAY_MONDAY,{exact:true}).click();
             await hubPage.saveButton.click();
 
-            await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_FIRST_REACTION)).toBeVisible();
 
             await page.getByText(TEXT_FIRST_REACTION).click();
@@ -188,7 +192,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await hubPage.inputFirstField.fill(TEXT_SECOND_REACTION);
             await hubPage.saveButton.click();
 
-            await expect(page.getByText(SETTINGS_TIME_ZONE)).toBeVisible();
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_SECOND_REACTION)).toBeVisible();
 
             await  (((hubPage.entityBlock).filter({hasText:TEXT_SECOND_REACTION})).locator(hubPage.trashIcon)).click();
@@ -200,6 +204,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             if (await page.getByText(REACTION_ERROR_MESSAGE).isVisible())
             {  await hubPage.closeWindowButton.click()}
 
+            await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_SECOND_REACTION)).not.toBeVisible();
         });
 

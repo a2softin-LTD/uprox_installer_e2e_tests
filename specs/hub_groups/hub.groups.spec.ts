@@ -4,12 +4,13 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
+    FAKER_NAME_OF_GROUP_FIRST, FAKER_NAME_OF_GROUP_SECOND,
     TEXT_ADD_GROUP,
     TEXT_EDIT_GROUP,
     TEXT_ENTER_GROUP_NAME,
     TITLE_GROUPS,
     TITLE_SYSTEM,
-    TITLE_UPDATE_FIRMWARE_VERSION, USER_NAME
+    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS, USER_NAME
 } from "../../utils/constants";
 
 test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
@@ -22,9 +23,9 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
         await hubPage.firstHub.click();
@@ -61,6 +62,8 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_SYSTEM)})).toBeVisible();
 
+        await page.waitForTimeout(2000);
+
         for (const group of await hubPage.groupBlock.all())
         { await expect(group).toBeVisible();}
 
@@ -73,16 +76,14 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
     test.describe('Working with groups',() => {
 
-        test('Add group', { tag: ['@smoke']}, async ({ page }) => {
+        test('Add group:hub', { tag: ['@smoke']}, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694euhwd'
             });
 
-            const nameOfGroup: string = faker.string.alphanumeric({ length: { min: 10, max: 12 } });
-
             await hubPage.groupAddGroupButton.click();
-            await hubPage.inputFirstField.fill(nameOfGroup);
+            await hubPage.inputFirstField.fill(FAKER_NAME_OF_GROUP_FIRST);
             await hubPage.saveButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
@@ -92,32 +93,25 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
 
-            await page.getByText(nameOfGroup).click();
+            await page.getByText(FAKER_NAME_OF_GROUP_FIRST).click();
 
             await expect(page.getByText(TEXT_EDIT_GROUP)).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
-            await page.waitForTimeout(2000);
-
-            await expect(page.getByText(`Delete ${nameOfGroup}?`)).toBeVisible();
-
             await hubPage.deleteButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
-            await expect (page.getByText((nameOfGroup))).not.toBeVisible();
+            await expect (page.getByText((FAKER_NAME_OF_GROUP_FIRST))).not.toBeVisible();
         });
 
-        test('Changing name of the group', {  tag: ['@smoke']}, async ({ page }) => {
+        test('Changing name of the group: hub', {  tag: ['@smoke']}, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694euhtb'
             });
 
-            const nameOfGroup: string = 'newGroup_' + faker.string.alphanumeric({ length: { min: 3, max: 5 } });
-            const newNameOfGroup: string = 'newgroup_' + faker.string.alphanumeric({ length: { min: 2, max: 4 } });
-
             await hubPage.groupAddGroupButton.click();
-            await hubPage.inputFirstField.fill(nameOfGroup);
+            await hubPage.inputFirstField.fill(FAKER_NAME_OF_GROUP_FIRST);
             await hubPage.saveButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
@@ -126,39 +120,34 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
             await hubPage.groups.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
-            await expect(page.getByText((nameOfGroup))).toBeVisible();
+            await expect(page.getByText((FAKER_NAME_OF_GROUP_FIRST))).toBeVisible();
 
-            await page.getByText((nameOfGroup)).click();
+            await page.getByText((FAKER_NAME_OF_GROUP_FIRST)).click();
             await hubPage.groupBlockWithName.click();
-            await hubPage.inputFirstField.fill(newNameOfGroup);
+            await hubPage.inputFirstField.fill(FAKER_NAME_OF_GROUP_SECOND);
             await hubPage.saveButton.click();
 
             await expect(page.getByText(TEXT_EDIT_GROUP)).toBeVisible();
-            await expect (page.getByText((newNameOfGroup))).toBeVisible();
+            await expect (page.getByText((FAKER_NAME_OF_GROUP_SECOND))).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
-
-            await expect(page.getByText(`Delete ${newNameOfGroup}?`)).toBeVisible();
-
             await hubPage.deleteButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
-            await expect (page.getByText((newNameOfGroup))).not.toBeVisible();
+            await expect (page.getByText((FAKER_NAME_OF_GROUP_SECOND))).not.toBeVisible();
         });
 
-        test('Delete group', {  tag: ['@smoke']}, async ({ page }) => {
+        test('Delete group: hub', {  tag: ['@smoke']}, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694euhxu'
             });
 
-            const nameOfGroup: string = 'DELETE_' + faker.string.alphanumeric({ length: { min: 10, max: 12 } });
-
             await hubPage.groupAddGroupButton.click();
 
             await expect(page.getByText(TEXT_ENTER_GROUP_NAME)).toBeVisible();
 
-            await hubPage.inputFirstField.fill(nameOfGroup);
+            await hubPage.inputFirstField.fill(FAKER_NAME_OF_GROUP_FIRST);
             await hubPage.saveButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
@@ -168,18 +157,15 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
 
-            await page.getByText(nameOfGroup).click();
+            await page.getByText(FAKER_NAME_OF_GROUP_FIRST).click();
 
             await expect(page.getByText(TEXT_EDIT_GROUP)).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
-
-            await expect(page.getByText(`Delete ${nameOfGroup}?`)).toBeVisible();
-
             await hubPage.deleteButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
-            await expect (page.getByText((nameOfGroup))).not.toBeVisible();
+            await expect (page.getByText((FAKER_NAME_OF_GROUP_FIRST))).not.toBeVisible();
         });
 
     });

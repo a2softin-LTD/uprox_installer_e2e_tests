@@ -2,10 +2,42 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SERVICE_COMPANY_1 } from "../../utils/user_data";
 import {
-    COMPANY_SERVICE_EMAIL_NEW,
+    CABINET_FIRST,
+    CABINET_SECOND,
+    COMPANY_EMAIL_NEW,
     COMPANY_SERVICE_EMAIL_OLD,
-    COMPANY_SERVICE_PHONE_NEW, COMPANY_SERVICE_PHONE_OLD, LANGUAGE_FRENCH, LANGUAGE_UKRAINIAN,
-    TITLE_COMPANY_SETTINGS
+    COMPANY_PHONE_NEW,
+    COMPANY_SERVICE_PHONE_OLD,
+    COUNTRY_MOLDOVA,
+    COUNTRY_MOLDOVA_SHORT,
+    COUNTRY_UKRAINE,
+    LANGUAGE_ENGLISH_SHORT,
+    LANGUAGE_FRENCH,
+    LANGUAGE_FRENCH_SHORT,
+    LANGUAGE_UKRAINIAN,
+    SETTINGS_ALARMS_RESTORES,
+    SETTINGS_ALLOWED,
+    SETTINGS_ARMS_DISARM,
+    SETTINGS_ARMS_DISARMS_ALARMS_RESTORES,
+    SETTINGS_DENIED,
+    TEXT_ADD_LOCALIZATION,
+    TEXT_DELETE,
+    TEXT_ENTER_THE_LINK,
+    TITLE_COMPANY_SETTINGS,
+    TITLE_COMPANY_SETTINGS_FRENCH,
+    URL_LOGIN,
+    URL_PANELS,
+    COMPANY_MONITORING_SERVICE_NAME_NEW,
+    COMPANY_MONITORING_SERVICE_DESCRIPTION_NEW,
+    COMPANY_MONITORING_SERVICE_CONTACTS_NEW,
+    COMPANY_MONITORING_SERVICE_NAME_OLD,
+    COMPANY_MONITORING_SERVICE_DESCRIPTION_OLD,
+    COMPANY_MONITORING_SERVICE_CONTACTS_OLD,
+    COMPANY_SERVICE_CONTACTS_NEW,
+    COMPANY_SERVICE_DESCRIPTION_NEW,
+    COMPANY_SERVICE_NAME_NEW,
+    COMPANY_SERVICE_CONTACTS_OLD,
+    COMPANY_SERVICE_DESCRIPTION_OLD, COMPANY_SERVICE_NAME_OLD, LANGUAGE_DUTCH
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
@@ -22,10 +54,10 @@ test.describe('Company Page test', () => {
         companyPage = new CompanyPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(SERVICE_COMPANY_1);
         await page.waitForTimeout(2000);
-        await expect(page).toHaveURL('/panels');
+        await expect(page).toHaveURL(URL_PANELS);
     });
 
     test.describe('Checking UI elements of the page', { tag: ['@smoke']  },() => {
@@ -77,7 +109,7 @@ test.describe('Company Page test', () => {
 
             await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible();
             await page.waitForTimeout(2000);
-            if (await companyPage.companyContactEmail.filter({hasText:COMPANY_SERVICE_EMAIL_NEW}).isVisible()){
+            if (await companyPage.companyContactEmail.filter({hasText:COMPANY_EMAIL_NEW}).isVisible()){
                 await companyPage.companyContactEmail.click();
                 await companyPage.inputFirstField.fill(COMPANY_SERVICE_EMAIL_OLD);
                 await companyPage.saveButton.click();
@@ -85,11 +117,11 @@ test.describe('Company Page test', () => {
                 await expect(page.getByText(COMPANY_SERVICE_EMAIL_OLD)).toBeVisible();}
 
             else {await companyPage.companyContactEmail.click();
-            await companyPage.inputFirstField.fill(COMPANY_SERVICE_EMAIL_NEW);
+            await companyPage.inputFirstField.fill(COMPANY_EMAIL_NEW);
             await companyPage.saveButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            await expect(page.getByText(COMPANY_SERVICE_EMAIL_NEW)).toBeVisible();
+            await expect(page.getByText(COMPANY_EMAIL_NEW)).toBeVisible();
 
             await companyPage.companyContactEmail.click();
             await companyPage.inputFirstField.fill(COMPANY_SERVICE_EMAIL_OLD);
@@ -107,9 +139,9 @@ test.describe('Company Page test', () => {
 
             await companyPage.company.click();
 
-            await expect(page.getByText('Company settings')).toBeVisible();
+            await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible();
             await page.waitForTimeout(2000);
-            if (await companyPage.companyContactPhone.filter({hasText:COMPANY_SERVICE_PHONE_NEW}).isVisible()){
+            if (await companyPage.companyContactPhone.filter({hasText:COMPANY_PHONE_NEW}).isVisible()){
                 await companyPage.companyContactPhone.click();
                 await companyPage.inputFirstField.fill(COMPANY_SERVICE_PHONE_OLD);
                 await companyPage.saveButton.click();
@@ -117,11 +149,11 @@ test.describe('Company Page test', () => {
                 await expect(page.getByText(COMPANY_SERVICE_PHONE_OLD)).toBeVisible();}
 
             else {await companyPage.companyContactPhone.click();
-            await companyPage.inputFirstField.fill(COMPANY_SERVICE_PHONE_NEW);
+            await companyPage.inputFirstField.fill(COMPANY_PHONE_NEW);
             await companyPage.saveButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            await expect(page.getByText(COMPANY_SERVICE_PHONE_NEW)).toBeVisible();
+            await expect(page.getByText(COMPANY_PHONE_NEW)).toBeVisible();
 
             await companyPage.companyContactPhone.click();
             await companyPage.inputFirstField.fill(COMPANY_SERVICE_PHONE_OLD);
@@ -168,21 +200,16 @@ test.describe('Company Page test', () => {
                 description: ""
             });
 
-            const languageNew: string = "FR";
-            const languageOld: string = "EN";
-            const newTitle: string = "Réglages société ";
-            const oldTitle: string = "Company settings";
-
             await companyPage.company.click();
             await profilePage.languageChoice.click();
-            await page.getByText(languageNew, { exact: true }).click();
+            await page.getByText(LANGUAGE_FRENCH_SHORT, { exact: true }).click();
 
-            await expect(page.getByRole('heading', {name: newTitle})).toBeVisible();
+            await expect(page.getByRole('heading', {name: TITLE_COMPANY_SETTINGS_FRENCH})).toBeVisible();
 
             await profilePage.languageChoice.click();
-            await page.getByText(languageOld, { exact: true }).click();
+            await page.getByText(LANGUAGE_ENGLISH_SHORT, { exact: true }).click();
 
-            await expect(page.getByRole('heading', {name: oldTitle})).toBeVisible();
+            await expect(page.getByRole('heading', {name: TITLE_COMPANY_SETTINGS})).toBeVisible();
         });
 
         test('Another settings editing:service company', { tag: ['@smoke']  },async ({ page }) => {
@@ -191,111 +218,102 @@ test.describe('Company Page test', () => {
                 description: "https://app.clickup.com/t/8694mhpj3"
             });
 
-            const countryNewShortCut: string = "Mold";
-            const countryNew: string = "Moldova";
-            const countryOld: string = "Ukraine";
-            const cabinetNew: string = "https://qwertynew.com";
-            const cabinetOld: string = "https://qwerty.com";
-            const guestsNewStatus: string = "Denied";
-            const guestsOldStatus: string = "Allowed";
-            const firstEvent: string = "Arms/Disarms";
-
             await companyPage.company.click();
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible();
             await page.waitForTimeout(2000);
-            if (await companyPage.companyCountry.filter({hasText:countryNew}).isVisible())
+            if (await companyPage.companyCountry.filter({hasText:COUNTRY_MOLDOVA}).isVisible())
             {   await companyPage.companyCountry.click();
                 await companyPage.inputField.clear();
-                await companyPage.inputField.fill(countryOld);
-                await page.getByText(countryOld, {exact: true}).click();
+                await companyPage.inputField.fill(COUNTRY_UKRAINE);
+                await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
                 await companyPage.submitButton.click();
-                await expect(companyPage.companyCountry.filter({hasText:countryOld})).toBeVisible();}
+                await expect(companyPage.companyCountry.filter({hasText:COUNTRY_UKRAINE})).toBeVisible();}
 
             await companyPage.companyCountry.click();
             await companyPage.inputField.clear();
-            await companyPage.inputField.fill(countryNewShortCut);
-            await page.getByText(countryNew, {exact: true}).click();
+            await companyPage.inputField.fill(COUNTRY_MOLDOVA_SHORT);
+            await page.getByText(COUNTRY_MOLDOVA, {exact: true}).click();
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await page.waitForTimeout(2000);
-            if (await companyPage.companyUsersCabinet.filter({hasText:cabinetNew}).isVisible()){
+            if (await companyPage.companyUsersCabinet.filter({hasText:CABINET_SECOND}).isVisible()){
                 await companyPage.companyUsersCabinet.click();
-                await companyPage.inputFirstField.fill(cabinetOld);
+                await companyPage.inputFirstField.first().fill(CABINET_FIRST);
                 await companyPage.submitButton.click();
 
-                await expect(companyPage.companyUsersCabinet.filter({hasText:cabinetOld})).toBeVisible();}
+                await expect(companyPage.companyUsersCabinet.filter({hasText:CABINET_FIRST})).toBeVisible();}
 
             await companyPage.companyUsersCabinet.click();
 
-            await expect(page.getByText('Enter the link to the user\'s account')).toBeVisible();
+            await expect(page.getByText(TEXT_ENTER_THE_LINK)).toBeVisible();
 
-            await companyPage.inputField.fill(cabinetNew);
+            await companyPage.inputField.first().fill(CABINET_SECOND);
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            if (await companyPage.companyGuestEngineers.filter({hasText:guestsNewStatus}).isVisible()){
+            if (await companyPage.companyGuestEngineers.filter({hasText:SETTINGS_DENIED}).isVisible()){
                 await companyPage.companyGuestEngineers.click();
-                await page.getByText(guestsOldStatus).first().click();
+                await page.getByText(SETTINGS_ALLOWED).first().click();
                 await companyPage.submitButton.click();
 
-                await expect(companyPage.companyGuestEngineers.filter({hasText:guestsOldStatus})).toBeVisible();}
+                await expect(companyPage.companyGuestEngineers.filter({hasText:SETTINGS_ALLOWED})).toBeVisible();}
 
             await companyPage.companyGuestEngineers.click();
-            await page.getByText(guestsNewStatus).click();
+            await page.getByText(SETTINGS_DENIED).click();
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            if (await companyPage.companyEventCategories.filter({hasText:'Alarms/Restores'}).filter({hasNotText:'Arms/Disarms'}).isVisible()){
+            if (await companyPage.companyEventCategories.filter({hasText:SETTINGS_ALARMS_RESTORES}).filter({hasNotText:SETTINGS_ARMS_DISARM}).isVisible()){
                 await companyPage.companyEventCategories.click();
-                await page.getByText(firstEvent, { exact: true }).click();
+                await page.getByText(SETTINGS_ARMS_DISARM, { exact: true }).click();
                 await companyPage.submitButton.click();
 
-                await expect(companyPage.companyEventCategories.filter({hasText:'Arms/Disarms, Alarms/Restores'})).toBeVisible();}
+                await expect(companyPage.companyEventCategories.filter({hasText:SETTINGS_ARMS_DISARMS_ALARMS_RESTORES})).toBeVisible();}
 
             await companyPage.companyEventCategories.click();
-            await page.getByText(firstEvent, { exact: true }).click();
+            await page.getByText(SETTINGS_ARMS_DISARM, { exact: true }).click();
             await companyPage.submitButton.click();
 
-            await expect(page.getByText('Company settings')).toBeVisible();
-            await expect(page.getByText(countryNew)).toBeVisible();
-            await expect(page.getByText(cabinetNew)).toBeVisible();
-            await expect(page.getByText(guestsNewStatus)).toBeVisible();
-            await expect(page.getByText('Alarms/Restores')).toBeVisible();
+            await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible();
+            await expect(page.getByText(COUNTRY_MOLDOVA)).toBeVisible();
+            await expect(page.getByText(CABINET_SECOND)).toBeVisible();
+            await expect(page.getByText(SETTINGS_DENIED)).toBeVisible();
+            await expect(page.getByText(SETTINGS_ALARMS_RESTORES)).toBeVisible();
 
             await companyPage.companyCountry.click();
-            await companyPage.inputField.fill(countryOld);
-            await page.getByText(countryOld).click();
+            await companyPage.inputField.fill(COUNTRY_UKRAINE);
+            await page.getByText(COUNTRY_UKRAINE).click();
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await companyPage.companyUsersCabinet.click();
 
-            await expect(page.getByText('Enter the link to the user\'s account')).toBeVisible();
+            await expect(page.getByText(TEXT_ENTER_THE_LINK)).toBeVisible();
 
-            await companyPage.inputField.fill(cabinetOld);
+            await companyPage.inputField.fill(CABINET_FIRST);
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await companyPage.companyGuestEngineers.click();
-            await page.getByText(guestsOldStatus).click();
+            await page.getByText(SETTINGS_ALLOWED).click();
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await companyPage.companyEventCategories.click();
-            await page.getByText(firstEvent,{ exact: true }).click();
+            await page.getByText(SETTINGS_ARMS_DISARM,{ exact: true }).click();
             await companyPage.submitButton.click();
 
-            await expect(page.getByText('Company settings')).toBeVisible();
-            await expect(page.getByText(countryOld)).toBeVisible();
-            await expect(page.getByText(cabinetOld)).toBeVisible();
-            await expect(page.getByText(guestsOldStatus)).toBeVisible();
-            await expect(page.getByText('Arms/Disarms, Alarms/Restores')).toBeVisible();
+            await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible();
+            await expect(page.getByText(COUNTRY_UKRAINE)).toBeVisible();
+            await expect(page.getByText(CABINET_FIRST)).toBeVisible();
+            await expect(page.getByText(SETTINGS_ALLOWED)).toBeVisible();
+            await expect(page.getByText(SETTINGS_ARMS_DISARMS_ALARMS_RESTORES)).toBeVisible();
         });
 
         test('Add/change service company logo', { tag: ['@smoke']  },async ({ page }) => {
@@ -343,46 +361,37 @@ test.describe('Company Page test', () => {
                 description: "https://app.clickup.com/t/8694mhqa6"
             });
 
-            const oldCompanyName: string = "UIR_SERVICE_BEST";
-            const oldCompanyDescription: string = "Обслуговуюча компанія №1463474";
-            const oldCompanyContacts: string = "Севастополь, Україна";
-            const newCompanyName: string = "NEW IMAGE";
-            const newCompanyDescription: string = "support@u-prox.systems";
-            const newCompanyContacts: string = "Lviv, Ukraine";
 
-            await companyPage.company.click();
+                await companyPage.company.click();
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+                await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
-            await companyPage.companyInfoName.click();
-            await companyPage.companyInfoNameField.fill(newCompanyName);
-            await companyPage.companyInfoDescriptionField.fill(newCompanyDescription);
-            await companyPage.companyInfoContactsField.fill(newCompanyContacts);
-            await companyPage.saveButton.click();
+                await companyPage.companyInfoName.click();
+                await companyPage.companyInfoNameField.fill(COMPANY_SERVICE_NAME_NEW);
+                await companyPage.companyInfoDescriptionField.fill(COMPANY_SERVICE_DESCRIPTION_NEW);
+                await companyPage.companyInfoContactsField.fill(COMPANY_SERVICE_CONTACTS_NEW);
+                await companyPage.saveButton.click();
+                await page.waitForTimeout(2000);
+                await page.reload();
+                await page.waitForTimeout(2000);
 
-            await page.waitForTimeout(2000);
-            page.reload();
-            await page.waitForTimeout(2000);
+                await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_NAME_NEW).last()).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_CONTACTS_NEW)).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_DESCRIPTION_NEW)).toBeVisible();
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            await expect(page.getByText(newCompanyName).last()).toBeVisible();
-            await expect(page.getByText(newCompanyContacts)).toBeVisible();
-            await expect(page.getByText(newCompanyDescription)).toBeVisible();
+                await companyPage.companyInfoName.click();
+                await companyPage.companyInfoNameField.fill(COMPANY_SERVICE_NAME_OLD);
+                await companyPage.companyInfoDescriptionField.fill(COMPANY_SERVICE_DESCRIPTION_OLD);
+                await companyPage.companyInfoContactsField.fill(COMPANY_SERVICE_CONTACTS_OLD);
+                await companyPage.saveButton.click();
+                await page.waitForTimeout(2000);
+                await page.reload();
 
-            await companyPage.companyInfoName.click();
-            await companyPage.companyInfoNameField.fill(oldCompanyName);
-            await companyPage.companyInfoDescriptionField.fill(oldCompanyDescription);
-            await companyPage.companyInfoContactsField.fill(oldCompanyContacts);
-            await companyPage.saveButton.click();
-
-            await page.waitForTimeout(2000);
-            page.reload();
-            await page.waitForTimeout(2000);
-
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            await expect(page.getByText(oldCompanyName).last()).toBeVisible();
-            await expect(page.getByText(oldCompanyDescription)).toBeVisible();
-            await expect(page.getByText(oldCompanyContacts)).toBeVisible();
+                await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_NAME_OLD).last()).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_DESCRIPTION_OLD)).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_CONTACTS_OLD)).toBeVisible();
         });
 
         test('Localization adding:service company',
@@ -392,32 +401,27 @@ test.describe('Company Page test', () => {
                 description: "https://app.clickup.com/t/8694mhqhp"
             });
 
-            const newCompanyName: string = "NEW IMAGE";
-            const newCompanyDescription: string = "Service company №1463474";
-            const newCompanyContacts: string = "Sevastopol, Ukraine";
-            const language: string = "Dutch";
-
             await companyPage.company.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await companyPage.companyAbout.click();
-            if (await (page.getByText(language)).isVisible()){
-                await page.getByText(language).click();
+            if (await (page.getByText(LANGUAGE_DUTCH)).isVisible()){
+                await page.getByText(LANGUAGE_DUTCH).click();
                 await companyPage.companyDeleteLocalizationButton.click();
-                await page.getByText('Delete', {exact: true}).click();
+                await page.getByText(TEXT_DELETE, {exact: true}).click();
 
-                await expect(page.getByText(language).first()).not.toBeVisible();}
+                await expect(page.getByText(LANGUAGE_DUTCH).first()).not.toBeVisible();}
 
             await companyPage.companyAddLocalizationButton.click();
 
-            await expect(page.getByText('Add Localization')).toBeVisible();
+            await expect(page.getByText(TEXT_ADD_LOCALIZATION)).toBeVisible();
 
             await companyPage.companyInfoLocalizationLanguageField.click();
-            await page.getByText(language).click();
-            await companyPage.companyInfoNameField.fill(newCompanyName);
-            await companyPage.companyInfoDescriptionField.fill(newCompanyDescription);
-            await companyPage.companyInfoContactsField.fill(newCompanyContacts);
+            await page.getByText(LANGUAGE_DUTCH).click();
+            await companyPage.companyInfoNameField.fill(COMPANY_SERVICE_NAME_NEW);
+            await companyPage.companyInfoDescriptionField.fill(COMPANY_SERVICE_DESCRIPTION_NEW);
+            await companyPage.companyInfoContactsField.fill(COMPANY_SERVICE_CONTACTS_NEW);
             await companyPage.saveButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
@@ -426,20 +430,20 @@ test.describe('Company Page test', () => {
             await page.reload();
             await page.waitForTimeout(2000);
 
-            await page.getByText(language).click();
+            await page.getByText(LANGUAGE_DUTCH).click();
 
-            await expect(page.getByText(newCompanyName).last()).toBeVisible();
-            await expect(page.getByText(newCompanyContacts)).toBeVisible();
-            await expect(page.getByText(newCompanyDescription)).toBeVisible();
+            await expect(page.getByText(COMPANY_SERVICE_NAME_NEW).last()).toBeVisible();
+            await expect(page.getByText(COMPANY_SERVICE_CONTACTS_NEW)).toBeVisible();
+            await expect(page.getByText(COMPANY_SERVICE_DESCRIPTION_NEW)).toBeVisible();
 
             await companyPage.companyDeleteLocalizationButton.click();
-            await page.getByText('Delete',{ exact: true }).click();
+            await page.getByText(TEXT_DELETE,{ exact: true }).click();
             await page.waitForTimeout(2000);
             page.reload();
             await page.waitForTimeout(2000);
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            await expect(page.getByText(language)).not.toBeVisible();
+            await expect(page.getByText(LANGUAGE_DUTCH)).not.toBeVisible();
         });
 
         test('Localization deleting:service company',
@@ -449,53 +453,49 @@ test.describe('Company Page test', () => {
                 description: "https://app.clickup.com/t/8694mhqrc"
             });
 
-            const newCompanyName: string = "NEW IMAGE";
-            const newCompanyDescription: string = "Service company №1463474";
-            const newCompanyContacts: string = "Sevastopol, Ukraine";
-            const language: string = "Dutch";
+                await companyPage.company.click();
 
-            await companyPage.company.click();
+                await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+                await companyPage.companyAbout.click();
+                if (await (page.getByText(LANGUAGE_DUTCH)).isVisible()){
+                    await page.getByText(LANGUAGE_DUTCH).click();
+                    await companyPage.companyDeleteLocalizationButton.click();
+                    await page.getByText(TEXT_DELETE, {exact: true}).click();
 
-            await companyPage.companyAbout.click();
-            if (await (page.getByText(language)).isVisible()){
-                await page.getByText(language).click();
-                await companyPage.companyDeleteLocalizationButton.click();
-                await page.getByText('Delete', {exact: true}).click();
+                    await expect(page.getByText(LANGUAGE_DUTCH).first()).not.toBeVisible();}
 
-                await expect(page.getByText(language).first()).not.toBeVisible();}
-            await companyPage.companyAddLocalizationButton.click();
-            await companyPage.companyInfoLocalizationLanguageField.click();
+                await companyPage.companyAddLocalizationButton.click();
 
-            await expect(page.getByText('Add Localization')).toBeVisible();
+                await expect(page.getByText(TEXT_ADD_LOCALIZATION)).toBeVisible();
 
-            await page.getByText(language).click();
-            await companyPage.companyInfoNameField.fill(newCompanyName);
-            await companyPage.companyInfoDescriptionField.fill(newCompanyDescription);
-            await companyPage.companyInfoContactsField.fill(newCompanyContacts);
-            await companyPage.saveButton.click();
+                await companyPage.companyInfoLocalizationLanguageField.click();
+                await page.getByText(LANGUAGE_DUTCH).click();
+                await companyPage.companyInfoNameField.fill(COMPANY_SERVICE_NAME_NEW);
+                await companyPage.companyInfoDescriptionField.fill(COMPANY_SERVICE_DESCRIPTION_NEW);
+                await companyPage.companyInfoContactsField.fill(COMPANY_SERVICE_CONTACTS_NEW);
+                await companyPage.saveButton.click();
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible()
+                await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
                 await page.waitForTimeout(2000);
                 await page.reload();
                 await page.waitForTimeout(2000);
 
-            await page.getByText(language).click();
+                await page.getByText(LANGUAGE_DUTCH).click();
 
-            await expect(page.getByText(newCompanyName)).toBeVisible();
-            await expect(page.getByText(newCompanyContacts)).toBeVisible();
-            await expect(page.getByText(newCompanyDescription)).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_NAME_NEW).last()).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_CONTACTS_NEW)).toBeVisible();
+                await expect(page.getByText(COMPANY_SERVICE_DESCRIPTION_NEW)).toBeVisible();
 
-            await companyPage.companyDeleteLocalizationButton.click();
-            await page.getByText('Delete',{ exact: true }).click();
-            await page.waitForTimeout(2000);
-            page.reload();
-            await page.waitForTimeout(2000);
+                await companyPage.companyDeleteLocalizationButton.click();
+                await page.getByText(TEXT_DELETE,{ exact: true }).click();
+                await page.waitForTimeout(2000);
+                page.reload();
+                await page.waitForTimeout(2000);
 
-            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-            await expect(page.getByText(language)).not.toBeVisible();
+                await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+                await expect(page.getByText(LANGUAGE_DUTCH)).not.toBeVisible();
         });
 
     });

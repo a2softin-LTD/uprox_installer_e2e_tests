@@ -24,8 +24,8 @@ export class LoginPage extends BasePage {
         this.page = page;
         this._logo = page.locator('mat-icon[svgicon="login-logo-desktop"]');
         this._form = page.locator('form');
-        this._emailField = this.form.locator('#mat-input-0');
-        this._passwordField = this.form.locator('#mat-input-1');
+        this._emailField = this.form.locator('.mat-mdc-input-element').nth(0);
+        this._passwordField = this.form.locator('.mat-mdc-input-element').nth(1);
         this._passwordEye = this.form.locator('.mat-icon');
         this._rememberMeCheckbox = this.form.locator('.mdc-checkbox__native-control');
         this._forgotYourPasswordLink = this.form.locator('span[routerlink="/reset_password"]');

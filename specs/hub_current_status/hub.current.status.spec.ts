@@ -2,9 +2,9 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
-import { TITLE_UPDATE_FIRMWARE_VERSION } from "../../utils/constants";
+import { TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS } from "../../utils/constants";
 
-test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
+test.describe('Hub Page tests', { tag: ['@smoke', '@hub']},() => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -14,9 +14,9 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
-        await expect(page).toHaveURL('/profile/panels');
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
     test('Display of hub current status ', { tag: '@smoke' }, async ({ page }) => {
@@ -30,6 +30,8 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         await page.waitForTimeout(2000);
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible()) {
             await hubPage.closeWindowButton.click();}
+
+        //await hubPage.updateFirmwareChecking(hubPage);
 
         await expect((hubPage.hubPowerNormalIcon).or(hubPage.hubPowerTroubleIcon)).toBeVisible();
         await expect((hubPage.hubTamperOpenIcon).or(hubPage.hubTamperCloseIcon)).toBeVisible();

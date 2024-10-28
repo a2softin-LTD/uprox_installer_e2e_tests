@@ -7,7 +7,7 @@ import {
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
     TITLE_SYSTEM,
     TITLE_TROUBLES,
-    TITLE_UPDATE_FIRMWARE_VERSION
+    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
@@ -20,9 +20,9 @@ test.describe('Hub Page tests', () => {
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(MIXED);
-        await expect(page).toHaveURL('/panels');
+        await expect(page).toHaveURL(URL_PANELS);
     });
 
     test('Troubles', { tag: '@smoke' }, async ({ page }) => {
@@ -32,6 +32,9 @@ test.describe('Hub Page tests', () => {
         });
 
         await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+
+        await page.waitForTimeout(2000);
+
         if (hubPage.hubsOnline.filter({has:hubPage.tamperOpenIcon}).first().isVisible())
         { await hubPage.hubsOnline.filter({has:hubPage.tamperOpenIcon}).first().click();
 
@@ -41,6 +44,9 @@ test.describe('Hub Page tests', () => {
         await hubPage.troubles.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_TROUBLES})).toBeVisible();
+
+        await page.waitForTimeout(2000);
+
         for (const device of await hubPage.entityBlock.all())
         {await expect(device.filter({has: hubPage.hubTroublesState})).toBeVisible();}}
 

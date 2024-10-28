@@ -1,3 +1,5 @@
+import {faker} from "@faker-js/faker";
+
 export enum UIErrorMessages {
     WRONG_CREDENTIALS = 'Wrong login or password',
     INCORRECT_EMAIL_ADDRESS = 'Incorrect email address format.',
@@ -24,13 +26,17 @@ export const USER_EMAIL_THIRD: string = 'andrianaslobozheniuk+10@gmail.com';
 
 export const USER_EMAIL_NON_REGISTERED: string = 'valera123gmail.com';
 
+export const DEALER_EMAIL_FIRST: string = 'Test dealer role (andriana99+77@gmail.com)';
+
+export const DEALER_EMAIL_FIRST_SHORT: string = 'andriana99+77@gmail.com';
+
+export const DEALER_EMAIL_SECOND: string = 'Дмитро Федорів (snaut12@bigmir.net)';
+
+export const DEALER_EMAIL_SECOND_SHORT: string = 'snaut12@bigmir.net';
+
 export const USER_NAME: string = 'Дмитро';
 
 export const USER_NAME_FULL: string = 'Дмитро Анатольович Пінчук';
-
-export const USER_EMAIL_NEW: string = 'sastest2398';
-
-export const USER_EMAIL_OLD: string = 'sastest2398';
 
 export const USER_NAME_NEW: string = 'Петро';
 
@@ -52,19 +58,81 @@ export const USER_LANGUAGE_SHORT_OLD: string = 'EN';
 
 export const USER_LANGUAGE_SHORT_NEW: string = 'FR';
 
-export const COMPANY_SERVICE_EMAIL_NEW: string = 'dmytro@ukr.net';
+export const COMPANY_EMAIL_NEW: string = 'dmytro@ukr.net';
 
 export const COMPANY_SERVICE_EMAIL_OLD: string = 'asiarh45@ukr.net';
 
-export const COMPANY_SERVICE_PHONE_NEW: string = '+380508888888';
+export const COMPANY_MONITORING_EMAIL_OLD: string = 'd.pinchuk+002@itvsystems.com.ua';
+
+export const COMPANY_MONITORING_SERVICE_EMAIL_OLD: string = 'd.pinchuk+003@itvsystems.com.ua';
+
+export const COMPANY_PHONE_NEW: string = '+380508888888';
+
+export const COMPANY_PHONE_OLD: string = '+3805066789089';
+
+export const COMPANY_MONITORING_PHONE_OLD: string = '+380971344443';
+
+export const COMPANY_MONITORING_SERVICE_PHONE_OLD: string = '+380971344443';
+
+export const COMPANY_MONITORING_SERVICE_NAME_NEW: string = 'АКВА компанія';
+
+export const COMPANY_MONITORING_SERVICE_DESCRIPTION_NEW: string = 'нова компанія';
+
+export const COMPANY_MONITORING_SERVICE_CONTACTS_NEW: string = 'дпинчук';
+
+export const COMPANY_MONITORING_SERVICE_NAME_OLD: string = 'AQA_MONITORING_SERVICE_COMPANY';
+
+export const COMPANY_MONITORING_SERVICE_DESCRIPTION_OLD: string = 'AQA TEST';
+
+export const COMPANY_MONITORING_SERVICE_CONTACTS_OLD: string = 'dpinchuk';
+
+export const COMPANY_SERVICE_NAME_NEW: string = 'NEW IMAGE';
+
+export const COMPANY_SERVICE_DESCRIPTION_NEW: string = 'support@u-prox.systems';
+
+export const COMPANY_SERVICE_CONTACTS_NEW: string = 'Lviv, Ukraine';
+
+export const COMPANY_SERVICE_NAME_OLD: string = 'UIR_SERVICE_BEST';
+
+export const COMPANY_SERVICE_DESCRIPTION_OLD: string = 'Обслуговуюча компанія №1463474';
+
+export const COMPANY_SERVICE_CONTACTS_OLD: string = 'Севастополь, Україна';
+
+export const COMPANY_MONITORING_NAME_NEW: string = 'АКВА компанія';
+
+export const COMPANY_MONITORING_DESCRIPTION_NEW: string = 'нова компанія';
+
+export const COMPANY_MONITORING_CONTACTS_NEW: string = 'дпинчук';
+
+export const COMPANY_MONITORING_NAME_OLD: string = 'AQA COMPANY';
+
+export const COMPANY_MONITORING_DESCRIPTION_OLD: string = 'AQA TEST';
+
+export const COMPANY_MONITORING_CONTACTS_OLD: string = 'dpinchuk';
 
 export const COMPANY_SERVICE_PHONE_OLD: string = '+380678974567';
+
+export const COMPANY_MONITORING_SERVICE_EMAIL_FIRST: string = 'zajac@ukr.net';
+
+export const CODE_FIRST: string = '1111';
+
+export const CODE_SECOND: string = '123456';
+
+export const CODE_HIDE: string = '******';
 
 export const SETTING_SHOW_IN_ADS: string = 'Shown in ADS';
 
 export const LANGUAGE_UKRAINIAN: string = 'Ukrainian';
 
 export const LANGUAGE_FRENCH: string = 'French';
+
+export const LANGUAGE_ENGLISH_SHORT: string = 'EN';
+
+export const LANGUAGE_ENGLISH: string = 'English';
+
+export const LANGUAGE_DUTCH: string = 'Dutch';
+
+export const LANGUAGE_FRENCH_SHORT: string = 'FR';
 
 export const LANGUAGE_FRENCH_UKR: string = 'Французька';
 
@@ -80,6 +148,8 @@ export const HUB_SERIAL_NUMBER_TRUE_THIRD: string = '00:08:B7:10:02:04';
 
 export const HUB_SERIAL_NUMBER_FALSE_FIRST: string = '56:08:B7:10:02:44';
 
+export const HUB_SERIAL_NUMBER_FALSE_SECOND: string = '00:08:B7:10:02:04';
+
 export const ROLE_MONITORING_SERVICE_COMPANIES: string = 'Monitoring-service companies';
 
 export const ROLE_MONITORING_COMPANIES: string = 'Monitoring companies';
@@ -87,6 +157,8 @@ export const ROLE_MONITORING_COMPANIES: string = 'Monitoring companies';
 export const ROLE_MONITORING_COMPANY: string = 'Monitoring company';
 
 export const ROLE_SERVICE_COMPANIES: string = 'Service companies';
+
+export const ROLE_SERVICE_COMPANY: string = 'Service company';
 
 export const COMPANY_FIRST: string = 'AVL TEST';
 
@@ -114,6 +186,8 @@ export const TITLE_COMPANIES: string = 'Companies:';
 
 export const TITLE_COMPANIES_: string = 'Companies';
 
+export const TITLE_SPECIAL_SETTINGS: string = 'Special settings';
+
 export const TITLE_USERS: string = 'Users';
 
 export const TITLE_GROUPS_OF_COMPANIES: string = 'Groups of companies';
@@ -132,11 +206,21 @@ export const COUNTRY_ALGERIA: string = 'Algeria';
 
 export const COUNTRY_AUSTRALIA: string = 'Australia';
 
+export const CABINET_FIRST: string = 'https://qwerty.com';
+
+export const CABINET_SECOND: string = 'https://qwertynew.com';
+
+export const TEXT_ENTER_THE_LINK: string = 'Enter the link to the user\'s account';
+
+export const TEXT_CHANGE_COMPANY_DEALER: string = 'Change company dealer';
+
 export const TEXT_NUMBER_OF_DEVICES_IM_COMPANY: string = 'Number of devices in the company';
 
 export const TEXT_SAVE_IN_XLS: string = 'Save in XLS';
 
 export const TEXT_SERIAL_NUMBER_WRONG_FORMAT: string = 'Serial number in wrong format';
+
+export const TEXT_SERIAL_NUMBER_ALREADY_ADDED: string = ' The device is already attached to another account ';
 
 export const TITLE_UPDATE_FIRMWARE_VERSION: string = 'Update firmware version';
 
@@ -149,6 +233,8 @@ export const TEXT_ENGINEER_MODE_SECONDS_LEFT: string = 'Engineer mode seconds le
 export const TITLE_SYSTEM: string = 'System';
 
 export const TITLE_GROUPS: string = 'Groups';
+
+export const TITLE_GROUPS_: string = 'Groups:';
 
 export const TEXT_ADD_GROUP: string = 'Add group';
 
@@ -182,6 +268,8 @@ export const BUTTON_ADD_WIRELESS_DEVICE: string = 'Add wireless device';
 
 export const BUTTON_DELETE_USER: string = 'Delete user';
 
+export const BUTTON_ADD_USER: string = 'Add user';
+
 export const TITLE_MY_PROFILE: string = 'My profile';
 
 export const TITLE_MY_PROFILE_FRENCH: string = 'Mon profil';
@@ -199,6 +287,8 @@ export const ROLE_MANAGER: string = 'Manager';
 export const TITLE_EMPLOYEES: string = 'Employees';
 
 export const TITLE_COMPANY_SETTINGS: string = 'Company settings';
+
+export const TITLE_COMPANY_SETTINGS_FRENCH: string = 'Réglages société ';
 
 export const TITLE_TECHNICAL_SUPPORT: string = 'Technical support';
 
@@ -238,9 +328,11 @@ export const TEXT_DEPLOY_PERCENTAGE: string = 'Deploy percentage';
 
 export const TEXT_CHANNEL: string = 'Channel';
 
-export const VERSION_CODE: string = '2279';
+export const VERSION_CODE_FIRST: string = '2279';
 
-export const VERSION_NAME: string = '22.79';
+export const VERSION_CODE_SECOND: string = '2.22.15';
+
+export const VERSION_NAME_FIRST: string = '22.79';
 
 export const TITLE_HISTORY_FOR_ALL_PANELS: string = 'History for all panels';
 
@@ -251,6 +343,10 @@ export const TEXT_ADD_USER_EMAIL: string = 'Add user email';
 export const TEXT_ALL_ROLES: string = 'All roles';
 
 export const TEXT_YES: string = 'Yes';
+
+export const TEXT_ENABLED: string = 'Enabled';
+
+export const TEXT_DISABLED: string = 'Disabled';
 
 export const ROLE_SYS_ADMIN_SMALL: string = 'system_admin';
 
@@ -275,6 +371,8 @@ export const TEXT_PANEL_INFORMATION: string = 'Panel information';
 export const CITY_POLTAVA: string = 'Poltava';
 
 export const CITY_DNIPRO: string = 'Dnipro';
+
+export const CITY_MADRID: string = 'Madrid';
 
 export const NUMBER_12: string = '12';
 
@@ -310,7 +408,7 @@ export const SETTINGS_DISARMING: string = 'Disarming';
 
 export const REACTION_WARNING_DELETE_MESSAGE: string = 'Are you sure you want to delete reaction?';
 
-export const TIME_ZONE_FIRST: string = 'Kyiv (+03:00 UTC)';
+export const TIME_ZONE_FIRST: string = 'Kyiv (+02:00 UTC)';
 
 export const TIME_ZONE_SECOND: string = 'Kabul (+04:30 UTC)';
 
@@ -322,11 +420,37 @@ export const SETTINGS_10_SECONDS: string = '10 seconds';
 
 export const SETTINGS_30_SECONDS: string = '30 seconds';
 
+export const SETTINGS_TURN_ON: string = 'Turn on';
+
+export const SETTINGS_TURN_OFF: string = 'Turn off';
+
+export const SETTINGS_DISABLED: string = 'Disabled';
+
+export const SETTINGS_ENABLED: string = 'Enabled';
+
+export const SETTINGS_DISABLE: string = 'Disable';
+
+export const SETTINGS_TRACK: string = 'Track';
+
+export const SETTINGS_ARMS_DISARM: string = 'Arms/Disarms';
+
+export const SETTINGS_ALARMS_RESTORES: string = 'Alarms/Restores';
+
+export const SETTINGS_TROUBLES_RESTORES: string = 'Troubles/Restores';
+
+export const SETTINGS_ARMS_DISARMS_ALARMS_RESTORES: string = 'Arms/Disarms, Alarms/Restores';
+
+export const SETTINGS_DENIED: string = 'Denied';
+
+export const SETTINGS_ALLOWED: string = 'Allowed';
+
 export const TITLE_EDIT_USER: string = 'Edit user';
 
 export const TEXT_EDITING_EMAIL: string = 'Editing Email';
 
 export const TEXT_CHANGE_USER_NAME: string = 'Change username';
+
+export const TEXT_MOBILE: string = 'Mobile';
 
 export const TITLE_TROUBLES: string = 'Troubles';
 
@@ -438,3 +562,170 @@ export const TEXT_EDIT_COUNTRY: string = 'Edit country';
 
 export const TEXT_ADD_COUNTRY: string = 'Add country';
 
+export const TEXT_INSTALLATION_COUNTRY: string = 'Installation Country';
+
+export const TEXT_INSTALLATION_COUNTRY_FULL: string = 'Select country where the device is installed';
+
+export const TEN: string = '10';
+
+export const TEXT_4_SYMBOLS: string = '4 symbols';
+
+export const TEXT_6_SYMBOLS: string = '6 symbols';
+
+export const TEXT_CHANGE_KEYPAD_CODE_LENGTH: string = 'Change keypad code length';
+
+export const TEXT_DISABLE_TAMPER: string = 'Disable tamper';
+
+export const TEXT_DISABLE_RADIO_JAM: string = 'Disable radio jam detection';
+
+export const TEXT_PANEL_TAMPER_DISABLED: string = 'Panel tamper disabled';
+
+export const TEXT_RADIO_JAM_DISABLED: string = 'Radio jam detection disabled';
+
+export const TEXT_REGION: string = 'Дніпропетровська область';
+
+export const TEXT_DISTRICT: string = 'Дніпровський район';
+
+export const TEXT_COMMUNITY: string = 'Любимівська територіальна громада';
+
+export const TEXT_SELECT_REGION: string = 'Select region';
+
+export const TEXT_SELECT_DISTRICT: string = 'Select district';
+
+export const TEXT_SELECT_COMMUNITY: string = 'Select community';
+
+export const TEXT_MOBILE_NEW: string = 'Mobile |';
+
+export const TEXT_USER_MANAGEMENT: string = 'User management';
+
+export const TEXT_SERVICE: string = 'Service';
+
+export const TEXT_SUBMIT: string = 'Submit';
+
+export const TEXT_ADD_KEYFOB: string = 'Add keyfob / panic button';
+
+export const TEXT_ADD_KEYFOB_INSTRUCTION_FIRST: string = 'Place the key fob no more than 2 m from the security center. Registration takes place at the lowest possible power in order to avoid the influence of neighboring systems, possibly configured nearby. To add a device, hold down any button for about 10 seconds until the green indicator blinks. Wait for the message about successful device registration. Also make sure that there is a charged battery in the key fob.';
+
+export const TEXT_ADD_KEYFOB_INSTRUCTION_SECOND: string = 'Press the button and hold for 10 seconds until the green indicator blinks.';
+
+export const TEXT_CANSEL_REGISTRY: string = 'Cancel registry';
+
+export const TEXT_UPLOADING_NEW_CONSOLE_APP_FIRMWARE: string = 'Uploading new console application firmware';
+
+export const TEXT_SEPTEMBER_2024: string = 'September 2024';
+
+export const TEXT_DAY_FIRST: string = '10.09.2024, Tuesday';
+
+export const TEXT_DAY_SECOND: string = '11.09.2024, Wednesday';
+
+export const TITLE_CAPTCHA_WHITE_LIST: string = 'Captcha white list';
+
+export const TITLE_ACCOUNT_SERVER: string = 'Account Server';
+
+export const TEXT_SEARCH_BY_EMAIL: string = 'Search by email';
+
+export const TEXT_REMOVE_USER_FROM_WHITELIST: string = 'Remove user from whitelist?';
+
+export const TEXT_ADD_EMAIL_TO_WHITELIST: string = 'Add email to whitelist';
+
+export const TEXT_ADD_USER_TO_CAPTCHA__WHITELIST: string = 'Add user to captcha white list';
+
+export const TEXT_PANEL_NODE_FIRST: string = 'Panel Server Node: devpanel-1.maks.systems';
+
+export const TEXT_PANEL_NODE_SECOND: string = 'Panel Server Node: devpanel-2.maks.systems';
+
+export const TEXT_PANEL_NODE_THIRD: string = 'Panel Server Node: devpanel-3.maks.systems';
+
+export const TEXT_CLEARING_CACHE: string = 'Clearing the cache on the Account server';
+
+export const TEXT_CLEARING_CACHE_CONFIRMATION: string = 'Are you sure you want to clear the cache on Account server?';
+
+export const COUNTRY_CODE_FIRST: string = 'DD';
+
+export const COUNTRY_CODE_UK_FIRST: string = 'ddr';
+
+export const COUNTRY_CODE_EN_FIRST: string = 'dddr';
+
+export const COUNTRY_CODE_RU_FIRST: string = 'ddddr';
+
+export const COUNTRY_CODE_UK_SECOND: string = 'bbr';
+
+export const COUNTRY_CODE_EN_SECOND: string = 'bbbr';
+
+export const COUNTRY_CODE_RU_SECOND: string = 'bbbbr';
+
+export const TEXT_DELETE: string = 'Delete';
+
+export const TEXT_ADD_LOCALIZATION: string = 'Add Localization';
+
+export const TEXT_REQUEST_WARNING_MESSAGE: string = 'Unfortunately, there are no companies in your country to apply for service. You can select another country';
+
+export const TEXT_COUNTRY_SELECTION: string = 'Country selection';
+
+export const TEXT_SERVER_SETTINGS: string = 'Server settings';
+
+export const TEXT_PANEL_CONTROL_TRANSFER: string = 'Panel control transfer';
+
+export const TEXT_TRANSFER_REQUEST_SENT: string = 'Transfer request sent';
+
+export const TEXT_PUT_ON_SERVICE: string = 'Put on service';
+
+export const TEXT_REVERT_APPLICATION: string = 'Revert application';
+
+export const TEXT_REVOKE_SERVICE_REQUEST: string = 'Revoke a service request';
+
+//SELECTORS
+
+export const SELECTOR_FIRST: string = 'div:text-is("Monitoring-service companies")';
+
+export const SELECTOR_SECOND: string = 'use[*|href="#icon-ads"]';
+
+export const SELECTOR_THIRD: string = 'use[*|href="#icon-About"]';
+
+export const SELECTOR_FOURTH: string = 'div:text-is("Service companies")';
+
+export const SELECTOR_FIFTH: string = 'use[*|href="#icon-ban"]';
+
+//URL
+
+export const URL_DEALER_COMPANIES: string = '/dealer/companies';
+
+export const URL_LOGIN: string = '/login';
+
+export const URL_PROFILE_PANELS: string = '/profile/panels';
+
+export const URL_PROFILE_FEEDBACK: string = '/profile/feedback';
+
+export const URL_PROFILE_COMPANIES: string = '/profile/companies';
+
+export const URL_PANELS: string = '/panels';
+
+export const URL_SUPPORT_SEARCH: string = '/support/search';
+
+export const URL_HUB_DOC: string = 'https://www.u-prox.systems/doc_mplte';
+
+//FAKER
+
+export const FAKER_NAME_OF_GROUP_FIRST: string = faker.string.alphanumeric({ length: { min: 10, max: 12 } });
+
+export const FAKER_NAME_OF_GROUP_SECOND: string = 'newgroup_' + faker.string.alphanumeric({ length: { min: 3, max: 4 } });
+
+export const FAKER_NAME_OF_COMPANY_FIRST: string = faker.commerce.productName();
+
+export const FAKER_NAME_OF_COMPANY_SECOND: string = 'TEST_COMPANY_' + faker.string.alphanumeric({ length: { min: 5, max: 6 } });
+
+export const FAKER_EMAIL_FIRST: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
+
+export const FAKER_EMAIL_SECOND: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
+
+export const FAKER_EMAIL_THIRD: string = faker.internet.email({ firstName: 'pol_' + EMAIL_NECESSARY_NAME_PART });
+
+export const FAKER_EMAIL_FOURTH: string = faker.internet.email();
+
+export const FAKER_EMAIL_FIFTH: string = faker.internet.email();
+
+export const FAKER_PHONE_FIRST: string = faker.phone.number();
+
+export const FAKER_PHONE_SECOND: string = faker.phone.number();
+
+export const FAKER_EMAIL_ADMIN: string = faker.internet.email({ firstName: 'sastest2398_' });
