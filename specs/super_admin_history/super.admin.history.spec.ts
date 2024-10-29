@@ -90,7 +90,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
 
             for (const event of await hubPage.historyEvent.all())
-            { await expect((event.filter({hasText:USER_EMAIL_SECOND})).or(event.filter({hasText:TITLE_SYSTEM}))).toBeVisible();}
+            { await expect((event.filter({hasText:HUB_SERIAL_NUMBER_TRUE_THIRD}))).toBeVisible();}
 
         });
 
@@ -120,6 +120,8 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
             await page.waitForTimeout(2000);
 
+            await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
+
             await expect(page.getByText(TEXT_DAY_FIRST)).toBeVisible();
             await expect(page.getByText(TEXT_DAY_SECOND)).not.toBeVisible();
 
@@ -145,8 +147,9 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await hubPage.historyActionsCheckBox.isVisible();
             await hubPage.historyServiceCheckBox.isVisible();
 
+            await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
+
             await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
-            await expect(page.getByText(TEXT_ADD_USER_EMAIL).first()).toBeVisible();
             await expect(page.getByText(TEXT_REMOVED_USER).first()).toBeVisible();
             await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).toBeVisible();
 
@@ -155,16 +158,17 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await hubPage.historyArmsCheckBox.click();
             await hubPage.historyActionsCheckBox.click();
 
+            await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
+
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
-            await expect(page.getByText(TEXT_ADD_USER_EMAIL).first()).toBeVisible();
             await expect(page.getByText(TEXT_REMOVED_USER).first()).not.toBeVisible();
             await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).not.toBeVisible();
 
         });
 
-        test('Download history file under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Download history file under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn0'

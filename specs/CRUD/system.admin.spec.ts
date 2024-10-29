@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
-import { faker } from "@faker-js/faker";
 import {
     EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
     ROLE_SYS_ADMIN_SMALL, TEXT_ADD_SUPPORT, TEXT_EDIT_SUPPORT,
@@ -10,7 +9,7 @@ import {
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
-test.describe('Company Page tests', () => {
+test.describe('Company Page tests',{ tag: '@crud' }, () => {
 
     let loginPage: LoginPage;
     let companyPage: CompanyPage;
@@ -51,7 +50,7 @@ test.describe('Company Page tests', () => {
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
-            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
+            await (page.getByText(FAKER_EMAIL_FIRST)).click();
 
             await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
 
@@ -90,7 +89,7 @@ test.describe('Company Page tests', () => {
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
-            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
+            await (page.getByText(FAKER_EMAIL_FIRST)).click();
 
             await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
 

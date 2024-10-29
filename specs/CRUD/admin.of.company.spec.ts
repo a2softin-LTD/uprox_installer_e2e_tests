@@ -19,7 +19,7 @@ import {
 } from "../../utils/constants";
 import {CompanyPage} from "../../pages/company/CompanyPage";
 
-test.describe('Company Page tests', () => {
+test.describe('Company Page tests', { tag: '@crud' },() => {
 
     let loginPage: LoginPage;
     let companyPage: CompanyPage;

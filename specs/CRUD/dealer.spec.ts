@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
-import { faker } from "@faker-js/faker";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import {
     FAKER_EMAIL_ADMIN,
@@ -12,7 +11,7 @@ import {
     URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
-test.describe('Company Page tests', () => {
+test.describe('Company Page tests', { tag: '@crud' },() => {
 
     let loginPage: LoginPage;
     let companyPage: CompanyPage;
