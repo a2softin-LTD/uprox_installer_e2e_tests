@@ -10,7 +10,7 @@ import {
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
-test.describe('Company Page test',() => {
+test.describe('Company Page test',{ tag: '@crud' },() => {
 
     let loginPage: LoginPage;
     let companyPage: CompanyPage;
@@ -50,7 +50,7 @@ test.describe('Company Page test',() => {
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
 
-            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
+            await (page.getByText(FAKER_EMAIL_FIRST)).click();
 
             await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
 
@@ -88,7 +88,7 @@ test.describe('Company Page test',() => {
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
 
-            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
+            await (page.getByText(FAKER_EMAIL_FIRST)).click();
 
             await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
 

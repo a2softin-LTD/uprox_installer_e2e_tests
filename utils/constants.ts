@@ -390,8 +390,6 @@ export const TEXT_FIRST_REACTION: string = 'First reaction';
 
 export const TEXT_SECOND_REACTION: string = 'Second reaction';
 
-export const SETTINGS_TIME_ZONE: string = 'Time zone';
-
 export const TITLE_AUTOMATION: string = 'Automation';
 
 export const TEXT_SELECT_CONTROLLER_TIME_ZONE: string = 'Select controller time zone';
@@ -402,11 +400,15 @@ export const REACTION_ERROR_MESSAGE: string = 'Error code: {{CODE}}';
 
 export const DAY_MONDAY: string = 'Mo';
 
+export const REACTION_WARNING_DELETE_MESSAGE: string = 'Are you sure you want to delete reaction?';
+
 export const GROUP_NAME: string = 'Group 1';
+
+//SETTINGS
 
 export const SETTINGS_DISARMING: string = 'Disarming';
 
-export const REACTION_WARNING_DELETE_MESSAGE: string = 'Are you sure you want to delete reaction?';
+export const SETTINGS_TIME_ZONE: string = 'Time zone';
 
 export const TIME_ZONE_FIRST: string = 'Kyiv (+02:00 UTC)';
 
@@ -444,6 +446,12 @@ export const SETTINGS_DENIED: string = 'Denied';
 
 export const SETTINGS_ALLOWED: string = 'Allowed';
 
+export const SETTINGS_ENABLE: string = 'Enable';
+
+
+
+
+
 export const TITLE_EDIT_USER: string = 'Edit user';
 
 export const TEXT_EDITING_EMAIL: string = 'Editing Email';
@@ -474,7 +482,7 @@ export const TEXT_EDIT_SUPPORT: string = 'Edit support';
 
 export const TEXT_ADD_SUPPORT: string = 'Add support';
 
-export const SETTINGS_ENABLE: string = 'Enable';
+
 
 export const TEXT_PHONE: string = 'Phone';
 

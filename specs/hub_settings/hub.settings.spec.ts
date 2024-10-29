@@ -370,9 +370,12 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         await expect(page.getByText(BUTTON_ADD_WIRELESS_DEVICE)).toBeVisible();
 
+        await page.waitForTimeout(2000);
+
         await hubPage.hubPanel.click();
         await hubPage.settingsKeypadCodeLength.click();
         await expect(page.getByText(TEXT_CHANGE_KEYPAD_CODE_LENGTH)).toBeVisible();
+        await page.waitForTimeout(1000);
         await hubPage.settingsKeypadCodeLength6digits.click();
         await hubPage.change_Button.click();
 

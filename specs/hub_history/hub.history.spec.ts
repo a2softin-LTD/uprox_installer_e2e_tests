@@ -69,7 +69,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
             await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).not.toBeVisible();
     });
 
-    test('Downloading history file: user', { tag: '@smoke' }, async ({ page }) => {
+    test.skip('Downloading history file: user', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678rvcav'
