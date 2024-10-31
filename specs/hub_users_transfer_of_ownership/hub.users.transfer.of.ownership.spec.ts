@@ -32,8 +32,10 @@ test.describe('Hub Page tests', () => {
 
         await hubPage.panels.click();
         await hubPage.firstHub.click();
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await page.waitForTimeout(2000);
         await hubPage.users.click();
         await hubPage.users.click();

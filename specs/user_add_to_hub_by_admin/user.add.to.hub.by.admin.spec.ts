@@ -13,12 +13,10 @@ import {
 test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
-    let profilePage: ProfilePage;
     let hubPage: HubPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        profilePage = new ProfilePage(page);
         hubPage = new HubPage(page);
 
         await loginPage.openLoginPage('/');
@@ -34,12 +32,17 @@ test.describe('Hub Page tests', () => {
         });
 
         await hubPage.panels.click();
+
         await expect(hubPage.pageTitle.filter({hasText:TEXT_NUMBER_OF_DEVICES_IM_COMPANY})).toBeVisible();
+
         await hubPage.entityBlock.first().click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_SYSTEM})).toBeVisible();
+
         await hubPage.users.click();
+
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
+
         await hubPage.addButton.click();
         await hubPage.addUserName.fill(USER_NAME);
         await hubPage.addUserEmail.fill(USER_3['login']);

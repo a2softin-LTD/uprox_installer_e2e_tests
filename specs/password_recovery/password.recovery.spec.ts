@@ -1,7 +1,17 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { faker } from "@faker-js/faker";
-import { EMAIL_NECESSARY_NAME_PART, USER_EMAIL, USER_EMAIL_NON_REGISTERED } from "../../utils/constants";
+import {
+    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST,
+    TEXT_INCORRECT_EMAIL_FORMAT,
+    TEXT_PASSWORD_RECOVERY,
+    TEXT_PASSWORD_RECOVERY_SENT, TEXT_USER_NOT_FOUND,
+    TEXT_WARNING,
+    TEXT_WHAT_EMAIL_IS_ASSOCIATED,
+    URL_LOGIN,
+    USER_EMAIL,
+    USER_EMAIL_NON_REGISTERED
+} from "../../utils/constants";
 
 test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
 
@@ -11,7 +21,7 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
         loginPage = new LoginPage(page);
 
         await loginPage.openLoginPage('/');
-        await expect(page).toHaveURL('/login');
+        await expect(page).toHaveURL(URL_LOGIN);
     });
 
     test.describe('Checking recovery', () => {
@@ -22,12 +32,11 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
                 description: "https://app.clickup.com/t/8692udm64"
             });
 
-
             await loginPage.forgotYourPasswordLink.click();;
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText('Password recovery')).toBeVisible();
-            await expect(page.getByText('What email is associated with your U-Prox profile?')).toBeVisible();
+            await expect(page.getByText(TEXT_PASSWORD_RECOVERY)).toBeVisible();
+            await expect(page.getByText(TEXT_WHAT_EMAIL_IS_ASSOCIATED)).toBeVisible();
             await expect(loginPage.sendButton).toBeVisible();
             await expect(loginPage.recoveryEmailField).toBeVisible();
             await expect(loginPage.goToAuthorizationButton).toBeVisible();
@@ -39,15 +48,14 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
                 description: "https://app.clickup.com/t/8692udm64"
             });
 
-
             await loginPage.forgotYourPasswordLink.click();;
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(USER_EMAIL);
             await loginPage.sendButton.click();
 
-            if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible()}
-            else if (await page.getByText('A password recovery email has been sent to your email.').isVisible())
-            {await expect(page.getByText('A password recovery email has been sent to your email.')).toBeVisible();}
+            if (await page.getByText(TEXT_WARNING).isVisible()) {await expect (page.getByText(TEXT_WARNING)).toBeVisible()}
+            else if (await page.getByText(TEXT_PASSWORD_RECOVERY_SENT).isVisible())
+            {await expect(page.getByText(TEXT_PASSWORD_RECOVERY_SENT)).toBeVisible();}
         });
 
         test('negative: Checking recovery (non-valid user email)', { tag: '@smoke' }, async ({ page }) => {
@@ -62,7 +70,7 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
             await loginPage.sendButton.click();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText('Incorrect email address format.')).toBeVisible();
+            await expect(page.getByText(TEXT_INCORRECT_EMAIL_FORMAT)).toBeVisible();
         });
 
         test('negative: Checking recovery (valid not-registrated user email)', { tag: '@smoke' }, async ({ page }) => {
@@ -71,17 +79,15 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
                 description: "https://app.clickup.com/t/8692udp0v"
             });
 
-            const email: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
             await loginPage.forgotYourPasswordLink.click();
             await page.waitForTimeout(2000);
-            await loginPage.recoveryEmailField.fill(email);
+            await loginPage.recoveryEmailField.fill(FAKER_EMAIL_FIRST);
             await page.waitForTimeout(2000);
             await loginPage.sendButton.click();
 
-            if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible()}
-            else if (await page.getByText('User not found').isVisible())
-            {await expect(page.getByText('User not found')).toBeVisible();}
+            if (await page.getByText(TEXT_WARNING).isVisible()) {await expect (page.getByText(TEXT_WARNING)).toBeVisible()}
+            else if (await page.getByText(TEXT_USER_NOT_FOUND).isVisible())
+            {await expect(page.getByText(TEXT_USER_NOT_FOUND)).toBeVisible();}
 
         });
 

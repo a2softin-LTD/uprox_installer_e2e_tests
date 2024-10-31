@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { CORP_ADMIN, MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 import {
     COMPANY_FOURTH,
-    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST, FAKER_PHONE_FIRST, ROLE_MANAGER,
+    FAKER_EMAIL_FIRST, FAKER_PHONE_FIRST, ROLE_MANAGER,
     TEXT_ADD_EMPLOYEE,
     TEXT_EDIT_EMPLOYEE,
     TITLE_EMPLOYEES, URL_PANELS, URL_PROFILE_COMPANIES, USER_NAME_NEW
@@ -73,7 +73,9 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
 
             await (page.getByText(COMPANY_FOURTH)).click();
             await companyPage.employees.click();
+
             await expect(companyPage.pageTitle.filter({hasText:TITLE_EMPLOYEES})).toBeVisible({ timeout: 10000 });
+
             await companyPage.addButton.click();
 
             await expect(page.getByText(TEXT_ADD_EMPLOYEE)).toBeVisible();

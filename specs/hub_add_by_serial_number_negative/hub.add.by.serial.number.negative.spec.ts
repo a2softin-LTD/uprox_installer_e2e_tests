@@ -6,7 +6,7 @@ import {
     COUNTRY_UKRAINE,
     HUB_SERIAL_NUMBER_FALSE_FIRST,
     HUB_SERIAL_NUMBER_FALSE_SECOND,
-    TEXT_INSTALLATION_COUNTRY, TEXT_INSTALLATION_COUNTRY_FULL,
+    TEXT_INSTALLATION_COUNTRY_FULL,
     TEXT_SERIAL_NUMBER_ALREADY_ADDED,
     TEXT_SERIAL_NUMBER_WRONG_FORMAT,
     URL_LOGIN,
@@ -60,7 +60,6 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.inputField.nth(0).click();
         await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
-
         await hubPage.nextButton.click();
 
         await expect(page.getByText(TEXT_SERIAL_NUMBER_ALREADY_ADDED)).toBeVisible();

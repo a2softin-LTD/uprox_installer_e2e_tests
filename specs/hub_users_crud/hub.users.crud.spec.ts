@@ -33,14 +33,18 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await hubPage.users.click();
         await page.waitForTimeout(1000);
+
         if (await (page.getByText(USER_NAME)).isVisible())
         {   await page.getByText(USER_NAME).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
+
         await page.waitForTimeout(1000);
         await hubPage.addButton.click();
         await hubPage.addUserName.fill(USER_NAME);
@@ -66,7 +70,7 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await page.waitForTimeout(2000);
             await page.getByText(USER_SHORT_FIRST).click();
 
-            expect(page.getByText(BUTTON_DELETE_USER));
+            await expect(page.getByText(BUTTON_DELETE_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();
@@ -106,6 +110,7 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await page.getByText(USER_NAME).click();
 
             await expect(page.getByText(TEXT_CHANGE_USER_NAME)).toBeVisible();
+
             await hubPage.inputFirstField.fill(USER_NAME_NEW);
             await hubPage.saveButton.click();
 
@@ -132,6 +137,7 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await page.getByText(USER_EMAIL).click();
 
             await expect(page.getByText(TEXT_EDITING_EMAIL)).toBeVisible();
+
             await hubPage.inputFirstField.fill(USER_EMAIL_NON_REGISTERED);
             await hubPage.saveButton.click();
 

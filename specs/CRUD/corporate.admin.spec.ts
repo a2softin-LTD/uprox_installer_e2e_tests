@@ -64,13 +64,14 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await page.waitForTimeout(1000);
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
-
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
             await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
             await companyPage.deleteButton.click();
+
             await expect(page.getByText(TEXT_DELETING_GROUPS_OF_COMPANIES)).toBeVisible();
+
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
@@ -120,13 +121,14 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await page.waitForTimeout(1000);
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
-
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
             await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
             await companyPage.deleteButton.click();
+
             await expect(page.getByText(TEXT_DELETING_GROUPS_OF_COMPANIES)).toBeVisible();
+
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();

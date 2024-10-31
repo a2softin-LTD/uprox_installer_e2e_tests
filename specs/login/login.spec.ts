@@ -252,7 +252,6 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
     test.describe('Checking authorization. Other scenarios Positive scenarios', () => {
 
-        //TODO
         test.skip('positive: Checking auth with included checkbox: Remember me', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
@@ -268,8 +267,8 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await page.close();
             loginPage = new LoginPage(page);
             await loginPage.openLoginPage('/');
-            await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
+            await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
 
     });

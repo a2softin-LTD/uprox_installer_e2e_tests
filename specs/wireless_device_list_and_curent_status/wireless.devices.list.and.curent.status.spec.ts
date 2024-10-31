@@ -17,7 +17,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL(URL_LOGIN)
     });
 
-    test('List of devices and current status', { tag: '@smoke' }, async ({ page }) => {
+    test('List of devices and current status', { tag: ['@smoke', '@hub']}, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678t0fu2"
@@ -27,9 +27,10 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
         await page.waitForTimeout(2000);
         await hubPage.secondHub.click();
-        await page.waitForTimeout(2000);
 
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_SYSTEM)})).toBeVisible();
+
+        await page.waitForTimeout(2000);
 
         for (const device of await hubPage.wirelessDeviceEntity.all())
             await expect(device).toBeVisible();

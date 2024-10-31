@@ -27,8 +27,9 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']}, () => {
 
         await profilePage.logoutButton.click();
 
-        await expect(page).toHaveURL(URL_LOGIN);
         await page.waitForTimeout(2000);
+
+        await expect(page).toHaveURL(URL_LOGIN);
         await expect(loginPage.passwordField).toBeEmpty();
         await expect(loginPage.emailField).toBeEmpty();
     });

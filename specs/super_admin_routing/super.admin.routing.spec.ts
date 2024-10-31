@@ -53,6 +53,8 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
             await expect(page.getByText(BUTTON_DEPLOY_NEW_NODE)).toBeVisible();
 
+            await page.waitForTimeout(2000);
+
             for (const node of await superAdminPage.rowBlock.all())
                 await expect(node).toBeVisible();
         });

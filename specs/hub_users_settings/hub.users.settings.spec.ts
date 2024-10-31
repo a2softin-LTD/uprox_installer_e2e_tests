@@ -4,7 +4,6 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
 import {
     BUTTON_TRANSFER_OWNERSHIP,
-    CODE_FIRST,
     CODE_HIDE, CODE_SECOND,
     SETTINGS_ALARMS_RESTORES,
     SETTINGS_ARMS_DISARM,
@@ -45,6 +44,7 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
@@ -244,6 +244,7 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await expect(page.getByText(TEXT_CANSEL_REGISTRY)).toBeVisible();
 
             await hubPage.settingsKeyfobImage.nth(0).click();
+
             await expect(page.getByText(TEXT_ADD_KEYFOB_INSTRUCTION_SECOND)).toBeVisible();
 
             await page.reload();
@@ -252,12 +253,14 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await expect(page.getByText(TEXT_ADD_KEYFOB)).toBeVisible();
 
             await hubPage.settingsKeyfobImage.nth(1).click();
+
             await expect(page.getByText(TEXT_ADD_KEYFOB_INSTRUCTION_SECOND)).toBeVisible();
 
             await page.reload();
             await page.waitForTimeout(2000);
 
             await hubPage.settingsKeyfobImage.nth(2).click();
+
             await expect(page.getByText(TEXT_ADD_KEYFOB_INSTRUCTION_SECOND)).toBeVisible();
 
             await page.reload();
@@ -338,7 +341,9 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsEventCategories.click();
+
             await expect(page.getByText(TEXT_SUBMIT)).toBeVisible();
+
             await (page.getByText(SETTINGS_ARMS_DISARM)).click();
             await (page.getByText(SETTINGS_ALARMS_RESTORES)).click();
             await (page.getByText(SETTINGS_TROUBLES_RESTORES)).click();

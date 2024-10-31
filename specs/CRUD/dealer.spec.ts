@@ -35,7 +35,9 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             expect(page.url()).toContain(URL_SUPPORT_SEARCH);
 
             await companyPage.companies.click();
+
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
+
             await companyPage.dealers.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_DEALERS})).toBeVisible();

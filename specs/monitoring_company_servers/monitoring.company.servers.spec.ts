@@ -24,9 +24,11 @@ test.describe('Company Page test', () => {
         await expect(page).toHaveURL(URL_LOGIN)
         await loginPage.auth(MONITORING_COMPANY);
         await expect(page).toHaveURL(URL_PANELS);
+
         await companyPage.company.click();
         await companyPage.companyServerList.click();
         await page.waitForTimeout(2000);
+
         for (const server of await companyPage.entityBlock.all())
         {   await  (server).locator(companyPage.trashIcon).click();
             await page.waitForTimeout(2000);
@@ -44,9 +46,10 @@ test.describe('Company Page test', () => {
         await companyPage.company.click();
         await companyPage.companyServerList.click();
 
+        await expect(companyPage.companyServerAddButton).toBeVisible();
+
         await page.waitForTimeout(2000);
 
-        await expect(companyPage.companyServerAddButton).toBeVisible();
         for (const server of await companyPage.entityBlock.all())
         { await expect(server).toBeVisible();}
 
@@ -82,6 +85,7 @@ test.describe('Company Page test', () => {
         await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);
+
         await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 
@@ -107,6 +111,7 @@ test.describe('Company Page test', () => {
         await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);
+
         await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 
@@ -141,6 +146,7 @@ test.describe('Company Page test', () => {
         await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);
+
         await expect(page.getByText(SERVER_NAME_FIRST)).not.toBeVisible();
     });
 });

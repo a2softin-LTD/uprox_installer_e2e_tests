@@ -28,18 +28,20 @@ test.describe('Hub Page tests', () => {
 
         await hubPage.panels.click();
         await hubPage.firstHub.click();
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
 
         await page.waitForTimeout(2000);
         await hubPage.hubPanel.click();
+
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+
         const [newPage]= await Promise.all([
             page.waitForEvent('popup'),
-            page.locator(SELECTOR_THIRD).click()
-        ])
+            page.locator(SELECTOR_THIRD).click()])
+
         //await newPage.waitForLoadState();
-        await page.waitForTimeout(2000);
         await expect(newPage).toHaveURL(URL_HUB_DOC);
 
         await newPage.close();

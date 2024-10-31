@@ -62,7 +62,6 @@ test.describe('Company Page test', () => {
         await companyPage.company.click();
 
         await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
-
         await expect(companyPage.companySettingsTitle).toBeVisible();
         await expect(companyPage.companyChangeLogoButton).toBeVisible();
         await expect(companyPage.companyContactEmail).toBeVisible();
@@ -111,6 +110,7 @@ test.describe('Company Page test', () => {
                 await expect(page.getByText(COMPANY_MONITORING_SERVICE_EMAIL_OLD)).toBeVisible();}
 
             else {await companyPage.companyContactEmail.click();
+
             await companyPage.inputFirstField.fill(COMPANY_EMAIL_NEW);
             await companyPage.saveButton.click();
 
@@ -136,6 +136,7 @@ test.describe('Company Page test', () => {
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
             await page.waitForTimeout(2000);
+
             if (await companyPage.companyContactPhone.filter({hasText:COMPANY_PHONE_NEW}).isVisible()){
                 await companyPage.companyContactPhone.click();
                 await companyPage.inputFirstField.fill(COMPANY_MONITORING_SERVICE_PHONE_OLD);
@@ -144,6 +145,7 @@ test.describe('Company Page test', () => {
                 await expect(page.getByText(COMPANY_MONITORING_SERVICE_PHONE_OLD)).toBeVisible();}
 
             else {await companyPage.companyContactPhone.click();
+
             await companyPage.inputFirstField.fill(COMPANY_PHONE_NEW);
             await companyPage.saveButton.click();
 
@@ -169,6 +171,7 @@ test.describe('Company Page test', () => {
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
             await page.waitForTimeout(2000);
+
             if (await companyPage.companyLanguageForEmails.filter({hasText:LANGUAGE_DUTCH}).isVisible()){
                 await companyPage.companyLanguageForEmails.click();
                 await page.getByText(LANGUAGE_ENGLISH).click();
@@ -218,7 +221,9 @@ test.describe('Company Page test', () => {
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(TITLE_COMPANY_SETTINGS)).toBeVisible();
+
             await page.waitForTimeout(2000);
+
             if (await companyPage.companyCountry.filter({hasText:COUNTRY_MOLDOVA}).isVisible())
             {   await companyPage.companyCountry.click();
                 await companyPage.inputField.clear();
@@ -234,7 +239,9 @@ test.describe('Company Page test', () => {
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
             await page.waitForTimeout(2000);
+
             if (await companyPage.companyUsersCabinet.filter({hasText:CABINET_SECOND}).isVisible()){
                 await companyPage.companyUsersCabinet.click();
                 await companyPage.inputFirstField.first().fill(CABINET_FIRST);
@@ -250,6 +257,7 @@ test.describe('Company Page test', () => {
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
             if (await companyPage.companyGuestEngineers.filter({hasText:SETTINGS_DENIED}).isVisible()){
                 await companyPage.companyGuestEngineers.click();
                 await page.getByText(SETTINGS_ALLOWED).first().click();
@@ -262,11 +270,11 @@ test.describe('Company Page test', () => {
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
             if (await companyPage.companyEventCategories.filter({hasText:SETTINGS_ALARMS_RESTORES}).filter({hasNotText:SETTINGS_ARMS_DISARM}).isVisible()){
                 await companyPage.companyEventCategories.click();
                 await page.getByText(SETTINGS_ARMS_DISARM, { exact: true }).click();
                 await companyPage.submitButton.click();
-
                 await expect(companyPage.companyEventCategories.filter({hasText:SETTINGS_ARMS_DISARMS_ALARMS_RESTORES})).toBeVisible();}
 
             await companyPage.companyEventCategories.click();
@@ -325,10 +333,12 @@ test.describe('Company Page test', () => {
 
             await companyPage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
             await page.waitForTimeout(2000);
+
             await expect(companyPage.companyDefaultLogo).not.toBeVisible();
 
             await companyPage.companyDeleteLogoButton.click();
             await page.waitForTimeout(2000);
+
             await expect(companyPage.companyDefaultLogo.last()).toBeVisible();
         });
 
@@ -344,10 +354,12 @@ test.describe('Company Page test', () => {
 
             await companyPage.companyChangeLogoButton.setInputFiles("./test-data/logo.jpg");
             await page.waitForTimeout(2000);
+
             await expect(companyPage.companyDefaultLogo).not.toBeVisible();
 
             await companyPage.companyDeleteLogoButton.click();
             await page.waitForTimeout(2000);
+
             await expect(companyPage.companyDefaultLogo.last()).toBeVisible();
         });
 
@@ -478,7 +490,6 @@ test.describe('Company Page test', () => {
                 await page.waitForTimeout(2000);
                 await page.reload();
                 await page.waitForTimeout(2000);
-
                 await page.getByText(LANGUAGE_UKRAINIAN).click();
 
                 await expect(page.getByText(COMPANY_MONITORING_SERVICE_NAME_NEW).last()).toBeVisible();

@@ -45,7 +45,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             });
 
             await superAdminPage.letterTemplates.click();
+
             await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
+
             await superAdminPage.email.click();
 
             await expect(superAdminPage.selectFirstField).toBeVisible();
@@ -66,8 +68,10 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
         await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
+        await page.waitForTimeout(2000);
+
         for (const template of await superAdminPage.rowBlock.all())
-            await expect(template).toBeVisible();
+        {await expect(template).toBeVisible();}
 
         for (const template of await superAdminPage.rowBlock.all())
         {await expect(template.filter({hasText: /[A-Z]/})).toBeVisible();}
@@ -93,10 +97,15 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
         await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
         await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible();
+
+        await page.waitForTimeout(2000);
+
         for (const localization of await superAdminPage.pushLetterLocalization.all())
         { await expect(localization).toBeVisible();}
+
         for (const parameter of await superAdminPage.letterParameters.all())
         { await expect(parameter).toBeVisible();}
+
         await expect(superAdminPage.inputFirstField).toBeVisible();
         await expect(superAdminPage.emailTestButton).toBeVisible();
         await expect(superAdminPage.letterPreview).toBeVisible();
@@ -104,16 +113,19 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await superAdminPage.backButton.click();
 
         await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
-        await page.waitForTimeout(3000);
 
+        await page.waitForTimeout(3000);
         await superAdminPage.rowBlock.last().click();
 
         await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
         await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible();
+
         for (const localization of await superAdminPage.pushLetterLocalization.all())
         { await expect(localization).toBeVisible();}
+
         for (const parameter of await superAdminPage.letterParameters.all())
         { await expect(parameter).toBeVisible();}
+
         await expect(superAdminPage.inputFirstField).toBeVisible();
         await expect(superAdminPage.emailTestButton).toBeVisible();
         await expect(superAdminPage.letterPreview).toBeVisible();
@@ -133,11 +145,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
             await superAdminPage.selectFirstField.click();
             await (page.getByText(LANGUAGE_FRENCH_UKR)).click();
-
             await superAdminPage.existEntity.first().click();
 
             await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
-
             await expect(page.getByText(LANGUAGE_FRENCH)).toBeVisible();
         });
 
@@ -153,11 +163,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
             await superAdminPage.selectFirstField.click();
             await (page.getByText(LANGUAGE_GREEK_UKR)).click();
-
             await superAdminPage.notExistEntity.first().click();
 
             await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
-
             await expect(page.getByText(LANGUAGE_GREEK)).not.toBeVisible();
         });
 
@@ -182,7 +190,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
         await superAdminPage.emailTestField.first().fill(USER_EMAIL);
         await superAdminPage.emailTestField.last().fill(COMPANY_FIFTH);
-
         await superAdminPage.sendButton.click();
 
         await expect(page.getByText(TEXT_TEST_EMAIL_SEND_SUCCESSFULLY)).toBeVisible();
@@ -194,12 +201,12 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
                 description: ""
             });
 
-            await superAdminPage.letterTemplates.click();
-            await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
-            await superAdminPage.push.click();
+        await superAdminPage.letterTemplates.click();
+        await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
+        await superAdminPage.push.click();
 
-            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_PUSH_NOTIFICATIONS)})).toBeVisible();
-            await expect(superAdminPage.selectFirstField).toBeVisible();
+        await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_PUSH_NOTIFICATIONS)})).toBeVisible();
+        await expect(superAdminPage.selectFirstField).toBeVisible();
 
         await expect(page.getByText(TEXT_TEMPLATE_TYPE)).toBeVisible();
         await expect(page.getByText(TEXT_LANGUAGE_COUNT)).toBeVisible();
@@ -219,6 +226,8 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await superAdminPage.push.click();
 
         await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
+
+        await page.waitForTimeout(2000);
 
         for (const template of await superAdminPage.rowBlock.all())
             await expect(template).toBeVisible();
@@ -250,9 +259,11 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await superAdminPage.rowBlock.first().click();
 
         await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
-        await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible()
+        await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible();
+
         for (const localization of await superAdminPage.pushLetterLocalization.all())
         { await expect(localization).toBeVisible();}
+
         await expect(superAdminPage.inputFirstField).toBeVisible();
         await expect(superAdminPage.inputSecondField).toBeVisible();
         await expect(superAdminPage.pushTestButton).toBeVisible();
@@ -260,14 +271,16 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await superAdminPage.backButton.click();
 
         await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
-        await page.waitForTimeout(3000);
 
+        await page.waitForTimeout(3000);
         await superAdminPage.rowBlock.last().click();
 
         await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
         await expect(superAdminPage.pushLetterTemplateTitle).toBeVisible();
+
         for (const localization of await superAdminPage.pushLetterLocalization.all())
         { await expect(localization).toBeVisible();}
+
         await expect(superAdminPage.inputFirstField).toBeVisible();
         await expect(superAdminPage.inputSecondField).toBeVisible();
         await expect(superAdminPage.pushTestButton).toBeVisible();
@@ -291,7 +304,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
             await superAdminPage.selectFirstField.click();
             await (page.getByText(LANGUAGE_FRENCH_UKR)).click();
-
             await superAdminPage.existEntity.first().click();
 
             await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
@@ -314,7 +326,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
             await superAdminPage.selectFirstField.click();
             await (page.getByText(LANGUAGE_GREEK_UKR)).click();
-
             await superAdminPage.notExistEntity.first().click();
 
             await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
@@ -348,7 +359,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await superAdminPage.emailTestField.nth(0).fill(USER_EMAIL_SECOND);
         await superAdminPage.emailTestField.nth(1).fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
         await superAdminPage.emailTestField.nth(2).fill(HUB_NAME_FIRST);
-
         await superAdminPage.sendButton.click();
 
         await expect(page.getByText(TEXT_SUCCESSFULLY)).toBeVisible();

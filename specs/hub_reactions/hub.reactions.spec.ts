@@ -34,8 +34,10 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await hubPage.automation.click();
 
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
@@ -60,8 +62,8 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
                 description: 'https://app.clickup.com/t/8694kxg6v'
             });
 
-
             await page.waitForTimeout(2000);
+
             for (const reaction of await hubPage.entityBlock.all())
                 await expect(reaction).toBeVisible();
 
@@ -80,6 +82,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             });
 
             await page.waitForTimeout(2000);
+
             if (await (page.getByText(TEXT_FIRST_REACTION)).isVisible()) {
                 await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
                 await hubPage.submitButton.click();}
@@ -122,6 +125,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             });
 
             await page.waitForTimeout(2000);
+
             if (await (page.getByText(TEXT_FIRST_REACTION)).isVisible()) {
                 await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
                 await hubPage.submitButton.click();}
@@ -163,6 +167,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             });
 
             await page.waitForTimeout(2000);
+
             if (await (page.getByText(TEXT_FIRST_REACTION)).isVisible()) {
                 await  (((hubPage.entityBlock).filter({hasText:TEXT_FIRST_REACTION})).locator(hubPage.trashIcon)).click();
                 await expect(page.getByText(REACTION_WARNING_DELETE_MESSAGE)).toBeVisible();

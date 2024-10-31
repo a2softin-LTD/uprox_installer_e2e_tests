@@ -2,7 +2,6 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
-import { faker } from "@faker-js/faker";
 import {
     FAKER_NAME_OF_GROUP_FIRST, FAKER_NAME_OF_GROUP_SECOND,
     TEXT_ADD_GROUP,
@@ -30,14 +29,18 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click();
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_SYSTEM)})).toBeVisible();}
+
         await hubPage.users.click();
+
         if (await (page.getByText(USER_NAME)).isVisible()) {
             await page.getByText(USER_NAME).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
+
         await hubPage.groups.click();
         await page.getByText(TEXT_ADD_GROUP).isVisible();
     });

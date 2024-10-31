@@ -35,8 +35,10 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         await expect(hubPage.pageTitle.filter({hasText:TITLE_SYSTEM})).toBeVisible();
 
         await page.waitForTimeout(2000);
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await hubPage.hubPanel.click();
         await hubPage.hubRebootButton.click();
         await hubPage.hubRebootSubmitButton.click();
