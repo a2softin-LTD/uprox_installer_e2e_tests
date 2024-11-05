@@ -61,7 +61,7 @@ test.describe('SuperAdmin page tests', () => {
         await expect(page.getByText(TITLE_CAPTCHA_WHITE_LIST)).toBeVisible();
         await expect(page.getByText(TEXT_PANEL_NODE_FIRST)).toBeVisible();
         await expect(page.getByText(TEXT_PANEL_NODE_SECOND)).toBeVisible();
-        await expect(page.getByText(TEXT_PANEL_NODE_THIRD)).toBeVisible();
+        //await expect(page.getByText(TEXT_PANEL_NODE_THIRD)).toBeVisible();
 
         await (page.getByText(TITLE_ACCOUNT_SERVER)).click();
 

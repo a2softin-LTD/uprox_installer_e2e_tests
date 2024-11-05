@@ -642,11 +642,11 @@ export const TEXT_ADD_EMAIL_TO_WHITELIST: string = 'Add email to whitelist';
 
 export const TEXT_ADD_USER_TO_CAPTCHA__WHITELIST: string = 'Add user to captcha white list';
 
-export const TEXT_PANEL_NODE_FIRST: string = 'Panel Server Node: devpanel-1.maks.systems';
+export const TEXT_PANEL_NODE_FIRST: string = 'Panel Server Node: dev-panel-1.maks.systems';
 
-export const TEXT_PANEL_NODE_SECOND: string = 'Panel Server Node: devpanel-2.maks.systems';
+export const TEXT_PANEL_NODE_SECOND: string = 'Panel Server Node: dev-panel-2.maks.systems';
 
-export const TEXT_PANEL_NODE_THIRD: string = 'Panel Server Node: devpanel-3.maks.systems';
+export const TEXT_PANEL_NODE_THIRD: string = 'Panel Server Node: dev-panel-3.maks.systems';
 
 export const TEXT_CLEARING_CACHE: string = 'Clearing the cache on the Account server';
 
