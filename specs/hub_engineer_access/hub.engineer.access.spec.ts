@@ -56,7 +56,9 @@ test.describe('Hub Page tests', () => {
         await hubPage.hubEngineerIcon.click();
         await page.getByText((ENGINEER_EMAIL)).click();
         await companyPage.okButton.click();
+
         await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+
         await page.reload();
         await page.waitForTimeout(2000);
 
@@ -66,7 +68,9 @@ test.describe('Hub Page tests', () => {
         await hubPage.hubEngineerIcon.click();
         await page.getByText((ENGINEER_EMAIL)).click();
         await companyPage.okButton.click();
+
         await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
+
         await page.reload();
         await page.waitForTimeout(2000);
 

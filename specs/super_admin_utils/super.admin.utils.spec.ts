@@ -54,7 +54,6 @@ test.describe('SuperAdmin page tests', () => {
         await superAdminPage.utils.click();
 
         await expect(superAdminPage.addCountryButton).toBeVisible();
-
         await expect(superAdminPage.utilsAddEmailToWhitelistButton).toBeVisible();
         await expect(superAdminPage.utilsExtractVersionButton).toBeVisible();
         await expect(page.getByText(TITLE_ACCOUNT_SERVER)).toBeVisible();
@@ -78,14 +77,16 @@ test.describe('SuperAdmin page tests', () => {
         });
 
         await superAdminPage.utils.click();
-
         await (page.getByText(TITLE_ACCOUNT_SERVER)).click();
 
         await expect(page.getByText(TEXT_CLEARING_CACHE)).toBeVisible();
+
         await superAdminPage.clearButton.click();
 
         await expect(page.getByText(TEXT_CLEARING_CACHE_CONFIRMATION)).toBeVisible();
+
         await superAdminPage.clearButton.click();
+
         await expect(page.getByText(TEXT_CHANGES_SAVED_SUCCESSFULLY)).toBeVisible();
     });
 
@@ -127,6 +128,7 @@ test.describe('SuperAdmin page tests', () => {
                 await expect(page.getByText(TEXT_REMOVE_USER_FROM_WHITELIST)).toBeVisible();
 
                 await superAdminPage.submitButton.click();
+
                 await expect(page.getByText(TEXT_ADD_EMAIL_TO_WHITELIST)).toBeVisible();
                 await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).not.toBeVisible();
             }
@@ -170,6 +172,7 @@ test.describe('SuperAdmin page tests', () => {
                 await expect(page.getByText(TEXT_REMOVE_USER_FROM_WHITELIST)).toBeVisible();
 
                 await superAdminPage.submitButton.click();
+
                 await expect(page.getByText(TEXT_ADD_EMAIL_TO_WHITELIST)).toBeVisible();
                 await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).not.toBeVisible();
             }
@@ -329,7 +332,6 @@ test.describe('SuperAdmin page tests', () => {
             await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).toBeVisible();
 
             await page.waitForTimeout(3000);
-
            await (superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_FIRST})).locator(superAdminPage.editIcon).click({force:true});
 
             await expect(page.getByText(TEXT_EDIT_COUNTRY)).toBeVisible();
@@ -347,7 +349,6 @@ test.describe('SuperAdmin page tests', () => {
             await (page.getByText(TITLE_COUNTRY_CONTROL)).click();
 
             await expect(page.getByText(TEXT_LIST_OF_COUNTRIES)).toBeVisible();
-
             await expect(superAdminPage.rowBlock.filter({hasText:COUNTRY_CODE_EN_SECOND})).toBeVisible();
 
             await (superAdminPage.rowBlock.filter({hasText: COUNTRY_CODE_FIRST})).locator(superAdminPage.trashIcon).click();

@@ -40,11 +40,14 @@ test.describe('Profile Page tests', () => {
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await hubPage.users.click();
+
         if (await (page.getByText(USER_NAME)).isVisible()) {
             await page.getByText(USER_NAME).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
+
         await hubPage.addButton.click();
         await hubPage.addUserName.fill(USER_NAME);
         await hubPage.addUserEmail.fill(USER_3['login']);

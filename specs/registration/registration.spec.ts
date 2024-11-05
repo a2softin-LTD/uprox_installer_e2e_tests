@@ -3,7 +3,30 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { RegistrationModel } from "../../models/RegistrationModel";
 import { faker } from "@faker-js/faker";
 import { RegistrationPage } from "../../pages/registration/RegistrationPage";
-import {EMAIL_NECESSARY_NAME_PART, TEXT_CHANGES_SAVED_SUCCESSFULLY} from "../../utils/constants";
+import {
+    EMAIL_NECESSARY_NAME_PART,
+    FAKER_EMAIL_FIRST,
+    TEXT_1_LOWERCASE_LETTER,
+    TEXT_1_NUMBER,
+    TEXT_1_UPPERCASE_LETTER,
+    TEXT_8_SYMBOLS,
+    TEXT_CAPTCHA_IS_VISIBLE,
+    TEXT_CHANGES_SAVED_SUCCESSFULLY,
+    TEXT_EMAIL_ALREADY_EXISTS,
+    TEXT_EMAIL_CONFIRMATION,
+    TEXT_INCORRECT_EMAIL_FORMAT,
+    TEXT_LATIN_CHARACTERS_ONLY,
+    TEXT_NOT_RECEIVED_EMAIL,
+    TEXT_PASSWORD_MUST_CONTAIN,
+    TEXT_REGISTRATION,
+    TEXT_RESEND_EMAIL,
+    TEXT_USERS_WITH_NO_ACCESS,
+    TEXT_WARNING,
+    USER_EMAIL_NOT_VALID, USER_EMAIL_SECOND,
+    USER_PASSWORD_FIRST,
+    USER_PASSWORD_NOR_VALID,
+    USER_PASSWORD_OLD
+} from "../../utils/constants";
 
 test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
 
@@ -12,6 +35,7 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
+        registrationPage = new RegistrationPage(page);
 
         await loginPage.openLoginPage('/');
         await loginPage.registerLink.click();
@@ -25,10 +49,9 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
                 description: "https://app.clickup.com/t/86946t9pv"
             });
 
-            registrationPage = new RegistrationPage(page);
             const User: RegistrationModel = {
-                login: faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART }),
-                password: 'asdASD123'
+                login: FAKER_EMAIL_FIRST,
+                password: USER_PASSWORD_FIRST
             };
 
             await registrationPage.emailField.click();
@@ -43,16 +66,15 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
             await registrationPage.registerButton.click();
             await page.waitForTimeout(3000);
 
-            if (await page.getByText('Warning!').isVisible()) {
-                await expect (page.getByText('Warning!')).toBeVisible();
-                console.log('Captcha is visible');
+            if (await page.getByText(TEXT_WARNING).isVisible()) {
+                await expect (page.getByText(TEXT_WARNING)).toBeVisible();
+                console.log(TEXT_CAPTCHA_IS_VISIBLE);
             }
-            else if (await page.getByText('Not received an email?').isVisible()) {
-                await expect(page.getByText('Email confirmation')).toBeVisible();
+            else if (await page.getByText(TEXT_NOT_RECEIVED_EMAIL).isVisible()) {
+                await expect(page.getByText(TEXT_EMAIL_CONFIRMATION)).toBeVisible();
                 await expect(page.getByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`)).toBeVisible();
-                await expect(page.getByText('Not received an email?')).toBeVisible();
+                await expect(page.getByText(TEXT_NOT_RECEIVED_EMAIL)).toBeVisible();
             }
-
         });
     });
 
@@ -64,15 +86,11 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
                 description: "https://app.clickup.com/t/8692uuajm"
             });
 
-            registrationPage = new RegistrationPage(page);
-
-            const email: string = "user@user";
-
             await registrationPage.emailField.click();
-            await registrationPage.emailField.fill(email);
+            await registrationPage.emailField.fill(USER_EMAIL_NOT_VALID);
             await registrationPage.registerButton.click();
 
-            await expect(page.getByText('Incorrect email address format.')).toBeVisible();
+            await expect(page.getByText(TEXT_INCORRECT_EMAIL_FORMAT)).toBeVisible();
         });
 
         test('negative: Checking registration (non-valid user password)', { tag: '@smoke' }, async ({ page }) => {
@@ -81,18 +99,15 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
                 description: "https://app.clickup.com/t/86946t9pw"
             });
 
-            registrationPage = new RegistrationPage(page);
-
-            const password: string = "~";
             await registrationPage.passwordField.click();
-            await registrationPage.passwordField.fill(password);
+            await registrationPage.passwordField.fill(USER_PASSWORD_NOR_VALID);
 
-            await expect(page.getByText('Password must contain at least')).toBeVisible();
-            await expect(page.getByText('8 symbols')).toBeVisible();
-            await expect(page.getByText('1 number')).toBeVisible();
-            await expect(page.getByText('1 lowercase letter')).toBeVisible();
-            await expect(page.getByText('1 uppercase letter')).toBeVisible();
-            await expect(page.getByText('latin characters only')).toBeVisible();
+            await expect(page.getByText(TEXT_PASSWORD_MUST_CONTAIN)).toBeVisible();
+            await expect(page.getByText(TEXT_8_SYMBOLS)).toBeVisible();
+            await expect(page.getByText(TEXT_1_NUMBER)).toBeVisible();
+            await expect(page.getByText(TEXT_1_LOWERCASE_LETTER)).toBeVisible();
+            await expect(page.getByText(TEXT_1_UPPERCASE_LETTER)).toBeVisible();
+            await expect(page.getByText(TEXT_LATIN_CHARACTERS_ONLY)).toBeVisible();
         });
 
         test('negative:Checking registration (already exist user data)', { tag: '@smoke' }, async ({ page }) => {
@@ -101,10 +116,9 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
                 description: "https://app.clickup.com/t/86946t9pw"
             });
 
-            registrationPage = new RegistrationPage(page);
             const User: RegistrationModel = {
-                login: 'pinchuk.dap@gmail.com',
-                password: 'lepidoptera111278DAP!@#'
+                login: USER_EMAIL_SECOND,
+                password: USER_PASSWORD_OLD
             };
 
             await registrationPage.emailField.click();
@@ -118,10 +132,10 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
             await page.waitForTimeout(2000);
             await registrationPage.registerButton.click();
 
-            if (await page.getByText('Warning!').isVisible()) {await expect (page.getByText('Warning!')).toBeVisible();
-                console.log('Captcha is visible');}
-            else if (await page.getByText('Email already exists').isVisible())
-            {await expect(page.getByText('Email already exists')).toBeVisible();}
+            if (await page.getByText(TEXT_WARNING).isVisible()) {await expect (page.getByText(TEXT_WARNING)).toBeVisible();
+                console.log(TEXT_CAPTCHA_IS_VISIBLE);}
+            else if (await page.getByText(TEXT_EMAIL_ALREADY_EXISTS).isVisible())
+            {await expect(page.getByText(TEXT_EMAIL_ALREADY_EXISTS)).toBeVisible();}
         });
 
     });
@@ -132,13 +146,13 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
             description: "https://app.clickup.com/t/86946t9q2"
         });
 
-        registrationPage = new RegistrationPage(page);
-
         await registrationPage.termsOfRegistrationLink.click();
-        await expect(page.getByText('Users with no access to Alarm Station Monitoring')).toBeVisible();
+
+        await expect(page.getByText(TEXT_USERS_WITH_NO_ACCESS)).toBeVisible();
+
         await registrationPage.closeButton.click();
 
-        await expect(page.getByText('Registration',{exact:true})).toBeVisible();
+        await expect(page.getByText(TEXT_REGISTRATION,{exact:true})).toBeVisible();
     });
 
     test('Resending confirmation letter', { tag: '@smoke' }, async ({ page }) => {
@@ -147,10 +161,9 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
             description: "https://app.clickup.com/t/86946t9q2"
         });
 
-        registrationPage = new RegistrationPage(page);
         const User: RegistrationModel = {
-            login: faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART }),
-            password: 'asdASD123'
+            login: FAKER_EMAIL_FIRST,
+            password: USER_PASSWORD_FIRST
         };
 
         await registrationPage.emailField.click();
@@ -165,22 +178,22 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
         await registrationPage.registerButton.click();
         await page.waitForTimeout(3000);
 
-        if (await page.getByText('Warning!').isVisible()) {
-            await expect (page.getByText('Warning!')).toBeVisible()
-            console.log('Captcha is visible');
+        if (await page.getByText(TEXT_WARNING).isVisible()) {
+            await expect (page.getByText(TEXT_WARNING)).toBeVisible()
+            console.log(TEXT_CAPTCHA_IS_VISIBLE);
         }
-        else if (await page.getByText('Not received an email?').isVisible()) {
-            await expect(page.getByText('Email confirmation')).toBeVisible();
+        else if (await page.getByText(TEXT_NOT_RECEIVED_EMAIL).isVisible()) {
+            await expect(page.getByText(TEXT_EMAIL_CONFIRMATION)).toBeVisible();
             await expect(page.getByText(`An email has been sent to your ${User.login} . To start working with the system, follow the instructions in the email.`)).toBeVisible();
-            await expect(page.getByText('Not received an email?')).toBeVisible();
+            await expect(page.getByText(TEXT_NOT_RECEIVED_EMAIL)).toBeVisible();
 
             await page.waitForTimeout(15000);
 
             await registrationPage.resendLetterButton.click();
 
             await expect (page.getByText(TEXT_CHANGES_SAVED_SUCCESSFULLY)).toBeVisible();
-            await expect(page.getByText('Not received an email?')).toBeVisible();
-            await expect(page.getByText('Resend email')).not.toBeVisible();
+            await expect(page.getByText(TEXT_NOT_RECEIVED_EMAIL)).toBeVisible();
+            await expect(page.getByText(TEXT_RESEND_EMAIL)).not.toBeVisible();
         }
     });
 

@@ -3,6 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 import { CompanyPage } from "../../pages/company/CompanyPage";
+import {URL_LOGIN, URL_PANELS} from "../../utils/constants";
 
 test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']},  () => {
 
@@ -20,10 +21,9 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']},  (
             hubPage = new HubPage(page);
 
             await loginPage.openLoginPage('/');
-            await expect(page).toHaveURL('/login')
-
+            await expect(page).toHaveURL(URL_LOGIN)
             await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
-            await expect(page).toHaveURL('/panels');
+            await expect(page).toHaveURL(URL_PANELS);
 
             await companyPage.company.click();
             await companyPage.companyAdditionalSoftware.click();
@@ -31,7 +31,6 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']},  (
             const downloadPromise = page.waitForEvent('download');
             await hubPage.entityBlock.last().click();
             const download = await downloadPromise;
-
             await download.saveAs(download.suggestedFilename());
     });
 

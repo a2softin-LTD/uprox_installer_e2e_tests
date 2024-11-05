@@ -55,6 +55,8 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
+            await page.waitForTimeout(2000);
+
             for (const employee of await superAdminPage.entityBlock.all())
                 await expect(employee).toBeVisible();
 
@@ -113,7 +115,6 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
 
             await superAdminPage.trashIcon.last().click();
             await superAdminPage.submitButton.click();
-
 
             await page.waitForTimeout(2000);
             await page.reload();

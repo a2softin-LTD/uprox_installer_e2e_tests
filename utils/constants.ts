@@ -20,9 +20,13 @@ export const USER_EMAIL: string = 'snaut12@gmail.com';
 
 export const USER_PASSWORD_FIRST: string = 'asdASD123';
 
+export const USER_PASSWORD_NOR_VALID: string = '!';
+
 export const USER_EMAIL_SECOND: string = 'd.pinchuk@itvsystems.com.ua';
 
 export const USER_EMAIL_THIRD: string = 'andrianaslobozheniuk+10@gmail.com';
+
+export const USER_EMAIL_NOT_VALID: string = 'user@user';
 
 export const USER_EMAIL_NON_REGISTERED: string = 'valera123gmail.com';
 
@@ -681,6 +685,45 @@ export const TEXT_PUT_ON_SERVICE: string = 'Put on service';
 export const TEXT_REVERT_APPLICATION: string = 'Revert application';
 
 export const TEXT_REVOKE_SERVICE_REQUEST: string = 'Revoke a service request';
+
+export const TEXT_WARNING: string = 'Warning!';
+
+export const TEXT_CAPTCHA_IS_VISIBLE: string = 'Captcha is visible';
+
+export const TEXT_EMAIL_ALREADY_EXISTS: string = 'Email already exists';
+
+export const TEXT_NOT_RECEIVED_EMAIL: string = 'Not received an email?';
+
+export const TEXT_RESEND_EMAIL: string = 'Resend email';
+
+export const TEXT_EMAIL_CONFIRMATION: string = 'Email confirmation';
+
+export const TEXT_REGISTRATION: string = 'Registration';
+
+export const TEXT_INCORRECT_EMAIL_FORMAT: string = 'Incorrect email address format.';
+
+export const TEXT_USERS_WITH_NO_ACCESS: string = 'Users with no access to Alarm Station Monitoring';
+
+export const TEXT_PASSWORD_MUST_CONTAIN: string = 'Password must contain at least';
+
+export const TEXT_8_SYMBOLS: string = '8 symbols';
+
+export const TEXT_1_NUMBER: string = '1 number';
+
+export const TEXT_1_LOWERCASE_LETTER: string = '1 lowercase letter';
+
+export const TEXT_1_UPPERCASE_LETTER: string = '1 uppercase letter';
+
+export const TEXT_LATIN_CHARACTERS_ONLY: string = 'latin characters only';
+
+export const TEXT_PASSWORD_RECOVERY: string = 'Password recovery';
+
+export const TEXT_WHAT_EMAIL_IS_ASSOCIATED: string = 'What email is associated with your U-Prox profile?';
+
+export const TEXT_PASSWORD_RECOVERY_SENT: string = 'A password recovery email has been sent to your email.';
+
+export const TEXT_USER_NOT_FOUND: string = 'User not found';
+
 
 //SELECTORS
 

@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1, USER_3 } from "../../utils/user_data";
 import {
-    BUTTON_ADD_COMPANY, BUTTON_ADD_USER,
+    BUTTON_ADD_USER,
     BUTTON_ADD_WIRELESS_DEVICE,
     BUTTON_RESTART_PANEL,
     BUTTON_TRANSFER_OWNERSHIP, CODE_FIRST,
@@ -49,8 +49,10 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await hubPage.firstHub.click();
 
         await page.waitForTimeout(2000);
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await hubPage.hubPanel.click();
     });
 
@@ -63,6 +65,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
+
         if (await hubPage.settingsHubName.filter({hasText:HUB_NAME_THIRD}).isVisible()){
             await hubPage.settingsHubName.click();
             await hubPage.inputField.fill(HUB_NAME_FIRST);
@@ -71,6 +74,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
             await expect(hubPage.settingsHubName.filter({hasText:HUB_NAME_FIRST})).toBeVisible();}
 
         else { await hubPage.settingsHubName.click();
+
         await hubPage.inputField.fill(HUB_NAME_THIRD);
         await hubPage.saveButton.click();
 
@@ -93,6 +97,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
+
         if (await hubPage.settingsCountry.filter({hasText:COUNTRY_MOLDOVA}).isVisible()){
             await hubPage.settingsCountry.click();
 
@@ -137,6 +142,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
+
         if (await hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_MANUALLY}).isVisible()){
             await hubPage.settingsFirmwareUpdate.click();
             await page.getByText(SETTINGS_AUTOMATICALLY, {exact: true}).click();
@@ -145,6 +151,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
             await expect(hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_AUTOMATICALLY})).toBeVisible();}
 
         else {await hubPage.settingsFirmwareUpdate.click();
+
         await page.getByText(SETTINGS_MANUALLY, {exact: true}).click();
         await hubPage.saveButton.click();
 
@@ -168,6 +175,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
+
         if (await hubPage.settingsLightIndication.filter({hasText:SETTINGS_TURN_OFF}).isVisible()){
             await hubPage.settingsLightIndication.click();
             await (page.getByText(SETTINGS_TURN_ON, {exact: true}).first()).click();
@@ -176,6 +184,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
             await expect(hubPage.settingsLightIndication.filter({hasText:SETTINGS_TURN_ON})).toBeVisible();}
 
         else {await hubPage.settingsLightIndication.click();
+
         await (page.getByText(SETTINGS_TURN_OFF, {exact: true}).first()).click();
         await hubPage.saveButton.click();
 
@@ -224,6 +233,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
+
         if (await hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_TRACK, hasNotText:SETTINGS_DISABLE}).isVisible()){
             await hubPage.settingsTrackSimCardExpenses.click();
             await hubPage.disableButton.click();
@@ -232,6 +242,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
             await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_DISABLED})).toBeVisible();}
 
         else {await hubPage.settingsTrackSimCardExpenses.click();
+
         await page.getByText(SETTINGS_TRACK, {exact: true}).click();
         await hubPage.saveButton.click();
 
@@ -255,6 +266,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
+
         if (await hubPage.settingsAutoCancelAlarm.filter({hasText:SETTINGS_30_SECONDS}).isVisible()){
             await hubPage.settingsAutoCancelAlarm.click();
             await page.getByText(SETTINGS_30_SECONDS, {exact: true}).click();
@@ -263,6 +275,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
             await expect(hubPage.settingsAutoCancelAlarm.filter({hasText:SETTINGS_30_SECONDS})).toBeVisible();}
 
         else {await hubPage.settingsAutoCancelAlarm.click();
+
         await page.getByText(SETTINGS_10_SECONDS, {exact: true}).click();
         await hubPage.saveButton.click();
 
@@ -284,6 +297,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.waitForTimeout(2000);
+
         if (await hubPage.settingsTimeZone.filter({hasText:TIME_ZONE_SECOND}).isVisible()){
             await hubPage.settingsTimeZone.click();
             await page.getByText(TIME_ZONE_FIRST, {exact: true}).click();
@@ -325,6 +339,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         await hubPage.settingsKeypadCodeLength.click();
         await hubPage.settingsKeypadCodeLength4digits.click();
+
         if (await hubPage.changeButton.isDisabled())
         {   await hubPage.settingsKeypadCodeLength6digits.click()
             await hubPage.change_Button.click();
@@ -338,11 +353,14 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(TITLE_USERS, {exact: true})).toBeVisible();
 
         await hubPage.users.click();
+
         if (await (page.getByText(USER_NAME)).isVisible()) {
             await page.getByText(USER_NAME).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
+
         await expect(page.getByText(BUTTON_ADD_USER)).toBeVisible();
+
         await hubPage.addButton.click();
         await hubPage.addUserName.fill(USER_NAME);
         await hubPage.addUserEmail.fill(USER_3['login']);
@@ -374,7 +392,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         await hubPage.hubPanel.click();
         await hubPage.settingsKeypadCodeLength.click();
+
         await expect(page.getByText(TEXT_CHANGE_KEYPAD_CODE_LENGTH)).toBeVisible();
+
         await page.waitForTimeout(1000);
         await hubPage.settingsKeypadCodeLength6digits.click();
         await hubPage.change_Button.click();
@@ -389,6 +409,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         });
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
+
         await page.getByText(TITLE_SPECIAL_SETTINGS, {exact: true}).click();
         await page.getByText(TEXT_DISABLE_TAMPER, {exact: true}).click();
         await page.getByText(TEXT_DISABLE_RADIO_JAM, {exact: true}).click();

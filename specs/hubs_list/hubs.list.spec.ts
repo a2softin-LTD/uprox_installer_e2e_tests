@@ -22,7 +22,6 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL(URL_LOGIN);
     });
 
-
     test('Hubs list for user', { tag: ['@smoke', '@hub']},async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",

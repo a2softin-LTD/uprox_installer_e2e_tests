@@ -32,26 +32,26 @@ test.describe('Company Page tests', () => {
         await expect(page).toHaveURL(URL_PANELS);
 
         await companyPage.employees.click();
+
         await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
+
         await page.waitForTimeout(2000);
+
         for (const employee of await (companyPage.entityBlock.filter({hasText: USER_NAME})).all())
-        {
-            await employee.click();
+        {   await employee.click();
             await page.waitForTimeout(2000);
             await companyPage.employeeDeleteManager.click();
             await companyPage.deleteButton.click();
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();}
 
-        await page.waitForTimeout(2000);
         for (const employee of await (companyPage.entityBlock.filter({hasText: USER_NAME_NEW})).all())
-        {
-            await employee.click();
+        {   await employee.click();
             await page.waitForTimeout(2000);
             await companyPage.employeeDeleteManager.click();
             await companyPage.deleteButton.click();
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();}
-
     });
+
     test('Checking UI elements on the employee page', { tag: '@smoke' }, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
@@ -61,7 +61,6 @@ test.describe('Company Page tests', () => {
         await expect(companyPage.pageTitle.filter({has: page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
         await expect(companyPage.addButton).toBeVisible();
         await expect(companyPage.employeeSearchField).toBeVisible();
-
     });
 
     test.describe('Employees: monitoring-service company', () => {

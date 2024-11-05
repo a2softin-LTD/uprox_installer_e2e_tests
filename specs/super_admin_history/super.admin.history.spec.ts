@@ -46,6 +46,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
         await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
+
         await hubPage.inputFirstField.isVisible();
         await superAdminPage.historyDate.nth(0).isVisible();
         await superAdminPage.historyDate.nth(1).isVisible();
@@ -86,7 +87,6 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
             await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
             await page.waitForTimeout(2000);
-
             await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
 
             for (const event of await hubPage.historyEvent.all())
@@ -105,9 +105,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
 
             await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
-
             await page.waitForTimeout(2000);
-
             await superAdminPage.historyDate.nth(0).click();
 
             while (await page.getByText(TEXT_SEPTEMBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
@@ -121,7 +119,6 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
-
             await expect(page.getByText(TEXT_DAY_FIRST)).toBeVisible();
             await expect(page.getByText(TEXT_DAY_SECOND)).not.toBeVisible();
 
@@ -138,9 +135,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
 
             await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
-
             await page.waitForTimeout(2000);
-
             await hubPage.historyAlarmCheckBox.isVisible();
             await hubPage.historyTroublesCheckBox.isVisible();
             await hubPage.historyArmsCheckBox.isVisible();
@@ -148,7 +143,6 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await hubPage.historyServiceCheckBox.isVisible();
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
-
             await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
             await expect(page.getByText(TEXT_REMOVED_USER).first()).toBeVisible();
             await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).toBeVisible();

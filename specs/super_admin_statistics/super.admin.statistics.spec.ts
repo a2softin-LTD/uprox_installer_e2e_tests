@@ -65,13 +65,17 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await expect(superAdminPage.pageTitle.nth(1).filter({hasText:TITLE_STATISTICS_PANELS})).toBeVisible();
         await expect(page.getByText(TEXT_TOTAL_NUMBER_OF_DEVICES)).toBeVisible();
 
+        await page.waitForTimeout(2000);
+
         for (const entity of await superAdminPage.statisticsEntity.all())
         { await expect(entity).toBeVisible();}
 
         await page.getByText(TITLE_RADIO_DEVICES, {exact:true}).click();
 
         await expect(superAdminPage.pageTitle.nth(1).filter({hasText:TITLE_STATISTICS_RADIO_DEVICES})).toBeVisible();
-        await expect(page.getByText(TEXT_TOTAL_NUMBER_OF_RADIO_DEVICES)).toBeVisible()
+        await expect(page.getByText(TEXT_TOTAL_NUMBER_OF_RADIO_DEVICES)).toBeVisible();
+
+        await page.waitForTimeout(2000);
 
         for (const entity of await superAdminPage.statisticsEntity.all())
         { await expect(entity).toBeVisible();}
@@ -80,6 +84,8 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
 
         await expect(superAdminPage.pageTitle.nth(1).filter({hasText:TITLE_STATISTICS_COMPANIES})).toBeVisible();
         await expect(page.getByText(TEXT_COUNT_OF_DEVICES_IN_COUNTRY)).toBeVisible();
+
+        await page.waitForTimeout(2000);
 
         for (const entity of await superAdminPage.statisticsEntity.all())
         { await expect(entity).toBeVisible();}
@@ -102,7 +108,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await superAdminPage.statistics.click();
 
             await expect(superAdminPage.pageTitle.filter({hasText:TITLE_STATISTICS_PANELS})).toBeVisible();
-
             await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
 
             const downloadPromise = page.waitForEvent('download');

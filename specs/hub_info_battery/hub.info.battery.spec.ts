@@ -18,7 +18,6 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         loginPage = new LoginPage(page);
         hubPage = new HubPage(page);
 
-
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL(URL_LOGIN);
         await loginPage.auth(USER_1);
@@ -34,12 +33,14 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await hubPage.hubPanel.click();
         await hubPage.hubBatteryDetailedIcon.click();
 
-        await page.getByText(TEXT_DEVICE_BATTERY_STATISTICS).isVisible();
+        await expect(page.getByText(TEXT_DEVICE_BATTERY_STATISTICS)).toBeVisible();
     });
 
 });

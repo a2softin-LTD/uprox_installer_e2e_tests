@@ -40,7 +40,9 @@ test.describe('Hub Page tests', () => {
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await expect(hubPage.pageTitle.filter({hasText:TITLE_SYSTEM})).toBeVisible();
+
         await hubPage.troubles.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_TROUBLES})).toBeVisible();

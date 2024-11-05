@@ -4,7 +4,7 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 import {BUTTON_ADD_WIRELESS_DEVICE, URL_LOGIN, URL_PROFILE_PANELS} from "../../utils/constants";
 
-test.describe('Hub Page tests',{ tag: ['@smoke', '@stable']}, () => {
+test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -19,7 +19,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable']}, () => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
-    test('Export wireless devices list', { tag: '@smoke' }, async ({ page }) => {
+    test('Export wireless devices list', { tag: ['@smoke', '@hub']}, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678t0fvw'

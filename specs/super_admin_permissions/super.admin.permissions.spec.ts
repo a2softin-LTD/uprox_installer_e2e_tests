@@ -83,6 +83,8 @@ test.describe('SuperAdmin page tests', () => {
             await superAdminPage.selectFirstField.click();
             await (page.getByText(ROLE_SYS_ADMIN_BIG)).first().click();
 
+            await page.waitForTimeout(2000);
+
             for (const employee of await superAdminPage.entityBlock.all())
             {await expect(employee.filter({hasText:ROLE_SYS_ADMIN_BIG})).toBeVisible();}
         });
@@ -98,6 +100,8 @@ test.describe('SuperAdmin page tests', () => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.inputFirstField.fill(USER_EMAIL_THIRD);
+
+            await page.waitForTimeout(2000);
 
             for (const employee of await superAdminPage.entityBlock.all())
             {await expect(employee.filter({hasText:USER_EMAIL_THIRD})).toBeVisible();}
@@ -188,6 +192,7 @@ test.describe('SuperAdmin page tests', () => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
 
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
+
             await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click()
 
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();

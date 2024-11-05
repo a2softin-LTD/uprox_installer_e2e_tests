@@ -81,7 +81,6 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
             await page.waitForTimeout(2000);
             await page.getByText(TITLE_ALL_PANELS).first().click();
             await page.getByText(PANEL_STATE).first().click();
-
             await page.waitForTimeout(2000);
 
             for (const hub of await hubPage.entityBlock.all())

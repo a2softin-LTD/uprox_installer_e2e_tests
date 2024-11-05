@@ -26,8 +26,10 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+
         await hubPage.history.click();
         await expect(page.getByText(TEXT_SAVE_IN__XLS)).toBeVisible();
     });
@@ -37,6 +39,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678rvbyg'
             });
+
             await page.waitForTimeout(2000);
 
             for (const event of await hubPage.historyEvent.all())

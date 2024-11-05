@@ -22,12 +22,10 @@ import { CompanyPage } from "../../pages/company/CompanyPage";
 test.describe('SuperAdmin Page test', () => {
 
     let loginPage: LoginPage;
-    let companyPage: CompanyPage;
     let superAdminPage: SuperAdminPage;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
-        companyPage = new CompanyPage(page);
         superAdminPage = new SuperAdminPage(page);
 
         await loginPage.openLoginPage('/');
@@ -79,13 +77,15 @@ test.describe('SuperAdmin Page test', () => {
 
             await page.waitForTimeout(1000);
             await superAdminPage.submitButton.click();
-
             await page.waitForTimeout(5000);
+
             await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible({timeout:10000});
             await expect(page.getByText(VERSION_CODE_FIRST)).toBeVisible();
 
             await (superAdminPage.rowBlock.filter({hasText: VERSION_CODE_FIRST})).locator(superAdminPage.trashIcon).click();
+
             await expect(page.getByText(TEXT_DELETING_VERSION)).toBeVisible();
+
             await superAdminPage.deleteButton.click();
 
             await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible();
@@ -97,7 +97,6 @@ test.describe('SuperAdmin Page test', () => {
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694p434a'
             });
-
 
             await superAdminPage.firmware.click();
 
@@ -116,13 +115,15 @@ test.describe('SuperAdmin Page test', () => {
 
             await page.waitForTimeout(1000);
             await superAdminPage.submitButton.click();
-
             await page.waitForTimeout(5000);
+
             await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible({timeout:10000});
             await expect(page.getByText(VERSION_CODE_FIRST)).toBeVisible();
 
             await (superAdminPage.rowBlock.filter({hasText: VERSION_CODE_FIRST})).locator(superAdminPage.trashIcon).click();
+
             await expect(page.getByText(TEXT_DELETING_VERSION)).toBeVisible();
+
             await superAdminPage.deleteButton.click();
 
             await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible();
@@ -139,6 +140,8 @@ test.describe('SuperAdmin Page test', () => {
             await superAdminPage.firmware.click();
 
             await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible();
+
+            await page.waitForTimeout(2000);
 
             for (const firmware of await superAdminPage.rowBlock.all())
                 await expect(firmware).toBeVisible();
@@ -205,7 +208,9 @@ test.describe('SuperAdmin Page test', () => {
             await expect(page.getByText(VERSION_CODE_SECOND, {exact:true})).toBeVisible();
 
             await (superAdminPage.rowBlock.filter({hasText: VERSION_CODE_SECOND})).locator(superAdminPage.trashIcon).click();
+
             await expect(page.getByText(TEXT_DELETING_VERSION)).toBeVisible();
+
             await superAdminPage.deleteButton.click();
 
             await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
@@ -251,7 +256,9 @@ test.describe('SuperAdmin Page test', () => {
             await expect(page.getByText(VERSION_CODE_SECOND, {exact:true})).toBeVisible();
 
             await (superAdminPage.rowBlock.filter({hasText: VERSION_CODE_SECOND})).locator(superAdminPage.trashIcon).click();
+
             await expect(page.getByText(TEXT_DELETING_VERSION)).toBeVisible();
+
             await superAdminPage.deleteButton.click();
 
             await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
@@ -269,6 +276,8 @@ test.describe('SuperAdmin Page test', () => {
             await superAdminPage.consoleApplication.click();
 
             await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
+
+            await page.waitForTimeout(2000);
 
             for (const firmware of await superAdminPage.rowBlock.all())
                 await expect(firmware).toBeVisible();

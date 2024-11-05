@@ -41,10 +41,10 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
         await page.waitForTimeout(2000);
 
         for (const hub of await companyPage.entityBlock.all())
-            await expect(hub).toBeVisible();
+        { await expect(hub).toBeVisible();}
 
         for (const hub of await companyPage.entityBlock.all())
-        {await expect(hub.filter({has: companyPage.entityText})).toBeVisible();}
+        { await expect(hub.filter({has: companyPage.entityText})).toBeVisible();}
 
     });
 

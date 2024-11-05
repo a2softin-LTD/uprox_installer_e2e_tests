@@ -76,7 +76,6 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
 
             await companyPage.companyCountryFilter.click();
             await page.getByText(COUNTRY_UKRAINE,{ exact: true }).first().click();
-
             await page.waitForTimeout(2000);
 
             for (const hub of await companyPage.entityBlock.filter({hasText:COUNTRY_UKRAINE}).all())
@@ -98,7 +97,6 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
 
             await companyPage.companyRoleFilter.click();
             await page.getByText(ROLE_MONITORING_SERVICE_COMPANIES, { exact: true }).first().click();
-
             await page.waitForTimeout(2000);
 
             for (const company of await companyPage.entityBlock.filter({hasText:ROLE_MONITORING_SERVICE_COMPANIES}).all())

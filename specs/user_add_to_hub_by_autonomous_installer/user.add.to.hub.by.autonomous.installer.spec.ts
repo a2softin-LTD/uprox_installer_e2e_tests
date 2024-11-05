@@ -23,6 +23,13 @@ test.describe('Hub Page tests', () => {
         await loginPage.auth(USER_1);
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
+    });
+
+    test('Add new user by autonomous installer', { tag: ['@smoke']  }, async ({ page }) => {
+        test.info().annotations.push({
+            type: "test_id",
+            description: "https://app.clickup.com/t/8694amwf8"
+        });
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
@@ -45,14 +52,7 @@ test.describe('Hub Page tests', () => {
             await page.waitForTimeout(1000);
             await hubPage.backButton.click();}
         finally {await expect(page.getByText(USER_SHORT_FIRST)).toBeVisible();}
-    });
 
-    test('Add new user by autonomous installer', { tag: ['@smoke']  }, async ({ page }) => {
-        test.info().annotations.push({
-            type: "test_id",
-            description: "https://app.clickup.com/t/8694amwf8"
-        });
-;
         await page.getByText(USER_NAME).click();
 
         expect(page.getByText(BUTTON_DELETE_USER));
@@ -69,6 +69,30 @@ test.describe('Hub Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
         });
+
+        await hubPage.panels.click();
+        await hubPage.firstHub.click();
+        await page.waitForTimeout(2000);
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
+        {  await hubPage.closeWindowButton.click()}
+        await hubPage.users.click();
+
+        if (await (page.getByText(USER_NAME)).isVisible()) {
+            await page.getByText(USER_NAME).click();
+            await hubPage.deleteUserButton.click();
+            await hubPage.submitButton.click();}
+        await hubPage.addButton.click();
+        await hubPage.addUserName.fill(USER_NAME);
+        await hubPage.addUserEmail.fill(USER_3['login']);
+        await hubPage.userAllowMobileAppManagementFromHome.click();
+        await hubPage.addButton.click();
+
+        try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();}
+        catch (error) {console.error(`An error occurred: ${error.message}`);
+            await page.reload();
+            await page.waitForTimeout(1000);
+            await hubPage.backButton.click();}
+        finally {await expect(page.getByText(USER_SHORT_FIRST)).toBeVisible();}
 
         await page.getByText(USER_NAME).click();
 
