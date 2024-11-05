@@ -2,7 +2,6 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
-import { faker } from "@faker-js/faker";
 import {
     CABINET_FIRST, CABINET_SECOND,
     COMPANY_FIRST,
@@ -15,7 +14,6 @@ import {
     DEALER_EMAIL_FIRST_SHORT,
     DEALER_EMAIL_SECOND,
     DEALER_EMAIL_SECOND_SHORT,
-    EMAIL_NECESSARY_NAME_PART,
     FAKER_EMAIL_FIRST,
     FAKER_EMAIL_SECOND, FAKER_EMAIL_THIRD,
     FAKER_NAME_OF_COMPANY_FIRST,
@@ -170,7 +168,7 @@ test.describe('SuperAdmin page tests',() => {
 
     test.describe('Company search under SUPER_ADMIN role',{ tag: ['@smoke', '@stable', '@superadmin']},() => {
 
-        test('Search by country', { tag: '@smoke' },async ({ page }) => {
+        test('Search by country under SUPER_ADMIN role', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694p3ztg"
@@ -178,7 +176,8 @@ test.describe('SuperAdmin page tests',() => {
             let count=0;
 
             await superAdminPage.companies.click();
-            await page.waitForTimeout(5000);
+
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
 
             for (const hub of await superAdminPage.entityBlock.filter({hasText:COUNTRY_ALGERIA}).all())
             { await expect(hub).toBeVisible();
@@ -186,8 +185,9 @@ test.describe('SuperAdmin page tests',() => {
 
             await companyPage.companyCountryFilter.click();
             await page.getByText(COUNTRY_ALGERIA,{ exact: true }).click();
-
             await page.waitForTimeout(2000);
+
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
 
             for (const hub of await superAdminPage.entityBlock.filter({hasText:COUNTRY_ALGERIA}).all())
             { await expect(hub).toBeVisible();}
@@ -195,19 +195,26 @@ test.describe('SuperAdmin page tests',() => {
             await expect(companyPage.employeeBlock).toHaveCount(count);
         });
 
-        test('Search by role', { tag: '@smoke' },async ({ page }) => {
+        test('Search by role under SUPER_ADMIN role', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694p3zwr"
             });
 
             await superAdminPage.companies.click();
-            await page.waitForTimeout(5000);
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_COMPANIES)})).toBeVisible({timeout:10000});
+
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
+
             let hubsNumber=((await page.$$(SELECTOR_FOURTH)).length)-1;
+
             await companyPage.companyRoleFilter.click();
             await page.getByText(ROLE_SERVICE_COMPANIES, { exact: true }).first().click();
 
             await page.waitForTimeout(2000);
+
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
 
             for (const hub of await superAdminPage.entityBlock.filter({hasText:ROLE_SERVICE_COMPANIES}).all())
             { await expect(hub).toBeVisible();}
@@ -216,19 +223,22 @@ test.describe('SuperAdmin page tests',() => {
         });
 
 
-        test('Search by setting', { tag: '@smoke' },async ({ page }) => {
+        test('Search by setting under SUPER_ADMIN role', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694p404p"
             });
 
             await superAdminPage.companies.click();
-            await page.waitForTimeout(5000);
+
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
+
             let hubsNumber=((await page.$$(SELECTOR_FIFTH)).length);
             await companyPage.companyAllFilter.click();
             await page.getByText(SETTINGS_BLOCKED, { exact: true }).click();
-
             await page.waitForTimeout(2000);
+
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
 
             for (const hub of await superAdminPage.entityBlock.filter({has:superAdminPage.banIcon}).all())
             { await expect(hub).toBeVisible();}
@@ -236,20 +246,21 @@ test.describe('SuperAdmin page tests',() => {
             await expect(companyPage.employeeBlock).toHaveCount(hubsNumber);
         });
 
-        test('Search by company name',{ tag: '@smoke' }, async ({ page }) => {
+        test('Search by company name under SUPER_ADMIN role',{ tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694p3zyz"
             });
 
             await superAdminPage.companies.click();
-            await page.waitForTimeout(5000);
+
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
 
             await expect(page.getByText(COMPANY_SECOND)).toBeVisible();
 
             await companyPage.companySearchField.fill(COMPANY_SECOND);
 
-            await expect(page.getByText(COMPANY_SECOND)).toBeVisible();
+            await expect(page.getByText(COMPANY_SECOND)).toBeVisible({timeout:10000});
             await expect(companyPage.employeeBlock).toHaveCount(1);
         });
 

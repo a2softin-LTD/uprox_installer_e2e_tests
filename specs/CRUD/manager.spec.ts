@@ -22,7 +22,7 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
         await loginPage.openLoginPage('/');
     });
 
-    test('Creation of MANAGER under the Role = MONITORING_SERVICE_COMPANY_ADMIN', { tag: '@smoke' }, async ({ page }) => {
+    test('Creation of MANAGER under the Role MONITORING_SERVICE_COMPANY_ADMIN', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694atxk3"
