@@ -31,6 +31,10 @@ export class SuperAdminPage extends BasePage {
     private readonly _historyChangeMonth: Locator;
     private readonly _historyCalendarDayEntity: Locator;
 
+    private readonly _profileNameBlock: Locator;
+    private readonly _profilePhoneBlock: Locator;
+    private readonly _profileLanguageBlock: Locator;
+
     private readonly _firmware: Locator;
     private readonly _utils: Locator;
     private readonly _letterTemplates: Locator;
@@ -68,6 +72,10 @@ export class SuperAdminPage extends BasePage {
         this._historyChangeMonth = page.locator('.change_month');
         this._historyCalendarDayEntity = page.locator('.calendar__day');
 
+        this._profileNameBlock = this.page.locator('.input_block.constant_block.constant_block-action').nth(0);
+        this._profilePhoneBlock = this.page.locator('.input_block.constant_block.constant_block-action').nth(1);
+        this._profileLanguageBlock = this.page.locator('.input_block.constant_block.constant_block-action').nth(2);
+
 
         this._firmware = page.getByText('Firmware version');
         this._utils = page.getByText('Utils');
@@ -99,6 +107,18 @@ export class SuperAdminPage extends BasePage {
 
     get upLoadFirmwareWinSelectFile (): Locator {
         return this._upLoadFirmwareWinSelectFile;
+    }
+
+    get profileNameBlock (): Locator {
+        return this._profileNameBlock;
+    }
+
+    get profilePhoneBlock (): Locator {
+        return this._profilePhoneBlock;
+    }
+
+    get profileLanguageBlock (): Locator {
+        return this._profileLanguageBlock;
     }
 
     get upLoadFirmwareLinuxSelectFile (): Locator {

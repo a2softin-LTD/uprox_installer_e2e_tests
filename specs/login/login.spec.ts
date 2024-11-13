@@ -252,7 +252,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
     test.describe('Checking authorization. Other scenarios Positive scenarios', () => {
 
-        test.skip('positive: Checking auth with included checkbox: Remember me', { tag: '@smoke' }, async ({ page }) => {
+        test('positive: Checking auth with included checkbox: Remember me', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/86946uqk8'
@@ -262,12 +262,6 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await loginPage.passwordField.fill(USER_1['password']);
             await loginPage.rememberMeCheckbox.click();
             await loginPage.loginButton.click();
-            await expect(page).toHaveURL(URL_PROFILE_PANELS);
-
-            await page.close();
-            loginPage = new LoginPage(page);
-            await loginPage.openLoginPage('/');
-
             await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
 

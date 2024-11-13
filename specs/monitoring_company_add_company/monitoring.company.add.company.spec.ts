@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
-import { faker } from "@faker-js/faker";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import {
     ADMIN_EMAIL,
@@ -10,11 +9,11 @@ import {
     COUNTRY_UKRAINE_SHORT, FAKER_EMAIL_FIFTH,
     FAKER_EMAIL_FOURTH,
     FAKER_NAME_OF_COMPANY_FIRST,
-    FAKER_NAME_OF_COMPANY_SECOND, FAKER_PHONE_FIRST,
+    FAKER_NAME_OF_COMPANY_SECOND, FAKER_PHONE_FIRST, ROLE_MONITORING_COMPANIES,
     ROLE_MONITORING_COMPANY,
-    TEXT_ABSENT,
+    TEXT_ABSENT, TEXT_COUNTRY,
     TEXT_INTERNATIONAL,
-    TEXT_NO,
+    TEXT_NO, TEXT_REGION, TEXT_REQUIRED_FIELD,
     TEXT_TEST_DEALER_ROLE,
     URL_LOGIN,
     URL_SUPPORT_SEARCH
@@ -37,7 +36,7 @@ test.describe('Company Page tests', () => {
 
     test.describe('Create new monitoring company under the Role = SYSTEM_ADMIN ', () => {
 
-        test.skip('Create new monitoring company: verify Submit Button State', { tag: '@smoke' }, async ({ page }) => {
+        test('Create new monitoring company: verify Submit Button State', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678m6f6g"
@@ -48,27 +47,35 @@ test.describe('Company Page tests', () => {
             await expect(page.getByText(BUTTON_ADD_COMPANY)).toBeVisible();
 
             await companyPage.companyAddButton.click();
-            await companyPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+
+            await expect(page.getByText(TEXT_COUNTRY)).toBeVisible();
+
+            await companyPage.submitButton.click();
+
+            await expect(page.getByText(TEXT_REQUIRED_FIELD).first()).toBeVisible();
+
+            await companyPage.backButton.click();
+
+            await expect(page.getByText(BUTTON_ADD_COMPANY)).toBeVisible();
+
+            await companyPage.companyAddButton.click();
+
             await companyPage.inputSecondField.fill(FAKER_EMAIL_FOURTH);
             await companyPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
             await page.getByText(COUNTRY_UKRAINE).click();
-            await companyPage.selectFirstField.click();
-            await page.getByText(TEXT_INTERNATIONAL).click();
+
             await companyPage.selectSecondField.click();
             await page.getByText(TEXT_TEST_DEALER_ROLE).click();
             await companyPage.selectThirdField.click();
-            await page.getByText(ROLE_MONITORING_COMPANY).click();
-            await companyPage.inputFourthField.fill(FAKER_EMAIL_FIFTH);
-            await companyPage.inputFifthField.fill(FAKER_PHONE_FIRST);
-            await companyPage.inputSixthtField.fill(TEXT_NO);
-            await companyPage.inputSeventhField.fill(TEXT_ABSENT);
+            await page.getByText(ROLE_MONITORING_COMPANIES).click();
+
             await companyPage.submitButton.click();
 
-            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
+            await expect(page.getByText(TEXT_REQUIRED_FIELD)).toBeVisible();
 
-            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
 
-            await expect(page.getByText(FAKER_EMAIL_FOURTH)).toBeVisible();
+
+
         });
 
         test.skip('Create new monitoring company with mandatory fields only', { tag: '@smoke' }, async ({ page }) => {

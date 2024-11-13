@@ -3,6 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 import {
+    BUTTON_RESTART_PANEL,
     TEXT_DEVICE_BATTERY_STATISTICS,
     TITLE_UPDATE_FIRMWARE_VERSION,
     URL_LOGIN,
@@ -38,6 +39,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         {  await hubPage.closeWindowButton.click()}
 
         await hubPage.hubPanel.click();
+        await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
         await hubPage.hubBatteryDetailedIcon.click();
 
         await expect(page.getByText(TEXT_DEVICE_BATTERY_STATISTICS)).toBeVisible();

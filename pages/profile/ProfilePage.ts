@@ -10,6 +10,7 @@ export class ProfilePage extends BasePage {
     private readonly _userEditField: Locator;
     private readonly _userEditSubmit: Locator;
     private readonly _userPassword: Locator;
+    private readonly _userDeleteAccount: Locator;
     private readonly _userEditCurrentPasswordField: Locator;
     private readonly _userEditNewPasswordField: Locator;
     private readonly _userPhone: Locator;
@@ -20,7 +21,7 @@ export class ProfilePage extends BasePage {
     private readonly _myProfileButton: Locator;
     private readonly _logoutButton: Locator;
     private readonly _myProfileTitle: Locator;
-
+    private readonly _messageNew: Locator;
     private readonly _message: Locator;
 
     constructor(page: Page) {
@@ -32,6 +33,7 @@ export class ProfilePage extends BasePage {
         this._userEditField = this.page.locator('.input_block-input');
         this._userEditSubmit = page.getByText('Change',{ exact: true });
         this._userPassword = page.getByText('Change password');
+        this._userDeleteAccount = page.getByText('Delete account');
         this._userEditCurrentPasswordField = this.form.locator('input[type="password"]').first();
         this._userEditNewPasswordField = this.form.locator('input[type="password"]').last();
         this._userPhone = page.getByText('Phone');
@@ -42,8 +44,8 @@ export class ProfilePage extends BasePage {
         this._myProfileButton = this.page.locator('div[routerlink="/profile"]');
         this._logoutButton = this.page.locator('span:text-is("Logout")');
         this._message = page.getByText('Messages');
+        this._messageNew = page.getByText('New message');
         this._myProfileTitle = this.page.locator('span:text-is("Email")');
-
 
     }
 
@@ -63,9 +65,14 @@ export class ProfilePage extends BasePage {
         return this._userEditSubmit;
     }
 
+    get userDeleteAccount(): Locator {
+        return this._userDeleteAccount;
+    }
+
     get userPassword(): Locator {
         return this._userPassword;
     }
+
 
     get userEditCurrentPasswordField(): Locator {
         return this._userEditCurrentPasswordField;
@@ -89,6 +96,10 @@ export class ProfilePage extends BasePage {
 
     get message(): Locator {
         return this._message;
+    }
+
+    get messageNew(): Locator {
+        return this._messageNew;
     }
 
     get userRole(): Locator {

@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
+import {MONITORING_SERVICE_COMPANY_1, SERVICE_COMPANY_1} from "../../utils/user_data";
 import {
-     FAKER_EMAIL_FIRST, FAKER_PHONE_FIRST, FAKER_PHONE_SECOND,
+    FAKER_EMAIL_FIRST, FAKER_PHONE_FIRST, FAKER_PHONE_SECOND,
     ROLE_MANAGER,
     SETTINGS_ENABLE,
     TEXT_BLOCK_EMPLOYEE, TEXT_CONFIGURING_PANELS,
@@ -27,7 +27,7 @@ test.describe('Company Page tests', () => {
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL(URL_LOGIN);
-        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
+        await loginPage.auth(SERVICE_COMPANY_1);
         await expect(page).toHaveURL(URL_PANELS);
 
         await companyPage.employees.click();
@@ -62,9 +62,9 @@ test.describe('Company Page tests', () => {
         await expect(companyPage.employeeSearchField).toBeVisible();
     });
 
-    test.describe('Employees: monitoring-service company', () => {
+    test.describe('Employees: service company', () => {
 
-        test('Add employee: monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
+        test('Add employee: service company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju80"
@@ -94,7 +94,7 @@ test.describe('Company Page tests', () => {
             await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
 
-        test('Delete employee: monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
+        test('Delete employee: service company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694v0c04"
@@ -124,7 +124,7 @@ test.describe('Company Page tests', () => {
             await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
 
-        test('Employee data editing: monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
+        test('Employee data editing: service company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju83"
@@ -173,7 +173,7 @@ test.describe('Company Page tests', () => {
 
         });
 
-        test('Employee search: monitoring-service company', { tag: '@smoke' }, async ({ page }) => {
+        test('Employee search: service company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju7u"

@@ -81,6 +81,7 @@ export class BasePage {
     private readonly _notExistEntity: Locator;
     private readonly _existEntity: Locator;
     private readonly _entityBlock: Locator;
+    private readonly _dateBlock: Locator;
     private readonly _entityText: Locator;
     private readonly _entityText1: Locator;
 
@@ -170,6 +171,7 @@ export class BasePage {
         // OTHERS
         this._pageTitle = page.locator('h3');
         this._entityBlock = this.page.locator('.part__item');
+        this._dateBlock = this.page.locator('.date-block');
         this._notExistEntity = this.page.locator('.color-not-exist');
         this._existEntity = this.page.locator('.color-exist');
         this._rowBlock = this.page.locator('.part__item-table-row');
@@ -359,6 +361,10 @@ export class BasePage {
 
     get entityBlock(): Locator {
         return this._entityBlock;
+    }
+
+    get dateBlock(): Locator {
+        return this._dateBlock;
     }
 
     get entityText(): Locator {

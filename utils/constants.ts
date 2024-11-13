@@ -20,6 +20,10 @@ export const USER_EMAIL: string = 'snaut12@gmail.com';
 
 export const USER_PASSWORD_FIRST: string = 'asdASD123';
 
+export const SUPER_ADMIN_PASSWORD_OLD: string = 'superadmin';
+
+export const SUPER_ADMIN_PASSWORD_NEW: string = 'asdASD123';
+
 export const USER_PASSWORD_NOR_VALID: string = '!';
 
 export const USER_EMAIL_SECOND: string = 'd.pinchuk@itvsystems.com.ua';
@@ -49,6 +53,22 @@ export const USER_NAME_OLD: string = 'Дмитро';
 export const USER_PHONE_NEW: string = '+380508888888';
 
 export const USER_PHONE_OLD: string = '+380507777777';
+
+export const SUPER_ADMIN_NAME_NEW: string = 'Петро';
+
+export const SUPER_ADMIN_NAME_OLD: string = '1111';
+
+export const SUPER_ADMIN_PHONE_NEW: string = '+380508888888';
+
+export const SUPER_ADMIN_PHONE_OLD: string = '+35896894';
+
+export const DEALER_NAME_NEW: string = 'Дмитро';
+
+export const DEALER_NAME_OLD: string = 'ITV Dealer';
+
+export const DEALER_PHONE_NEW: string = '+38050777777';
+
+export const DEALER_PHONE_OLD: string = '+380674555555';
 
 export const USER_PASSWORD_NEW: string = 'lepidoptera111278DAP!';
 
@@ -486,7 +506,7 @@ export const TEXT_EDIT_SUPPORT: string = 'Edit support';
 
 export const TEXT_ADD_SUPPORT: string = 'Add support';
 
-
+export const TITLE_SERVICE_REQUESTS: string = 'Service requests';
 
 export const TEXT_PHONE: string = 'Phone';
 
@@ -580,6 +600,8 @@ export const TEXT_INSTALLATION_COUNTRY_FULL: string = 'Select country where the 
 
 export const TEN: string = '10';
 
+export const EIGHTEEN: string = '18';
+
 export const TEXT_4_SYMBOLS: string = '4 symbols';
 
 export const TEXT_6_SYMBOLS: string = '6 symbols';
@@ -626,9 +648,11 @@ export const TEXT_UPLOADING_NEW_CONSOLE_APP_FIRMWARE: string = 'Uploading new co
 
 export const TEXT_SEPTEMBER_2024: string = 'September 2024';
 
-export const TEXT_DAY_FIRST: string = '10.09.2024, Tuesday';
+export const TEXT_OCTOBER_2024: string = 'October 2024';
 
-export const TEXT_DAY_SECOND: string = '11.09.2024, Wednesday';
+export const TEXT_DAY_FIRST: string = '18.10.2024, Friday';
+
+export const TEXT_DAY_SECOND: string = '19.10.2024, Saturday';
 
 export const TITLE_CAPTCHA_WHITE_LIST: string = 'Captcha white list';
 
@@ -680,8 +704,6 @@ export const TEXT_PANEL_CONTROL_TRANSFER: string = 'Panel control transfer';
 
 export const TEXT_TRANSFER_REQUEST_SENT: string = 'Transfer request sent';
 
-export const TEXT_PUT_ON_SERVICE: string = 'Put on service';
-
 export const TEXT_REVERT_APPLICATION: string = 'Revert application';
 
 export const TEXT_REVOKE_SERVICE_REQUEST: string = 'Revoke a service request';
@@ -723,6 +745,22 @@ export const TEXT_WHAT_EMAIL_IS_ASSOCIATED: string = 'What email is associated w
 export const TEXT_PASSWORD_RECOVERY_SENT: string = 'A password recovery email has been sent to your email.';
 
 export const TEXT_USER_NOT_FOUND: string = 'User not found';
+
+export const TEXT_ROLE: string = 'Role';
+
+export const TEXT_EMAIL: string = 'Email';
+
+export const TEXT_REQUIRED_FIELD: string = 'Required field';
+
+export const TEXT_COUNTRY: string = 'Country';
+
+export const TEXT_PUT_ON_SERVICE: string = 'Put on service';
+
+export const TEXT_REFUSE_PANEL_FROM_MONITORING: string = 'Refuse panel from monitoring';
+
+export const TEXT_PUT_PANEL_ON_MONITORING: string = 'Put panel on monitoring';
+
+export const TEXT_REFUSE_SERVICE: string = 'Refuse service';
 
 
 //SELECTORS

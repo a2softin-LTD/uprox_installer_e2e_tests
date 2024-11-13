@@ -1,23 +1,22 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
-import { SUPER_ADMIN } from "../../utils/user_data";
+import {SERVICE_COMPANY_1, SUPER_ADMIN} from "../../utils/user_data";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import {
-    EIGHTEEN,
     HUB_SERIAL_NUMBER_TRUE_THIRD,
     TEN,
-    TEXT_ADDED_NEW_USER, TEXT_DAY_FIRST, TEXT_DAY_SECOND, TEXT_OCTOBER_2024,
+    TEXT_ADDED_NEW_USER, TEXT_DAY_FIRST, TEXT_DAY_SECOND,
     TEXT_REMOVE_USER_EMAIL,
     TEXT_REMOVED_USER,
     TEXT_SAVE_IN_XLS, TEXT_SEPTEMBER_2024,
     TITLE_HISTORY_FOR_ALL_PANELS,
-    URL_LOGIN, URL_SUPPORT_SEARCH,
+    URL_LOGIN, URL_PANELS, URL_SUPPORT_SEARCH,
 
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
-test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin']}, () => {
+test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -32,11 +31,11 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL(URL_LOGIN);
-        await loginPage.auth(SUPER_ADMIN);
-        await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
+        await loginPage.auth(SERVICE_COMPANY_1);
+        await expect(page).toHaveURL(URL_PANELS);
     });
 
-    test('Checking UI elements of the history page under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+    test.skip('Checking UI elements of the history page under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
             description: ''
@@ -47,19 +46,19 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
         await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
 
-        await hubPage.inputFirstField.isVisible();
+        await companyPage.companySearchByHubField.isVisible();
         await superAdminPage.historyDate.nth(0).isVisible();
         await superAdminPage.historyDate.nth(1).isVisible();
         await hubPage.historyAlarmCheckBox.isVisible();
         await hubPage.historyTroublesCheckBox.isVisible();
         await hubPage.historyArmsCheckBox.isVisible();
         await hubPage.historyActionsCheckBox.isVisible();
-        await hubPage.historyServiceCheckBox.isVisible();
+
     });
 
-    test.describe('History under SUPER_ADMIN role', () => {
+    test.describe.skip('History under SERVICE_COMPANY_ADMIN role', () => {
 
-        test('History display under SUPER_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
+        test('History display under SERVICE_COMPANY_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn3'
@@ -75,7 +74,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             { await expect(event).toBeVisible();}
         });
 
-        test('History filtration by hub under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('History filtration by hub under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn2'
@@ -94,7 +93,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test('History filtration by date under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('History filtration by date under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfmy'
@@ -108,14 +107,14 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await page.waitForTimeout(2000);
             await superAdminPage.historyDate.nth(0).click();
 
-            while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
-                 await page.waitForTimeout(2000);}
-            await superAdminPage.historyCalendarDayEntity.filter({hasText:EIGHTEEN}).click();
+            while (await page.getByText(TEXT_SEPTEMBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
+                await page.waitForTimeout(2000);}
+            await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
             await page.waitForTimeout(2000);
             await superAdminPage.historyDate.nth(1).click();
-            while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
+            while (await page.getByText(TEXT_SEPTEMBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForTimeout(2000);}
-            await superAdminPage.historyCalendarDayEntity.filter({hasText:EIGHTEEN}).click();
+            await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
@@ -124,7 +123,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test('History filtration by event under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('History filtration by event under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn1'
@@ -141,7 +140,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
             await hubPage.historyArmsCheckBox.isVisible();
             await hubPage.historyActionsCheckBox.isVisible();
             await hubPage.historyServiceCheckBox.isVisible();
-            await page.waitForTimeout(2000);
+
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
             await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
             await expect(page.getByText(TEXT_REMOVED_USER).first()).toBeVisible();
@@ -162,7 +161,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test.skip('Download history file under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Download history file under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn0'

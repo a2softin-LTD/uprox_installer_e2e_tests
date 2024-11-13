@@ -60,9 +60,7 @@ test.describe('Company Page test', () => {
         await expect(page).toHaveURL(URL_PANELS);
     });
 
-    test.describe('Checking UI elements of the page', { tag: ['@smoke']  },() => {
-
-        test('Checking UI elements', { tag: ['@smoke']  },async ({ page }) => {
+    test('Checking UI elements of the service company page', { tag: ['@smoke']  },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -94,8 +92,8 @@ test.describe('Company Page test', () => {
             await expect(profilePage.myProfileButton).toBeVisible();
             await expect(profilePage.logoutButton).toBeVisible();
             await expect(profilePage.languageChoice).toBeVisible();
-        });
     });
+
     test.describe('Company profile edit:service company',  () => {
 
         test('Company contact email editing:service company', { tag: ['@smoke'] },async ({ page }) => {
@@ -307,7 +305,7 @@ test.describe('Company Page test', () => {
             await companyPage.companyUsersCabinet.click();
 
             await expect(page.getByText(TEXT_ENTER_THE_LINK)).toBeVisible();
-
+            await page.waitForTimeout(3000);
             await companyPage.inputField.fill(CABINET_FIRST);
             await companyPage.submitButton.click();
 
