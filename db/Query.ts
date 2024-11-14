@@ -5,6 +5,12 @@ export const GET_EVENTS_AMOUNT = `SELECT count(*) FROM events;`;
 
 export const GET_USERS = `SELECT * FROM users;`;
 
+export const GET_USER_BY_EMAIL = (email: string) => 
+    `   SELECT u.id, r.name AS "role_name", u.user_state, u.email, u.created, u.last_login, u.enabled 
+        FROM users u
+        INNER JOIN ROLE r ON u.role_id = r.id
+        WHERE email = '${email}'`;
+
 export const WRITE_EVENT = (
     time_of_event: string,
     code: number,

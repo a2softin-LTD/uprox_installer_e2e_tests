@@ -1,4 +1,4 @@
-import {Sequelize} from "sequelize-typescript";
+import { Sequelize } from "sequelize-typescript";
 
 export const prodSqlConfig: object = {
     user: "eventsserver234ifewyog4r2l",
