@@ -1,3 +1,5 @@
+import {Sequelize} from "sequelize-typescript";
+
 export const prodSqlConfig: object = {
     user: "eventsserver234ifewyog4r2l",
     database: "events",
@@ -25,3 +27,27 @@ export const prodEventWrightSqlConfig: object = {
     password: "lwfv7ni3pfkd_pinchuk_read_write",
     ssl: false
 }
+
+export const devConfig = {
+    user: "dev_account_dpinchuk_read_write_42",
+    database: 'dev_account',
+    port: 35483,
+    host: "dev-sas-db.cnq4o4ga2lzh.eu-central-1.rds.amazonaws.com",
+    password: "jdktqusPYJne75Wp3cT6Mb",
+    ssl: true
+};
+
+export const sequelize = new Sequelize({
+    database: "dev_account",
+    username: "dev_account_dpinchuk_read_write_42",
+    password: "jdktqusPYJne75Wp3cT6Mb",
+    host: "dev-sas-db.cnq4o4ga2lzh.eu-central-1.rds.amazonaws.com",
+    port: 35483,
+    dialect: "postgres",
+    dialectOptions: {
+        ssl: {
+            require: true, // This will help you. But you will see nwe error
+            rejectUnauthorized: false // This line will fix new error
+        }
+    },
+});

@@ -7,8 +7,6 @@ import { DateParser } from "../../utils/DateParser";
 // @ts-ignore
 import  fs  from  "fs";
 // @ts-ignore
-import  fse  from  "fs-extra";
-// @ts-ignore
 import moment from "moment";
 import { EMAIL_NECESSARY_NAME_PART } from "../../utils/constants";
 
@@ -364,7 +362,7 @@ test.describe('Get data from PROD DB, data anonymization  and save to QA DB via 
             }
         });
 
-        test('3. Executing SQL Selects to PROD DB and measurementing response times', { tag: '@db' }, async () => {
+        test('3. Executing SQL Selects to PROD DB and measurement a response times', { tag: '@db' }, async () => {
             let stage: number = 0;
             let count: number = 0;
             let startTime: Date;

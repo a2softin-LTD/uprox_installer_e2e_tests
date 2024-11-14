@@ -3,6 +3,8 @@ export const GET_EVENTS_BY_SAMPLE = (offset: number, fetch: number) =>
 
 export const GET_EVENTS_AMOUNT = `SELECT count(*) FROM events;`;
 
+export const GET_USERS = `SELECT * FROM users;`;
+
 export const WRITE_EVENT = (
     time_of_event: string,
     code: number,
