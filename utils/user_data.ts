@@ -125,7 +125,6 @@ export const USER_3: object = {
 export const SERVICE_COMPANY_1: object = {
     login: 'asiarh@ukr.net',
     password: 'asdASD123',
-
 }
 
 export const MONITORING_COMPANY_1: object = {

@@ -154,7 +154,7 @@ export class HubPage extends BasePage {
         this._hubWifiMaxIcon  = this.page.locator('.group_and_panel-state').filter({has:this.page.locator('mat-icon[data-mat-icon-name="wifi-signal-max"]')});
         this._hubWifiNormalIcon  = this.page.locator('.group_and_panel-state').filter({has:this.page.locator('mat-icon[data-mat-icon-name="wifi-signal-normal"]')});
         this._hubWifiLowIcon = this.page.locator('.group_and_panel-state').filter({has:this.page.locator('mat-icon[data-mat-icon-name="wifi-signal-low"]')});
-        this._hubBatteryDetailedIcon = this.page.locator('.state-icon-block').filter({has:this.page.locator('mat-icon[data-mat-icon-name="battery-full"]')});
+        this._hubBatteryDetailedIcon = this.page.locator('mat-icon[data-mat-icon-name="battery-full"]');
         this._hubArmStateIcon = this.page.locator('mat-icon[data-mat-icon-name="arm-state-away"]');
         this._hubDisarmStateIcon = this.page.locator('mat-icon[data-mat-icon-name="arm-state-disarm"]');
         this._hubEngineerIcon = this.page.locator('.icon-with-text.has_action').first();

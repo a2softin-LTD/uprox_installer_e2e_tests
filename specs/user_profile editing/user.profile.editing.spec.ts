@@ -172,8 +172,11 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             for (const message of await profilePage.entityBlock.all())
                 await expect(message).toBeVisible();
 
-           // for (const message of await profilePage.entityBlock.all())
-            //    await expect(message).toHaveText(/\b[0-2]?\d:[0-5]\d\b/mg);
+            for (const date of await profilePage.dateBlock.all())
+                await expect(date).toBeVisible();
+
+            for (const date of await profilePage.dateBlock.all())
+                await expect(date).toHaveText(/\b[0-2]?\d:[0-5]\d\b/mg);
         });
 
         test('Password edit: autonomous user', { tag: '@smoke' }, async ({ page }) => {
