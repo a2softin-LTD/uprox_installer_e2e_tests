@@ -236,6 +236,10 @@ export const CABINET_SECOND: string = 'https://qwertynew.com';
 
 export const TEXT_ENTER_THE_LINK: string = 'Enter the link to the user\'s account';
 
+export const TEXT_INTERNATIONAL_CAPS: string = 'INTERNATIONAL';
+
+export const TEXT_DACH_CAPS: string = 'DACH';
+
 export const TEXT_CHANGE_COMPANY_DEALER: string = 'Change company dealer';
 
 export const TEXT_NUMBER_OF_DEVICES_IM_COMPANY: string = 'Number of devices in the company';
@@ -761,6 +765,8 @@ export const TEXT_REFUSE_PANEL_FROM_MONITORING: string = 'Refuse panel from moni
 export const TEXT_PUT_PANEL_ON_MONITORING: string = 'Put panel on monitoring';
 
 export const TEXT_REFUSE_SERVICE: string = 'Refuse service';
+
+export const BLOCKING_SYSTEM_ADMIN: string = 'Blocking system_admin';
 
 
 //SELECTORS

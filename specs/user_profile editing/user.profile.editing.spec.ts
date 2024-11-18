@@ -6,7 +6,7 @@ import {
     PASSWORD_TEXT,
     SUPPORT_EMAIL,
     SUPPORT_TEXT,
-    TITLE_MY_PROFILE,
+    TITLE_MY_PROFILE, TITLE_MY_PROFILE_FRENCH,
     URL_LOGIN, URL_PANELS, URL_PROFILE_PANELS,
     USER_LANGUAGE_FOR_EMAIL_NEW,
     USER_LANGUAGE_FOR_EMAIL_OLD, USER_LANGUAGE_SHORT_NEW,
@@ -127,7 +127,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             await profilePage.languageChoice.click();
             await page.getByText(USER_LANGUAGE_SHORT_NEW, { exact: true }).click();
 
-            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
+            await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE_FRENCH)})).toBeVisible();
 
             await profilePage.languageChoice.click();
             await page.getByText(USER_LANGUAGE_SHORT_OLD, { exact: true }).click();

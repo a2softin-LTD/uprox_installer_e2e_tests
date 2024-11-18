@@ -30,6 +30,7 @@ export class SuperAdminPage extends BasePage {
     private readonly _historyDate: Locator;
     private readonly _historyChangeMonth: Locator;
     private readonly _historyCalendarDayEntity: Locator;
+    private readonly _employeeBlock: Locator;
 
     private readonly _profileNameBlock: Locator;
     private readonly _profilePhoneBlock: Locator;
@@ -71,6 +72,7 @@ export class SuperAdminPage extends BasePage {
         this._historyDate = page.locator('.input-part-interval');
         this._historyChangeMonth = page.locator('.change_month');
         this._historyCalendarDayEntity = page.locator('.calendar__day');
+        this._employeeBlock = this.page.locator('.input_block.constant_block.constant_block-action').nth(0);
 
         this._profileNameBlock = this.page.locator('.input_block.constant_block.constant_block-action').nth(0);
         this._profilePhoneBlock = this.page.locator('.input_block.constant_block.constant_block-action').nth(1);
@@ -141,12 +143,16 @@ export class SuperAdminPage extends BasePage {
         return this._historyDate ;
     }
 
-    get historyChangeMonth (): Locator {
-        return this._historyChangeMonth ;
+    get employeeBlock (): Locator {
+        return this._employeeBlock ;
     }
 
     get historyCalendarDayEntity (): Locator {
         return this._historyCalendarDayEntity ;
+    }
+
+    get historyChangeMonth (): Locator {
+        return this._historyChangeMonth ;
     }
 
     get pushLetterLocalization (): Locator {
