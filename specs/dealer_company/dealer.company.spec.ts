@@ -2,9 +2,9 @@
 
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { DILER } from "../../utils/user_data";
+import {DILER, DILER_1} from "../../utils/user_data";
 import {
-    COMPANY_FIRST,
+    COMPANY_FIRST, COMPANY_SIX,
     COUNTRY_UKRAINE,
     ROLE_MONITORING_SERVICE_COMPANIES, SELECTOR_FIRST, SELECTOR_SECOND,
     SETTING_SHOW_IN_ADS, TEXT_SAVE_IN_XLS, TITLE_COMPANIES, URL_DEALER_COMPANIES, URL_LOGIN
@@ -22,7 +22,7 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL(URL_LOGIN);
-        await loginPage.auth(DILER);
+        await loginPage.auth(DILER_1);
         await expect(page).toHaveURL(URL_DEALER_COMPANIES);
     });
 
@@ -133,11 +133,11 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
             });
 
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
-            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
+            await expect(page.getByText(COMPANY_SIX)).toBeVisible();
 
-            await companyPage.companySearchField.fill(COMPANY_FIRST);
+            await companyPage.companySearchField.fill(COMPANY_SIX);
 
-            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
+            await expect(page.getByText(COMPANY_SIX)).toBeVisible();
             await expect(companyPage.employeeBlock).toHaveCount(1);
         });
 

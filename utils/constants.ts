@@ -70,6 +70,14 @@ export const DEALER_PHONE_NEW: string = '+38050777777';
 
 export const DEALER_PHONE_OLD: string = '+380674555555';
 
+export const DEALER_1_NAME_NEW: string = 'Петро Петрів';
+
+export const DEALER_1_NAME_OLD: string = 'Дмитро Федорів';
+
+export const DEALER_1_PHONE_NEW: string = '+380509999999';
+
+export const DEALER_1_PHONE_OLD: string = '+380674555566';
+
 export const USER_PASSWORD_NEW: string = 'lepidoptera111278DAP!';
 
 export const USER_PASSWORD_OLD: string = 'lepidoptera111278DAP!@#';
@@ -170,6 +178,8 @@ export const HUB_SERIAL_NUMBER_TRUE_SECOND: string = '00:08:B7:FE:33:1C | MPX';
 
 export const HUB_SERIAL_NUMBER_TRUE_THIRD: string = '00:08:B7:10:02:04';
 
+export const HUB_SERIAL_NUMBER_TRUE_FOURTH: string = '00:08:B7:FF:00:04';
+
 export const HUB_SERIAL_NUMBER_FALSE_FIRST: string = '56:08:B7:10:02:44';
 
 export const HUB_SERIAL_NUMBER_FALSE_SECOND: string = '00:08:B7:10:02:04';
@@ -186,6 +196,8 @@ export const ROLE_SERVICE_COMPANY: string = 'Service company';
 
 export const COMPANY_FIRST: string = 'AVL TEST';
 
+export const COMPANY_SIX: string = 'UIR_SERVICE_BEST';
+
 export const COMPANY_SECOND: string = 'Сиротин';
 
 export const COMPANY_THIRD: string = 'Handcrafted Concrete Mouse';
@@ -198,6 +210,8 @@ export const ADMIN_EMAIL: string = 'user@user.com';
 
 export const HUB_ACCOUNT_NAME: string = '331C';
 
+export const HUB_ACCOUNT_NAME_FIRST: string = '00';
+
 export const HUB_ACCOUNT_NAME_FULL: string = '331c - AVL TEST ';
 
 export const HUB_NAME_FIRST: string = 'PIN@dev';
@@ -205,6 +219,8 @@ export const HUB_NAME_FIRST: string = 'PIN@dev';
 export const HUB_NAME_SECOND: string = 'Os-au';
 
 export const HUB_NAME_THIRD: string = 'PIN@devNew';
+
+export const HUB_NAME_FOURTH: string = 'Test Dev for Andriana';
 
 export const TITLE_COMPANIES: string = 'Companies:';
 
