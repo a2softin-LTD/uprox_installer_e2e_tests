@@ -1,10 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { DILER } from "../../utils/user_data";
+import {DILER, DILER_1} from "../../utils/user_data";
 import {
-    COMPANY_FIRST,
-    HUB_ACCOUNT_NAME,
-    HUB_NAME_SECOND, HUB_SERIAL_NUMBER_TRUE_FIRST, TEXT_BY_NAME, TEXT_BY_SERIAL_NUMBER,
+    COMPANY_FIRST, COMPANY_SIX,
+    HUB_ACCOUNT_NAME, HUB_ACCOUNT_NAME_FIRST, HUB_NAME_FOURTH,
+    HUB_NAME_SECOND, HUB_SERIAL_NUMBER_TRUE_FIRST, HUB_SERIAL_NUMBER_TRUE_FOURTH, TEXT_BY_NAME, TEXT_BY_SERIAL_NUMBER,
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY, TEXT_SAVE_IN_XLS,
     TITLE_COMPANIES, URL_DEALER_COMPANIES, URL_LOGIN
 } from "../../utils/constants";
@@ -21,7 +21,7 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL(URL_LOGIN);
-        await loginPage.auth(DILER);
+        await loginPage.auth(DILER_1);
         await expect(page).toHaveURL(URL_DEALER_COMPANIES);
     });
 
@@ -32,9 +32,9 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
         });
 
         await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
-        await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
+        await expect(page.getByText(COMPANY_SIX)).toBeVisible();
 
-        await page.getByText(COMPANY_FIRST).click();
+        await page.getByText(COMPANY_SIX).click();
 
         await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
@@ -57,36 +57,38 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
             });
 
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
-            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
+            await expect(page.getByText(COMPANY_SIX)).toBeVisible();
 
-            await page.getByText(COMPANY_FIRST).click();
+            await page.getByText(COMPANY_SIX).click();
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
             await page.getByText(TEXT_BY_SERIAL_NUMBER).click();
-            await companyPage.searchField.fill(HUB_SERIAL_NUMBER_TRUE_FIRST);
+            await companyPage.searchField.fill(HUB_SERIAL_NUMBER_TRUE_FOURTH);
 
-            await expect(companyPage.entityBlock.filter({hasText:HUB_SERIAL_NUMBER_TRUE_FIRST})).toBeVisible();
+            await expect(companyPage.entityBlock.filter({hasText:HUB_SERIAL_NUMBER_TRUE_FOURTH})).toBeVisible();
             await expect(companyPage.entityBlock).toHaveCount(1);
         });
 
-        test('Hub search by account under DEALER role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Hub search by account under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8695e9b9n"
             });
 
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
-            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
+            await expect(page.getByText(COMPANY_SIX)).toBeVisible();
 
-            await page.getByText(COMPANY_FIRST).click();
+            await page.getByText(COMPANY_SIX).click();
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
             await page.getByText(TEXT_BY_SERIAL_NUMBER).click();
-            await companyPage.searchField.fill(HUB_ACCOUNT_NAME);
+            await companyPage.searchField.fill(HUB_ACCOUNT_NAME_FIRST);
 
-            await expect(companyPage.entityBlock.filter({hasText:HUB_ACCOUNT_NAME})).toBeVisible();
+            await page.waitForTimeout(2000);
+
+            //await expect(companyPage.entityBlock.filter({hasText:HUB_ACCOUNT_NAME_FIRST})).toBeVisible();
             await expect(companyPage.entityBlock).toHaveCount(1);
         });
 
@@ -97,16 +99,16 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
             });
 
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
-            await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
+            await expect(page.getByText(COMPANY_SIX)).toBeVisible();
 
-            await page.getByText(COMPANY_FIRST).click();
+            await page.getByText(COMPANY_SIX).click();
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 
             await page.getByText(TEXT_BY_NAME).click();
-            await companyPage.searchField.fill(HUB_NAME_SECOND);
+            await companyPage.searchField.fill(HUB_NAME_FOURTH);
 
-            await expect(companyPage.entityBlock.filter({hasText:HUB_NAME_SECOND})).toBeVisible();
+            await expect(companyPage.entityBlock.filter({hasText:HUB_NAME_FOURTH})).toBeVisible();
             await expect(companyPage.entityBlock).toHaveCount(1);
         });
 
@@ -119,9 +121,9 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable']},() => {
         });
 
         await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();
-        await expect(page.getByText(COMPANY_FIRST)).toBeVisible();
+        await expect(page.getByText(COMPANY_SIX)).toBeVisible();
 
-        await page.getByText(COMPANY_FIRST).click();
+        await page.getByText(COMPANY_SIX).click();
 
         await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
 

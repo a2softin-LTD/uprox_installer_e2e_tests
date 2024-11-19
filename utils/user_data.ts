@@ -136,3 +136,8 @@ export const DILER: object = {
     login: 'shamtriel+dealer@gmail.com',
     password: 'asdASD123',
 }
+//lepidoptera111278DAP!
+export const DILER_1: object = {
+    login: 'snaut12@bigmir.net',
+    password: 'Maximum99',
+}

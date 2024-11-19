@@ -15,7 +15,7 @@ test.describe('Get data from DEV DB', () => {
                 await sequelize.authenticate();
                 console.log('Connection has been established successfully.');
 
-                const user: object[] = await sequelize.query(GET_USER_BY_EMAIL('pinchuk.dap@gmail.com'), { type: QueryTypes.SELECT });
+                const user: object[] = await sequelize.query(GET_USER_BY_EMAIL('snaut1@ukr.net'), { type: QueryTypes.SELECT });
 
                 console.log(user[0]['user_state']);
 

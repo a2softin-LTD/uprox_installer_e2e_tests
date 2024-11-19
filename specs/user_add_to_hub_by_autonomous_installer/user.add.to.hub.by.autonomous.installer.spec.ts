@@ -108,7 +108,7 @@ test.describe('Hub Page tests', () => {
         await expect (page.getByText((USER_SHORT_FIRST))).not.toBeVisible();
     });
 
-    test.skip('Add new user by autonomous installer with BD', { tag: ['@smoke']  }, async ({ page }) => {
+    test('Add new user by autonomous installer with BD', { tag: ['@smoke']  }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -126,19 +126,19 @@ test.describe('Hub Page tests', () => {
             await hubPage.submitButton.click();}
 
         await hubPage.addButton.click();
-        await hubPage.addUserName.fill('Дмитро');
-        await hubPage.addUserEmail.fill('snaut12@gmail.com');
+        await hubPage.addUserName.fill('Дмитро1');
+        await hubPage.addUserEmail.fill('snaut1@ukr.net');
         await hubPage.addButton.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect (page.getByText('Дмитро')).toBeVisible();
+        await expect (page.getByText('Дмитро1')).toBeVisible();
 
         console.log('-------------------------------------------------------------------');
         try {
             await sequelize.authenticate();
             console.log('Connection has been established successfully.');
 
-            const user: object[] = await sequelize.query(GET_USER_BY_EMAIL('snaut12@gmail.com'), { type: QueryTypes.SELECT });
+            const user: object[] = await sequelize.query(GET_USER_BY_EMAIL('snaut1@ukr.net'), { type: QueryTypes.SELECT });
 
             console.log(user[0]['user_state']);
 
@@ -151,12 +151,12 @@ test.describe('Hub Page tests', () => {
         }
 
         await page.waitForTimeout(1000);
-        await page.getByText('Дмитро').click();
+        await page.getByText('Дмитро1').click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect(page.getByText('Дмитро')).not.toBeVisible();
+        await expect(page.getByText('Дмитро1')).not.toBeVisible();
     });
 
 });
