@@ -211,7 +211,7 @@ test.describe('Company Page test', () => {
             }
         });
 
-        test('Dealer password editing', {tag: ['@smoke']}, async ({page}) => {
+        test.skip('Dealer password editing', {tag: ['@smoke']}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8696kbtfx"

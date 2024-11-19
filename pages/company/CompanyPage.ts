@@ -55,6 +55,7 @@ export class CompanyPage extends BasePage {
     private readonly _employeeBlock: Locator;
 
     private readonly _companyCountryFilter: Locator;
+    private readonly _companyRegionFilter: Locator;
     private readonly _companyRoleFilter: Locator;
     private readonly _companyAllFilter: Locator;
     private readonly _companySearchField: Locator;
@@ -115,6 +116,7 @@ export class CompanyPage extends BasePage {
         this._companyAddButton = page.getByText('Add company');
         this._companyAddGroupButton = page.getByText('Add new group');
         this._companyCloseButton = page.getByText('Close company');
+        this._companyRegionFilter = page.getByText('All regions').and(this.page.locator('span'));
         this._companyCountryFilter = page.getByText('All countries').and(this.page.locator('span'));
         this._companyRoleFilter = this.page.locator('span:text-is("All roles")');
         this._companyAllFilter = this.page.locator('span:text-is("All")');
@@ -313,6 +315,10 @@ export class CompanyPage extends BasePage {
 
     get companyCloseButton (): Locator {
         return this._companyCloseButton;
+    }
+
+    get companyRegionFilter (): Locator {
+        return this._companyRegionFilter;
     }
 
     get companyCountryFilter (): Locator {

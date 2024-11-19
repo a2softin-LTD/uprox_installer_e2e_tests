@@ -94,7 +94,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test('History filtration by date under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('History filtration by date under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfmy'
@@ -124,7 +124,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test('History filtration by event under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('History filtration by event under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn1'

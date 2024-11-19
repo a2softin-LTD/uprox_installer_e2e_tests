@@ -21,9 +21,9 @@ import {
     ROLE_MONITORING_COMPANY,
     ROLE_SERVICE_COMPANIES, SELECTOR_FIFTH, SELECTOR_FOURTH,
     SETTINGS_BLOCKED,
-    TEXT_ABSENT, TEXT_CHANGE_COMPANY_DEALER,
+    TEXT_ABSENT, TEXT_CHANGE_COMPANY_DEALER, TEXT_DACH_CAPS,
     TEXT_DISABLED,
-    TEXT_ENABLED, TEXT_ENTER_THE_LINK,
+    TEXT_ENABLED, TEXT_ENTER_THE_LINK, TEXT_INTERNATIONAL_CAPS,
     TEXT_NO,
     TEXT_SAVING_CHANGES,
     TEXT_SUCCESSFULLY,
@@ -63,6 +63,7 @@ test.describe('SuperAdmin page tests',() => {
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_COMPANIES)})).toBeVisible();
             await expect(companyPage.companyAddButton).toBeVisible();
+            await expect(companyPage.companyRegionFilter).toBeVisible();
             await expect(companyPage.companyCountryFilter).toBeVisible();
             await expect(companyPage.companyRoleFilter).toBeVisible();
             await expect(companyPage.companyAllFilter).toBeVisible();
@@ -167,6 +168,24 @@ test.describe('SuperAdmin page tests',() => {
     });
 
     test.describe('Company search under SUPER_ADMIN role',{ tag: ['@smoke', '@stable', '@superadmin']},() => {
+
+        test('Search by region under SUPER_ADMIN role', { tag: '@smoke' },async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694p3ztg"
+            });
+
+            await superAdminPage.companies.click();
+
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
+
+            await companyPage.companyRegionFilter.click();
+            await page.getByText(TEXT_DACH_CAPS,{ exact: true }).click();
+            await page.waitForTimeout(2000);
+
+            await expect(superAdminPage.entityBlock.first()).not.toBeVisible({timeout:10000});
+
+        });
 
         test('Search by country under SUPER_ADMIN role', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({

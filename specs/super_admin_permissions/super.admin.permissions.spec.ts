@@ -4,6 +4,7 @@ import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
+    BLOCKING_SYSTEM_ADMIN,
     EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST,
     FAKER_NAME_OF_COMPANY_FIRST,
     FAKER_NAME_OF_COMPANY_SECOND,
@@ -164,6 +165,44 @@ test.describe('SuperAdmin page tests', () => {
 
             await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
             await page.waitForTimeout(1000);
+            await superAdminPage.deleteUserButton.click();
+            await page.waitForTimeout(1000);
+            await superAdminPage.submitButton.click();
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
+            await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
+        });
+
+        test('Block employee', { tag: '@smoke' },async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8694pw1d6"
+            });
+
+            await superAdminPage.permissions.click();
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
+
+            await superAdminPage.addButton.click();
+            await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await page.waitForTimeout(1000);
+            await superAdminPage.selectFirstField.click();
+            await page.waitForTimeout(1000);
+            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
+            await superAdminPage.addButton.click();
+
+            await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
+            await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
+
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
+            await page.waitForTimeout(1000);
+            await superAdminPage.employeeBlock.click();
+            await expect(page.getByText(BLOCKING_SYSTEM_ADMIN)).toBeVisible();
+            await (page.getByText(TEXT_YES)).click();
+            await superAdminPage.saveButton.click();
+            await expect(superAdminPage.employeeBlock.filter({has:page.getByText(TEXT_YES)})).toBeVisible({timeout:20000});
+
             await superAdminPage.deleteUserButton.click();
             await page.waitForTimeout(1000);
             await superAdminPage.submitButton.click();
