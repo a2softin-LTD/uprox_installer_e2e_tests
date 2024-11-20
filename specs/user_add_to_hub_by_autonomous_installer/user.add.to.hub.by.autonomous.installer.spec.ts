@@ -9,7 +9,7 @@ import {
     USER_NAME, USER_SHORT_FIRST
 } from "../../utils/constants";
 import {sequelize} from "../../db/db.config";
-import {GET_USER_BY_EMAIL} from "../../db/Query";
+import {GET_DELETED_USERS, GET_USER_BY_EMAIL} from "../../db/Query";
 import {QueryTypes} from "sequelize";
 
 test.describe('Hub Page tests', () => {
@@ -111,8 +111,23 @@ test.describe('Hub Page tests', () => {
     test('Add new user by autonomous installer with BD', { tag: ['@smoke']  }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694amwf8"
+            description: "https://app.clickup.com/t/8694ba6jx"
         });
+        let email: string = '';
+        try {
+            await sequelize.authenticate();
+            console.log('Connection has been established successfully.');
+
+            const user: object[] = await sequelize.query(GET_DELETED_USERS(1), { type: QueryTypes.SELECT });
+
+            email = user[0]['email'];
+            console.log(user[0]['email']);
+        } catch (error) {
+            console.error('Unable to connect to the database:', error);
+        } finally {
+            await devConnection.release();
+        }
+
         await hubPage.panels.click();
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
@@ -127,7 +142,7 @@ test.describe('Hub Page tests', () => {
 
         await hubPage.addButton.click();
         await hubPage.addUserName.fill('Дмитро1');
-        await hubPage.addUserEmail.fill('snaut1@ukr.net');
+        await hubPage.addUserEmail.fill(email);
         await hubPage.addButton.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
@@ -138,11 +153,11 @@ test.describe('Hub Page tests', () => {
             await sequelize.authenticate();
             console.log('Connection has been established successfully.');
 
-            const user: object[] = await sequelize.query(GET_USER_BY_EMAIL('snaut1@ukr.net'), { type: QueryTypes.SELECT });
+            const user: object[] = await sequelize.query(GET_USER_BY_EMAIL(email), { type: QueryTypes.SELECT });
 
             console.log(user[0]['user_state']);
 
-            expect(user[0]['user_state']).toEqual('ACTIVE');
+            expect(user[0]['user_state']).toEqual('NOT_FINISHED_BY_INVITE');
 
         } catch (error) {
             console.error('Unable to connect to the database:', error);
