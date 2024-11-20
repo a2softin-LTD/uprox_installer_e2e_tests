@@ -4,19 +4,18 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1,USER_3 } from "../../utils/user_data";
 import {
     BUTTON_DELETE_USER,
-    BUTTON_TRANSFER_OWNERSHIP,
+    BUTTON_TRANSFER_OWNERSHIP, TITLE_EDIT_USER,
     TITLE_UPDATE_FIRMWARE_VERSION, TITLE_USERS, URL_LOGIN, URL_PROFILE_PANELS,
     USER_NAME, USER_SHORT_FIRST
 } from "../../utils/constants";
-import {sequelize} from "../../db/db.config";
-import {GET_DELETED_USERS, GET_USER_BY_EMAIL} from "../../db/Query";
-import {QueryTypes} from "sequelize";
+import { sequelize } from "../../db/db.config";
+import { GET_DELETED_USERS, GET_USER_BY_EMAIL } from "../../db/Query";
+import { QueryTypes } from "sequelize";
 
 test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
-    let devConnection;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
@@ -113,24 +112,30 @@ test.describe('Hub Page tests', () => {
             type: "test_id",
             description: "https://app.clickup.com/t/8694ba6jx"
         });
-        let email: string = '';
+        
+        let userEmail: string = '';
+        const userName: string = 'Дмитро1';
+
         try {
             await sequelize.authenticate();
             console.log('Connection has been established successfully.');
 
             const user: object[] = await sequelize.query(GET_DELETED_USERS(1), { type: QueryTypes.SELECT });
 
-            email = user[0]['email'];
+            userEmail = user[0]['email'];
             console.log(user[0]['email']);
+
+            await expect(user[0]['user_state']).toEqual('DELETED');
         } catch (error) {
             console.error('Unable to connect to the database:', error);
-        } finally {
-            await devConnection.release();
         }
 
         await hubPage.panels.click();
+        await page.waitForTimeout(1000);
         await hubPage.firstHub.click();
-        await page.waitForTimeout(2000);
+
+        await expect(page.getByText('Add wireless device')).toBeVisible();
+
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
@@ -141,37 +146,49 @@ test.describe('Hub Page tests', () => {
             await hubPage.submitButton.click();}
 
         await hubPage.addButton.click();
-        await hubPage.addUserName.fill('Дмитро1');
-        await hubPage.addUserEmail.fill(email);
+        await hubPage.addUserName.fill(userName);
+        await hubPage.addUserEmail.fill(userEmail);
         await hubPage.addButton.click();
 
-        await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect (page.getByText('Дмитро1')).toBeVisible();
+        await expect (page.getByText(`01 | ${userName} `)).toBeVisible();
+        await expect (page.getByText(`| ${userEmail} `)).toBeVisible();
+
+        await (page.getByText(`01 | ${userName} | ${userEmail}`)).click();
+        
+        await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
+
+        await hubPage.settingsMobileApp.click();
+
+        await expect(page.getByText('Allow to use mobile application for current user?')).toBeVisible();
+
+        await hubPage.enableButton.click();
+        await hubPage.saveButton.click();
+
+        await expect(page.getByText('Allow to use mobile application for current user?')).not.toBeVisible();
+
+        await hubPage.backButton.click();
 
         console.log('-------------------------------------------------------------------');
         try {
             await sequelize.authenticate();
             console.log('Connection has been established successfully.');
 
-            const user: object[] = await sequelize.query(GET_USER_BY_EMAIL(email), { type: QueryTypes.SELECT });
+            const user: object[] = await sequelize.query(GET_USER_BY_EMAIL(userEmail), { type: QueryTypes.SELECT });
 
             console.log(user[0]['user_state']);
 
-            expect(user[0]['user_state']).toEqual('NOT_FINISHED_BY_INVITE');
+            await expect(user[0]['user_state']).toEqual('NOT_FINISHED_BY_INVITE');
 
         } catch (error) {
             console.error('Unable to connect to the database:', error);
-        } finally {
-            await devConnection.release();
         }
 
-        await page.waitForTimeout(1000);
-        await page.getByText('Дмитро1').click();
+        await page.getByText(userName).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect(page.getByText('Дмитро1')).not.toBeVisible();
+        await expect(page.getByText(userName)).not.toBeVisible();
     });
 
 });

@@ -15,7 +15,7 @@ export const GET_DELETED_USERS = (amount: number) =>
     `   SELECT u.id, r.name AS "role_name", u.user_state, u.email, u.created, u.last_login, u.enabled 
         FROM users u
         INNER JOIN ROLE r ON u.role_id = r.id
-        WHERE user_state = 'DELETED' limit ${amount};`;
+        WHERE r.name = 'user' and u.user_state = 'DELETED' limit ${amount};`;
 
 export const WRITE_EVENT = (
     time_of_event: string,
