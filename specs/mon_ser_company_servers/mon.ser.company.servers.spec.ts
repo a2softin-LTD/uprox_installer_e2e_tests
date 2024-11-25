@@ -7,7 +7,7 @@ import {
     SERVER_NAME_FIRST,
     SERVER_NAME_SECOND, SERVER_PORT_FIRST,
     SERVER_PORT_SECOND,
-    TITLE_COMPANY_SETTINGS, TITLE_EMPLOYEES, URL_LOGIN, URL_PANELS
+    TITLE_COMPANY_SETTINGS, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 

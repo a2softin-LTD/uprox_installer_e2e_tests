@@ -4,7 +4,7 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1,USER_3 } from "../../utils/user_data";
 import {
     BUTTON_DELETE_USER,
-    BUTTON_TRANSFER_OWNERSHIP, TITLE_EDIT_USER,
+    BUTTON_TRANSFER_OWNERSHIP, FAKER_EMAIL_ADMIN, TITLE_EDIT_USER,
     TITLE_UPDATE_FIRMWARE_VERSION, TITLE_USERS, URL_LOGIN, URL_PROFILE_PANELS,
     USER_NAME, USER_SHORT_FIRST
 } from "../../utils/constants";
@@ -107,7 +107,7 @@ test.describe('Hub Page tests', () => {
         await expect (page.getByText((USER_SHORT_FIRST))).not.toBeVisible();
     });
 
-    test('Add new user by autonomous installer with BD', { tag: ['@smoke']  }, async ({ page }) => {
+    test('Add new user by autonomous installer with data base confirmation', { tag: ['@smoke']  }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694ba6jx"
@@ -140,8 +140,9 @@ test.describe('Hub Page tests', () => {
         {  await hubPage.closeWindowButton.click()}
         await hubPage.users.click();
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        if (await (page.getByText(USER_NAME)).isVisible()) {
-            await page.getByText(USER_NAME).click();
+
+        if (await (page.getByText(`01 | ${userName} `)).isVisible()) {
+            await page.getByText(`01 | ${userName} `).click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
 
@@ -153,7 +154,7 @@ test.describe('Hub Page tests', () => {
         await expect (page.getByText(`01 | ${userName} `)).toBeVisible();
         await expect (page.getByText(`| ${userEmail} `)).toBeVisible();
 
-        await (page.getByText(`01 | ${userName} | ${userEmail}`)).click();
+        await (page.getByText(`01 | ${userName} `)).click();
         
         await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
@@ -162,6 +163,7 @@ test.describe('Hub Page tests', () => {
         await expect(page.getByText('Allow to use mobile application for current user?')).toBeVisible();
 
         await hubPage.enableButton.click();
+        await hubPage.inputFirstField.fill(FAKER_EMAIL_ADMIN);
         await hubPage.saveButton.click();
 
         await expect(page.getByText('Allow to use mobile application for current user?')).not.toBeVisible();

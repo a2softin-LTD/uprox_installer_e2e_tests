@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { MONITORING_COMPANY } from "../../utils/user_data";
 import { CompanyPage } from "../../pages/company/CompanyPage";
-import {URL_LOGIN, URL_PANELS} from "../../utils/constants";
+import { URL_LOGIN, URL_PANELS } from "../../utils/constants";
 
 test.describe('Company Page tests', { tag: ['@smoke', '@stable', '@company']}, () => {
 

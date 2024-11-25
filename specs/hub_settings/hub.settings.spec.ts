@@ -199,7 +199,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(SETTINGS_TURN_ON)).toBeVisible();}
     });
 
-    test.skip('Hub air alarm setting', { tag: ['@smoke'] }, async ({ page }) => {
+    test('Hub air alarm setting', { tag: ['@smoke'] }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694etg0f"

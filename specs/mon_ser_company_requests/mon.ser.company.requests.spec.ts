@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
-import {MONITORING_COMPANY_1, MONITORING_SERVICE_COMPANY_1} from "../../utils/user_data";
+import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
 
 import {
     TEXT_PUT_ON_SERVICE,
@@ -39,8 +39,6 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
         await hubPage.requests.click();
 
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_SERVICE_REQUESTS)})).toBeVisible();
-
-
     });
 
     test('Requests list  under MONITORING-SERVICE_COMPANY_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {

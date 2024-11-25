@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { MONITORING_SERVICE_COMPANY_3, USER_3 } from "../../utils/user_data";
 import {
@@ -62,58 +61,6 @@ test.describe('Hub Page tests', () => {
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
         await expect(page.getByText(USER_NAME)).not.toBeVisible();
-    });
-
-    test.skip('Add new user by ADMIN with DATA BASE confirmation', { tag: '@smoke' }, async ({ page }) => {
-        test.info().annotations.push({
-            type: "test_id",
-            description: "https://app.clickup.com/t/8694amwf9"
-        });
-
-        await hubPage.panels.click();
-
-        await expect(hubPage.pageTitle.filter({hasText:TEXT_NUMBER_OF_DEVICES_IM_COMPANY})).toBeVisible();
-
-        await hubPage.entityBlock.first().click();
-
-        await expect(hubPage.pageTitle.filter({hasText:TITLE_SYSTEM})).toBeVisible();
-
-        await hubPage.users.click();
-
-        await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-
-        await hubPage.addButton.click();
-        await hubPage.addUserName.fill('new_user_main_1');
-        await hubPage.addUserEmail.fill('sastest2398_ty567@gmail.com');
-        await hubPage.addButton.click();
-
-        await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect (page.getByText('new_user_main_1')).toBeVisible();
-
-        console.log('-------------------------------------------------------------------');
-        try {
-            await sequelize.authenticate();
-            console.log('Connection has been established successfully.');
-
-            const user: object[] = await sequelize.query(GET_USER_BY_EMAIL('sastest2398_ty567@gmail.com'), { type: QueryTypes.SELECT });
-
-            console.log(user[0]['user_state']);
-
-            expect(user[0]['user_state']).toEqual('ACTIVE');
-
-        } catch (error) {
-            console.error('Unable to connect to the database:', error);
-        } finally {
-            await devConnection.release();
-        }
-
-        await page.waitForTimeout(1000);
-        await page.getByText('new_user_main_1').click();
-        await hubPage.deleteUserButton.click();
-        await hubPage.submitButton.click();
-
-        await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect(page.getByText('new_user_main_1')).not.toBeVisible();
     });
 
 });

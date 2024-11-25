@@ -25,7 +25,7 @@ export default defineConfig({
   timeout: 30 * 60 * 1000,
   expect: {
     /* Maximum time expect() should wait for the condition to be met. */
-    timeout: 30 * 60 * 1000
+    timeout: 30000
   },
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [

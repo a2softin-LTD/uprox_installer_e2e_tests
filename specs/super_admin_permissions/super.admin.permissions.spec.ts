@@ -2,11 +2,8 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
-import { faker } from "@faker-js/faker";
 import {
-    BLOCKING_SYSTEM_ADMIN,
-    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST,
-    FAKER_NAME_OF_COMPANY_FIRST,
+    BLOCKING_SYSTEM_ADMIN, FAKER_EMAIL_FIRST,
     FAKER_NAME_OF_COMPANY_SECOND,
     ROLE_SUPPORT_ADMIN_BIG,
     ROLE_SYS_ADMIN_BIG,

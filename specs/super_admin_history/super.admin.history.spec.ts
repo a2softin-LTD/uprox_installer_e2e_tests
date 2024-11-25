@@ -6,11 +6,10 @@ import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import {
     EIGHTEEN,
     HUB_SERIAL_NUMBER_TRUE_THIRD,
-    TEN,
     TEXT_ADDED_NEW_USER, TEXT_DAY_FIRST, TEXT_DAY_SECOND, TEXT_OCTOBER_2024,
     TEXT_REMOVE_USER_EMAIL,
     TEXT_REMOVED_USER,
-    TEXT_SAVE_IN_XLS, TEXT_SEPTEMBER_2024,
+    TEXT_SAVE_IN_XLS,
     TITLE_HISTORY_FOR_ALL_PANELS,
     URL_LOGIN, URL_SUPPORT_SEARCH,
 
@@ -94,7 +93,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test.skip('History filtration by date under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('History filtration by date under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfmy'
@@ -124,7 +123,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test.skip('History filtration by event under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('History filtration by event under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn1'
@@ -162,7 +161,7 @@ test.describe('SuperAdmin page tests',{ tag: ['@smoke', '@stable', '@superadmin'
 
         });
 
-        test.skip('Download history file under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('Download history file under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn0'

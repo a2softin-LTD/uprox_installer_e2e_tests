@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {MONITORING_SERVICE_COMPANY_1, SERVICE_COMPANY_1} from "../../utils/user_data";
+import { SERVICE_COMPANY_1 } from "../../utils/user_data";
 import {
     FAKER_EMAIL_FIRST, FAKER_PHONE_FIRST, FAKER_PHONE_SECOND,
     ROLE_MANAGER,
@@ -64,7 +64,7 @@ test.describe('Company Page tests', () => {
 
     test.describe('Employees: service company', () => {
 
-        test('Add employee: service company', { tag: '@smoke' }, async ({ page }) => {
+        test('Add employee service company', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8678rju80"

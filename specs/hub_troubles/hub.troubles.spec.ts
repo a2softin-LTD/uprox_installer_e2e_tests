@@ -35,8 +35,8 @@ test.describe('Hub Page tests', () => {
 
         await page.waitForTimeout(2000);
 
-        if (hubPage.hubsOnline.filter({has:hubPage.tamperOpenIcon}).first().isVisible())
-        { await hubPage.hubsOnline.filter({has:hubPage.tamperOpenIcon}).first().click();
+        if (((hubPage.hubsOnline.filter({has:hubPage.tamperOpenIcon})).and(hubPage.hubsOnline.filter({has:hubPage.connectionOnlineIcon}))).first().isVisible())
+        { await ((hubPage.hubsOnline.filter({has:hubPage.tamperOpenIcon})).and(hubPage.hubsOnline.filter({has:hubPage.connectionOnlineIcon}))).first().click();
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}

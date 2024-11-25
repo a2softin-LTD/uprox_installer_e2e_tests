@@ -205,8 +205,8 @@ export class HubPage extends BasePage {
         this._firstWirelessDevice = page.locator('.part__item.ng-star-inserted').nth(1);
         this._automationCreateReactionButton = page.getByText('Create schedule',{ exact: true });
         this._requestsCreateApplicationButton = page.getByText('Create application',{ exact: true });
-        this._hubsOnline = page.locator('.part__item').filter({has: this.connectionOnlineIcon});
-
+        //this._hubsOnline = page.locator('.part__item').filter({has: this.connectionOnlineIcon});
+        this._hubsOnline = page.locator('.part__item').filter({hasNotText:'Leased'});
     }
 
     get modal(): Locator {
