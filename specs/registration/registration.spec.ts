@@ -1,10 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { RegistrationModel } from "../../models/RegistrationModel";
-import { faker } from "@faker-js/faker";
 import { RegistrationPage } from "../../pages/registration/RegistrationPage";
 import {
-    EMAIL_NECESSARY_NAME_PART,
     FAKER_EMAIL_FIRST,
     TEXT_1_LOWERCASE_LETTER,
     TEXT_1_NUMBER,

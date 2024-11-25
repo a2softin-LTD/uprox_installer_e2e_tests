@@ -20,7 +20,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL('/profile/panels');
     });
 
-    test.skip('Detailed information about the hub', { tag: ['@smoke']  }, async ({ page }) => {
+    test('Detailed information about the hub', { tag: ['@smoke']  }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694etgat"

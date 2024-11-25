@@ -20,10 +20,6 @@ export const USER_EMAIL: string = 'snaut12@gmail.com';
 
 export const USER_PASSWORD_FIRST: string = 'asdASD123';
 
-export const SUPER_ADMIN_PASSWORD_OLD: string = 'superadmin';
-
-export const SUPER_ADMIN_PASSWORD_NEW: string = 'asdASD123';
-
 export const USER_PASSWORD_NOR_VALID: string = '!';
 
 export const USER_EMAIL_SECOND: string = 'd.pinchuk@itvsystems.com.ua';
@@ -34,13 +30,13 @@ export const USER_EMAIL_NOT_VALID: string = 'user@user';
 
 export const USER_EMAIL_NON_REGISTERED: string = 'valera123gmail.com';
 
-export const DEALER_EMAIL_FIRST: string = 'Test dealer role (andriana99+77@gmail.com)';
+export const DEALER_EMAIL_SECOND: string = 'Test dealer role (andriana99+77@gmail.com)';
 
-export const DEALER_EMAIL_FIRST_SHORT: string = 'andriana99+77@gmail.com';
+export const DEALER_EMAIL_SECOND_SHORT: string = 'andriana99+77@gmail.com';
 
-export const DEALER_EMAIL_SECOND: string = 'Дмитро Федорів (snaut12@bigmir.net)';
+export const DEALER_EMAIL_FIRST: string = 'Дмитро Федорів (snaut12@bigmir.net)';
 
-export const DEALER_EMAIL_SECOND_SHORT: string = 'snaut12@bigmir.net';
+export const DEALER_EMAIL_FIRST_SHORT: string = 'snaut12@bigmir.net';
 
 export const USER_NAME: string = 'Дмитро';
 
@@ -180,6 +176,8 @@ export const HUB_SERIAL_NUMBER_TRUE_THIRD: string = '00:08:B7:10:02:04';
 
 export const HUB_SERIAL_NUMBER_TRUE_FOURTH: string = '00:08:B7:FF:00:04';
 
+export const HUB_SERIAL_NUMBER_TRUE_FIFTH: string = '00:08:B7:FF:00:04';
+
 export const HUB_SERIAL_NUMBER_FALSE_FIRST: string = '56:08:B7:10:02:44';
 
 export const HUB_SERIAL_NUMBER_FALSE_SECOND: string = '00:08:B7:10:02:04';
@@ -192,11 +190,11 @@ export const ROLE_MONITORING_COMPANY: string = 'Monitoring company';
 
 export const ROLE_SERVICE_COMPANIES: string = 'Service companies';
 
-export const ROLE_SERVICE_COMPANY: string = 'Service company';
-
 export const COMPANY_FIRST: string = 'AVL TEST';
 
 export const COMPANY_SIX: string = 'UIR_SERVICE_BEST';
+
+export const COMPANY_SEVEN: string = 'Ильяшенко';
 
 export const COMPANY_SECOND: string = 'Сиротин';
 
@@ -210,7 +208,7 @@ export const ADMIN_EMAIL: string = 'user@user.com';
 
 export const HUB_ACCOUNT_NAME: string = '331C';
 
-export const HUB_ACCOUNT_NAME_FIRST: string = '00';
+export const HUB_ACCOUNT_NAME_FIRST: string = '1112';
 
 export const HUB_ACCOUNT_NAME_FULL: string = '331c - AVL TEST ';
 
@@ -251,8 +249,6 @@ export const CABINET_FIRST: string = 'https://qwerty.com';
 export const CABINET_SECOND: string = 'https://qwertynew.com';
 
 export const TEXT_ENTER_THE_LINK: string = 'Enter the link to the user\'s account';
-
-export const TEXT_INTERNATIONAL_CAPS: string = 'INTERNATIONAL';
 
 export const TEXT_DACH_CAPS: string = 'DACH';
 
@@ -382,7 +378,9 @@ export const TITLE_HISTORY_FOR_ALL_PANELS: string = 'History for all panels';
 
 export const TEXT_REMOVE_USER_EMAIL: string = 'Remove user email';
 
-export const TEXT_ADD_USER_EMAIL: string = 'Add user email';
+export const TEXT_USER_LOGGED_IN: string = 'User logged in';
+
+export const TEXT_USER_NO_EVENTS: string = 'No events for specified filters.';
 
 export const TEXT_ALL_ROLES: string = 'All roles';
 
@@ -491,8 +489,6 @@ export const SETTINGS_DENIED: string = 'Denied';
 export const SETTINGS_ALLOWED: string = 'Allowed';
 
 export const SETTINGS_ENABLE: string = 'Enable';
-
-
 
 
 
@@ -620,6 +616,8 @@ export const TEXT_INSTALLATION_COUNTRY_FULL: string = 'Select country where the 
 
 export const TEN: string = '10';
 
+export const SEVENTEEN: string = '17';
+
 export const EIGHTEEN: string = '18';
 
 export const TEXT_4_SYMBOLS: string = '4 symbols';
@@ -674,6 +672,8 @@ export const TEXT_DAY_FIRST: string = '18.10.2024, Friday';
 
 export const TEXT_DAY_SECOND: string = '19.10.2024, Saturday';
 
+export const TEXT_DAY_THIRD: string = '17.10.2024, Thursday';
+
 export const TITLE_CAPTCHA_WHITE_LIST: string = 'Captcha white list';
 
 export const TITLE_ACCOUNT_SERVER: string = 'Account Server';
@@ -689,8 +689,6 @@ export const TEXT_ADD_USER_TO_CAPTCHA__WHITELIST: string = 'Add user to captcha 
 export const TEXT_PANEL_NODE_FIRST: string = 'Panel Server Node: dev-panel-1.maks.systems';
 
 export const TEXT_PANEL_NODE_SECOND: string = 'Panel Server Node: dev-panel-2.maks.systems';
-
-export const TEXT_PANEL_NODE_THIRD: string = 'Panel Server Node: dev-panel-3.maks.systems';
 
 export const TEXT_CLEARING_CACHE: string = 'Clearing the cache on the Account server';
 
@@ -813,7 +811,8 @@ export const URL_PANELS: string = '/panels';
 
 export const URL_SUPPORT_SEARCH: string = '/support/search';
 
-export const URL_HUB_DOC: string = 'https://www.u-prox.systems/doc_mplte';
+export const URL_HUB_DOC: string = 'about:blank';
+
 
 //FAKER
 
@@ -832,8 +831,6 @@ export const FAKER_EMAIL_SECOND: string = faker.internet.email({ firstName: EMAI
 export const FAKER_EMAIL_THIRD: string = faker.internet.email({ firstName: 'pol_' + EMAIL_NECESSARY_NAME_PART });
 
 export const FAKER_EMAIL_FOURTH: string = faker.internet.email();
-
-export const FAKER_EMAIL_FIFTH: string = faker.internet.email();
 
 export const FAKER_PHONE_FIRST: string = faker.phone.number();
 

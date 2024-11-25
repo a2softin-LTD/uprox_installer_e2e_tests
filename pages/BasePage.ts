@@ -58,6 +58,7 @@ export class BasePage {
     private readonly _editIcon: Locator
     private readonly _connectionOnlineIcon: Locator
     private readonly _tamperOpenIcon: Locator
+
     // SECTIONS
     private readonly _panels: Locator;
     private readonly _company: Locator;
@@ -206,6 +207,7 @@ export class BasePage {
     get tamperOpenIcon(): Locator {
         return this._tamperOpenIcon;
     }
+
 
     get troubles (): Locator {
         return this._troubles ;

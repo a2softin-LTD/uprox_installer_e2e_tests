@@ -1,10 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
-import { faker } from "@faker-js/faker";
 import {
     COMPANY_THIRD,
-    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
+     FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
     TITLE_GROUP_OF_COMPANIES,
     TITLE_GROUPS_OF_COMPANIES, URL_LOGIN, URL_SUPPORT_SEARCH
 } from "../../utils/constants";

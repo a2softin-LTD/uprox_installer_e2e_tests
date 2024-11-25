@@ -32,8 +32,6 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@hub']},() => {
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible()) {
             await hubPage.closeWindowButton.click();}
 
-        //await hubPage.updateFirmwareChecking(hubPage);
-
         await expect((hubPage.hubPowerNormalIcon).or(hubPage.hubPowerTroubleIcon)).toBeVisible();
         await expect((hubPage.hubTamperOpenIcon).or(hubPage.hubTamperCloseIcon)).toBeVisible();
         await expect(hubPage.hubBatteryIcon).toBeVisible();

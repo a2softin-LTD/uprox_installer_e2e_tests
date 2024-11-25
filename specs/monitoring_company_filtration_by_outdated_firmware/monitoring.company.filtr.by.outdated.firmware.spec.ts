@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { MONITORING_COMPANY_1 } from "../../utils/user_data";
-import {PANEL_STATE, TITLE_ALL_PANELS, URL_LOGIN, URL_PANELS} from "../../utils/constants";
+import { PANEL_STATE, TITLE_ALL_PANELS, URL_LOGIN, URL_PANELS } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']}, () => {

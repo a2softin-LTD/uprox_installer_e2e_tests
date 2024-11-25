@@ -6,14 +6,14 @@ import {
     ADMIN_EMAIL,
     BUTTON_ADD_COMPANY,
     COUNTRY_UKRAINE,
-    COUNTRY_UKRAINE_SHORT, FAKER_EMAIL_FIFTH,
+    COUNTRY_UKRAINE_SHORT,
     FAKER_EMAIL_FOURTH,
     FAKER_NAME_OF_COMPANY_FIRST,
-    FAKER_NAME_OF_COMPANY_SECOND, FAKER_PHONE_FIRST, ROLE_MONITORING_COMPANIES,
+     FAKER_PHONE_FIRST, ROLE_MONITORING_COMPANIES,
     ROLE_MONITORING_COMPANY,
     TEXT_ABSENT, TEXT_COUNTRY,
     TEXT_INTERNATIONAL,
-    TEXT_NO, TEXT_REGION, TEXT_REQUIRED_FIELD,
+    TEXT_NO, TEXT_REQUIRED_FIELD,
     TEXT_TEST_DEALER_ROLE,
     URL_LOGIN,
     URL_SUPPORT_SEARCH
@@ -72,10 +72,6 @@ test.describe('Company Page tests', () => {
             await companyPage.submitButton.click();
 
             await expect(page.getByText(TEXT_REQUIRED_FIELD)).toBeVisible();
-
-
-
-
         });
 
         test.skip('Create new monitoring company with mandatory fields only', { tag: '@smoke' }, async ({ page }) => {

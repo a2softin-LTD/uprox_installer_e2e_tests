@@ -1,8 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { faker } from "@faker-js/faker";
 import {
-    EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST,
+     FAKER_EMAIL_FIRST,
     TEXT_INCORRECT_EMAIL_FORMAT,
     TEXT_PASSWORD_RECOVERY,
     TEXT_PASSWORD_RECOVERY_SENT, TEXT_USER_NOT_FOUND,
@@ -88,7 +87,6 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
             if (await page.getByText(TEXT_WARNING).isVisible()) {await expect (page.getByText(TEXT_WARNING)).toBeVisible()}
             else if (await page.getByText(TEXT_USER_NOT_FOUND).isVisible())
             {await expect(page.getByText(TEXT_USER_NOT_FOUND)).toBeVisible();}
-
         });
 
     });

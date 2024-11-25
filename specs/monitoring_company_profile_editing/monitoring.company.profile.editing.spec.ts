@@ -23,8 +23,6 @@ import {
     TEXT_ADD_LOCALIZATION,
     TEXT_DELETE,
     TEXT_ENTER_THE_LINK,
-    TEXT_NO,
-    TEXT_YES,
     TITLE_COMPANY_SETTINGS,
     TITLE_COMPANY_SETTINGS_FRENCH,
     URL_LOGIN,
@@ -262,7 +260,7 @@ test.describe('Company Page test', () => {
 
             await expect(page.getByText(TEXT_ENTER_THE_LINK)).toBeVisible();
 
-            await companyPage.inputField.fill(CABINET_FIRST);
+            await companyPage.inputField.first().fill(CABINET_FIRST);
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();

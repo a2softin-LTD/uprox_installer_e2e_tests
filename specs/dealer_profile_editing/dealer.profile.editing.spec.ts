@@ -1,62 +1,15 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {DILER, DILER_1, SERVICE_COMPANY_1, SUPER_ADMIN} from "../../utils/user_data";
+import { DILER_1 } from "../../utils/user_data";
 import {
-    CABINET_FIRST,
-    CABINET_SECOND,
-    COMPANY_EMAIL_NEW,
-    COMPANY_SERVICE_EMAIL_OLD,
-    COMPANY_PHONE_NEW,
-    COMPANY_SERVICE_PHONE_OLD,
-    COUNTRY_MOLDOVA,
-    COUNTRY_MOLDOVA_SHORT,
-    COUNTRY_UKRAINE,
-    LANGUAGE_ENGLISH_SHORT,
     LANGUAGE_FRENCH,
-    LANGUAGE_FRENCH_SHORT,
     LANGUAGE_UKRAINIAN,
-    SETTINGS_ALARMS_RESTORES,
-    SETTINGS_ALLOWED,
-    SETTINGS_ARMS_DISARM,
-    SETTINGS_ARMS_DISARMS_ALARMS_RESTORES,
-    SETTINGS_DENIED,
-    TEXT_ADD_LOCALIZATION,
-    TEXT_DELETE,
-    TEXT_ENTER_THE_LINK,
-    TITLE_COMPANY_SETTINGS,
-    TITLE_COMPANY_SETTINGS_FRENCH,
     URL_LOGIN,
-    URL_PANELS,
-    COMPANY_MONITORING_SERVICE_NAME_NEW,
-    COMPANY_MONITORING_SERVICE_DESCRIPTION_NEW,
-    COMPANY_MONITORING_SERVICE_CONTACTS_NEW,
-    COMPANY_MONITORING_SERVICE_NAME_OLD,
-    COMPANY_MONITORING_SERVICE_DESCRIPTION_OLD,
-    COMPANY_MONITORING_SERVICE_CONTACTS_OLD,
-    COMPANY_SERVICE_CONTACTS_NEW,
-    COMPANY_SERVICE_DESCRIPTION_NEW,
-    COMPANY_SERVICE_NAME_NEW,
-    COMPANY_SERVICE_CONTACTS_OLD,
-    COMPANY_SERVICE_DESCRIPTION_OLD,
-    COMPANY_SERVICE_NAME_OLD,
-    LANGUAGE_DUTCH,
-    URL_SUPPORT_SEARCH,
     TITLE_MY_PROFILE,
-    SUPER_ADMIN_NAME_NEW,
-    SUPER_ADMIN_NAME_OLD,
-    SUPER_ADMIN_PHONE_NEW,
-    SUPER_ADMIN_PHONE_OLD,
     TEXT_ROLE,
     TEXT_EMAIL,
     URL_DEALER_COMPANIES,
     DEALER_NAME_NEW,
-    DEALER_NAME_OLD,
-    DEALER_PHONE_NEW,
-    DEALER_PHONE_OLD,
-    USER_PASSWORD_OLD,
-    USER_PASSWORD_NEW,
-    PASSWORD_TEXT,
-    USER_PASSWORD_FIRST,
     DEALER_1_NAME_NEW,
     DEALER_1_NAME_OLD,
     DEALER_1_PHONE_NEW,
@@ -215,33 +168,6 @@ test.describe('Company Page test', () => {
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_UKRAINIAN})).toBeVisible();
             }
-        });
-
-        test.skip('Dealer password editing', {tag: ['@smoke']}, async ({page}) => {
-            test.info().annotations.push({
-                type: "test_id",
-                description: "https://app.clickup.com/t/8696kbtfx"
-            });
-
-            await profilePage.myProfileButton.click();
-            await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-
-            await page.waitForTimeout(2000);
-
-           // await profilePage.userPassword.click();
-          //  await profilePage.userEditCurrentPasswordField.fill(USER_PASSWORD_FIRST);
-           // await profilePage.userEditNewPasswordField.click();
-           // await profilePage.userEditNewPasswordField.fill(USER_PASSWORD_NEW);
-           // await profilePage.changeButton.click();
-
-            await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-
-            await profilePage.userPassword.click();
-            await profilePage.userEditCurrentPasswordField.fill(USER_PASSWORD_NEW);
-            await profilePage.userEditNewPasswordField.click();
-            await profilePage.userEditNewPasswordField.fill(USER_PASSWORD_FIRST);
-            await profilePage.changeButton.click();
-            await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
         });
 
     });

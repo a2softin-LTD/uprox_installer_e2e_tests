@@ -17,10 +17,18 @@ import {
     INVALID_PASSWORD,
     INVALID_EMAIL_WITHOUT_AT,
     INVALID_EMAIL_WITHOUT_DOMAIN,
-    UNKNOWN_EMAIL, INSTALLER_DACH, MIXED_DACH, MANAGER_DACH, MONITORING_COMPANY_DACH, ENGINEER_DACH, USER_DACH,
+    UNKNOWN_EMAIL,
+    INSTALLER_DACH,
+    MIXED_DACH,
+    MANAGER_DACH,
+    MONITORING_COMPANY_DACH,
+    ENGINEER_DACH,
+    USER_DACH,
+    DILER_1,
+    SERVICE_COMPANY_1,
 } from "../../utils/user_data";
 import {
-    UIErrorMessages,
+    UIErrorMessages, URL_DEALER_COMPANIES,
     URL_PANELS, URL_PROFILE_COMPANIES,
     URL_PROFILE_FEEDBACK,
     URL_PROFILE_PANELS,
@@ -99,7 +107,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await expect(page).toHaveURL(URL_PANELS);
         });
 
-        test.skip('positive: Checking auth with Role = INSTALLER_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
+        test('positive: Checking auth with Role = INSTALLER_DACH', { tag: '@dach' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -109,7 +117,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await expect(page).toHaveURL(URL_PANELS);
         });
 
-        test('positive: Checking auth with Role = SUPPORT', { tag: ['@smoke', '@smoke_dach'] }, async ({ page }) => {
+        test('positive: Checking auth with Role = SUPPORT', { tag: ['@smoke', '@dach'] }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -129,7 +137,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await expect(page).toHaveURL(URL_PANELS);
         });
 
-        test.skip('positive: Checking auth with Role = MIXED_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
+        test('positive: Checking auth with Role = MIXED_DACH', { tag: '@dach' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -149,7 +157,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
 
-        test.skip('positive: Checking auth with Role = MANAGER_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
+        test('positive: Checking auth with Role = MANAGER_DACH', { tag: '@dach' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -189,13 +197,23 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await expect(page).toHaveURL(URL_PANELS);
         });
 
-        test.skip('positive: Checking auth with Role = MONITORING_COMPANY_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
+        test('positive: Checking auth with Role = MONITORING_COMPANY_DACH', { tag: '@dach' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
 
             await loginPage.auth(MONITORING_COMPANY_DACH);
+            await expect(page).toHaveURL(URL_PANELS);
+        });
+
+        test('positive: Checking auth with Role = SERVICE_COMPANY_1', { tag: '@smoke' }, async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: ""
+            });
+
+            await loginPage.auth(SERVICE_COMPANY_1);
             await expect(page).toHaveURL(URL_PANELS);
         });
 
@@ -209,7 +227,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await expect(page).toHaveURL(URL_PROFILE_FEEDBACK);
         });
 
-        test.skip('positive: Checking auth with Role = ENGINEER_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
+        test('positive: Checking auth with Role = ENGINEER_DACH', { tag: '@dach' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -219,7 +237,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await expect(page).toHaveURL(URL_PROFILE_FEEDBACK);
         });
 
-        test.skip('positive: Checking auth with Role = USER_DACH', { tag: '@smoke_dach' }, async ({ page }) => {
+        test('positive: Checking auth with Role = USER_DACH', { tag: '@dach' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: ""
@@ -247,6 +265,16 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
 
             await loginPage.auth(USER_2);
             await expect(page).toHaveURL(URL_PROFILE_PANELS);
+        });
+
+        test('positive: Checking auth with Role = DEALER_1', { tag: '@smoke' }, async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: ""
+            });
+
+            await loginPage.auth(DILER_1);
+            await expect(page).toHaveURL(URL_DEALER_COMPANIES);
         });
     });
 

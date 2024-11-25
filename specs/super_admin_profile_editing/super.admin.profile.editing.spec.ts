@@ -1,45 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {MIXED, SERVICE_COMPANY_1, SUPER_ADMIN} from "../../utils/user_data";
+import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    CABINET_FIRST,
-    CABINET_SECOND,
-    COMPANY_EMAIL_NEW,
-    COMPANY_SERVICE_EMAIL_OLD,
-    COMPANY_PHONE_NEW,
-    COMPANY_SERVICE_PHONE_OLD,
-    COUNTRY_MOLDOVA,
-    COUNTRY_MOLDOVA_SHORT,
-    COUNTRY_UKRAINE,
-    LANGUAGE_ENGLISH_SHORT,
     LANGUAGE_FRENCH,
-    LANGUAGE_FRENCH_SHORT,
     LANGUAGE_UKRAINIAN,
-    SETTINGS_ALARMS_RESTORES,
-    SETTINGS_ALLOWED,
-    SETTINGS_ARMS_DISARM,
-    SETTINGS_ARMS_DISARMS_ALARMS_RESTORES,
-    SETTINGS_DENIED,
-    TEXT_ADD_LOCALIZATION,
-    TEXT_DELETE,
-    TEXT_ENTER_THE_LINK,
-    TITLE_COMPANY_SETTINGS,
-    TITLE_COMPANY_SETTINGS_FRENCH,
     URL_LOGIN,
-    URL_PANELS,
-    COMPANY_MONITORING_SERVICE_NAME_NEW,
-    COMPANY_MONITORING_SERVICE_DESCRIPTION_NEW,
-    COMPANY_MONITORING_SERVICE_CONTACTS_NEW,
-    COMPANY_MONITORING_SERVICE_NAME_OLD,
-    COMPANY_MONITORING_SERVICE_DESCRIPTION_OLD,
-    COMPANY_MONITORING_SERVICE_CONTACTS_OLD,
-    COMPANY_SERVICE_CONTACTS_NEW,
-    COMPANY_SERVICE_DESCRIPTION_NEW,
-    COMPANY_SERVICE_NAME_NEW,
-    COMPANY_SERVICE_CONTACTS_OLD,
-    COMPANY_SERVICE_DESCRIPTION_OLD,
-    COMPANY_SERVICE_NAME_OLD,
-    LANGUAGE_DUTCH,
     URL_SUPPORT_SEARCH,
     TITLE_MY_PROFILE,
     SUPER_ADMIN_NAME_NEW,
@@ -48,10 +13,6 @@ import {
     SUPER_ADMIN_PHONE_OLD,
     TEXT_ROLE,
     TEXT_EMAIL,
-    USER_PASSWORD_FIRST,
-    USER_PASSWORD_NEW,
-    SUPER_ADMIN_PASSWORD_OLD,
-    SUPER_ADMIN_PASSWORD_NEW,
     SUPPORT_TEXT,
     SUPPORT_EMAIL
 } from "../../utils/constants";
@@ -207,35 +168,7 @@ test.describe('Company Page test', () => {
                 await superAdminPage.saveButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-                await expect(superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_UKRAINIAN})).toBeVisible();
-            }
-        });
-
-        test.skip('Super admin password editing', {tag: ['@smoke']}, async ({page}) => {
-            test.info().annotations.push({
-                type: "test_id",
-                description: ""
-            });
-
-            await profilePage.myProfileButton.click();
-            await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-
-            await page.waitForTimeout(2000);
-
-            await profilePage.userPassword.click();
-            await profilePage.userEditCurrentPasswordField.fill(SUPER_ADMIN_PASSWORD_OLD);
-            await profilePage.userEditNewPasswordField.click();
-            await profilePage.userEditNewPasswordField.fill(SUPER_ADMIN_PASSWORD_NEW);
-            await profilePage.changeButton.click();
-
-            await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-
-            await profilePage.userPassword.click();
-            await profilePage.userEditCurrentPasswordField.fill(SUPER_ADMIN_PASSWORD_NEW);
-            await profilePage.userEditNewPasswordField.click();
-            await profilePage.userEditNewPasswordField.fill(SUPER_ADMIN_PASSWORD_OLD);
-            await profilePage.changeButton.click();
-            await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
+                await expect(superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_UKRAINIAN})).toBeVisible();}
         });
 
     });

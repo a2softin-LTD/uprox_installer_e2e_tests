@@ -69,6 +69,7 @@ export class CompanyPage extends BasePage {
     private readonly _companySelectCommandField: Locator;
     private readonly _actionsCheckbox: Locator;
     private readonly _companySearchByHubField: Locator;
+    private readonly _companySearchByEngineerField: Locator;
 
 
     constructor(page: Page) {
@@ -122,6 +123,7 @@ export class CompanyPage extends BasePage {
         this._companyAllFilter = this.page.locator('span:text-is("All")');
         this._companySearchField = this.page.locator('input[placeholder*="Company search"]');
         this._companySearchByHubField = this.page.locator('input[placeholder*="All panels"]');
+        this._companySearchByEngineerField = page.getByText('All engineers').first();
         this._companySelectCommandField = page.getByText('Select command');
         this._companySearchByLogin = page.getByText('Login').and(this.page.locator('.tab-item'));
         this._companySearchByNumber = page.getByText('Serial number').and(this.page.locator('.tab-item'));
@@ -379,6 +381,10 @@ export class CompanyPage extends BasePage {
 
     get companySearchByHubField (): Locator {
         return this._companySearchByHubField;
+    }
+
+    get companySearchByEngineerField (): Locator {
+        return this._companySearchByEngineerField;
     }
 
 }

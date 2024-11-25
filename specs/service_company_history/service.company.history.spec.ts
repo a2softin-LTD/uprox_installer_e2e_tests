@@ -1,18 +1,18 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
-import {SERVICE_COMPANY_1, SUPER_ADMIN} from "../../utils/user_data";
+import { SERVICE_COMPANY_1 } from "../../utils/user_data";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import {
-    HUB_SERIAL_NUMBER_TRUE_THIRD,
+    HUB_SERIAL_NUMBER_TRUE_FIFTH,
+    HUB_SERIAL_NUMBER_TRUE_THIRD, SEVENTEEN,
     TEN,
-    TEXT_ADDED_NEW_USER, TEXT_DAY_FIRST, TEXT_DAY_SECOND,
+    TEXT_ADDED_NEW_USER, TEXT_DAY_FIRST, TEXT_DAY_SECOND, TEXT_DAY_THIRD, TEXT_OCTOBER_2024,
     TEXT_REMOVE_USER_EMAIL,
     TEXT_REMOVED_USER,
-    TEXT_SAVE_IN_XLS, TEXT_SEPTEMBER_2024,
+    TEXT_SAVE_IN_XLS, TEXT_SEPTEMBER_2024, TEXT_USER_LOGGED_IN, TEXT_USER_NO_EVENTS,
     TITLE_HISTORY_FOR_ALL_PANELS,
-    URL_LOGIN, URL_PANELS, URL_SUPPORT_SEARCH,
-
+    URL_LOGIN, URL_PANELS,
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -35,7 +35,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
         await expect(page).toHaveURL(URL_PANELS);
     });
 
-    test.skip('Checking UI elements of the history page under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+    test('Checking UI elements of the history page under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
             description: ''
@@ -47,6 +47,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
         await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
 
         await companyPage.companySearchByHubField.isVisible();
+        await companyPage.companySearchByEngineerField.isVisible();
         await superAdminPage.historyDate.nth(0).isVisible();
         await superAdminPage.historyDate.nth(1).isVisible();
         await hubPage.historyAlarmCheckBox.isVisible();
@@ -56,7 +57,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
 
     });
 
-    test.describe.skip('History under SERVICE_COMPANY_ADMIN role', () => {
+    test.describe('History under SERVICE_COMPANY_ADMIN role', () => {
 
         test('History display under SERVICE_COMPANY_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
@@ -84,12 +85,22 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
 
-            await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
+            await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_FIFTH);
+            await page.waitForTimeout(2000);
+            await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
+
+            await superAdminPage.historyDate.nth(0).click();
+            while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
+                await page.waitForTimeout(2000);}
+            await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
+            await page.waitForTimeout(2000);
+
+            await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_FIFTH);
             await page.waitForTimeout(2000);
             await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
 
             for (const event of await hubPage.historyEvent.all())
-            { await expect((event.filter({hasText:HUB_SERIAL_NUMBER_TRUE_THIRD}))).toBeVisible();}
+            { await expect((event.filter({hasText:HUB_SERIAL_NUMBER_TRUE_FIFTH}))).toBeVisible();}
 
         });
 
@@ -103,22 +114,21 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
 
-            await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
-            await page.waitForTimeout(2000);
+
             await superAdminPage.historyDate.nth(0).click();
 
-            while (await page.getByText(TEXT_SEPTEMBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
+            while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForTimeout(2000);}
-            await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
+            await superAdminPage.historyCalendarDayEntity.filter({hasText:SEVENTEEN}).click();
             await page.waitForTimeout(2000);
             await superAdminPage.historyDate.nth(1).click();
-            while (await page.getByText(TEXT_SEPTEMBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
+            while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForTimeout(2000);}
-            await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
+            await superAdminPage.historyCalendarDayEntity.filter({hasText:SEVENTEEN}).click();
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
-            await expect(page.getByText(TEXT_DAY_FIRST)).toBeVisible();
+            await expect(page.getByText(TEXT_DAY_THIRD)).toBeVisible();
             await expect(page.getByText(TEXT_DAY_SECOND)).not.toBeVisible();
 
         });
@@ -132,36 +142,18 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
             await hubPage.history.click();
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
+            await expect(page.getByText(TEXT_USER_LOGGED_IN).first()).toBeVisible();
 
-            await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
-            await page.waitForTimeout(2000);
-            await hubPage.historyAlarmCheckBox.isVisible();
-            await hubPage.historyTroublesCheckBox.isVisible();
-            await hubPage.historyArmsCheckBox.isVisible();
-            await hubPage.historyActionsCheckBox.isVisible();
-            await hubPage.historyServiceCheckBox.isVisible();
-
-            await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
-            await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
-            await expect(page.getByText(TEXT_REMOVED_USER).first()).toBeVisible();
-            await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).toBeVisible();
-
-            await hubPage.historyAlarmCheckBox.click();
-            await hubPage.historyTroublesCheckBox.click();
-            await hubPage.historyArmsCheckBox.click();
             await hubPage.historyActionsCheckBox.click();
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
 
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText(TEXT_REMOVE_USER_EMAIL).first()).toBeVisible();
-            await expect(page.getByText(TEXT_REMOVED_USER).first()).not.toBeVisible();
-            await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).not.toBeVisible();
-
+            await expect(page.getByText(TEXT_USER_NO_EVENTS).first()).toBeVisible();
         });
 
-        test.skip('Download history file under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test('Download history file under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn0'
