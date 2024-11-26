@@ -384,13 +384,13 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await page.getByText(USER_NAME).click();
         await hubPage.deleteUserButton.click();
         await hubPage.submitButton.click();
-        await hubPage.system.click()
+        await hubPage.system.click();
 
         await expect(page.getByText(BUTTON_ADD_WIRELESS_DEVICE)).toBeVisible();
 
-        await page.waitForTimeout(3000);
+        await page.reload();
 
-        await hubPage.hubPanel.click();
+        await hubPage.hubPanel.click({timeout:10000});
         await hubPage.settingsKeypadCodeLength.click();
 
         await expect(page.getByText(TEXT_CHANGE_KEYPAD_CODE_LENGTH)).toBeVisible();

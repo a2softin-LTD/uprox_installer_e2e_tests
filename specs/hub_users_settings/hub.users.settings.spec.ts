@@ -27,7 +27,7 @@ import {
     USER_PHONE_NEW
 } from "../../utils/constants";
 
-test.describe('Hub Page tests', { tag: '@hub' }, () => {
+test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;

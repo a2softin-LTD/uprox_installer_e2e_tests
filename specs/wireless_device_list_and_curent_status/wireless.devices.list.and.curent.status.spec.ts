@@ -17,7 +17,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL(URL_LOGIN)
     });
 
-    test('List of devices and current status', { tag: ['@smoke', '@hub']}, async ({ page }) => {
+    test('List of devices and current status', { tag: ['@smoke', '@hub','@stable']}, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8678t0fu2"

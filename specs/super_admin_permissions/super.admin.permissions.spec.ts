@@ -17,7 +17,7 @@ import {
     USER_EMAIL_THIRD
 } from "../../utils/constants";
 
-test.describe('SuperAdmin page tests', () => {
+test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
 
     let loginPage: LoginPage;
     let superAdminPage: SuperAdminPage;

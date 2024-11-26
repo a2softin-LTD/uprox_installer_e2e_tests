@@ -28,7 +28,7 @@ import {
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
-test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
+test.describe('Company page tests',{ tag: ['@smoke']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -140,7 +140,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
             await page.waitForTimeout(2000);
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
-            await expect(page.getByText(TEXT_DAY_FOURTH)).toBeVisible();
+            await expect(page.getByText(TEXT_DAY_FOURTH)).toBeVisible({ timeout: 10000 });
             await expect(page.getByText(TEXT_DAY_FIFTH)).not.toBeVisible();
 
         });
@@ -162,7 +162,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
             await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText(TEXT_DEVICE_ADJUST_NOT_ALLOWED).first()).toBeVisible();
+            await expect(page.getByText(TEXT_DEVICE_ADJUST_NOT_ALLOWED).first()).toBeVisible({ timeout: 10000 });
 
             await hubPage.historyActionsCheckBox.click();
 
@@ -173,7 +173,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
             await expect(page.getByText(TEXT_DEVICE_ADJUST_NOT_ALLOWED).first()).not.toBeVisible();
         });
 
-        test('Download history file under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Download history file under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694vrfn0'

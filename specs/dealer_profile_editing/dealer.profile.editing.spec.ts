@@ -19,7 +19,7 @@ import { CompanyPage } from "../../pages/company/CompanyPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import {SuperAdminPage} from "../../pages/superAdmin/SuperAdminPage";
 
-test.describe('Company Page test', () => {
+test.describe('Company Page test', { tag: ['@stable']},() => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;

@@ -36,8 +36,8 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
         await hubPage.users.click();
 
-        if (await (page.getByText(USER_NAME)).isVisible()) {
-            await page.getByText(USER_NAME).click();
+        if (await (page.getByText(USER_NAME)).first().isVisible()) {
+            await page.getByText(USER_NAME).first().click();
             await hubPage.deleteUserButton.click();
             await hubPage.submitButton.click();}
 

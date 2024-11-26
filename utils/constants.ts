@@ -404,6 +404,7 @@ export const TEXT_USER_LOGGED_IN: string = 'User logged in';
 
 export const TEXT_DEVICE_ADJUST_NOT_ALLOWED: string = 'Device adjust not allowed for user ';
 
+
 export const TEXT_USER_NO_EVENTS: string = 'No events for specified filters.';
 
 export const TEXT_ALL_ROLES: string = 'All roles';

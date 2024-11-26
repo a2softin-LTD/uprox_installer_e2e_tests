@@ -31,7 +31,7 @@ import {
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 
-test.describe('Company Page test', () => {
+test.describe('Company Page test', { tag: ['@smoke', '@stable']},() => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;
