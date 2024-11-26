@@ -41,7 +41,8 @@ export const sequelize = new Sequelize({
     database: "dev_account",
     username: "dev_account_dpinchuk_read_write_42",
     password: "jdktqusPYJne75Wp3cT6Mb",
-    host: "dev-sas-db.cnq4o4ga2lzh.eu-central-1.rds.amazonaws.com",
+    // host: "dev-sas-db.cnq4o4ga2lzh.eu-central-1.rds.amazonaws.com",
+    host: "dev-sas-db.cpwkuwykwthj.eu-north-1.rds.amazonaws.com",
     port: 35483,
     dialect: "postgres",
     dialectOptions: {
