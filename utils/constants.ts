@@ -46,9 +46,29 @@ export const USER_NAME_NEW: string = 'Петро';
 
 export const USER_NAME_OLD: string = 'Дмитро';
 
+export const USER_NAME_MON_ADMIN_NEW: string = 'Іван';
+
+export const USER_NAME_MON_ADMIN_OLD: string = 'Володимир';
+
+export const USER_NAME_SER_ADMIN_NEW: string = 'Степан';
+
+export const USER_NAME_SER_ADMIN_OLD: string = 'Дмитро';
+
 export const USER_PHONE_NEW: string = '+380508888888';
 
 export const USER_PHONE_OLD: string = '+380507777777';
+
+export const USER_PHONE_NEW_MS_ADMIN: string = '+380509999999';
+
+export const USER_PHONE_OLD_MS_ADMIN: string = '+380501111111';
+
+export const USER_PHONE_MON_ADMIN_NEW: string = '+380509999444';
+
+export const USER_PHONE_MON_ADMIN_OLD: string = '+380501111444';
+
+export const USER_PHONE_SER_ADMIN_NEW: string = '+380509999555';
+
+export const USER_PHONE_SER_ADMIN_OLD: string = '+380674567890';
 
 export const SUPER_ADMIN_NAME_NEW: string = 'Петро';
 
@@ -177,6 +197,8 @@ export const HUB_SERIAL_NUMBER_TRUE_THIRD: string = '00:08:B7:10:02:04';
 export const HUB_SERIAL_NUMBER_TRUE_FOURTH: string = '00:08:B7:FF:00:04';
 
 export const HUB_SERIAL_NUMBER_TRUE_FIFTH: string = '00:08:B7:FF:00:04';
+
+export const HUB_SERIAL_NUMBER_TRUE_SIX: string = '00:08:B7:10:06:07';
 
 export const HUB_SERIAL_NUMBER_FALSE_FIRST: string = '56:08:B7:10:02:44';
 
@@ -379,6 +401,8 @@ export const TITLE_HISTORY_FOR_ALL_PANELS: string = 'History for all panels';
 export const TEXT_REMOVE_USER_EMAIL: string = 'Remove user email';
 
 export const TEXT_USER_LOGGED_IN: string = 'User logged in';
+
+export const TEXT_DEVICE_ADJUST_NOT_ALLOWED: string = 'Device adjust not allowed for user ';
 
 export const TEXT_USER_NO_EVENTS: string = 'No events for specified filters.';
 
@@ -673,6 +697,10 @@ export const TEXT_DAY_FIRST: string = '18.10.2024, Friday';
 export const TEXT_DAY_SECOND: string = '19.10.2024, Saturday';
 
 export const TEXT_DAY_THIRD: string = '17.10.2024, Thursday';
+
+export const TEXT_DAY_FOURTH: string = '10.10.2024, Thursday';
+
+export const TEXT_DAY_FIFTH: string = '11.10.2024, Friday';
 
 export const TITLE_CAPTCHA_WHITE_LIST: string = 'Captcha white list';
 
