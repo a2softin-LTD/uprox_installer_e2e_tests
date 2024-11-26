@@ -76,6 +76,7 @@ export class BasePage {
     private readonly _users: Locator;
     private readonly _groups: Locator;
     private readonly _troubles: Locator;
+    private readonly _myProfile: Locator;
     // OTHERS
     private readonly _pageTitle: Locator;
     private readonly _rowBlock: Locator;
@@ -168,6 +169,7 @@ export class BasePage {
         this._system = page.getByText('System',{ exact: true });
         this._troubles = page.getByText('Troubles',{ exact: true });
         this._groups = page.getByText('Groups',{ exact: true });
+        this._myProfile = page.getByText('My profile',{ exact: true });
 
         // OTHERS
         this._pageTitle = page.locator('h3');
@@ -223,6 +225,10 @@ export class BasePage {
 
     get system(): Locator {
         return this._system;
+    }
+
+    get myprofile(): Locator {
+        return this._myProfile;
     }
 
     get clearButton(): Locator {
