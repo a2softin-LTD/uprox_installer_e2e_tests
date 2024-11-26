@@ -57,7 +57,7 @@ export default defineConfig({
     {
       name: 'dev',
       use: {
-        baseURL: 'https://dev-web-security.u-prox.systems',
+        baseURL: 'https://dev-web-security.u-prox.systems/login',
       },
     },
     {

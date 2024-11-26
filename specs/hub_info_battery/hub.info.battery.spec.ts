@@ -10,7 +10,7 @@ import {
     URL_PROFILE_PANELS
 } from "../../utils/constants";
 
-test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
+test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;

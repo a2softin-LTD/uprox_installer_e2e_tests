@@ -11,7 +11,7 @@ import {
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
-test.describe('Company Page test', () => {
+test.describe('Company Page test', { tag: '@stable' }, () => {
 
     let loginPage: LoginPage;
     let companyPage: CompanyPage;

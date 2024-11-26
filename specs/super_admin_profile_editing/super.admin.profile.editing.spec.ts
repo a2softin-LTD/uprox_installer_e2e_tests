@@ -20,7 +20,7 @@ import { CompanyPage } from "../../pages/company/CompanyPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import {SuperAdminPage} from "../../pages/superAdmin/SuperAdminPage";
 
-test.describe('Company Page test', () => {
+test.describe('Company Page test', { tag: ['@smoke', '@stable', '@superadmin']},() => {
 
     let loginPage: LoginPage;
     let profilePage: ProfilePage;

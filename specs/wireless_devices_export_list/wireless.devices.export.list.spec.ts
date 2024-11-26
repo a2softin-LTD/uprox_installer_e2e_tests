@@ -19,7 +19,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
-    test('Export wireless devices list', { tag: ['@smoke', '@hub']}, async ({ page }) => {
+    test('Export wireless devices list', { tag: ['@smoke', '@hub','@stable']},async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8678t0fvw'

@@ -21,7 +21,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL(URL_LOGIN)
     });
 
-    test('Wireless device total number panel', { tag: ['@smoke', '@hub']}, async ({ page }) => {
+    test('Wireless device total number panel', { tag: ['@smoke', '@hub','@stable']},async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694mz7xz"

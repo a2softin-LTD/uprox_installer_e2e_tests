@@ -4,7 +4,7 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 import {BUTTON_RESTART_PANEL, SELECTOR_THIRD, TITLE_UPDATE_FIRMWARE_VERSION, URL_HUB_DOC} from "../../utils/constants";
 
-test.describe('Hub Page tests', () => {
+test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
