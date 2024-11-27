@@ -122,7 +122,6 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
 
             await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_SIX);
             await page.waitForLoadState('domcontentloaded');
-            await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
 
             await superAdminPage.historyDate.nth(0).click();
             await page.waitForLoadState('domcontentloaded');
