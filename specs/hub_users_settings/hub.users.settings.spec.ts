@@ -42,21 +42,29 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
-        await page.waitForTimeout(2000);
+        await page.waitForLoadState('domcontentloaded');
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.users.click();
 
         if (await (page.getByText(USER_NAME)).isVisible()) {
             await page.getByText(USER_NAME).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.deleteUserButton.click();
-            await hubPage.submitButton.click();}
+            await page.waitForLoadState('domcontentloaded');
+            await hubPage.submitButton.click();
+        }
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserName.fill(USER_NAME);
         await hubPage.addUserEmail.fill(USER_3['login']);
         await hubPage.addButton.click();
+        await page.waitForLoadState('domcontentloaded');
 
         try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:15000});}
         catch (error) {console.error(`An error occurred: ${error.message}`);
@@ -131,14 +139,21 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             });
 
             await (page.getByText(USER_FULL_FIRST)).click();
+            await page.waitForLoadState('domcontentloaded');
 
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsMobileApp.click();
+            await page.waitForLoadState('domcontentloaded');
+
             await hubPage.enableButton.click();
+            await page.waitForLoadState('domcontentloaded');
+
             await hubPage.saveButton.click();
+            await page.waitForLoadState('domcontentloaded');
 
             await hubPage.backButton.click();
+            await page.waitForLoadState('domcontentloaded');
 
             await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();
             await expect(page.getByText(USER_FULL_FIRST)).toBeVisible();
@@ -149,7 +164,10 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
+
             await hubPage.submitButton.click();
+            await page.waitForLoadState('domcontentloaded');
 
             await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();
         });
