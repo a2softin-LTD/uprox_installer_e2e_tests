@@ -41,7 +41,6 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
             type: 'test_id',
             description: ''
         });
-
         await hubPage.history.click();
         await page.waitForLoadState('domcontentloaded');
 
@@ -56,7 +55,6 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
         await hubPage.historyTroublesCheckBox.isVisible();
         await hubPage.historyArmsCheckBox.isVisible();
         await hubPage.historyActionsCheckBox.isVisible();
-
     });
 
     test.describe('History under MONITORING_SERVICE_COMPANY_ADMIN role', () => {
@@ -68,16 +66,14 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
             });
 
             await hubPage.history.click();
+            await page.waitForLoadState('domcontentloaded');
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
 
-            await page.waitForTimeout(2000);
             await page.waitForLoadState('domcontentloaded');
 
-            for (const event of await hubPage.historyEvent.all()) {
-                await expect(event).toBeVisible();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            for (const event of await hubPage.historyEvent.all())
+            { await expect(event).toBeVisible();}
         });
 
         test('History filtration by hub under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
@@ -87,15 +83,17 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
             });
 
             await hubPage.history.click();
+            await page.waitForLoadState('domcontentloaded');
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
 
             await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_SIX);
-            await page.waitForLoadState('domcontentloaded');
+            await page.waitForTimeout(2000);
             await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
 
             await superAdminPage.historyDate.nth(0).click();
             await page.waitForLoadState('domcontentloaded');
+
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {
                 await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForLoadState('domcontentloaded');
@@ -118,6 +116,7 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
             });
 
             await hubPage.history.click();
+            await page.waitForLoadState('domcontentloaded');
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
 
@@ -126,14 +125,19 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
             await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
 
             await superAdminPage.historyDate.nth(0).click();
+            await page.waitForLoadState('domcontentloaded');
 
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {
                 await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForLoadState('domcontentloaded');
             }
+            
             await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
             await page.waitForLoadState('domcontentloaded');
+
             await superAdminPage.historyDate.nth(1).click();
+            await page.waitForLoadState('domcontentloaded');
+            
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {
                 await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForLoadState('domcontentloaded');
@@ -142,7 +146,7 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
             await page.waitForLoadState('domcontentloaded');
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
-            await expect(page.getByText(TEXT_DAY_FOURTH)).toBeVisible({ timeout: 10000 });
+            await expect(page.getByText(TEXT_DAY_FOURTH)).toBeVisible();
             await expect(page.getByText(TEXT_DAY_FIFTH)).not.toBeVisible();
 
         });
@@ -154,10 +158,12 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
             });
 
             await hubPage.history.click();
+            await page.waitForLoadState('domcontentloaded');
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
 
             await superAdminPage.historyDate.nth(0).click();
+            await page.waitForLoadState('domcontentloaded');
 
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {
                 await superAdminPage.historyChangeMonth.nth(0).click();
@@ -185,11 +191,13 @@ test.describe('Company page tests',{ tag: ['@smoke']}, () => {
             });
 
             await hubPage.history.click();
+            await page.waitForLoadState('domcontentloaded');
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)})).toBeVisible();
             await expect(page.getByText(TEXT_SAVE_IN_XLS)).toBeVisible();
 
-            const [download] = await Promise.all([page.waitForEvent('download'), hubPage.saveInXLSButton.click()] );
+            const [download]=await
+                Promise.all([page.waitForEvent('download'), hubPage.saveInXLSButton.click()] );
 
             await download.saveAs(download.suggestedFilename());
         });
