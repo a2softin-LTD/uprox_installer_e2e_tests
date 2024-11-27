@@ -78,7 +78,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
         test('Name edit: monitoring company admin', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678rc9at"
+                description: "https://app.clickup.com/t/8696uwqcu"
             });
 
             await profilePage.userName.click();
@@ -99,7 +99,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
         test('Phone edit: monitoring company admin', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678rc9uy"
+                description: "https://app.clickup.com/t/8696uwptm"
             });
 
             await profilePage.userPhone.click();
@@ -120,7 +120,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
         test('Language for emails edit: monitoring company admin', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678rcapf"
+                description: "https://app.clickup.com/t/8696uwr59"
             });
 
             await profilePage.userLanguageForEmails.click();
@@ -141,7 +141,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
         test('Language edit: monitoring company admin', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694f8kwd"
+                description: "https://app.clickup.com/t/8696ux3m1"
             });
 
             await profilePage.languageChoice.click();
@@ -159,7 +159,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
         test('Support and messages: monitoring company admin', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678rcauf"
+                description: "https://app.clickup.com/t/8696ux5q0"
             });
 
 
@@ -186,7 +186,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
         test('Password edit: monitoring company admin', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678rc9y0"
+                description: "https://app.clickup.com/t/8696uwy7u"
             });
 
             await profilePage.userPassword.click();

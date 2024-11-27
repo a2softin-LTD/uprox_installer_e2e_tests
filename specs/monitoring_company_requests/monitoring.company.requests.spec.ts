@@ -43,7 +43,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
     test('Requests list  under MONITORING_COMPANY_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: 'https://app.clickup.com/t/8694vrfn3'
+            description: 'https://app.clickup.com/t/8696uxwvm'
         });
 
         await hubPage.requests.click();

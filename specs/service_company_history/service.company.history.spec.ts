@@ -26,7 +26,7 @@ import {
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
-test.describe('Company page tests',{ tag: ['@smoke']}, () => {
+test.describe('Company page tests',{ tag: ['@history']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;

@@ -9,7 +9,7 @@ import {
     TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS
 } from "../../utils/constants";
 
-test.describe('Hub Page tests', { tag: ['@smoke', '@hub']},() => {
+test.describe('Hub Page tests', { tag: ['@history', '@hub']},() => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
