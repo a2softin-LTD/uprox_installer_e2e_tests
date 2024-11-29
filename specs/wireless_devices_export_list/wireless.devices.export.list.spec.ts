@@ -26,6 +26,7 @@ test.describe('Hub Page tests', () => {
             });
 
             await hubPage.panels.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.secondHub.click();
 
             await expect(page.getByText(BUTTON_ADD_WIRELESS_DEVICE)).toBeVisible();

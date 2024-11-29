@@ -31,6 +31,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         });
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
 
@@ -49,6 +50,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         await expect(page.getByText(TEXT_ENGINEER_MODE_SECONDS_LEFT)).not.toBeVisible();
 
         await hubPage.wirelessDeviceAddButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.waitForTimeout(2000);
         await hubPage.backButton.click();
         await page.waitForTimeout(2000);

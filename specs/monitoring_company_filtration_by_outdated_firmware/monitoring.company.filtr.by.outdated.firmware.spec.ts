@@ -26,8 +26,10 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']}, ()
             });
 
             await companyPage.panels.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
             await page.getByText(TITLE_ALL_PANELS).first().click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(PANEL_STATE).first().click();
 
             await page.waitForTimeout(2000);

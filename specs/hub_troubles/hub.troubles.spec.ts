@@ -5,8 +5,7 @@ import { MIXED } from "../../utils/user_data";
 import {
     TEXT_NO_HUB_WITH_TROUBLES,
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
-    TITLE_SYSTEM,
-    TITLE_TROUBLES,
+    TITLE_SYSTEM, TITLE_TROUBLES,
     TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 

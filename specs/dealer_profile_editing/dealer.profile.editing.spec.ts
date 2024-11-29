@@ -77,13 +77,15 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
 
             if (await superAdminPage.profileNameBlock.filter({hasText: DEALER_1_NAME_NEW}).isVisible()) {
                 await superAdminPage.profileNameBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputFirstField.fill(DEALER_1_NAME_OLD);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.profileNameBlock.filter({hasText: DEALER_1_NAME_OLD})).toBeVisible();
             } else {
                 await superAdminPage.profileNameBlock.click();
-
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputFirstField.fill(DEALER_1_NAME_NEW);
                 await superAdminPage.changeButton.click();
 
@@ -91,7 +93,9 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
                 await expect(superAdminPage.profileNameBlock.filter({hasText: DEALER_NAME_NEW})).toBeVisible();
 
                 await superAdminPage.profileNameBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputFirstField.fill(DEALER_1_NAME_OLD);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -113,7 +117,9 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
 
             if (await superAdminPage.profilePhoneBlock.filter({hasText: DEALER_1_PHONE_NEW}).isVisible()) {
                 await superAdminPage.profilePhoneBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputField.fill(DEALER_1_PHONE_OLD);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(page.getByText(DEALER_1_PHONE_OLD)).toBeVisible();
@@ -121,13 +127,16 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
                 await superAdminPage.profilePhoneBlock.click();
 
                 await superAdminPage.inputField.fill(DEALER_1_PHONE_NEW);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(page.getByText(DEALER_1_PHONE_NEW)).toBeVisible();
 
                 await superAdminPage.profilePhoneBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputField.fill(DEALER_1_PHONE_OLD);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -148,21 +157,26 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
 
             if (await superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_FRENCH}).isVisible()) {
                 await superAdminPage.profileLanguageBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await page.getByText(LANGUAGE_UKRAINIAN).click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.saveButton.click();
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_UKRAINIAN})).toBeVisible();
             } else {
                 await superAdminPage.profileLanguageBlock.click();
-
+                await page.waitForLoadState('domcontentloaded');
                 await page.getByText(LANGUAGE_FRENCH).click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.saveButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_FRENCH})).toBeVisible();
 
                 await superAdminPage.profileLanguageBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await page.getByText(LANGUAGE_UKRAINIAN).click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.saveButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();

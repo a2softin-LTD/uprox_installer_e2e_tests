@@ -71,23 +71,32 @@ test.describe('Company Page tests', () => {
             });
 
             await companyPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeEmailField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeNameField.fill(USER_NAME);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeRoleField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MANAGER).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
             await page.getByText(FAKER_EMAIL_FIRST).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeDeleteManager.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
 
             await companyPage.panels.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employees.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
@@ -101,23 +110,32 @@ test.describe('Company Page tests', () => {
             });
 
             await companyPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeEmailField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeNameField.fill(USER_NAME);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeRoleField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MANAGER).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
             await page.getByText(FAKER_EMAIL_FIRST).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeDeleteManager.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
 
             await companyPage.panels.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employees.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
@@ -131,28 +149,44 @@ test.describe('Company Page tests', () => {
             });
 
             await companyPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeEmailField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeNameField.fill(USER_NAME_OLD);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeRoleField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MANAGER).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
             await page.getByText(FAKER_EMAIL_FIRST).click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_FULL_NAME).click();
             await companyPage.inputFirstField.fill(USER_NAME_NEW);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.saveButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_PHONE).click();
             await companyPage.inputFirstField.fill(FAKER_PHONE_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.saveButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_CONFIGURING_PANELS).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.enabledButton.click();
-            await companyPage.saveButton.click()
+            await page.waitForLoadState('domcontentloaded');
+            await companyPage.saveButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_BLOCK_EMPLOYEE).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.yesButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.saveButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TEXT_EDIT_EMPLOYEE)})).toBeVisible({timeout:15000});
@@ -166,6 +200,7 @@ test.describe('Company Page tests', () => {
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
 
             await companyPage.panels.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employees.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
@@ -180,11 +215,17 @@ test.describe('Company Page tests', () => {
             });
 
             await companyPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeEmailField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeNameField.fill(USER_NAME_NEW);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeRoleField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MANAGER).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
@@ -201,7 +242,9 @@ test.describe('Company Page tests', () => {
             await expect(companyPage.employeeBlock).toHaveCount(1);
 
             await page.getByText(USER_NAME_NEW).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeDeleteManager.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});

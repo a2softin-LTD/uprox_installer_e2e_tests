@@ -5,18 +5,14 @@ import { USER_1, USER_3 } from "../../utils/user_data";
 import {
     BUTTON_DELETE_USER,
     BUTTON_TRANSFER_OWNERSHIP, TEXT_CHANGE_USER_NAME,
-    TEXT_EDITING_EMAIL,
-    TITLE_EDIT_USER,
+    TEXT_EDITING_EMAIL, TITLE_EDIT_USER,
     TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS,
-    USER_EMAIL,
-    USER_EMAIL_NON_REGISTERED,
-    USER_FULL_FIRST,
-    USER_FULL_SECOND,
-    USER_NAME,
+    USER_EMAIL, USER_EMAIL_NON_REGISTERED,
+    USER_FULL_FIRST, USER_FULL_SECOND, USER_NAME,
     USER_NAME_NEW, USER_SHORT_FIRST, USER_SHORT_SECOND
 } from "../../utils/constants";
 
-test.describe('Hub Page tests', { tag: '@hub' }, () => {
+test.describe('Hub Page tests', { tag: ['@smoke', '@hub']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -31,24 +27,31 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
 
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.users.click();
         await page.waitForTimeout(1000);
 
         if (await (page.getByText(USER_NAME)).isVisible())
         {   await page.getByText(USER_NAME).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();}
 
         await page.waitForTimeout(1000);
         await hubPage.addButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserName.fill(USER_NAME);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserEmail.fill(USER_3['login']);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addButton.click();
 
         try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:15000});}
@@ -73,6 +76,7 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await expect(page.getByText(BUTTON_DELETE_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
             await page.waitForTimeout(1000);
 
@@ -86,8 +90,10 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             });
 
             await page.getByText(USER_SHORT_FIRST).click();
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect(page.getByText((USER_SHORT_FIRST))).not.toBeVisible();
@@ -112,12 +118,14 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await expect(page.getByText(TEXT_CHANGE_USER_NAME)).toBeVisible();
 
             await hubPage.inputFirstField.fill(USER_NAME_NEW);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(page.getByText(BUTTON_DELETE_USER)).toBeVisible();
             await expect(page.getByText(USER_NAME_NEW)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();
@@ -139,12 +147,14 @@ test.describe('Hub Page tests', { tag: '@hub' }, () => {
             await expect(page.getByText(TEXT_EDITING_EMAIL)).toBeVisible();
 
             await hubPage.inputFirstField.fill(USER_EMAIL_NON_REGISTERED);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(page.getByText(BUTTON_DELETE_USER)).toBeVisible();
             await expect(page.getByText(USER_EMAIL_NON_REGISTERED)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
             await page.waitForTimeout(1000);
 

@@ -3,19 +3,11 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    TEXT_CHANNEL,
-    TEXT_DELETING_VERSION,
-    TEXT_DEPLOY_PERCENTAGE,
-    TEXT_DEVICE_TYPE,
-    TEXT_FILENAME,
-    TEXT_FTP_LINK, TEXT_UPLOADING_NEW_CONSOLE_APP_FIRMWARE,
-    TEXT_VERSION_CODE,
-    TEXT_VERSION_TYPE,
-    TITLE_CONSOLE_FIRMWARE_VERSIONS,
-    TITLE_PANEL_FIRMWARE_VERSIONS, URL_LOGIN, URL_SUPPORT_SEARCH,
-    VERSION_CODE_FIRST,
-    VERSION_CODE_SECOND,
-    VERSION_NAME_FIRST
+    TEXT_CHANNEL, TEXT_DELETING_VERSION, TEXT_DEPLOY_PERCENTAGE,
+    TEXT_DEVICE_TYPE, TEXT_FILENAME, TEXT_FTP_LINK, TEXT_UPLOADING_NEW_CONSOLE_APP_FIRMWARE,
+    TEXT_VERSION_CODE, TEXT_VERSION_TYPE,
+    TITLE_CONSOLE_FIRMWARE_VERSIONS, TITLE_PANEL_FIRMWARE_VERSIONS, URL_LOGIN, URL_SUPPORT_SEARCH,
+    VERSION_CODE_FIRST, VERSION_CODE_SECOND, VERSION_NAME_FIRST
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -72,12 +64,13 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             await superAdminPage.upLoadFirmwareSelectFile.setInputFiles("./test-data/mpx_ua_dev_22_79.ebin");
             await page.waitForTimeout(1000);
             await superAdminPage.uploadFirmwareCode.fill(VERSION_CODE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(1000);
             await superAdminPage.uploadFirmwareName.fill(VERSION_NAME_FIRST);
-
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(1000);
             await superAdminPage.submitButton.click();
-            await page.waitForTimeout(5000);
+            await page.waitForTimeout(8000);
 
             await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible({timeout:10000});
             await expect(page.getByText(VERSION_CODE_FIRST)).toBeVisible();
@@ -110,12 +103,13 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             await superAdminPage.upLoadFirmwareSelectFile.setInputFiles("./test-data/mpx_ua_dev_22_79.ebin");
             await page.waitForTimeout(1000);
             await superAdminPage.uploadFirmwareCode.fill(VERSION_CODE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(1000);
             await superAdminPage.uploadFirmwareName.fill(VERSION_NAME_FIRST);
-
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(1000);
             await superAdminPage.submitButton.click();
-            await page.waitForTimeout(5000);
+            await page.waitForTimeout(8000);
 
             await expect(page.getByText(TITLE_PANEL_FIRMWARE_VERSIONS).first()).toBeVisible({timeout:10000});
             await expect(page.getByText(VERSION_CODE_FIRST)).toBeVisible();
@@ -159,6 +153,7 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             });
 
             await superAdminPage.firmware.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.consoleApplication.click();
 
             await expect(superAdminPage.uploadFirmwareButton).toBeVisible();
@@ -197,13 +192,15 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             await page.waitForTimeout(2000);
             await superAdminPage.submitModalButton.click();
 
-            await page.waitForTimeout(5000);
+            await page.waitForTimeout(10000);
             await page.reload();
             await page.waitForTimeout(2000);
 
             await superAdminPage.firmware.click();
+            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.consoleApplication.click();
-
+            await page.waitForTimeout(1000);
             await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
             await expect(page.getByText(VERSION_CODE_SECOND, {exact:true})).toBeVisible();
 
@@ -236,7 +233,6 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             await superAdminPage.upLoadFirmwareWinSelectFile.nth(0).setInputFiles("./test-data/console-2.22.15-202404304512.exe");
             await page.waitForTimeout(2000);
             await superAdminPage.upLoadFirmwareLinuxSelectFile.setInputFiles("./test-data/console-2.22.15-202404304512-dev.deb");
-
             await page.waitForTimeout(2000);
             await superAdminPage.submitButton.click();
 
@@ -245,13 +241,15 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             await page.waitForTimeout(2000);
             await superAdminPage.submitModalButton.click();
 
-            await page.waitForTimeout(5000);
+            await page.waitForTimeout(10000);
             await page.reload();
             await page.waitForTimeout(2000);
 
             await superAdminPage.firmware.click();
+            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.consoleApplication.click();
-
+            await page.waitForTimeout(1000);
             await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();
             await expect(page.getByText(VERSION_CODE_SECOND, {exact:true})).toBeVisible();
 
@@ -273,6 +271,7 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             });
 
             await superAdminPage.firmware.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.consoleApplication.click();
 
             await expect(page.getByText(TITLE_CONSOLE_FIRMWARE_VERSIONS).first()).toBeVisible();

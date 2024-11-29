@@ -4,15 +4,10 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import {
-    EIGHTEEN,
-    HUB_SERIAL_NUMBER_TRUE_THIRD,
+    EIGHTEEN, HUB_SERIAL_NUMBER_TRUE_THIRD,
     TEXT_ADDED_NEW_USER, TEXT_DAY_FIRST, TEXT_DAY_SECOND, TEXT_OCTOBER_2024,
-    TEXT_REMOVE_USER_EMAIL,
-    TEXT_REMOVED_USER,
-    TEXT_SAVE_IN_XLS,
-    TITLE_HISTORY_FOR_ALL_PANELS,
+    TEXT_REMOVE_USER_EMAIL, TEXT_SAVE_IN_XLS, TITLE_HISTORY_FOR_ALL_PANELS,
     URL_LOGIN, URL_SUPPORT_SEARCH,
-
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -105,13 +100,16 @@ test.describe('SuperAdmin page tests',{ tag: ['@history', '@superadmin']}, () =>
 
             await companyPage.companySearchByHubField.fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
             await page.waitForTimeout(2000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.historyDate.nth(0).click();
 
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                  await page.waitForTimeout(2000);}
             await superAdminPage.historyCalendarDayEntity.filter({hasText:EIGHTEEN}).click();
             await page.waitForTimeout(2000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.historyDate.nth(1).click();
+            await page.waitForLoadState('domcontentloaded');
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForTimeout(2000);}
             await superAdminPage.historyCalendarDayEntity.filter({hasText:EIGHTEEN}).click();
@@ -146,8 +144,11 @@ test.describe('SuperAdmin page tests',{ tag: ['@history', '@superadmin']}, () =>
             await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).toBeVisible({ timeout: 10000 });
 
             await hubPage.historyAlarmCheckBox.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.historyTroublesCheckBox.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.historyArmsCheckBox.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.historyActionsCheckBox.click();
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();

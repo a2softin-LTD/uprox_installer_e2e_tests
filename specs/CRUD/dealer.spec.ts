@@ -52,8 +52,10 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
             await expect(page.getByText(FAKER_EMAIL_ADMIN)).toBeVisible();
 
-            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click()
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_DEALERS})).toBeVisible({ timeout: 10000 });

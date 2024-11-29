@@ -24,8 +24,10 @@ test.describe('Hub Page tests', { tag: ['@history', '@hub']},() => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
+        await page.waitForLoadState('domcontentloaded');
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
@@ -64,8 +66,11 @@ test.describe('Hub Page tests', { tag: ['@history', '@hub']},() => {
             await expect(page.getByText(TEXT_ADDED_NEW_USER).first()).toBeVisible();
 
             await hubPage.historyAlarmCheckBox.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.historyTroublesCheckBox.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.historyArmsCheckBox.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.historyActionsCheckBox.click();
 
             await expect(page.getByText(TEXT_REMOVED_USER).first()).not.toBeVisible();

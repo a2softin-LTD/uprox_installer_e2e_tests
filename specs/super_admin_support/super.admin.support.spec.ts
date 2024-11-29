@@ -3,16 +3,9 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    HUB_ACCOUNT_NAME,
-    HUB_ACCOUNT_NAME_FULL,
-    HUB_SERIAL_NUMBER_TRUE_FIRST,
-    HUB_SERIAL_NUMBER_TRUE_SECOND,
-    TEXT_SEARCH_FOR_ONE_OF_OPTIONS,
-    TEXT_SEARCH_RESULT,
-    TEXT_SHOW_CONFIGURATION,
-    TITLE_PANEL_OR_SENSOR_SERIAL,
-    TITLE_TECHNICAL_SUPPORT, URL_LOGIN, URL_SUPPORT_SEARCH,
-    USER_EMAIL_SECOND
+    HUB_ACCOUNT_NAME, HUB_ACCOUNT_NAME_FULL, HUB_SERIAL_NUMBER_TRUE_FIRST, HUB_SERIAL_NUMBER_TRUE_SECOND,
+    TEXT_SEARCH_FOR_ONE_OF_OPTIONS, TEXT_SEARCH_RESULT, TEXT_SHOW_CONFIGURATION,
+    TITLE_PANEL_OR_SENSOR_SERIAL, TITLE_TECHNICAL_SUPPORT, URL_LOGIN, URL_SUPPORT_SEARCH, USER_EMAIL_SECOND
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -61,7 +54,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
 
             await companyPage.companySearchByLogin.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(USER_EMAIL_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.searchButton.click();
 
             await expect(page.getByText(TEXT_SEARCH_RESULT)).toBeVisible();
@@ -76,7 +71,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
 
             await companyPage.companySearchByNumber.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(HUB_SERIAL_NUMBER_TRUE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.searchButton.click();
 
             await expect(page.getByText(TEXT_SHOW_CONFIGURATION)).toBeVisible();
@@ -91,7 +88,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
 
             await companyPage.companySearchByAccount.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(HUB_ACCOUNT_NAME);
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(HUB_ACCOUNT_NAME_FULL).click();
             await page.waitForTimeout(2000);
 

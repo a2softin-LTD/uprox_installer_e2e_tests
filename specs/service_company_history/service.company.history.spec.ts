@@ -4,25 +4,8 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { SERVICE_COMPANY_1 } from "../../utils/user_data";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import {
-    HUB_SERIAL_NUMBER_TRUE_FIFTH,
-    HUB_SERIAL_NUMBER_TRUE_THIRD,
-    SEVENTEEN,
-    TEN,
-    TEXT_ADDED_NEW_USER,
-    TEXT_DAY_FIRST,
-    TEXT_DAY_SECOND,
-    TEXT_DAY_THIRD,
-    TEXT_DEVICE_ADJUST_NOT_ALLOWED,
-    TEXT_OCTOBER_2024,
-    TEXT_REMOVE_USER_EMAIL,
-    TEXT_REMOVED_USER,
-    TEXT_SAVE_IN_XLS,
-    TEXT_SEPTEMBER_2024,
-    TEXT_USER_LOGGED_IN,
-    TEXT_USER_NO_EVENTS,
-    TITLE_HISTORY_FOR_ALL_PANELS,
-    URL_LOGIN,
-    URL_PANELS,
+    HUB_SERIAL_NUMBER_TRUE_FIFTH, SEVENTEEN, TEN, TEXT_DAY_SECOND, TEXT_DAY_THIRD, TEXT_OCTOBER_2024,
+    TEXT_SAVE_IN_XLS, TEXT_USER_LOGGED_IN, TITLE_HISTORY_FOR_ALL_PANELS, URL_LOGIN, URL_PANELS,
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -100,6 +83,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
             await page.getByText(TITLE_HISTORY_FOR_ALL_PANELS).isVisible();
 
             await superAdminPage.historyDate.nth(0).click();
+            await page.waitForLoadState('domcontentloaded');
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForTimeout(2000);}
             await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
@@ -126,12 +110,13 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
 
 
             await superAdminPage.historyDate.nth(0).click();
-
+            await page.waitForLoadState('domcontentloaded');
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForTimeout(2000);}
             await superAdminPage.historyCalendarDayEntity.filter({hasText:SEVENTEEN}).click();
             await page.waitForTimeout(2000);
             await superAdminPage.historyDate.nth(1).click();
+            await page.waitForLoadState('domcontentloaded');
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForTimeout(2000);}
             await superAdminPage.historyCalendarDayEntity.filter({hasText:SEVENTEEN}).click();

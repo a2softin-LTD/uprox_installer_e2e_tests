@@ -133,6 +133,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
                 await page.waitForTimeout(2000);}
             await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
             await page.waitForTimeout(2000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.historyDate.nth(1).click();
             while (await page.getByText(TEXT_OCTOBER_2024).isHidden()) {await superAdminPage.historyChangeMonth.nth(0).click();
                 await page.waitForTimeout(2000);}
@@ -162,7 +163,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
             await superAdminPage.historyCalendarDayEntity.filter({hasText:TEN}).click();
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText(TEXT_DEVICE_ADJUST_NOT_ALLOWED).first()).toBeVisible({ timeout: 10000 });
+            await expect(page.getByText(TEXT_USER_LOGGED_IN).first()).toBeVisible({ timeout: 10000 });
 
             await hubPage.historyActionsCheckBox.click();
 
@@ -170,7 +171,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
 
             await page.waitForTimeout(2000);
 
-            await expect(page.getByText(TEXT_DEVICE_ADJUST_NOT_ALLOWED).first()).not.toBeVisible();
+            await expect(page.getByText(TEXT_USER_LOGGED_IN).first()).not.toBeVisible();
         });
 
         test.skip('Download history file under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {

@@ -40,8 +40,10 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
 
         if (await ((hubPage.hubEngineerIcon).filter(({ hasText: ENGINEER_NUMBER_FINAL }))).isVisible())
-        {        await hubPage.hubEngineerIcon.click();
+        {   await hubPage.hubEngineerIcon.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText((ENGINEER_EMAIL)).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.okButton.click();
 
             await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -54,7 +56,9 @@ test.describe('Hub Page tests', () => {
         }
 
         await hubPage.hubEngineerIcon.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText((ENGINEER_EMAIL)).click();
+        await page.waitForLoadState('domcontentloaded');
         await companyPage.okButton.click();
 
         await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -66,7 +70,9 @@ test.describe('Hub Page tests', () => {
         await expect(hubPage.hubEngineerIcon).toHaveText(ENGINEER_NUMBER_FINAL);
 
         await hubPage.hubEngineerIcon.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText((ENGINEER_EMAIL)).click();
+        await page.waitForLoadState('domcontentloaded');
         await companyPage.okButton.click();
 
         await expect (page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();

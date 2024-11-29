@@ -3,30 +3,13 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    COMPANY_MONITORING_SERVICE_EMAIL_FIRST,
-    COUNTRY_CODE_EN_FIRST, COUNTRY_CODE_EN_SECOND,
-    COUNTRY_CODE_FIRST,
-    COUNTRY_CODE_RU_FIRST, COUNTRY_CODE_RU_SECOND,
-    COUNTRY_CODE_UK_FIRST, COUNTRY_CODE_UK_SECOND,
-    TEXT_ADD_EMAIL_TO_WHITELIST,
-    TEXT_ADD_USER_TO_CAPTCHA__WHITELIST,
-    TEXT_CHANGES_SAVED_SUCCESSFULLY,
-    TEXT_CLEARING_CACHE,
-    TEXT_CLEARING_CACHE_CONFIRMATION,
-    TEXT_CREATE_COUNTRY,
-    TEXT_DELETE_COUNTRY,
-    TEXT_EDIT_COUNTRY,
-    TEXT_LIST_OF_COUNTRIES,
-    TEXT_PANEL_NODE_FIRST,
-    TEXT_PANEL_NODE_SECOND,
-    TEXT_REMOVE_USER_FROM_WHITELIST,
-    TEXT_SEARCH_BY_EMAIL,
-    TITLE_ACCOUNT_SERVER,
-    TITLE_CAPTCHA_WHITE_LIST,
-    TITLE_COUNTRY_CONTROL,
-    URL_LOGIN,
-    URL_SUPPORT_SEARCH,
-    USER_EMAIL_SECOND
+    COMPANY_MONITORING_SERVICE_EMAIL_FIRST, COUNTRY_CODE_EN_FIRST, COUNTRY_CODE_EN_SECOND,
+    COUNTRY_CODE_FIRST, COUNTRY_CODE_RU_FIRST, COUNTRY_CODE_RU_SECOND, COUNTRY_CODE_UK_FIRST, COUNTRY_CODE_UK_SECOND,
+    TEXT_ADD_EMAIL_TO_WHITELIST, TEXT_ADD_USER_TO_CAPTCHA__WHITELIST, TEXT_CHANGES_SAVED_SUCCESSFULLY,
+    TEXT_CLEARING_CACHE, TEXT_CLEARING_CACHE_CONFIRMATION, TEXT_CREATE_COUNTRY, TEXT_DELETE_COUNTRY,
+    TEXT_EDIT_COUNTRY, TEXT_LIST_OF_COUNTRIES, TEXT_PANEL_NODE_FIRST, TEXT_PANEL_NODE_SECOND, TEXT_REMOVE_USER_FROM_WHITELIST,
+    TEXT_SEARCH_BY_EMAIL, TITLE_ACCOUNT_SERVER, TITLE_CAPTCHA_WHITE_LIST, TITLE_COUNTRY_CONTROL, URL_LOGIN,
+    URL_SUPPORT_SEARCH, USER_EMAIL_SECOND
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {
@@ -60,7 +43,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await expect(page.getByText(TITLE_CAPTCHA_WHITE_LIST)).toBeVisible();
         await expect(page.getByText(TEXT_PANEL_NODE_FIRST)).toBeVisible();
         await expect(page.getByText(TEXT_PANEL_NODE_SECOND)).toBeVisible();
-        //await expect(page.getByText(TEXT_PANEL_NODE_THIRD)).toBeVisible();
 
         await (page.getByText(TITLE_ACCOUNT_SERVER)).click();
 
@@ -137,6 +119,7 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TEXT_ADD_USER_TO_CAPTCHA__WHITELIST)).toBeVisible();
 
             await superAdminPage.inputField.fill(USER_EMAIL_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.saveButton.click();
 
             await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).toBeVisible();
@@ -181,6 +164,7 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TEXT_ADD_USER_TO_CAPTCHA__WHITELIST)).toBeVisible();
 
             await superAdminPage.inputField.fill(USER_EMAIL_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.saveButton.click();
 
             await expect(superAdminPage.utilsWhitelistEmailBlock.filter({hasText:USER_EMAIL_SECOND})).toBeVisible();
@@ -216,9 +200,13 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
             await superAdminPage.inputFirstField.fill(COUNTRY_CODE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputSecondField.fill(COUNTRY_CODE_UK_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(COUNTRY_CODE_EN_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFourthField.fill(COUNTRY_CODE_RU_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
@@ -265,9 +253,13 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
             await superAdminPage.inputFirstField.fill(COUNTRY_CODE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputSecondField.fill(COUNTRY_CODE_UK_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(COUNTRY_CODE_EN_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFourthField.fill(COUNTRY_CODE_RU_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
@@ -315,9 +307,13 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TEXT_CREATE_COUNTRY)).toBeVisible();
 
             await superAdminPage.inputFirstField.fill(COUNTRY_CODE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputSecondField.fill(COUNTRY_CODE_UK_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(COUNTRY_CODE_EN_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFourthField.fill(COUNTRY_CODE_RU_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();
@@ -336,8 +332,11 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TEXT_EDIT_COUNTRY)).toBeVisible();
 
             await superAdminPage.inputSecondField.fill(COUNTRY_CODE_UK_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(COUNTRY_CODE_EN_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFourthField.fill(COUNTRY_CODE_RU_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
             await page.waitForTimeout(2000);
             page.reload();

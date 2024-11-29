@@ -3,12 +3,8 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    BUTTON_DEPLOY_NEW_NODE,
-    TEXT_CONNECTION,
-    TEXT_INFO,
-    TEXT_NODES,
-    TITLE_NODES,
-    TITLE_PANELS, URL_LOGIN, URL_SUPPORT_SEARCH
+    BUTTON_DEPLOY_NEW_NODE, TEXT_CONNECTION, TEXT_INFO,
+    TEXT_NODES, TITLE_NODES, TITLE_PANELS, URL_LOGIN, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {

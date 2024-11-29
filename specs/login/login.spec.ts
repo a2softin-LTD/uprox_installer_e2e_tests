@@ -287,8 +287,11 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.emailField.fill(USER_1['login']);
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.passwordField.fill(USER_1['password']);
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.rememberMeCheckbox.click();
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.loginButton.click();
             await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
@@ -337,9 +340,13 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             });
 
             await loginPage.emailField.fill(USER_1['login']);
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.emailField.clear();
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.passwordField.fill(USER_1['password']);
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.passwordField.clear();
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.loginButton.click();
 
             await expect(page.getByText(UIErrorMessages.REQUIRED_FIELD)).toHaveCount(2);

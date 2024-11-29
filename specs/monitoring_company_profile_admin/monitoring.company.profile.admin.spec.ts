@@ -1,37 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { MONITORING_COMPANY } from "../../utils/user_data";
 import {
-    MIXED,
-    MONITORING_COMPANY,
-    MONITORING_COMPANY_1,
-    MONITORING_SERVICE_COMPANY_1,
-    USER_1
-} from "../../utils/user_data";
-import {
-    PASSWORD_TEXT,
-    SUPPORT_EMAIL,
-    SUPPORT_TEXT,
-    TITLE_MY_PROFILE,
-    TITLE_MY_PROFILE_FRENCH,
-    URL_LOGIN,
-    URL_PANELS,
-    URL_PROFILE_PANELS,
-    USER_LANGUAGE_FOR_EMAIL_NEW,
-    USER_LANGUAGE_FOR_EMAIL_OLD,
-    USER_LANGUAGE_SHORT_NEW,
-    USER_LANGUAGE_SHORT_OLD,
-    USER_NAME_FULL, USER_NAME_MON_ADMIN_NEW, USER_NAME_MON_ADMIN_OLD,
-    USER_NAME_NEW,
-    USER_PASSWORD_FIRST,
-    USER_PASSWORD_NEW,
-    USER_PASSWORD_OLD,
-    USER_PHONE_MON_ADMIN_NEW,
-    USER_PHONE_MON_ADMIN_OLD,
-    USER_PHONE_NEW,
-    USER_PHONE_NEW_MS_ADMIN,
-    USER_PHONE_OLD,
-    USER_PHONE_OLD_MS_ADMIN
+    PASSWORD_TEXT, SUPPORT_EMAIL, SUPPORT_TEXT, TITLE_MY_PROFILE, TITLE_MY_PROFILE_FRENCH,
+    URL_LOGIN, URL_PANELS, USER_LANGUAGE_FOR_EMAIL_NEW, USER_LANGUAGE_FOR_EMAIL_OLD,
+    USER_LANGUAGE_SHORT_NEW, USER_LANGUAGE_SHORT_OLD, USER_NAME_MON_ADMIN_NEW, USER_NAME_MON_ADMIN_OLD,
+    USER_PASSWORD_FIRST, USER_PASSWORD_NEW, USER_PHONE_MON_ADMIN_NEW, USER_PHONE_MON_ADMIN_OLD,
 } from "../../utils/constants";
 import {CompanyPage} from "../../pages/company/CompanyPage";
 
@@ -82,14 +57,18 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             });
 
             await profilePage.userName.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditField.fill(USER_NAME_MON_ADMIN_NEW);
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditSubmit.click();
 
             await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
             await expect(page.getByText(USER_NAME_MON_ADMIN_NEW)).toBeVisible();
 
             await profilePage.userName.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditField.fill(USER_NAME_MON_ADMIN_OLD);
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditSubmit.click();
 
             await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -103,14 +82,18 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             });
 
             await profilePage.userPhone.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditField.fill(USER_PHONE_MON_ADMIN_NEW);
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditSubmit.click();
 
             await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
             await expect(page.getByText(USER_PHONE_MON_ADMIN_NEW)).toBeVisible();
 
             await profilePage.userPhone.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditField.fill(USER_PHONE_MON_ADMIN_OLD);
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditSubmit.click();
 
             await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -124,14 +107,18 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             });
 
             await profilePage.userLanguageForEmails.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(USER_LANGUAGE_FOR_EMAIL_NEW).click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.saveButton.click();
 
             await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
             await expect(page.getByText(USER_LANGUAGE_FOR_EMAIL_NEW)).toBeVisible();
 
             await profilePage.userLanguageForEmails.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(USER_LANGUAGE_FOR_EMAIL_OLD).click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.saveButton.click();
 
             await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -145,11 +132,13 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             });
 
             await profilePage.languageChoice.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(USER_LANGUAGE_SHORT_NEW, { exact: true }).click();
 
             await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE_FRENCH)})).toBeVisible();
 
             await profilePage.languageChoice.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(USER_LANGUAGE_SHORT_OLD, { exact: true }).click();
 
             await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -164,6 +153,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
 
 
             await companyPage.myprofile.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.feedback.click();
 
             await expect(page.getByText(SUPPORT_TEXT)).toBeVisible();
@@ -190,17 +180,25 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             });
 
             await profilePage.userPassword.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditCurrentPasswordField.fill(USER_PASSWORD_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditNewPasswordField.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditNewPasswordField.fill(USER_PASSWORD_NEW);
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditSubmit.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(3000);
             await profilePage.userPassword.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditCurrentPasswordField.fill(USER_PASSWORD_NEW);
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditNewPasswordField.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditNewPasswordField.fill(USER_PASSWORD_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userEditSubmit.click();
-            await page.waitForTimeout(2000);
 
             await expect(page.getByText(PASSWORD_TEXT)).not.toBeVisible();
         });

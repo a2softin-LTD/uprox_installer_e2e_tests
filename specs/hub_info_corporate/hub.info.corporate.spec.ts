@@ -42,13 +42,21 @@ test.describe('Hub Page tests', () => {
         await expect(page.getByText(TEXT_PANEL_INFORMATION)).toBeVisible();
 
         await hubPage.editButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputFourthField.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputFourthField.fill(CITY_POLTAVA);
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(CITY_POLTAVA).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputSixthtField.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputSixthtField.fill(NUMBER_12);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputSeventhField.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputSeventhField.fill(NUMBER_28);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.okButton.click();
         await page.waitForTimeout(2000);
         await page.reload();
@@ -61,14 +69,22 @@ test.describe('Hub Page tests', () => {
         await expect(page.getByText(TEXT_PANEL_INFORMATION)).toBeVisible();
 
         await hubPage.editButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputFourthField.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputFourthField.fill(CITY_DNIPRO);
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(CITY_DNIPRO, { exact: true }).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputSixthtField.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputSixthtField.fill(NUMBER_45);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputSeventhField.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputSeventhField.fill(NUMBER_7);
-        await hubPage.okButton.click()
+        await page.waitForLoadState('domcontentloaded');
+        await hubPage.okButton.click();
         await page.waitForTimeout(2000);
         await page.reload();
         await page.waitForTimeout(2000);

@@ -35,9 +35,13 @@ test.describe('Hub Page tests', () => {
         });
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addPanelButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addPanelEnterSerialButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputFirstField.fill(HUB_SERIAL_NUMBER_FALSE_FIRST);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.nextButton.click();
 
         await expect(page.getByText(TEXT_SERIAL_NUMBER_WRONG_FORMAT)).toBeVisible();
@@ -50,16 +54,22 @@ test.describe('Hub Page tests', () => {
         });
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addPanelButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addPanelEnterSerialButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputFirstField.fill(HUB_SERIAL_NUMBER_FALSE_SECOND);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.nextButton.click();
 
         await expect(page.getByText(TEXT_INSTALLATION_COUNTRY_FULL)).toBeVisible();
 
         await page.waitForTimeout(2000);
         await hubPage.inputField.nth(0).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.nextButton.click();
 
         await expect(page.getByText(TEXT_SERIAL_NUMBER_ALREADY_ADDED)).toBeVisible();

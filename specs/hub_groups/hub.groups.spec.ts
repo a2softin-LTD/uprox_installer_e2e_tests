@@ -27,6 +27,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
 
@@ -36,11 +37,14 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
 
         await hubPage.users.click();
 
-        if (await (page.getByText(USER_NAME)).first().isVisible()) {
-            await page.getByText(USER_NAME).first().click();
+        if (await hubPage.entityBlock.first().isVisible()) {
+            await hubPage.entityBlock.first().click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();}
 
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.groups.click();
         await page.getByText(TEXT_ADD_GROUP).isVisible();
     });
@@ -92,6 +96,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
 
             await hubPage.users.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.groups.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
@@ -101,6 +106,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
             await expect(page.getByText(TEXT_EDIT_GROUP)).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.deleteButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
@@ -114,26 +120,33 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
             });
 
             await hubPage.groupAddGroupButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.inputFirstField.fill(FAKER_NAME_OF_GROUP_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
 
             await hubPage.users.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.groups.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
             await expect(page.getByText((FAKER_NAME_OF_GROUP_FIRST))).toBeVisible();
 
             await page.getByText((FAKER_NAME_OF_GROUP_FIRST)).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.groupBlockWithName.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.inputFirstField.fill(FAKER_NAME_OF_GROUP_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(page.getByText(TEXT_EDIT_GROUP)).toBeVisible();
             await expect (page.getByText((FAKER_NAME_OF_GROUP_SECOND))).toBeVisible();
 
             await hubPage.groupDeleteButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.deleteButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
@@ -151,11 +164,13 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
             await expect(page.getByText(TEXT_ENTER_GROUP_NAME)).toBeVisible();
 
             await hubPage.inputFirstField.fill(FAKER_NAME_OF_GROUP_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();
 
             await hubPage.users.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.groups.click();
 
             await expect(hubPage.pageTitle.filter({hasText:TITLE_GROUPS})).toBeVisible();

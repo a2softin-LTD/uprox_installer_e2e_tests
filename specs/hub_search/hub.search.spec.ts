@@ -4,12 +4,11 @@ import { MIXED } from "../../utils/user_data";
 import {
     HUB_ACCOUNT_NAME, HUB_NAME_SECOND,
     HUB_SERIAL_NUMBER_TRUE_FIRST, PANEL_STATE, TEXT_BY_ACCOUNT,
-    TEXT_BY_NAME,
-    TEXT_BY_SERIAL_NUMBER, TITLE_ALL_PANELS, URL_LOGIN, URL_PANELS
+    TEXT_BY_NAME, TEXT_BY_SERIAL_NUMBER, TITLE_ALL_PANELS, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 import { HubPage } from "../../pages/hub/HubPage";
 
-test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
+test.describe('Hub Page tests',{ tag: ['@stable', '@hub']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -35,6 +34,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
             await hubPage.panels.click();
             await page.waitForTimeout(2000);
             await page.getByText(TEXT_BY_NAME).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.searchField.fill(HUB_NAME_SECOND);
 
             await expect(hubPage.entityBlock.filter({hasText:HUB_NAME_SECOND})).toBeVisible();
@@ -49,6 +49,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
 
             await hubPage.panels.click();
             await page.waitForTimeout(2000);
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_BY_SERIAL_NUMBER).click();
             await hubPage.searchField.fill(HUB_SERIAL_NUMBER_TRUE_FIRST);
 
@@ -64,6 +65,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
 
             await hubPage.panels.click();
             await page.waitForTimeout(2000);
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_BY_ACCOUNT).click();
             await hubPage.searchField.fill(HUB_ACCOUNT_NAME);
 
@@ -79,7 +81,9 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
 
             await hubPage.panels.click();
             await page.waitForTimeout(2000);
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TITLE_ALL_PANELS).first().click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(PANEL_STATE).first().click();
             await page.waitForTimeout(2000);
 
