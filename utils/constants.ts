@@ -200,6 +200,10 @@ export const HUB_SERIAL_NUMBER_TRUE_FIFTH: string = '00:08:B7:FF:00:04';
 
 export const HUB_SERIAL_NUMBER_TRUE_SIX: string = '00:08:B7:10:06:07';
 
+export const HUB_SERIAL_NUMBER_TRUE_SEVENTH: string = '00:08:B7:FE:33:20';
+
+export const HUB_SERIAL_NUMBER_TRUE_EIGHT: string = '00:08:9B:20:06:72';
+
 export const HUB_SERIAL_NUMBER_FALSE_FIRST: string = '56:08:B7:10:02:44';
 
 export const HUB_SERIAL_NUMBER_FALSE_SECOND: string = '00:08:B7:10:02:04';
@@ -232,6 +236,8 @@ export const HUB_ACCOUNT_NAME: string = '331C';
 
 export const HUB_ACCOUNT_NAME_FIRST: string = '1112';
 
+export const HUB_ACCOUNT_NAME_SECOND: string = '3320';
+
 export const HUB_ACCOUNT_NAME_FULL: string = '331c - AVL TEST ';
 
 export const HUB_NAME_FIRST: string = 'PIN@dev';
@@ -241,6 +247,10 @@ export const HUB_NAME_SECOND: string = 'Os-au';
 export const HUB_NAME_THIRD: string = 'PIN@devNew';
 
 export const HUB_NAME_FOURTH: string = 'Test Dev for Andriana';
+
+export const HUB_NAME_FIFTH: string = 'VVB';
+
+export const HUB_NAME_SIX: string = 'just-do-it-once';
 
 export const TITLE_COMPANIES: string = 'Companies:';
 
@@ -275,6 +285,8 @@ export const TEXT_ENTER_THE_LINK: string = 'Enter the link to the user\'s accoun
 export const TEXT_DACH_CAPS: string = 'DACH';
 
 export const TEXT_CHANGE_COMPANY_DEALER: string = 'Change company dealer';
+
+export const TEXT_SELECT_LANGUAGE: string = 'Select the language in which you want to receive emails.';
 
 export const TEXT_NUMBER_OF_DEVICES_IM_COMPANY: string = 'Number of devices in the company';
 
@@ -320,7 +332,9 @@ export const TEXT_BY_SERIAL_NUMBER: string = 'By serial number';
 
 export const TEXT_BY_ACCOUNT: string = 'By account';
 
-export const PANEL_STATE: string = 'Outdated firmware version';
+export const TEXT_ALL_PANELS: string = 'All panels';
+
+export const PANEL_STATE_OUTDATED_FIRMWARE_VERSION: string = 'Outdated firmware version';
 
 export const TITLE_ALL_PANELS: string = 'All panels';
 
@@ -417,6 +431,8 @@ export const TEXT_DISABLED: string = 'Disabled';
 
 export const ROLE_SYS_ADMIN_SMALL: string = 'system_admin';
 
+export const ROLE_DEALER: string = 'dealer';
+
 export const ROLE_SYS_ADMIN_BIG: string = 'Sysadmin';
 
 export const ROLE_SUPPORT_ADMIN_BIG: string = 'Tech Support';
@@ -424,6 +440,8 @@ export const ROLE_SUPPORT_ADMIN_BIG: string = 'Tech Support';
 export const ROLE_SUPPORT_ADMIN_SMALL: string = 'support';
 
 export const TEXT_BLOCK_EMPLOYEE: string = 'Block employee';
+
+export const TEXT_EDIT_ADDITIONAL_INFO: string = 'Edit additional information';
 
 export const TITLE_NODES: string = 'Panel Server nodes | Panels :';
 
@@ -522,6 +540,10 @@ export const TITLE_EDIT_USER: string = 'Edit user';
 export const TEXT_EDITING_EMAIL: string = 'Editing Email';
 
 export const TEXT_CHANGE_USER_NAME: string = 'Change username';
+
+export const TEXT_PANEL_STATES: string = 'Panel states';
+
+export const TEXT_VIEW: string = 'View';
 
 export const TEXT_MOBILE: string = 'Mobile';
 

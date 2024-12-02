@@ -3,7 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { MIXED } from "../../utils/user_data";
 import {
     HUB_ACCOUNT_NAME, HUB_NAME_SECOND,
-    HUB_SERIAL_NUMBER_TRUE_FIRST, PANEL_STATE, TEXT_BY_ACCOUNT,
+    HUB_SERIAL_NUMBER_TRUE_FIRST, PANEL_STATE_OUTDATED_FIRMWARE_VERSION, TEXT_BY_ACCOUNT,
     TEXT_BY_NAME, TEXT_BY_SERIAL_NUMBER, TITLE_ALL_PANELS, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 import { HubPage } from "../../pages/hub/HubPage";
@@ -84,7 +84,7 @@ test.describe('Hub Page tests',{ tag: ['@stable', '@hub']}, () => {
             await page.waitForLoadState('domcontentloaded');
             await page.getByText(TITLE_ALL_PANELS).first().click();
             await page.waitForLoadState('domcontentloaded');
-            await page.getByText(PANEL_STATE).first().click();
+            await page.getByText(PANEL_STATE_OUTDATED_FIRMWARE_VERSION).first().click();
             await page.waitForTimeout(2000);
 
             for (const hub of await hubPage.entityBlock.all())

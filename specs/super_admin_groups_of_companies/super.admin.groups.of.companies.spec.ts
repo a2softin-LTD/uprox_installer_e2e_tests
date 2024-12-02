@@ -36,8 +36,8 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             await superAdminPage.groupsOfCompanies.click();
             await page.waitForTimeout(2000);
 
-            await expect(companyPage.companyAddNewGroupButton).toBeVisible();
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
+        await expect(companyPage.companyAddNewGroupButton).toBeVisible();
     });
 
     test.describe('Groups of companies editing', { tag: '@smoke' }, () => {

@@ -32,7 +32,7 @@ test.describe('SuperAdmin page tests',() => {
         await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
-    test('Checking UI elements on company page under SUPER_ADMIN role',
+    test('Checking UI elements on companies page under SUPER_ADMIN role',
         { tag: ['@smoke', '@stable', '@superadmin']},async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
@@ -52,7 +52,7 @@ test.describe('SuperAdmin page tests',() => {
             await expect(companyPage.actionsCheckbox).toBeVisible();
     });
 
-    test.describe('Company list edit under SUPER_ADMIN role', () => {
+    test.describe('Companies list edit under SUPER_ADMIN role', () => {
 
         test('List of companies',
             { tag: ['@smoke', '@stable', '@superadmin']},async ({ page }) => {

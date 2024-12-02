@@ -3,9 +3,24 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { SERVICE_COMPANY_1 } from "../../utils/user_data";
 import {
-    PASSWORD_TEXT, SUPPORT_EMAIL, SUPPORT_TEXT, TITLE_MY_PROFILE, TITLE_MY_PROFILE_FRENCH, URL_LOGIN, URL_PANELS,
-    USER_LANGUAGE_FOR_EMAIL_NEW, USER_LANGUAGE_FOR_EMAIL_OLD, USER_LANGUAGE_SHORT_NEW, USER_LANGUAGE_SHORT_OLD,
-    USER_NAME_SER_ADMIN_NEW, USER_NAME_SER_ADMIN_OLD, USER_PASSWORD_FIRST, USER_PASSWORD_NEW, USER_PHONE_SER_ADMIN_NEW, USER_PHONE_SER_ADMIN_OLD
+    PASSWORD_TEXT,
+    SUPPORT_EMAIL,
+    SUPPORT_TEXT,
+    TEXT_SELECT_LANGUAGE,
+    TITLE_MY_PROFILE,
+    TITLE_MY_PROFILE_FRENCH,
+    URL_LOGIN,
+    URL_PANELS,
+    USER_LANGUAGE_FOR_EMAIL_NEW,
+    USER_LANGUAGE_FOR_EMAIL_OLD,
+    USER_LANGUAGE_SHORT_NEW,
+    USER_LANGUAGE_SHORT_OLD,
+    USER_NAME_SER_ADMIN_NEW,
+    USER_NAME_SER_ADMIN_OLD,
+    USER_PASSWORD_FIRST,
+    USER_PASSWORD_NEW,
+    USER_PHONE_SER_ADMIN_NEW,
+    USER_PHONE_SER_ADMIN_OLD
 } from "../../utils/constants";
 import {CompanyPage} from "../../pages/company/CompanyPage";
 
@@ -26,6 +41,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
         await expect(page).toHaveURL(URL_PANELS);
 
         await companyPage.myprofile.click();
+        await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
     });
 
     test('Checking UI elements on the profile page of service company admin', { tag: '@smoke' }, async () => {
@@ -105,8 +121,12 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
                 description: "https://app.clickup.com/t/8696uzgb6"
             });
 
+            await profilePage.message.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userLanguageForEmails.click();
             await page.waitForLoadState('domcontentloaded');
+            await page.waitForTimeout(2000);
+            await expect(page.getByText(TEXT_SELECT_LANGUAGE)).toBeVisible();
             await page.getByText(USER_LANGUAGE_FOR_EMAIL_NEW).click();
             await page.waitForLoadState('domcontentloaded');
             await profilePage.saveButton.click();
@@ -115,6 +135,9 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             await expect(page.getByText(USER_LANGUAGE_FOR_EMAIL_NEW)).toBeVisible();
 
             await profilePage.userLanguageForEmails.click();
+            await page.waitForLoadState('domcontentloaded');
+            await page.waitForTimeout(2000);
+            await expect(page.getByText(TEXT_SELECT_LANGUAGE)).toBeVisible();
             await page.getByText(USER_LANGUAGE_FOR_EMAIL_OLD).click();
             await profilePage.saveButton.click();
 
@@ -146,10 +169,6 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
                 type: "test_id",
                 description: "https://app.clickup.com/t/8696uzh0g"
             });
-
-
-            await companyPage.myprofile.click();
-            await page.waitForLoadState('domcontentloaded');
             await companyPage.feedback.click();
 
             await expect(page.getByText(SUPPORT_TEXT)).toBeVisible();

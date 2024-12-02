@@ -23,6 +23,7 @@ export class HubPage extends BasePage {
     private readonly _devicesCounter: Locator;
     private readonly _devicesCounterPanel: Locator;
     private readonly _hubTroublesState: Locator;
+    private readonly _hubListView: Locator;
     // GROUPS
     private readonly _groupAddGroupButton: Locator;
     private readonly _groupDeleteButton: Locator;
@@ -129,6 +130,7 @@ export class HubPage extends BasePage {
         this._devicesCounter = this.page.locator('.nowrap');
         this._hubTroublesState = this.page.locator('.Warning').or(this.page.locator('.Trouble'));
         this._hubEngineerModeSwitch = this.page.locator('span.slider.round');
+        this._hubListView = this.page.locator('.view-type-item');
 
         // GROUPS
         this._groupAddGroupButton = page.getByText('Add group');
@@ -251,6 +253,10 @@ export class HubPage extends BasePage {
 
     get hubPanel(): Locator {
         return this._hubPanel;
+    }
+
+    get hubListView(): Locator {
+        return this._hubListView;
     }
 
     get hubRebootButton(): Locator {

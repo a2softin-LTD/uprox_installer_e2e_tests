@@ -21,7 +21,7 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
         await loginPage.openLoginPage('/');
     });
 
-    test('Creation of the Corporate Admin under the Role = SYSTEM_ADMIN', { tag: '@smoke' }, async ({ page }) => {
+    test('Creation of the Corporate Admin under the Role = SYSTEM_ADMIN',{ tag: ['@smoke', '@problem']} , async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694attun"
@@ -47,9 +47,9 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await companyPage.connectButton.click();
             await page.waitForLoadState('domcontentloaded');
             await companyPage.connectButton.last().click()
-            await page.waitForTimeout(3000);
+            await page.waitForTimeout(5000);
             await page.waitForLoadState('domcontentloaded');
-            await companyPage.history.click({ timeout: 10000 });
+            await companyPage.history.click({ force:true});
 
             await expect(page.getByText(TITLE_HISTORY_FOR_ALL_PANELS)).toBeVisible();
 

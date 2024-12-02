@@ -3,12 +3,8 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import {
-    FAKER_EMAIL_ADMIN,
-    FAKER_NAME_OF_COMPANY_SECOND,
-    TITLE_COMPANIES,
-    TITLE_DEALERS,
-    TITLE_TECHNICAL_SUPPORT,
-    URL_SUPPORT_SEARCH
+    FAKER_EMAIL_ADMIN, FAKER_NAME_OF_COMPANY_SECOND, TITLE_COMPANIES,
+    TITLE_DEALERS, TITLE_TECHNICAL_SUPPORT, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
 test.describe('Company Page tests', { tag: '@crud' },() => {

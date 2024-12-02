@@ -1,30 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
-import {MIXED, SERVICE_COMPANY_1} from "../../utils/user_data";
+import { MIXED } from "../../utils/user_data";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import {
-    HUB_SERIAL_NUMBER_TRUE_FIFTH,
-    HUB_SERIAL_NUMBER_TRUE_SIX,
-    HUB_SERIAL_NUMBER_TRUE_THIRD,
-    SEVENTEEN,
-    TEN,
-    TEXT_ADDED_NEW_USER,
-    TEXT_DAY_FIFTH,
-    TEXT_DAY_FIRST,
-    TEXT_DAY_FOURTH,
-    TEXT_DAY_SECOND,
-    TEXT_DAY_THIRD, TEXT_DEVICE_ADJUST_NOT_ALLOWED,
-    TEXT_OCTOBER_2024,
-    TEXT_REMOVE_USER_EMAIL,
-    TEXT_REMOVED_USER,
-    TEXT_SAVE_IN_XLS,
-    TEXT_SEPTEMBER_2024,
-    TEXT_USER_LOGGED_IN,
-    TEXT_USER_NO_EVENTS,
-    TITLE_HISTORY_FOR_ALL_PANELS,
-    URL_LOGIN,
-    URL_PANELS,
+    HUB_SERIAL_NUMBER_TRUE_SIX, TEN, TEXT_DAY_FIFTH, TEXT_DAY_FOURTH,
+    TEXT_OCTOBER_2024, TEXT_SAVE_IN_XLS, TEXT_USER_LOGGED_IN,
+    TITLE_HISTORY_FOR_ALL_PANELS, URL_LOGIN, URL_PANELS,
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 

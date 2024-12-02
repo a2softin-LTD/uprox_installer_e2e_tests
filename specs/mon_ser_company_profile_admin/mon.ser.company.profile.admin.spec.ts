@@ -5,7 +5,7 @@ import {MIXED, MONITORING_SERVICE_COMPANY_1, USER_1} from "../../utils/user_data
 import {
     PASSWORD_TEXT,
     SUPPORT_EMAIL,
-    SUPPORT_TEXT,
+    SUPPORT_TEXT, TEXT_SELECT_LANGUAGE,
     TITLE_MY_PROFILE, TITLE_MY_PROFILE_FRENCH,
     URL_LOGIN, URL_PANELS, URL_PROFILE_PANELS,
     USER_LANGUAGE_FOR_EMAIL_NEW,
@@ -35,6 +35,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
         await expect(page).toHaveURL(URL_PANELS);
 
         await companyPage.myprofile.click();
+        await expect(profilePage.pageTitle.filter({has:page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
     });
 
     test('Checking UI elements on the profile page of monitoring-service company admin', { tag: '@smoke' }, async () => {
@@ -114,9 +115,12 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
                 description: "https://app.clickup.com/t/8696uy9jp"
             });
 
+            await profilePage.message.click();
+            await page.waitForLoadState('domcontentloaded');
             await profilePage.userLanguageForEmails.click();
             await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
+            await expect(page.getByText(TEXT_SELECT_LANGUAGE)).toBeVisible();
             await page.getByText(USER_LANGUAGE_FOR_EMAIL_NEW).click();
             await page.waitForLoadState('domcontentloaded');
             await profilePage.saveButton.click();
@@ -127,6 +131,7 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
             await profilePage.userLanguageForEmails.click();
             await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
+            await expect(page.getByText(TEXT_SELECT_LANGUAGE)).toBeVisible();
             await page.getByText(USER_LANGUAGE_FOR_EMAIL_OLD).click();
             await page.waitForLoadState('domcontentloaded');
             await profilePage.saveButton.click();
@@ -159,9 +164,6 @@ test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']},() => {
                 description: "https://app.clickup.com/t/8696uya0z"
             });
 
-
-            await companyPage.myprofile.click();
-            await page.waitForLoadState('domcontentloaded');
             await companyPage.feedback.click();
 
             await expect(page.getByText(SUPPORT_TEXT)).toBeVisible();

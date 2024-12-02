@@ -103,8 +103,6 @@ export class BasePage {
         this._closeButton = page.getByRole('button', { name: 'Close' });
         this._disableButton = (this.page.locator('.main__modal.active')).locator(this.page.getByText('Disable')).
         or((this.page.locator('.main__modal.active')).locator(this.page.getByText('Disabled')));
-       // this._enableButton = ((this.page.locator('.main__modal.active')).locator(this.page.getByText('Enable'))).
-       // or((this.page.locator('.main__modal.active')).locator(this.page.getByText('Enabled')));
         this._enableButton = ((this.page.locator('.main__modal.active')).locator(this.page.getByText('Enable')));
         this._enabledButton = ((this.page.locator('.main__modal.active')).locator(this.page.getByText('Enabled')));
 
