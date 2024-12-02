@@ -3,19 +3,10 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    COMPANY_FIRST,
-    COMPANY_FOURTH, COUNTRY_AUSTRALIA, TEXT_COUNT_OF_DEVICES_IN_COUNTRY,
-    TEXT_SAVE_IN_XLS,
-    TEXT_TOTAL_NUMBER_OF_DEVICES,
-    TEXT_TOTAL_NUMBER_OF_RADIO_DEVICES,
-    TITLE_COMPANIES_,
-    TITLE_PANELS,
-    TITLE_RADIO_DEVICES,
-    TITLE_STATISTICS,
-    TITLE_STATISTICS_COMPANIES,
-    TITLE_STATISTICS_PANELS,
-    TITLE_STATISTICS_RADIO_DEVICES,
-    TITLE_TECHNICAL_SUPPORT, URL_LOGIN, URL_SUPPORT_SEARCH
+    COMPANY_FIRST, COMPANY_FOURTH, COUNTRY_AUSTRALIA, TEXT_COUNT_OF_DEVICES_IN_COUNTRY,
+    TEXT_SAVE_IN_XLS, TEXT_TOTAL_NUMBER_OF_DEVICES, TEXT_TOTAL_NUMBER_OF_RADIO_DEVICES,
+    TITLE_COMPANIES_, TITLE_PANELS, TITLE_RADIO_DEVICES, TITLE_STATISTICS, TITLE_STATISTICS_COMPANIES,
+    TITLE_STATISTICS_PANELS, TITLE_STATISTICS_RADIO_DEVICES, TITLE_TECHNICAL_SUPPORT, URL_LOGIN, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin']},() => {
@@ -91,6 +82,7 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         { await expect(entity).toBeVisible();}
 
         await superAdminPage.statisticsFilter.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(COUNTRY_AUSTRALIA).click();
 
         await expect(page.getByText(COMPANY_FOURTH)).toBeVisible();

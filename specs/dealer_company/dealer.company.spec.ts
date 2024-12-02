@@ -74,6 +74,7 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
                 companiesNumber=companiesNumber+1;}
 
             await companyPage.companyCountryFilter.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(COUNTRY_UKRAINE,{ exact: true }).first().click();
             await page.waitForTimeout(2000);
 
@@ -95,6 +96,7 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
             let companiesNumber=((await page.$$(SELECTOR_FIRST)).length)-1;
 
             await companyPage.companyRoleFilter.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MONITORING_SERVICE_COMPANIES, { exact: true }).first().click();
             await page.waitForTimeout(2000);
 
@@ -116,6 +118,7 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
             let companiesNumber=((await page.$$(SELECTOR_SECOND)).length);
 
             await companyPage.companyAllFilter.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(SETTING_SHOW_IN_ADS, { exact: true }).click();
 
             for (const company of await companyPage.entityBlock.filter({has:companyPage.adsIcon}).all())

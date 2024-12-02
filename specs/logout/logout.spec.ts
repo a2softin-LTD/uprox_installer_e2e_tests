@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
 import { USER_1 } from "../../utils/user_data";
-import {URL_LOGIN, URL_PROFILE_PANELS} from "../../utils/constants";
+import { URL_LOGIN, URL_PROFILE_PANELS } from "../../utils/constants";
 
 test.describe('Profile Page tests',{ tag: ['@smoke', '@stable']}, () => {
 

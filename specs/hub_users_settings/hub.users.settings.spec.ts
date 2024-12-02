@@ -44,11 +44,10 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
         await hubPage.panels.click();
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
-        await page.waitForLoadState('domcontentloaded');
+        await page.waitForTimeout(2000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
-        {  await hubPage.closeWindowButton.click()}
-        await page.waitForLoadState('domcontentloaded');
+        {  await hubPage.closeWindowButton.click();}
         await hubPage.users.click();
 
         if (await (page.getByText(USER_NAME)).isVisible()) {
@@ -56,15 +55,15 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await page.waitForLoadState('domcontentloaded');
             await hubPage.deleteUserButton.click();
             await page.waitForLoadState('domcontentloaded');
-            await hubPage.submitButton.click();
-        }
+            await hubPage.submitButton.click();}
         await page.waitForLoadState('domcontentloaded');
         await hubPage.addButton.click();
         await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserName.fill(USER_NAME);
-        await hubPage.addUserEmail.fill(USER_3['login']);
-        await hubPage.addButton.click();
         await page.waitForLoadState('domcontentloaded');
+        await hubPage.addUserEmail.fill(USER_3['login']);
+        await page.waitForLoadState('domcontentloaded');
+        await hubPage.addButton.click();
 
         try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:15000});}
         catch (error) {console.error(`An error occurred: ${error.message}`);
@@ -101,6 +100,7 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
         await expect(hubPage.deleteUserButton).toBeVisible();
 
         await hubPage.deleteUserButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
 
         await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();
@@ -119,7 +119,9 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsArmKeypadCode.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.settingsKeypadCodeField.fill(CODE_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click()
 
             await expect(hubPage.settingsArmKeypadCode.filter({hasText:CODE_HIDE})).toBeVisible();
@@ -127,6 +129,7 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();
@@ -139,21 +142,16 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             });
 
             await (page.getByText(USER_FULL_FIRST)).click();
-            await page.waitForLoadState('domcontentloaded');
 
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsMobileApp.click();
             await page.waitForLoadState('domcontentloaded');
-
             await hubPage.enableButton.click();
             await page.waitForLoadState('domcontentloaded');
-
             await hubPage.saveButton.click();
             await page.waitForLoadState('domcontentloaded');
-
             await hubPage.backButton.click();
-            await page.waitForLoadState('domcontentloaded');
 
             await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();
             await expect(page.getByText(USER_FULL_FIRST)).toBeVisible();
@@ -165,9 +163,7 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
 
             await hubPage.deleteUserButton.click();
             await page.waitForLoadState('domcontentloaded');
-
             await hubPage.submitButton.click();
-            await page.waitForLoadState('domcontentloaded');
 
             await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();
         });
@@ -183,14 +179,19 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsMobileApp.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.enableButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsUserManagement.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.enableButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.users.click();
 
             await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();
@@ -203,6 +204,7 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();
@@ -219,13 +221,17 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsMobileApp.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.enableButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsPanicButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.enableButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
@@ -241,6 +247,7 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();
@@ -298,6 +305,7 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();
@@ -314,13 +322,17 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsMobileApp.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.enableButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsCallOnAlarm.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.enableButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.inputFirstField.fill(USER_PHONE_NEW);
             await hubPage.saveButton.click();
 
@@ -337,6 +349,7 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();
@@ -353,7 +366,9 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.settingsMobileApp.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.enableButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
@@ -363,8 +378,11 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TEXT_SUBMIT)).toBeVisible();
 
             await (page.getByText(SETTINGS_ARMS_DISARM)).click();
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(SETTINGS_ALARMS_RESTORES)).click();
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(SETTINGS_TROUBLES_RESTORES)).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
@@ -380,6 +398,7 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TITLE_EDIT_USER)).toBeVisible();
 
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
 
             await expect (page.getByText((USER_FULL_FIRST))).not.toBeVisible();

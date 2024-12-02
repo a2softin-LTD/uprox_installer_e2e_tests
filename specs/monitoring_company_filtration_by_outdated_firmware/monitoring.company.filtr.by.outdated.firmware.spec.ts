@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { MONITORING_COMPANY_1 } from "../../utils/user_data";
-import { PANEL_STATE, TITLE_ALL_PANELS, URL_LOGIN, URL_PANELS } from "../../utils/constants";
+import { PANEL_STATE_OUTDATED_FIRMWARE_VERSION, TITLE_ALL_PANELS, URL_LOGIN, URL_PANELS } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
 test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']}, () => {
@@ -26,9 +26,11 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']}, ()
             });
 
             await companyPage.panels.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
             await page.getByText(TITLE_ALL_PANELS).first().click();
-            await page.getByText(PANEL_STATE).first().click();
+            await page.waitForLoadState('domcontentloaded');
+            await page.getByText(PANEL_STATE_OUTDATED_FIRMWARE_VERSION).first().click();
 
             await page.waitForTimeout(2000);
 

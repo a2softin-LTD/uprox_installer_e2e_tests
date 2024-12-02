@@ -2,21 +2,12 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { MONITORING_SERVICE_COMPANY_3, USER_3 } from "../../utils/user_data";
-import {
-    USER_NAME,
-    TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
-    TITLE_SYSTEM,
-    TITLE_USERS, URL_LOGIN, URL_PANELS
-} from "../../utils/constants";
-import {sequelize} from "../../db/db.config";
-import {GET_USER_BY_EMAIL} from "../../db/Query";
-import {QueryTypes} from "sequelize";
+import {USER_NAME, TEXT_NUMBER_OF_DEVICES_IM_COMPANY, TITLE_SYSTEM, TITLE_USERS, URL_LOGIN, URL_PANELS} from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
-    let devConnection;
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
@@ -47,8 +38,11 @@ test.describe('Hub Page tests', () => {
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
 
         await hubPage.addButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserName.fill(USER_NAME);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserEmail.fill(USER_3['login']);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addButton.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
@@ -56,7 +50,9 @@ test.describe('Hub Page tests', () => {
 
         await page.waitForTimeout(1000);
         await page.getByText(USER_NAME).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.deleteUserButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();

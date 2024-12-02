@@ -3,18 +3,10 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    BLOCKING_SYSTEM_ADMIN, FAKER_EMAIL_FIRST,
-    FAKER_NAME_OF_COMPANY_SECOND,
-    ROLE_SUPPORT_ADMIN_BIG,
-    ROLE_SYS_ADMIN_BIG,
-    ROLE_SYS_ADMIN_SMALL,
-    TEXT_ALL_ROLES,
-    TEXT_BLOCK_EMPLOYEE,
-    TEXT_YES,
-    TITLE_EMPLOYEES,
-    URL_LOGIN,
-    URL_SUPPORT_SEARCH,
-    USER_EMAIL_THIRD
+    BLOCKING_SYSTEM_ADMIN, FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
+    ROLE_SUPPORT_ADMIN_BIG, ROLE_SYS_ADMIN_BIG, ROLE_SYS_ADMIN_SMALL,
+    TEXT_ALL_ROLES, TEXT_BLOCK_EMPLOYEE, TEXT_YES,
+    TITLE_EMPLOYEES, URL_LOGIN, URL_SUPPORT_SEARCH, USER_EMAIL_THIRD
 } from "../../utils/constants";
 
 test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
@@ -79,8 +71,8 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(ROLE_SYS_ADMIN_BIG)).first().click();
-
             await page.waitForTimeout(2000);
 
             for (const employee of await superAdminPage.entityBlock.all())
@@ -98,7 +90,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.inputFirstField.fill(USER_EMAIL_THIRD);
-
             await page.waitForTimeout(2000);
 
             for (const employee of await superAdminPage.entityBlock.all())
@@ -116,21 +107,24 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.selectFirstField.click();
-            await page.waitForTimeout(1000);
-            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click()
-            await superAdminPage.addButton.click()
+            await page.waitForLoadState('domcontentloaded');
+            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
+            await page.waitForLoadState('domcontentloaded');
+            await superAdminPage.addButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
             await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.deleteUserButton.click();
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
@@ -149,21 +143,24 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.selectFirstField.click();
-            await page.waitForTimeout(1000);
-            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click()
-            await superAdminPage.addButton.click()
+            await page.waitForLoadState('domcontentloaded');
+            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
+            await page.waitForLoadState('domcontentloaded');
+            await superAdminPage.addButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
             await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.deleteUserButton.click();
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
@@ -181,27 +178,31 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.selectFirstField.click();
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.addButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
             await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.employeeBlock.click();
             await expect(page.getByText(BLOCKING_SYSTEM_ADMIN)).toBeVisible();
             await (page.getByText(TEXT_YES)).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.saveButton.click();
             await expect(superAdminPage.employeeBlock.filter({has:page.getByText(TEXT_YES)})).toBeVisible({timeout:20000});
 
             await superAdminPage.deleteUserButton.click();
-            await page.waitForTimeout(1000);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
@@ -219,10 +220,15 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.addButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
@@ -234,7 +240,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
             await superAdminPage.companyRemovePermissionButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.backButton.click();
 
             await page.waitForTimeout(2000);
@@ -255,11 +263,16 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
 
             await superAdminPage.addButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.selectFirstField.click();
-            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click()
-            await superAdminPage.addButton.click()
+            await page.waitForLoadState('domcontentloaded');
+            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
+            await page.waitForLoadState('domcontentloaded');
+            await superAdminPage.addButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
@@ -273,12 +286,15 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
             await expect(superAdminPage.companyRemovePermissionButton).toBeVisible();
 
             await page.getByText(TEXT_BLOCK_EMPLOYEE).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.yesButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.saveButton.click();
 
             await expect(page.getByText(TEXT_YES)).toBeVisible();
 
             await superAdminPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:20000});

@@ -3,12 +3,8 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { SERVICE_COMPANY_1 } from "../../utils/user_data";
 import {
-    TEXT_PUT_ON_SERVICE,
-    TEXT_REFUSE_PANEL_FROM_MONITORING,
-    TEXT_REFUSE_SERVICE,
-    TITLE_SERVICE_REQUESTS,
-    URL_LOGIN,
-    URL_PANELS,
+    TEXT_PUT_ON_SERVICE, TEXT_REFUSE_PANEL_FROM_MONITORING, TEXT_REFUSE_SERVICE,
+    TITLE_SERVICE_REQUESTS, URL_LOGIN, URL_PANELS,
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -43,7 +39,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
     test('Requests list  under SERVICE_COMPANY_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn3'
+                description: 'https://app.clickup.com/t/8696v0309'
             });
 
             await hubPage.requests.click();

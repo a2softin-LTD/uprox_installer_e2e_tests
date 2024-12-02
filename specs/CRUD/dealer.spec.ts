@@ -3,12 +3,8 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import {
-    FAKER_EMAIL_ADMIN,
-    FAKER_NAME_OF_COMPANY_SECOND,
-    TITLE_COMPANIES,
-    TITLE_DEALERS,
-    TITLE_TECHNICAL_SUPPORT,
-    URL_SUPPORT_SEARCH
+    FAKER_EMAIL_ADMIN, FAKER_NAME_OF_COMPANY_SECOND, TITLE_COMPANIES,
+    TITLE_DEALERS, TITLE_TECHNICAL_SUPPORT, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
 test.describe('Company Page tests', { tag: '@crud' },() => {
@@ -52,8 +48,10 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
             await expect(page.getByText(FAKER_EMAIL_ADMIN)).toBeVisible();
 
-            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click()
+            await (page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.submitButton.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_DEALERS})).toBeVisible({ timeout: 10000 });

@@ -6,8 +6,7 @@ import { USER_1, USER_3 } from "../../utils/user_data";
 import {
     BUTTON_TRANSFER_OWNERSHIP,
     TITLE_UPDATE_FIRMWARE_VERSION,
-    URL_LOGIN,
-    URL_PROFILE_PANELS, USER_NAME
+    URL_LOGIN, URL_PROFILE_PANELS, USER_NAME
 } from "../../utils/constants";
 
 test.describe('Profile Page tests', () => {
@@ -34,6 +33,7 @@ test.describe('Profile Page tests', () => {
         });
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
 
         await page.waitForTimeout(2000);
@@ -45,13 +45,19 @@ test.describe('Profile Page tests', () => {
 
         if (await (page.getByText(USER_NAME)).isVisible()) {
             await page.getByText(USER_NAME).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();}
 
         await hubPage.addButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserName.fill(USER_NAME);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserEmail.fill(USER_3['login']);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.userAllowMobileAppManagementFromHome.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addButton.click();
 
         try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible();}

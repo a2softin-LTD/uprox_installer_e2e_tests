@@ -3,23 +3,12 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    COMPANY_FIFTH,
-    HUB_NAME_FIRST,
-    HUB_SERIAL_NUMBER_TRUE_THIRD,
-    LANGUAGE_FRENCH,
-    LANGUAGE_FRENCH_UKR,
-    LANGUAGE_GREEK,
-    LANGUAGE_GREEK_UKR,
-    TEXT_EDIT_PUSH_TEMPLATE,
-    TEXT_EDIT_TEMPLATE, TEXT_EMAIL_TEMPLATES_FAILURES,
-    TEXT_LANGUAGE,
-    TEXT_LANGUAGE_COUNT,
-    TEXT_LETTER_TEMPLATES, TEXT_NO_LINK,
-    TEXT_SEND_TO,
-    TEXT_SUCCESSFULLY,
-    TEXT_TEMPLATE_TYPE,
-    TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES,
-    TEXT_TEST_EMAIL_SEND_SUCCESSFULLY,
+    COMPANY_FIFTH, HUB_NAME_FIRST, HUB_SERIAL_NUMBER_TRUE_THIRD, LANGUAGE_FRENCH,
+    LANGUAGE_FRENCH_UKR, LANGUAGE_GREEK, LANGUAGE_GREEK_UKR,
+    TEXT_EDIT_PUSH_TEMPLATE, TEXT_EDIT_TEMPLATE, TEXT_EMAIL_TEMPLATES_FAILURES,
+    TEXT_LANGUAGE, TEXT_LANGUAGE_COUNT, TEXT_LETTER_TEMPLATES, TEXT_NO_LINK,
+    TEXT_SEND_TO, TEXT_SUCCESSFULLY, TEXT_TEMPLATE_TYPE,
+    TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES, TEXT_TEST_EMAIL_SEND_SUCCESSFULLY,
     TITLE_PUSH_NOTIFICATIONS, URL_LOGIN, URL_SUPPORT_SEARCH, USER_EMAIL, USER_EMAIL_SECOND
 } from "../../utils/constants";
 
@@ -144,7 +133,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
             await superAdminPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(LANGUAGE_FRENCH_UKR)).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.existEntity.first().click();
 
             await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
@@ -162,7 +153,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();
 
             await superAdminPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(LANGUAGE_GREEK_UKR)).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.notExistEntity.first().click();
 
             await expect(page.getByText(TEXT_EDIT_TEMPLATE)).toBeVisible();
@@ -189,7 +182,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await expect(page.getByText(TEXT_SEND_TO)).toBeVisible();
 
         await superAdminPage.emailTestField.first().fill(USER_EMAIL);
+        await page.waitForLoadState('domcontentloaded');
         await superAdminPage.emailTestField.last().fill(COMPANY_FIFTH);
+        await page.waitForLoadState('domcontentloaded');
         await superAdminPage.sendButton.click();
 
         await expect(page.getByText(TEXT_TEST_EMAIL_SEND_SUCCESSFULLY)).toBeVisible();
@@ -303,7 +298,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
 
             await superAdminPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(LANGUAGE_FRENCH_UKR)).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.existEntity.first().click();
 
             await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
@@ -325,7 +322,9 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             await expect(page.getByText(TITLE_PUSH_NOTIFICATIONS)).toBeVisible();
 
             await superAdminPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await (page.getByText(LANGUAGE_GREEK_UKR)).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.notExistEntity.first().click();
 
             await expect(page.getByText(TEXT_EDIT_PUSH_TEMPLATE)).toBeVisible();
@@ -357,8 +356,11 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await expect(page.getByText(TEXT_SEND_TO)).toBeVisible();
 
         await superAdminPage.emailTestField.nth(0).fill(USER_EMAIL_SECOND);
+        await page.waitForLoadState('domcontentloaded');
         await superAdminPage.emailTestField.nth(1).fill(HUB_SERIAL_NUMBER_TRUE_THIRD);
+        await page.waitForLoadState('domcontentloaded');
         await superAdminPage.emailTestField.nth(2).fill(HUB_NAME_FIRST);
+        await page.waitForLoadState('domcontentloaded');
         await superAdminPage.sendButton.click();
 
         await expect(page.getByText(TEXT_SUCCESSFULLY)).toBeVisible();

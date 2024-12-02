@@ -26,6 +26,7 @@ test.describe('Company Page tests',{ tag: ['@smoke', '@stable', '@company']},  (
             await expect(page).toHaveURL(URL_PANELS);
 
             await companyPage.company.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.companyAdditionalSoftware.click();
 
             const downloadPromise = page.waitForEvent('download');

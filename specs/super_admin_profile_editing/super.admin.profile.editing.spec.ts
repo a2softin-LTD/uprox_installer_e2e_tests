@@ -2,19 +2,10 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    LANGUAGE_FRENCH,
-    LANGUAGE_UKRAINIAN,
-    URL_LOGIN,
-    URL_SUPPORT_SEARCH,
-    TITLE_MY_PROFILE,
-    SUPER_ADMIN_NAME_NEW,
-    SUPER_ADMIN_NAME_OLD,
-    SUPER_ADMIN_PHONE_NEW,
-    SUPER_ADMIN_PHONE_OLD,
-    TEXT_ROLE,
-    TEXT_EMAIL,
-    SUPPORT_TEXT,
-    SUPPORT_EMAIL
+    LANGUAGE_FRENCH, LANGUAGE_UKRAINIAN, URL_LOGIN, URL_SUPPORT_SEARCH,
+    TITLE_MY_PROFILE, SUPER_ADMIN_NAME_NEW, SUPER_ADMIN_NAME_OLD,
+    SUPER_ADMIN_PHONE_NEW, SUPER_ADMIN_PHONE_OLD, TEXT_ROLE,
+    TEXT_EMAIL, SUPPORT_TEXT, SUPPORT_EMAIL
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
@@ -79,21 +70,26 @@ test.describe('Company Page test', { tag: ['@smoke', '@stable', '@superadmin']},
 
             if (await superAdminPage.profileNameBlock.filter({hasText: SUPER_ADMIN_NAME_NEW}).isVisible()) {
                 await superAdminPage.profileNameBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputFirstField.fill(SUPER_ADMIN_NAME_OLD);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(page.getByText(SUPER_ADMIN_NAME_OLD)).toBeVisible();
             } else {
                 await superAdminPage.profileNameBlock.click();
-
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputFirstField.fill(SUPER_ADMIN_NAME_NEW);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(page.getByText(SUPER_ADMIN_NAME_NEW)).toBeVisible();
 
                 await superAdminPage.profileNameBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputFirstField.fill(SUPER_ADMIN_NAME_OLD);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -115,21 +111,26 @@ test.describe('Company Page test', { tag: ['@smoke', '@stable', '@superadmin']},
 
             if (await superAdminPage.profilePhoneBlock.filter({hasText: SUPER_ADMIN_PHONE_NEW}).isVisible()) {
                 await superAdminPage.profilePhoneBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputField.fill(SUPER_ADMIN_PHONE_OLD);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(page.getByText(SUPER_ADMIN_PHONE_OLD)).toBeVisible();
             } else {
                 await superAdminPage.profilePhoneBlock.click();
-
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputField.fill(SUPER_ADMIN_PHONE_NEW);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(page.getByText(SUPER_ADMIN_PHONE_NEW)).toBeVisible();
 
                 await superAdminPage.profilePhoneBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.inputField.fill(SUPER_ADMIN_PHONE_OLD);
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -150,21 +151,26 @@ test.describe('Company Page test', { tag: ['@smoke', '@stable', '@superadmin']},
 
             if (await superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_FRENCH}).isVisible()) {
                 await superAdminPage.profileLanguageBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await page.getByText(LANGUAGE_UKRAINIAN).click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.saveButton.click();
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_UKRAINIAN})).toBeVisible();
             } else {
                 await superAdminPage.profileLanguageBlock.click();
-
+                await page.waitForLoadState('domcontentloaded');
                 await page.getByText(LANGUAGE_FRENCH).click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.saveButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_FRENCH})).toBeVisible();
 
                 await superAdminPage.profileLanguageBlock.click();
+                await page.waitForLoadState('domcontentloaded');
                 await page.getByText(LANGUAGE_UKRAINIAN).click();
+                await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.saveButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
@@ -176,7 +182,7 @@ test.describe('Company Page test', { tag: ['@smoke', '@stable', '@superadmin']},
     test('Super admin: support and messages', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: ""
+            description: "https://app.clickup.com/t/8696vj3e0"
         });
 
         await profilePage.myProfileButton.click();

@@ -46,6 +46,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
 
         await page.waitForTimeout(2000);
@@ -68,6 +69,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         if (await hubPage.settingsHubName.filter({hasText:HUB_NAME_THIRD}).isVisible()){
             await hubPage.settingsHubName.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.inputField.fill(HUB_NAME_FIRST);
             await hubPage.saveButton.click();
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
@@ -82,6 +84,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(hubPage.settingsHubName.filter({hasText:HUB_NAME_THIRD})).toBeVisible();
 
         await hubPage.settingsHubName.click();
+            await page.waitForLoadState('domcontentloaded');
         await hubPage.inputField.fill(HUB_NAME_FIRST);
         await hubPage.saveButton.click();
 
@@ -104,7 +107,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
             await expect(page.getByText(TEXT_INSTALLATION_COUNTRY)).toBeVisible();
 
             await hubPage.inputField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(COUNTRY_UKRAINE, {exact: true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
             await expect(hubPage.settingsCountry.filter({hasText:COUNTRY_UKRAINE})).toBeVisible();}
@@ -114,6 +119,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(TEXT_INSTALLATION_COUNTRY)).toBeVisible();
 
         await hubPage.inputField.click();
+            await page.waitForLoadState('domcontentloaded');
         await page.getByText(COUNTRY_MOLDOVA, {exact: true}).click();
 
         await hubPage.submitButton.click();
@@ -145,7 +151,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         if (await hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_MANUALLY}).isVisible()){
             await hubPage.settingsFirmwareUpdate.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(SETTINGS_AUTOMATICALLY, {exact: true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
             await expect(hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_AUTOMATICALLY})).toBeVisible();}
@@ -159,7 +167,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_MANUALLY})).toBeVisible();
 
         await hubPage.settingsFirmwareUpdate.click();
+            await page.waitForLoadState('domcontentloaded');
         await page.getByText(SETTINGS_AUTOMATICALLY, {exact: true}).click();
+            await page.waitForLoadState('domcontentloaded');
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
@@ -178,7 +188,11 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         if (await hubPage.settingsLightIndication.filter({hasText:SETTINGS_TURN_OFF}).isVisible()){
             await hubPage.settingsLightIndication.click();
-            await (page.getByText(SETTINGS_TURN_ON, {exact: true}).first()).click();
+            await page.waitForLoadState('domcontentloaded');
+            await page.waitForTimeout(2000);
+            await page.getByText(SETTINGS_TURN_ON, {exact: true}).click();
+            await page.waitForTimeout(2000);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
             await expect(hubPage.settingsLightIndication.filter({hasText:SETTINGS_TURN_ON})).toBeVisible();}
@@ -186,13 +200,19 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         else {await hubPage.settingsLightIndication.click();
 
         await (page.getByText(SETTINGS_TURN_OFF, {exact: true}).first()).click();
+        await page.waitForTimeout(2000);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
         await expect(page.getByText(SETTINGS_TURN_OFF).first()).toBeVisible();
 
         await hubPage.settingsLightIndication.click();
+        await page.waitForLoadState('domcontentloaded');
+        await page.waitForTimeout(2000);
         await page.getByText(SETTINGS_TURN_ON, {exact: true}).click();
+        await page.waitForTimeout(2000);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
@@ -208,16 +228,26 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await hubPage.settingsAirAlarm.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.onButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TEXT_SELECT_REGION).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText((TEXT_REGION)).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TEXT_SELECT_DISTRICT).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText((TEXT_DISTRICT)).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TEXT_SELECT_COMMUNITY).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText((TEXT_COMMUNITY)).click();
         await hubPage.saveButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.settingsAirAlarm.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.offButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
@@ -236,7 +266,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         if (await hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_TRACK, hasNotText:SETTINGS_DISABLE}).isVisible()){
             await hubPage.settingsTrackSimCardExpenses.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.disableButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
             await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_DISABLED})).toBeVisible();}
@@ -250,7 +282,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(hubPage.settingsTrackSimCardExpenses.filter({hasText:SETTINGS_TRACK})).toBeVisible();
 
         await hubPage.settingsTrackSimCardExpenses.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.disableButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
@@ -269,8 +303,11 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         if (await hubPage.settingsAutoCancelAlarm.filter({hasText:SETTINGS_30_SECONDS}).isVisible()){
             await hubPage.settingsAutoCancelAlarm.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(SETTINGS_30_SECONDS, {exact: true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
             await expect(hubPage.settingsAutoCancelAlarm.filter({hasText:SETTINGS_30_SECONDS})).toBeVisible();}
 
@@ -282,7 +319,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(SETTINGS_10_SECONDS)).toBeVisible();
 
         await hubPage.settingsAutoCancelAlarm.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(SETTINGS_30_SECONDS, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.saveButton.click();
 
         await expect(page.getByText(SETTINGS_30_SECONDS)).toBeVisible();}
@@ -300,7 +339,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         if (await hubPage.settingsTimeZone.filter({hasText:TIME_ZONE_SECOND}).isVisible()){
             await hubPage.settingsTimeZone.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TIME_ZONE_FIRST, {exact: true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
             await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
             await expect(hubPage.settingsTimeZone.filter({hasText:TIME_ZONE_FIRST})).toBeVisible();}
@@ -310,8 +351,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(TEXT_SELECT_CONTROLLER_TIME_ZONE)).toBeVisible();
 
         await hubPage.inputField.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TIME_ZONE_SECOND, {exact: true}).click();
-
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
 
         await expect(hubPage.settingsTimeZone.filter({hasText:TIME_ZONE_SECOND})).toBeVisible();
@@ -321,7 +363,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(TEXT_SELECT_CONTROLLER_TIME_ZONE)).toBeVisible();
 
         await hubPage.inputField.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TIME_ZONE_FIRST, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
         await page.waitForTimeout(2000);
 
@@ -338,10 +382,12 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await hubPage.settingsKeypadCodeLength.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.settingsKeypadCodeLength4digits.click();
 
         if (await hubPage.changeButton.isDisabled())
-        {   await hubPage.settingsKeypadCodeLength6digits.click()
+        {   await hubPage.settingsKeypadCodeLength6digits.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.change_Button.click();
             await expect(page.getByText(TEXT_6_SYMBOLS)).toBeVisible();
             await hubPage.settingsKeypadCodeLength.click();
@@ -356,14 +402,19 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         if (await (page.getByText(USER_NAME)).isVisible()) {
             await page.getByText(USER_NAME).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();}
 
         await expect(page.getByText(BUTTON_ADD_USER)).toBeVisible();
 
         await hubPage.addButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserName.fill(USER_NAME);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserEmail.fill(USER_3['login']);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addButton.click();
 
         try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:10000});}
@@ -374,16 +425,23 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         finally {await expect(page.getByText(USER_FULL_FIRST)).toBeVisible();}
 
         await page.getByText(USER_FULL_FIRST).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.settingsArmKeypadCode.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.settingsKeypadCodeField.fill(CODE_FIRST);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.saveButton.click()
 
         await expect(page.getByText(TITLE_USERS, {exact: true})).toBeVisible();
 
         await hubPage.users.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(USER_NAME).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.deleteUserButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.system.click();
 
         await expect(page.getByText(BUTTON_ADD_WIRELESS_DEVICE)).toBeVisible();
@@ -397,6 +455,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
 
         await page.waitForTimeout(1000);
         await hubPage.settingsKeypadCodeLength6digits.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.change_Button.click();
 
         await expect(page.getByText(TEXT_6_SYMBOLS)).toBeVisible();
@@ -411,16 +470,22 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
 
         await page.getByText(TITLE_SPECIAL_SETTINGS, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TEXT_DISABLE_TAMPER, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TEXT_DISABLE_RADIO_JAM, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
 
         await expect(page.getByText(TEXT_PANEL_TAMPER_DISABLED)).toBeVisible();
         await expect(page.getByText(TEXT_RADIO_JAM_DISABLED)).toBeVisible();
 
         await page.getByText(TITLE_SPECIAL_SETTINGS, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TEXT_DISABLE_TAMPER, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TEXT_DISABLE_RADIO_JAM, {exact: true}).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
 
         await expect(page.getByText(TEXT_PANEL_TAMPER_DISABLED)).not.toBeVisible();

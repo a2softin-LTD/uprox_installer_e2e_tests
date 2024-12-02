@@ -17,7 +17,7 @@ import {
     TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS
 } from "../../utils/constants";
 
-test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
+test.describe('Hub Page tests',{ tag: ['@stable', '@hub']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -32,12 +32,13 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
-
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.automation.click();
 
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
@@ -92,13 +93,20 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await expect(page.getByText(REACTION_WARNING_MESSAGE)).toBeVisible();
 
             await hubPage.inputFirstField.fill(TEXT_FIRST_REACTION);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.inputSecondField.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(SETTINGS_DISARMING,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.selectSecondField.click();
             await page.getByText(GROUP_NAME,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(DAY_MONDAY,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
@@ -111,7 +119,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await hubPage.submitButton.click();
 
             if (await page.getByText(REACTION_ERROR_MESSAGE).isVisible())
-            {  await hubPage.closeWindowButton.click()}
+            {  await hubPage.closeWindowButton.click();}
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_FIRST_REACTION)).not.toBeVisible();
@@ -135,13 +143,21 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await expect(page.getByText(REACTION_WARNING_MESSAGE)).toBeVisible();
 
             await hubPage.inputFirstField.fill(TEXT_FIRST_REACTION);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.inputSecondField.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(SETTINGS_DISARMING,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.selectSecondField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(GROUP_NAME,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(DAY_MONDAY,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
@@ -178,13 +194,21 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await expect(page.getByText(REACTION_WARNING_MESSAGE)).toBeVisible();
 
             await hubPage.inputFirstField.fill(TEXT_FIRST_REACTION);
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.inputSecondField.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.submitButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(SETTINGS_DISARMING,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.selectSecondField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(GROUP_NAME,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(DAY_MONDAY,{exact:true}).click();
+            await page.waitForLoadState('domcontentloaded');
             await hubPage.saveButton.click();
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
@@ -207,7 +231,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
             await hubPage.submitButton.click();
 
             if (await page.getByText(REACTION_ERROR_MESSAGE).isVisible())
-            {  await hubPage.closeWindowButton.click()}
+            {  await hubPage.closeWindowButton.click();}
 
             await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_AUTOMATION)})).toBeVisible();
             await expect(page.getByText(TEXT_SECOND_REACTION)).not.toBeVisible();
@@ -226,7 +250,9 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
         await expect(page.getByText(TEXT_SELECT_CONTROLLER_TIME_ZONE)).toBeVisible();
 
         await hubPage.inputField.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TIME_ZONE_SECOND).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
 
         await expect(page.getByText(BUTTON_CREATE_SCHEDULE)).toBeVisible();
@@ -237,7 +263,9 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@stable', '@hub']}, () => {
         await expect(page.getByText(TEXT_SELECT_CONTROLLER_TIME_ZONE)).toBeVisible();
 
         await hubPage.inputField.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(TIME_ZONE_FIRST).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
 
         await expect(page.getByText(BUTTON_CREATE_SCHEDULE)).toBeVisible();

@@ -3,27 +3,11 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { RegistrationModel } from "../../models/RegistrationModel";
 import { RegistrationPage } from "../../pages/registration/RegistrationPage";
 import {
-    FAKER_EMAIL_FIRST,
-    TEXT_1_LOWERCASE_LETTER,
-    TEXT_1_NUMBER,
-    TEXT_1_UPPERCASE_LETTER,
-    TEXT_8_SYMBOLS,
-    TEXT_CAPTCHA_IS_VISIBLE,
-    TEXT_CHANGES_SAVED_SUCCESSFULLY,
-    TEXT_EMAIL_ALREADY_EXISTS,
-    TEXT_EMAIL_CONFIRMATION,
-    TEXT_INCORRECT_EMAIL_FORMAT,
-    TEXT_LATIN_CHARACTERS_ONLY,
-    TEXT_NOT_RECEIVED_EMAIL,
-    TEXT_PASSWORD_MUST_CONTAIN,
-    TEXT_REGISTRATION,
-    TEXT_RESEND_EMAIL,
-    TEXT_USERS_WITH_NO_ACCESS,
-    TEXT_WARNING,
-    USER_EMAIL_NOT_VALID, USER_EMAIL_SECOND,
-    USER_PASSWORD_FIRST,
-    USER_PASSWORD_NOR_VALID,
-    USER_PASSWORD_OLD
+    FAKER_EMAIL_FIRST, TEXT_1_LOWERCASE_LETTER, TEXT_1_NUMBER, TEXT_1_UPPERCASE_LETTER, TEXT_8_SYMBOLS,
+    TEXT_CAPTCHA_IS_VISIBLE, TEXT_CHANGES_SAVED_SUCCESSFULLY, TEXT_EMAIL_ALREADY_EXISTS, TEXT_EMAIL_CONFIRMATION,
+    TEXT_INCORRECT_EMAIL_FORMAT, TEXT_LATIN_CHARACTERS_ONLY, TEXT_NOT_RECEIVED_EMAIL, TEXT_PASSWORD_MUST_CONTAIN,
+    TEXT_REGISTRATION, TEXT_RESEND_EMAIL, TEXT_USERS_WITH_NO_ACCESS, TEXT_WARNING,
+    USER_EMAIL_NOT_VALID, USER_EMAIL_SECOND, USER_PASSWORD_FIRST, USER_PASSWORD_NOR_VALID, USER_PASSWORD_OLD
 } from "../../utils/constants";
 
 test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
@@ -53,14 +37,18 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
             };
 
             await registrationPage.emailField.click();
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.emailField.fill(User.login);
 
             await expect(registrationPage.emailField).toHaveValue(User.login);
 
             await registrationPage.passwordField.click();
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.passwordField.fill(User.password);
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.agreeCheckbox.click();
             await page.waitForTimeout(3000);
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.registerButton.click();
             await page.waitForTimeout(3000);
 
@@ -85,7 +73,9 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
             });
 
             await registrationPage.emailField.click();
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.emailField.fill(USER_EMAIL_NOT_VALID);
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.registerButton.click();
 
             await expect(page.getByText(TEXT_INCORRECT_EMAIL_FORMAT)).toBeVisible();
@@ -98,6 +88,7 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
             });
 
             await registrationPage.passwordField.click();
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.passwordField.fill(USER_PASSWORD_NOR_VALID);
 
             await expect(page.getByText(TEXT_PASSWORD_MUST_CONTAIN)).toBeVisible();
@@ -120,13 +111,17 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
             };
 
             await registrationPage.emailField.click();
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.emailField.fill(User.login);
 
             await expect(registrationPage.emailField).toHaveValue(User.login);
 
             await registrationPage.passwordField.click();
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.passwordField.fill(User.password);
+            await page.waitForLoadState('domcontentloaded');
             await registrationPage.agreeCheckbox.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
             await registrationPage.registerButton.click();
 
@@ -165,13 +160,17 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
         };
 
         await registrationPage.emailField.click();
+        await page.waitForLoadState('domcontentloaded');
         await registrationPage.emailField.fill(User.login);
 
         await expect(registrationPage.emailField).toHaveValue(User.login);
 
         await registrationPage.passwordField.click();
+        await page.waitForLoadState('domcontentloaded');
         await registrationPage.passwordField.fill(User.password);
+        await page.waitForLoadState('domcontentloaded');
         await registrationPage.agreeCheckbox.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.waitForTimeout(3000);
         await registrationPage.registerButton.click();
         await page.waitForTimeout(3000);

@@ -44,7 +44,9 @@ test.describe('Company Page tests',{ tag: '@crud' }, () => {
             await companyPage.inputSecondField.fill(USER_PASSWORD_FIRST);
             await companyPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
             await companyPage.selectFirstField.click();
-            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click()
+            await page.waitForLoadState('domcontentloaded');
+            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.addButton.click()
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
@@ -55,6 +57,7 @@ test.describe('Company Page tests',{ tag: '@crud' }, () => {
             await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
 
             await companyPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.submitButton.click();
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 10000 });
@@ -83,8 +86,10 @@ test.describe('Company Page tests',{ tag: '@crud' }, () => {
             await companyPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
             await companyPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
             await companyPage.selectFirstField.click();
-            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click()
-            await companyPage.addButton.click()
+            await page.waitForLoadState('domcontentloaded');
+            await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
+            await page.waitForLoadState('domcontentloaded');
+            await companyPage.addButton.click();
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 20000 });
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
@@ -94,6 +99,7 @@ test.describe('Company Page tests',{ tag: '@crud' }, () => {
             await expect(page.getByText(TEXT_EDIT_SUPPORT)).toBeVisible();
 
             await companyPage.deleteUserButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.submitButton.click();
 
             await expect(page.getByText(TITLE_EMPLOYEES)).toBeVisible({ timeout: 10000 });

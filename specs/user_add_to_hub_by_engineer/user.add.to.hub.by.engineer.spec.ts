@@ -26,19 +26,27 @@ test.describe('Hub Page tests', () => {
         });
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
+        await page.waitForLoadState('domcontentloaded');
         await page.waitForTimeout(2000);
         await hubPage.users.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserName.fill(USER_NAME);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserEmail.fill(USER_3['login']);
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.addButton.click();
 
         await expect (page.getByText((USER_NAME))).toBeVisible();
 
         await page.waitForTimeout(2000);
         await page.getByText(USER_NAME).click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.deleteUserButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.submitButton.click();
 
         await expect (page.getByText((USER_NAME))).not.toBeVisible();

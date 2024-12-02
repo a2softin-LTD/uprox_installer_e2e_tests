@@ -26,6 +26,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@hub']},() => {
         });
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
         await page.waitForTimeout(3000);
 

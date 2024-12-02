@@ -30,6 +30,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         });
 
         await hubPage.panels.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_SYSTEM})).toBeVisible();
@@ -40,7 +41,9 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         {  await hubPage.closeWindowButton.click()}
 
         await hubPage.hubPanel.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.hubRebootButton.click();
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.hubRebootSubmitButton.click();
 
         await expect(page.getByText(TEXT_CHANGES_SAVED_SUCCESSFULLY)).toBeVisible();

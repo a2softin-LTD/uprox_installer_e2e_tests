@@ -1,15 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import {
-     FAKER_EMAIL_FIRST,
-    TEXT_INCORRECT_EMAIL_FORMAT,
-    TEXT_PASSWORD_RECOVERY,
+     FAKER_EMAIL_FIRST, TEXT_INCORRECT_EMAIL_FORMAT, TEXT_PASSWORD_RECOVERY,
     TEXT_PASSWORD_RECOVERY_SENT, TEXT_USER_NOT_FOUND,
-    TEXT_WARNING,
-    TEXT_WHAT_EMAIL_IS_ASSOCIATED,
-    URL_LOGIN,
-    USER_EMAIL,
-    USER_EMAIL_NON_REGISTERED
+    TEXT_WARNING, TEXT_WHAT_EMAIL_IS_ASSOCIATED,
+    URL_LOGIN, USER_EMAIL, USER_EMAIL_NON_REGISTERED
 } from "../../utils/constants";
 
 test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
@@ -49,7 +44,9 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
 
             await loginPage.forgotYourPasswordLink.click();;
             await page.waitForTimeout(2000);
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.recoveryEmailField.fill(USER_EMAIL);
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.sendButton.click();
 
             if (await page.getByText(TEXT_WARNING).isVisible()) {await expect (page.getByText(TEXT_WARNING)).toBeVisible()}
@@ -64,8 +61,10 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
             });
 
             await loginPage.forgotYourPasswordLink.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(USER_EMAIL_NON_REGISTERED);
+            await page.waitForLoadState('domcontentloaded');
             await loginPage.sendButton.click();
             await page.waitForTimeout(2000);
 
@@ -79,8 +78,10 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
             });
 
             await loginPage.forgotYourPasswordLink.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
             await loginPage.recoveryEmailField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await page.waitForTimeout(2000);
             await loginPage.sendButton.click();
 

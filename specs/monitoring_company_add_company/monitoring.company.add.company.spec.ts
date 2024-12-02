@@ -3,20 +3,10 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import {
-    ADMIN_EMAIL,
-    BUTTON_ADD_COMPANY,
-    COUNTRY_UKRAINE,
-    COUNTRY_UKRAINE_SHORT,
-    FAKER_EMAIL_FOURTH,
-    FAKER_NAME_OF_COMPANY_FIRST,
-     FAKER_PHONE_FIRST, ROLE_MONITORING_COMPANIES,
-    ROLE_MONITORING_COMPANY,
-    TEXT_ABSENT, TEXT_COUNTRY,
-    TEXT_INTERNATIONAL,
-    TEXT_NO, TEXT_REQUIRED_FIELD,
-    TEXT_TEST_DEALER_ROLE,
-    URL_LOGIN,
-    URL_SUPPORT_SEARCH
+    ADMIN_EMAIL, BUTTON_ADD_COMPANY, COUNTRY_UKRAINE, COUNTRY_UKRAINE_SHORT,
+    FAKER_EMAIL_FOURTH, FAKER_NAME_OF_COMPANY_FIRST, FAKER_PHONE_FIRST, ROLE_MONITORING_COMPANIES,
+    ROLE_MONITORING_COMPANY, TEXT_ABSENT, TEXT_COUNTRY, TEXT_INTERNATIONAL,
+    TEXT_NO, TEXT_REQUIRED_FIELD, TEXT_TEST_DEALER_ROLE, URL_LOGIN, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 
 test.describe('Company Page tests', () => {
@@ -61,12 +51,17 @@ test.describe('Company Page tests', () => {
             await companyPage.companyAddButton.click();
 
             await companyPage.inputSecondField.fill(FAKER_EMAIL_FOURTH);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(COUNTRY_UKRAINE).click();
 
             await companyPage.selectSecondField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_TEST_DEALER_ROLE).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectThirdField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MONITORING_COMPANIES).click();
 
             await companyPage.submitButton.click();
@@ -83,16 +78,27 @@ test.describe('Company Page tests', () => {
             await expect(page.getByText(BUTTON_ADD_COMPANY)).toBeVisible();
 
             await companyPage.companyAddButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputSecondField.fill(ADMIN_EMAIL);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(COUNTRY_UKRAINE).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_INTERNATIONAL).last().click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectSecondField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_TEST_DEALER_ROLE).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectThirdField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MONITORING_COMPANY).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.submitButton.click();
 
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_FIRST)).toBeVisible();
@@ -113,20 +119,34 @@ test.describe('Company Page tests', () => {
             await expect(page.getByText(BUTTON_ADD_COMPANY)).toBeVisible();
 
             await companyPage.companyAddButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputSecondField.fill(ADMIN_EMAIL);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputThirdField.fill(COUNTRY_UKRAINE_SHORT);
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(COUNTRY_UKRAINE).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectFirstField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_INTERNATIONAL).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectSecondField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(TEXT_TEST_DEALER_ROLE).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectThirdField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MONITORING_COMPANY).click();
             await companyPage.inputFourthField.fill(FAKER_EMAIL_FOURTH);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputFifthField.fill(FAKER_PHONE_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputSixthtField.fill(TEXT_NO);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputSeventhField.fill(TEXT_ABSENT);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.submitButton.click();
 
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_FIRST)).toBeVisible();

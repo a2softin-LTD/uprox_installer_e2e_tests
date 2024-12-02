@@ -44,7 +44,9 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await companyPage.employeeNameField.fill(USER_NAME_NEW);
             await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
             await companyPage.employeeRoleField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MANAGER).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.addButton.click();
 
             await page.waitForTimeout(2000);
@@ -53,7 +55,9 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 
             await page.getByText(FAKER_EMAIL_FIRST).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employeeDeleteManager.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_EMPLOYEES})).toBeVisible({ timeout: 10000 });
@@ -72,6 +76,7 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await expect(page.getByText(COMPANY_FOURTH)).toBeVisible();
 
             await (page.getByText(COMPANY_FOURTH)).click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.employees.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_EMPLOYEES})).toBeVisible({ timeout: 10000 });
@@ -84,6 +89,7 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await companyPage.employeeNameField.fill(USER_NAME_NEW);
             await companyPage.employeePhoneField.fill(FAKER_PHONE_FIRST);
             await companyPage.employeeRoleField.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(ROLE_MANAGER).click();
             await companyPage.addButton.click();
 
@@ -97,6 +103,7 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await expect(page.getByText(TEXT_EDIT_EMPLOYEE)).toBeVisible();
 
             await companyPage.employeeDeleteManager.click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.deleteButton.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_EMPLOYEES})).toBeVisible({ timeout: 10000 });

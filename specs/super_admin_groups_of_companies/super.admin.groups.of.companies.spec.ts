@@ -2,10 +2,8 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN } from "../../utils/user_data";
 import {
-    COMPANY_THIRD,
-     FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
-    TITLE_GROUP_OF_COMPANIES,
-    TITLE_GROUPS_OF_COMPANIES, URL_LOGIN, URL_SUPPORT_SEARCH
+    COMPANY_THIRD, FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
+    TITLE_GROUP_OF_COMPANIES, TITLE_GROUPS_OF_COMPANIES, URL_LOGIN, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import { SuperAdminPage } from "../../pages/superAdmin/SuperAdminPage";
@@ -34,11 +32,12 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             });
 
             await superAdminPage.companies.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.groupsOfCompanies.click();
             await page.waitForTimeout(2000);
 
-            await expect(companyPage.companyAddNewGroupButton).toBeVisible();
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
+        await expect(companyPage.companyAddNewGroupButton).toBeVisible();
     });
 
     test.describe('Groups of companies editing', { tag: '@smoke' }, () => {
@@ -50,6 +49,7 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             });
 
             await superAdminPage.companies.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.groupsOfCompanies.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
@@ -76,16 +76,21 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             });
 
             await superAdminPage.companies.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.groupsOfCompanies.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
             await superAdminPage.entityBlock.first().click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.companyAddToGroupButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(COMPANY_THIRD).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.okButton.click();
-
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.trashIcon.last().click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
 
             await page.waitForTimeout(2000);
@@ -103,16 +108,21 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             });
 
             await superAdminPage.companies.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.groupsOfCompanies.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
             await superAdminPage.entityBlock.first().click();
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.companyAddToGroupButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await page.getByText(COMPANY_THIRD).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.okButton.click();
-
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.trashIcon.last().click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.submitButton.click();
 
             await page.waitForTimeout(2000);
@@ -129,16 +139,23 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             });
 
             await superAdminPage.companies.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.groupsOfCompanies.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
             await companyPage.companyAddNewGroupButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputSecondField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.connectButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.connectButton.last().click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.companies.first().click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.groupsOfCompanies.click();
             await page.reload();
             await page.waitForTimeout(2000);
@@ -146,7 +163,9 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
             await page.getByText(FAKER_NAME_OF_COMPANY_SECOND).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.deleteButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.deleteButton.last().click();
             await page.waitForTimeout(2000);
 
@@ -161,16 +180,23 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             });
 
             await superAdminPage.companies.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.groupsOfCompanies.click();
 
             await expect(superAdminPage.pageTitle.filter({has:page.getByText(TITLE_GROUPS_OF_COMPANIES)})).toBeVisible();
 
             await companyPage.companyAddNewGroupButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputFirstField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.inputSecondField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.connectButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.connectButton.last().click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.companies.first().click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.groupsOfCompanies.click();
             await page.reload();
             await page.waitForTimeout(2000);
@@ -178,7 +204,9 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
             await expect(page.getByText(FAKER_NAME_OF_COMPANY_SECOND)).toBeVisible();
 
             await page.getByText(FAKER_NAME_OF_COMPANY_SECOND).click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.deleteButton.click();
+            await page.waitForLoadState('domcontentloaded');
             await superAdminPage.deleteButton.last().click();
             await page.waitForTimeout(2000);
 

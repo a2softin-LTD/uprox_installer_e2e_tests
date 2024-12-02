@@ -4,12 +4,11 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { MIXED, USER_1 } from "../../utils/user_data";
 import {
     TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
-    TITLE_MY_PROFILE,
-    URL_LOGIN, URL_PANELS,
+    TITLE_MY_PROFILE, URL_LOGIN, URL_PANELS,
     URL_PROFILE_PANELS
 } from "../../utils/constants";
 
-test.describe('Hub Page tests', () => {
+test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
