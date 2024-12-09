@@ -293,6 +293,7 @@ test.describe('Login Page tests', {tag: '@stable'}, () => {
             await loginPage.rememberMeCheckbox.click();
             await page.waitForLoadState('domcontentloaded');
             await loginPage.loginButton.click();
+
             await expect(page).toHaveURL(URL_PROFILE_PANELS);
         });
 

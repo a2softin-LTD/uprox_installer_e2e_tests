@@ -3,18 +3,10 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 import {
-    BUTTON_CREATE_SCHEDULE,
-    DAY_MONDAY,
-    GROUP_NAME,
-    REACTION_ERROR_MESSAGE, REACTION_WARNING_DELETE_MESSAGE,
-    REACTION_WARNING_MESSAGE,
-    SETTINGS_DISARMING,
-    SETTINGS_TIME_ZONE,
-    TEXT_FIRST_REACTION,
-    TEXT_SECOND_REACTION,
-    TEXT_SELECT_CONTROLLER_TIME_ZONE, TIME_ZONE_FIRST, TIME_ZONE_SECOND,
-    TITLE_AUTOMATION,
-    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS
+    BUTTON_CREATE_SCHEDULE, DAY_MONDAY, GROUP_NAME, REACTION_ERROR_MESSAGE, REACTION_WARNING_DELETE_MESSAGE,
+    REACTION_WARNING_MESSAGE, SETTINGS_DISARMING, SETTINGS_TIME_ZONE, TEXT_FIRST_REACTION,
+    TEXT_SECOND_REACTION, TEXT_SELECT_CONTROLLER_TIME_ZONE, TIME_ZONE_FIRST, TIME_ZONE_SECOND,
+    TITLE_AUTOMATION, TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS
 } from "../../utils/constants";
 
 test.describe('Hub Page tests',{ tag: ['@stable', '@hub']}, () => {
@@ -34,7 +26,7 @@ test.describe('Hub Page tests',{ tag: ['@stable', '@hub']}, () => {
         await hubPage.panels.click();
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(5000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}

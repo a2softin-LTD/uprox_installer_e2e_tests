@@ -80,6 +80,10 @@ export const SUPER_ADMIN_PHONE_OLD: string = '+35896894';
 
 export const DEALER_NAME_NEW: string = 'Дмитро';
 
+export const EMPLOYEE_NAME: string = 'New Engineer';
+
+export const EMPLOYEE_EMAIL: string = 'andriana99+8@gmail.com';
+
 export const DEALER_NAME_OLD: string = 'ITV Dealer';
 
 export const DEALER_PHONE_NEW: string = '+38050777777';
@@ -93,6 +97,22 @@ export const DEALER_1_NAME_OLD: string = 'Дмитро Федорів';
 export const DEALER_1_PHONE_NEW: string = '+380509999999';
 
 export const DEALER_1_PHONE_OLD: string = '+380674555566';
+
+export const MANAGER_1_NAME_NEW: string = 'Петро Петр';
+
+export const MANAGER_1_NAME_OLD: string = 'Test Manager User 28';
+
+export const MANAGER_1_PHONE_NEW: string = '+380509998888';
+
+export const MANAGER_1_PHONE_OLD: string = '+380674555577';
+
+export const ENGINEER_NAME_NEW: string = 'Петренко';
+
+export const ENGINEER_NAME_OLD: string = 'AQA_ENGINEER';
+
+export const ENGINEER_PHONE_NEW: string = '+380509992222';
+
+export const ENGINEER_PHONE_OLD: string = '+380674555522';
 
 export const USER_PASSWORD_NEW: string = 'lepidoptera111278DAP!';
 
@@ -204,6 +224,8 @@ export const HUB_SERIAL_NUMBER_TRUE_SEVENTH: string = '00:08:B7:FE:33:20';
 
 export const HUB_SERIAL_NUMBER_TRUE_EIGHT: string = '00:08:9B:20:06:72';
 
+export const HUB_SERIAL_NUMBER_TRUE_NINTH: string = '00:08:B7:20:01:CC';
+
 export const HUB_SERIAL_NUMBER_FALSE_FIRST: string = '56:08:B7:10:02:44';
 
 export const HUB_SERIAL_NUMBER_FALSE_SECOND: string = '00:08:B7:10:02:04';
@@ -238,6 +260,8 @@ export const HUB_ACCOUNT_NAME_FIRST: string = '1112';
 
 export const HUB_ACCOUNT_NAME_SECOND: string = '3320';
 
+export const HUB_ACCOUNT_NAME_THIRD: string = '1234';
+
 export const HUB_ACCOUNT_NAME_FULL: string = '331c - AVL TEST ';
 
 export const HUB_NAME_FIRST: string = 'PIN@dev';
@@ -251,6 +275,8 @@ export const HUB_NAME_FOURTH: string = 'Test Dev for Andriana';
 export const HUB_NAME_FIFTH: string = 'VVB';
 
 export const HUB_NAME_SIX: string = 'just-do-it-once';
+
+export const HUB_NAME_SEVENTH: string = 'MPX L';
 
 export const TITLE_COMPANIES: string = 'Companies:';
 
@@ -888,3 +914,7 @@ export const FAKER_PHONE_FIRST: string = faker.phone.number();
 export const FAKER_PHONE_SECOND: string = faker.phone.number();
 
 export const FAKER_EMAIL_ADMIN: string = faker.internet.email({ firstName: 'sastest2398_' });
+
+export const FAKER_FULL_NAME: string = faker.person.fullName();
+
+export const FAKER_CODE: string = (faker.number.int({ min: 111111, max: 999998 })).toString();

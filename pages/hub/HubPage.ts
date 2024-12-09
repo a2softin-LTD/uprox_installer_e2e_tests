@@ -13,6 +13,7 @@ export class HubPage extends BasePage {
     private readonly _hubPanel: Locator;
     private readonly _firstHub: Locator;
     private readonly _secondHub: Locator;
+    private readonly _thirdHub: Locator;
     private readonly _hubRebootButton: Locator;
     private readonly _hubRebootSubmitButton: Locator;
     private readonly _addPanelButton: Locator;
@@ -118,6 +119,7 @@ export class HubPage extends BasePage {
         this._hubPanel = this.page.locator('.main-block__panel-item');
         this._firstHub = this.page.locator('.part__item').first();
         this._secondHub = this.page.locator('.part__item').nth(1);
+        this._thirdHub = this.page.locator('.part__item').nth(2);
         this._hubRebootButton = page.getByText('Restart panel');
         this._hubRebootSubmitButton = page.getByText('Restart', { exact: true });
         this._addPanelButton = page.getByText('Add panel');
@@ -241,6 +243,10 @@ export class HubPage extends BasePage {
 
     get secondHub(): Locator {
         return this._secondHub;
+    }
+
+    get thirdHub(): Locator {
+        return this._thirdHub;
     }
 
     get firstHub(): Locator {

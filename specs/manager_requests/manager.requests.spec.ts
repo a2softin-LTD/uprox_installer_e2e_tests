@@ -1,10 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
-import { MONITORING_SERVICE_COMPANY_1 } from "../../utils/user_data";
+import {MANAGER_1, MONITORING_SERVICE_COMPANY_1} from "../../utils/user_data";
 import {
     TEXT_PUT_ON_SERVICE, TEXT_REFUSE_PANEL_FROM_MONITORING, TEXT_REFUSE_SERVICE,
-    TITLE_SERVICE_REQUESTS, URL_LOGIN, URL_PANELS,
+    TITLE_SERVICE_REQUESTS, URL_LOGIN, URL_PANELS, URL_PROFILE_PANELS,
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -21,11 +21,11 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL(URL_LOGIN);
-        await loginPage.auth(MONITORING_SERVICE_COMPANY_1);
-        await expect(page).toHaveURL(URL_PANELS);
+        await loginPage.auth(MANAGER_1);
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
-    test('Checking UI elements of the requests page under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+    test('Checking UI elements of the requests page under MANAGER role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
             description: ''
@@ -36,7 +36,7 @@ test.describe('Company page tests',{ tag: ['@smoke', '@stable']}, () => {
         await expect(hubPage.pageTitle.filter({has:page.getByText(TITLE_SERVICE_REQUESTS)})).toBeVisible();
     });
 
-    test('Requests list  under MONITORING-SERVICE_COMPANY_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
+    test('Requests list  under MANAGER role', { tag: ['@smoke']  }, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
             description: 'https://app.clickup.com/t/8696uyc8k'

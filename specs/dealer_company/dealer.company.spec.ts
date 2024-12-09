@@ -39,7 +39,7 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
             await expect(companyPage.saveInXLSButton).toBeVisible();
     });
 
-    test('Company list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
+    test('Companies list under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
                 description: "https://app.clickup.com/t/8694vrf42"
@@ -51,9 +51,9 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
 
             for (const company of await companyPage.entityBlock.all())
                 await expect(company).toBeVisible();
-            for (const hub of await companyPage.entityBlock.all())
-            {await expect(hub.filter({has: companyPage.entityText})).toBeVisible();}
 
+            for (const company of await companyPage.entityBlock.all())
+                {await expect(company.filter({has: companyPage.entityText})).toBeVisible();}
     });
 
     test.describe('Company search under DEALER role', () => {
@@ -131,7 +131,7 @@ test.describe('Company Page tests', { tag: ['@smoke', '@stable']}, () => {
         test('Company search by company name under DEALER role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8695e9b7n"
+                description: "https://app.clickup.com/t/8694vrf4b"
             });
 
             await expect(page.getByText(TITLE_COMPANIES)).toBeVisible();

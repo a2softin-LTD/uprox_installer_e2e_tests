@@ -3,10 +3,8 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { MIXED } from "../../utils/user_data";
 import {
-    TEXT_NO_HUB_WITH_TROUBLES,
-    TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
-    TITLE_SYSTEM, TITLE_TROUBLES,
-    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PANELS
+    TEXT_NO_HUB_WITH_TROUBLES, TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
+    TITLE_SYSTEM, TITLE_TROUBLES, TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
@@ -24,7 +22,7 @@ test.describe('Hub Page tests', () => {
         await expect(page).toHaveURL(URL_PANELS);
     });
 
-    test('Troubles', { tag: '@smoke' }, async ({ page }) => {
+    test('Troubles', { tag: ['@smoke', '@hub']}, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694ky0zj"

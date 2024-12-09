@@ -60,7 +60,7 @@ test.describe('Company Page tests', () => {
         test('Add employee: monitoring-service company', { tag: ['@smoke', '@problem']} , async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678rju80"
+                description: "https://app.clickup.com/t/8696v0grc"
             });
 
             await companyPage.addButton.click();
@@ -92,11 +92,6 @@ test.describe('Company Page tests', () => {
             await page.waitForTimeout(2000);
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
-
-           // await companyPage.panels.click();
-           // await page.waitForLoadState('domcontentloaded');
-           // await companyPage.employees.click();
-
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
             await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
@@ -104,7 +99,7 @@ test.describe('Company Page tests', () => {
         test('Delete employee: monitoring-service company', { tag: ['@smoke', '@problem']} , async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694v0c04"
+                description: "https://app.clickup.com/t/8696v0hg9"
             });
 
             await companyPage.addButton.click();
@@ -136,11 +131,6 @@ test.describe('Company Page tests', () => {
             await page.waitForTimeout(2000);
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
-
-          //  await companyPage.panels.click();
-          //  await page.waitForLoadState('domcontentloaded');
-          //  await companyPage.employees.click();
-
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
             await expect(page.getByText(FAKER_EMAIL_FIRST)).not.toBeVisible();
         });
@@ -148,7 +138,7 @@ test.describe('Company Page tests', () => {
         test('Employee data editing: monitoring-service company', { tag: ['@smoke', '@problem']} , async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678rju83"
+                description: "https://app.clickup.com/t/8696v0h0n"
             });
 
             await companyPage.addButton.click();
@@ -206,20 +196,14 @@ test.describe('Company Page tests', () => {
             await page.waitForTimeout(2000);
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:5000});
-
-           // await companyPage.panels.click();
-            //await page.waitForLoadState('domcontentloaded');
-            //await companyPage.employees.click();
-
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible();
             await expect(page.getByText(USER_NAME_NEW,{ exact: true })).not.toBeVisible();
-
         });
 
         test('Employee search: monitoring-service company', { tag: ['@smoke', '@problem']} , async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8678rju7u"
+                description: "https://app.clickup.com/t/8696v0g6j"
             });
 
             await companyPage.addButton.click();

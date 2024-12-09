@@ -3,12 +3,8 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 import {
-    FAKER_NAME_OF_GROUP_FIRST, FAKER_NAME_OF_GROUP_SECOND,
-    TEXT_ADD_GROUP,
-    TEXT_EDIT_GROUP,
-    TEXT_ENTER_GROUP_NAME,
-    TITLE_GROUPS,
-    TITLE_SYSTEM,
+    FAKER_NAME_OF_GROUP_FIRST, FAKER_NAME_OF_GROUP_SECOND, TEXT_ADD_GROUP, TEXT_EDIT_GROUP,
+    TEXT_ENTER_GROUP_NAME, TITLE_GROUPS, TITLE_SYSTEM,
     TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS, USER_NAME
 } from "../../utils/constants";
 
@@ -29,7 +25,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         await hubPage.panels.click();
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(5000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click();

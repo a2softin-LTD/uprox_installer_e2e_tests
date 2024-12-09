@@ -338,7 +338,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
             description: 'https://app.clickup.com/t/8694pjqm4'
         });
 
-
         await superAdminPage.letterTemplates.click();
 
         await expect(page.getByText(TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES)).toBeVisible();

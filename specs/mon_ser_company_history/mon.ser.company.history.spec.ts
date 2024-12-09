@@ -48,7 +48,6 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         await hubPage.historyTroublesCheckBox.isVisible();
         await hubPage.historyArmsCheckBox.isVisible();
         await hubPage.historyActionsCheckBox.isVisible();
-
     });
 
     test.describe('History under MONITORING_SERVICE_COMPANY_ADMIN role', () => {
@@ -56,7 +55,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test('History display under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn3'
+                description: 'https://app.clickup.com/t/8696xr4dc'
             });
 
             await hubPage.history.click();
@@ -72,7 +71,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test('History filtration by hub under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn2'
+                description: 'https://app.clickup.com/t/8696xr7c6'
             });
 
             await hubPage.history.click();
@@ -98,7 +97,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test('History filtration by date under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfmy'
+                description: 'https://app.clickup.com/t/8696xte63'
             });
 
             await hubPage.history.click();
@@ -131,7 +130,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test('History filtration by event under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn1'
+                description: 'https://app.clickup.com/t/8696xtb7n'
             });
 
             await hubPage.history.click();
@@ -159,7 +158,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test.skip('Download history file under MONITORING_SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn0'
+                description: 'https://app.clickup.com/t/8696xtwrn'
             });
 
             await hubPage.history.click();

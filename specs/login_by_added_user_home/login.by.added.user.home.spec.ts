@@ -36,10 +36,10 @@ test.describe('Profile Page tests', () => {
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
 
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(5000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
-        {  await hubPage.closeWindowButton.click()}
+        {  await hubPage.closeWindowButton.click()};
 
         await hubPage.users.click();
 

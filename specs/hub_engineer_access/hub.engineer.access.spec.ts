@@ -1,12 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { MIXED } from "../../utils/user_data";
-import {
-    ENGINEER_EMAIL,
-    ENGINEER_NUMBER_FINAL,
-    ENGINEER_NUMBER_START,
-    TEXT_NUMBER_OF_DEVICES_IM_COMPANY, URL_LOGIN, URL_PANELS,
-} from "../../utils/constants";
+import { ENGINEER_EMAIL, ENGINEER_NUMBER_FINAL, ENGINEER_NUMBER_START, TEXT_NUMBER_OF_DEVICES_IM_COMPANY, URL_LOGIN, URL_PANELS} from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import { HubPage } from "../../pages/hub/HubPage";
 

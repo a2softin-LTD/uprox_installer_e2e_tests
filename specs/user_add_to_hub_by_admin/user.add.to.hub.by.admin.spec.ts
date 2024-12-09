@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { MONITORING_SERVICE_COMPANY_3, USER_3 } from "../../utils/user_data";
-import {USER_NAME, TEXT_NUMBER_OF_DEVICES_IM_COMPANY, TITLE_SYSTEM, TITLE_USERS, URL_LOGIN, URL_PANELS} from "../../utils/constants";
+import { USER_NAME, TEXT_NUMBER_OF_DEVICES_IM_COMPANY, TITLE_SYSTEM, TITLE_USERS, URL_LOGIN, URL_PANELS } from "../../utils/constants";
 
 test.describe('Hub Page tests', () => {
 

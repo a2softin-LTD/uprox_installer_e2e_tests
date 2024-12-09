@@ -2,12 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
-import {
-    TEXT_ADDED_NEW_USER,
-    TEXT_REMOVED_USER,
-    TEXT_SAVE_IN__XLS,
-    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS
-} from "../../utils/constants";
+import { TEXT_ADDED_NEW_USER, TEXT_REMOVED_USER, TEXT_SAVE_IN__XLS, TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS } from "../../utils/constants";
 
 test.describe('Hub Page tests', { tag: ['@history', '@hub']},() => {
 
@@ -28,7 +23,7 @@ test.describe('Hub Page tests', { tag: ['@history', '@hub']},() => {
         await hubPage.firstHub.click();
         await page.waitForTimeout(2000);
         await page.waitForLoadState('domcontentloaded');
-
+        await page.waitForTimeout(5000);
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
 

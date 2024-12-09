@@ -2,14 +2,9 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
-import {
-    TEXT_ENGINEER_MODE_SECONDS_LEFT,
-    TITLE_UPDATE_FIRMWARE_VERSION,
-    URL_LOGIN,
-    URL_PROFILE_PANELS
-} from "../../utils/constants";
+import { TEXT_ENGINEER_MODE_SECONDS_LEFT, TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS } from "../../utils/constants";
 
-test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
+test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -24,7 +19,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
-    test('Engineer mode', { tag: '@smoke' }, async ({ page }) => {
+    test('Engineer mode', { tag: ['@smoke', '@hub', '@stable']}, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/86967gd6a"
@@ -33,7 +28,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
         await hubPage.panels.click();
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(5000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}

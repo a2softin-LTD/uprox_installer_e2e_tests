@@ -23,7 +23,7 @@ test.describe('Login Page tests',{ tag: ['@smoke', '@stable']},  () => {
         test('Recovery page', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8692udm64"
+                description: "https://app.clickup.com/t/8692udkvy"
             });
 
             await loginPage.forgotYourPasswordLink.click();;

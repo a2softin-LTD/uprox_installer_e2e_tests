@@ -55,7 +55,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test('History display under SERVICE_COMPANY_ADMIN role', { tag: ['@smoke']  }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn3'
+                description: 'https://app.clickup.com/t/8696ybbay'
             });
 
             await hubPage.history.click();
@@ -71,7 +71,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test('History filtration by hub under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn2'
+                description: 'https://app.clickup.com/t/8696ybbx9'
             });
 
             await hubPage.history.click();
@@ -101,7 +101,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test('History filtration by date under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfmy'
+                description: 'https://app.clickup.com/t/8696ybe1k'
             });
 
             await hubPage.history.click();
@@ -131,7 +131,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test('History filtration by event under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn1'
+                description: 'https://app.clickup.com/t/8696ybd0p'
             });
 
             await hubPage.history.click();
@@ -159,7 +159,7 @@ test.describe('Company page tests',{ tag: ['@history']}, () => {
         test.skip('Download history file under SERVICE_COMPANY_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
-                description: 'https://app.clickup.com/t/8694vrfn0'
+                description: 'https://app.clickup.com/t/8696ybf5p'
             });
 
             await hubPage.history.click();

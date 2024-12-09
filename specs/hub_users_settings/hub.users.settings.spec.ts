@@ -44,10 +44,10 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
         await hubPage.panels.click();
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(5000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
-        {  await hubPage.closeWindowButton.click();}
+          { await hubPage.closeWindowButton.click();}
         await hubPage.users.click();
 
         if (await (page.getByText(USER_NAME)).isVisible()) {
@@ -67,9 +67,9 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
 
         try {await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:15000});}
         catch (error) {console.error(`An error occurred: ${error.message}`);
-        await page.reload();
+            await page.reload();
             await page.waitForTimeout(1000);
-        await hubPage.backButton.click();}
+            await hubPage.backButton.click();}
         finally {await expect(page.getByText(USER_FULL_FIRST)).toBeVisible();}
     });
 
@@ -273,7 +273,10 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TEXT_ADD_KEYFOB_INSTRUCTION_SECOND)).toBeVisible();
 
             await page.reload();
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(5000);
+
+            if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
+            { await hubPage.closeWindowButton.click();}
 
             await expect(page.getByText(TEXT_ADD_KEYFOB)).toBeVisible();
 
@@ -282,14 +285,20 @@ test.describe('Hub Page tests', { tag: ['@hub', '@stable']}, () => {
             await expect(page.getByText(TEXT_ADD_KEYFOB_INSTRUCTION_SECOND)).toBeVisible();
 
             await page.reload();
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(5000);
+
+            if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
+            { await hubPage.closeWindowButton.click();}
 
             await hubPage.settingsKeyfobImage.nth(2).click();
 
             await expect(page.getByText(TEXT_ADD_KEYFOB_INSTRUCTION_SECOND)).toBeVisible();
 
             await page.reload();
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(5000);
+
+            if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
+            { await hubPage.closeWindowButton.click();}
 
             await hubPage.backButton.click();
 

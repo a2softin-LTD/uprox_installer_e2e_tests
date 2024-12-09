@@ -1,10 +1,22 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import { DILER_1 } from "../../utils/user_data";
+import {DILER_1, MANAGER_1} from "../../utils/user_data";
 import {
-    LANGUAGE_FRENCH, LANGUAGE_UKRAINIAN, URL_LOGIN, TITLE_MY_PROFILE,
-    TEXT_ROLE, TEXT_EMAIL, URL_DEALER_COMPANIES, DEALER_NAME_NEW,
-    DEALER_1_NAME_NEW, DEALER_1_NAME_OLD, DEALER_1_PHONE_NEW, DEALER_1_PHONE_OLD
+    LANGUAGE_FRENCH,
+    LANGUAGE_UKRAINIAN,
+    URL_LOGIN,
+    TITLE_MY_PROFILE,
+    TEXT_ROLE,
+    TEXT_EMAIL,
+    URL_DEALER_COMPANIES,
+    DEALER_NAME_NEW,
+    DEALER_1_NAME_NEW,
+    DEALER_1_NAME_OLD,
+    DEALER_1_PHONE_NEW,
+    DEALER_1_PHONE_OLD,
+    URL_PROFILE_PANELS,
+    MANAGER_1_NAME_NEW,
+    MANAGER_1_NAME_OLD, MANAGER_1_PHONE_OLD, MANAGER_1_PHONE_NEW, SUPPORT_TEXT, SUPPORT_EMAIL
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 import { ProfilePage } from "../../pages/profile/ProfilePage";
@@ -25,18 +37,16 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
 
         await loginPage.openLoginPage('/');
         await expect(page).toHaveURL(URL_LOGIN);
-        await loginPage.auth(DILER_1);
-        await expect(page).toHaveURL(URL_DEALER_COMPANIES);
+        await loginPage.auth(MANAGER_1);
+        await expect(page).toHaveURL(URL_PROFILE_PANELS);
 
         await profilePage.myProfileButton.click();
-        await expect(page.getByText(TITLE_MY_PROFILE)).toBeVisible();
+        await expect(companyPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
         await page.waitForTimeout(2000);
     });
 
-    test.describe('Checking UI elements of the page', {tag: ['@smoke']}, () => {
-
-        test('Checking UI elements on Dealer profile page', {tag: ['@smoke']}, async ({page}) => {
-            test.info().annotations.push({
+    test('Checking UI elements on Manager profile page', {tag: ['@smoke']}, async ({page}) => {
+        test.info().annotations.push({
                 type: "test_id",
                 description: ""
             });
@@ -52,82 +62,82 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
             await expect(superAdminPage.feedback).toBeVisible();
             await expect(profilePage.message).toBeVisible();
         });
-    });
-    test.describe('Dealer profile editing', () => {
 
-        test('Dealer name editing', {tag: ['@smoke']}, async ({page}) => {
+    test.describe('Manager profile editing', () => {
+
+        test('Manager name editing', {tag: ['@smoke']}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8696kbjbx"
+                description: ""
             });
 
-            if (await superAdminPage.profileNameBlock.filter({hasText: DEALER_1_NAME_NEW}).isVisible()) {
+            if (await superAdminPage.profileNameBlock.filter({hasText: MANAGER_1_NAME_NEW}).isVisible()) {
                 await superAdminPage.profileNameBlock.click();
                 await page.waitForLoadState('domcontentloaded');
-                await superAdminPage.inputFirstField.fill(DEALER_1_NAME_OLD);
+                await superAdminPage.inputFirstField.fill(MANAGER_1_NAME_OLD);
                 await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
-                await expect(superAdminPage.profileNameBlock.filter({hasText: DEALER_1_NAME_OLD})).toBeVisible();
+                await expect(superAdminPage.profileNameBlock.filter({hasText: MANAGER_1_NAME_OLD})).toBeVisible();
             } else {
                 await superAdminPage.profileNameBlock.click();
                 await page.waitForLoadState('domcontentloaded');
-                await superAdminPage.inputFirstField.fill(DEALER_1_NAME_NEW);
+                await superAdminPage.inputFirstField.fill(MANAGER_1_NAME_NEW);
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-                await expect(superAdminPage.profileNameBlock.filter({hasText: DEALER_NAME_NEW})).toBeVisible();
+                await expect(superAdminPage.profileNameBlock.filter({hasText: MANAGER_1_NAME_NEW})).toBeVisible();
 
                 await superAdminPage.profileNameBlock.click();
                 await page.waitForLoadState('domcontentloaded');
-                await superAdminPage.inputFirstField.fill(DEALER_1_NAME_OLD);
+                await superAdminPage.inputFirstField.fill(MANAGER_1_NAME_OLD);
                 await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-                await expect(superAdminPage.profileNameBlock.filter({hasText: DEALER_1_NAME_OLD})).toBeVisible();
+                await expect(superAdminPage.profileNameBlock.filter({hasText: MANAGER_1_NAME_OLD})).toBeVisible();
             }
         });
 
-        test('Dealer contact phone editing', {tag: ['@smoke']}, async ({page}) => {
+        test('Manager contact phone editing', {tag: ['@smoke']}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8696kbq7d"
+                description: ""
             });
 
-            if (await superAdminPage.profilePhoneBlock.filter({hasText: DEALER_1_PHONE_NEW}).isVisible()) {
+            if (await superAdminPage.profilePhoneBlock.filter({hasText: MANAGER_1_PHONE_NEW}).isVisible()) {
                 await superAdminPage.profilePhoneBlock.click();
                 await page.waitForLoadState('domcontentloaded');
-                await superAdminPage.inputField.fill(DEALER_1_PHONE_OLD);
+                await superAdminPage.inputField.fill(MANAGER_1_PHONE_OLD);
                 await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
-                await expect(page.getByText(DEALER_1_PHONE_OLD)).toBeVisible();
+                await expect(page.getByText(MANAGER_1_PHONE_OLD)).toBeVisible();
             } else {
                 await superAdminPage.profilePhoneBlock.click();
 
-                await superAdminPage.inputField.fill(DEALER_1_PHONE_NEW);
+                await superAdminPage.inputField.fill(MANAGER_1_PHONE_NEW);
                 await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-                await expect(page.getByText(DEALER_1_PHONE_NEW)).toBeVisible();
+                await expect(page.getByText(MANAGER_1_PHONE_NEW)).toBeVisible();
 
                 await superAdminPage.profilePhoneBlock.click();
                 await page.waitForLoadState('domcontentloaded');
-                await superAdminPage.inputField.fill(DEALER_1_PHONE_OLD);
+                await superAdminPage.inputField.fill(MANAGER_1_PHONE_OLD);
                 await page.waitForLoadState('domcontentloaded');
                 await superAdminPage.changeButton.click();
 
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
-                await expect(page.getByText(DEALER_1_PHONE_OLD)).toBeVisible();
+                await expect(page.getByText(MANAGER_1_PHONE_OLD)).toBeVisible();
             }
         });
 
-        test('Language for emails edit: dealer profile', {tag: ['@smoke']}, async ({page}) => {
+        test('Language for emails edit: manager profile', {tag: ['@smoke']}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8696kbzvb"
+                description: ""
             });
 
             if (await superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_FRENCH}).isVisible()) {
@@ -158,6 +168,31 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
                 await expect(superAdminPage.pageTitle.filter({has: page.getByText(TITLE_MY_PROFILE)})).toBeVisible();
                 await expect(superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_UKRAINIAN})).toBeVisible();
             }
+        });
+
+        test('Support and messages: manager profile', { tag: '@smoke' }, async ({ page }) => {
+            test.info().annotations.push({
+                type: "test_id",
+                description: "https://app.clickup.com/t/8696uya0z"
+            });
+
+            await companyPage.feedback.click();
+
+            await expect(page.getByText(SUPPORT_TEXT)).toBeVisible();
+            await expect(page.getByText(SUPPORT_EMAIL)).toBeVisible();
+
+            await profilePage.message.click();
+
+            await page.waitForTimeout(2000);
+
+            for (const message of await profilePage.entityBlock.all())
+                await expect(message).toBeVisible();
+
+            for (const date of await profilePage.dateBlock.all())
+                await expect(date).toBeVisible();
+
+            for (const date of await profilePage.dateBlock.all())
+                await expect(date).toHaveText(/\b[0-2]?\d:[0-5]\d\b/mg);
         });
 
     });

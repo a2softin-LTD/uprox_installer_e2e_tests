@@ -4,7 +4,7 @@ import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
 import { TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS } from "../../utils/constants";
 
-test.describe('Hub Page tests', { tag: ['@smoke', '@hub']},() => {
+test.describe('Hub Page tests', () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -19,16 +19,16 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@hub']},() => {
         await expect(page).toHaveURL(URL_PROFILE_PANELS);
     });
 
-    test('Display of hub current status ', { tag: '@smoke' }, async ({ page }) => {
+    test('Display of hub current status ',{ tag: ['@smoke', '@hub', '@stable']}, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: ""
+            description: "https://app.clickup.com/t/86967g9b1"
         });
 
         await hubPage.panels.click();
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(5000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible()) {
             await hubPage.closeWindowButton.click();}
