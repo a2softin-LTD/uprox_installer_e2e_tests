@@ -41,7 +41,6 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             await companyPage.addButton.click();
             await companyPage.inputFirstField.fill(FAKER_EMAIL_ADMIN);
             await companyPage.inputSecondField.fill(FAKER_NAME_OF_COMPANY_SECOND);
-
             await companyPage.addButton.click();
 
             await expect(companyPage.pageTitle.filter({hasText:TITLE_DEALERS})).toBeVisible({ timeout: 10000 });

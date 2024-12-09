@@ -4,8 +4,7 @@ import { SUPER_ADMIN } from "../../utils/user_data";
 import {
     FAKER_EMAIL_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
     ROLE_SYS_ADMIN_SMALL, TEXT_ADD_SUPPORT, TEXT_EDIT_SUPPORT,
-    TITLE_EMPLOYEES,
-    TITLE_TECHNICAL_SUPPORT, URL_SUPPORT_SEARCH, USER_PASSWORD_FIRST
+    TITLE_EMPLOYEES, TITLE_TECHNICAL_SUPPORT, URL_SUPPORT_SEARCH, USER_PASSWORD_FIRST
 } from "../../utils/constants";
 import { CompanyPage } from "../../pages/company/CompanyPage";
 
@@ -41,8 +40,11 @@ test.describe('Company Page tests',{ tag: '@crud' }, () => {
             await expect(page.getByText(TEXT_ADD_SUPPORT)).toBeVisible();
 
             await companyPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputSecondField.fill(USER_PASSWORD_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectFirstField.click();
             await page.waitForLoadState('domcontentloaded');
             await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();
@@ -84,7 +86,9 @@ test.describe('Company Page tests',{ tag: '@crud' }, () => {
             await expect(page.getByText(TEXT_ADD_SUPPORT)).toBeVisible();
 
             await companyPage.inputFirstField.fill(FAKER_EMAIL_FIRST);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.inputThirdField.fill(FAKER_NAME_OF_COMPANY_SECOND);
+            await page.waitForLoadState('domcontentloaded');
             await companyPage.selectFirstField.click();
             await page.waitForLoadState('domcontentloaded');
             await (page.getByText(ROLE_SYS_ADMIN_SMALL)).click();

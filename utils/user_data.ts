@@ -78,6 +78,11 @@ export const MANAGER: object = {
     password: 'asdASD123',
 }
 
+export const MANAGER_1: object = {
+    login: 'andrianaslobozheniuk+28@gmail.com',
+    password: 'asdASD123',
+}
+
 export const MANAGER_DACH: object = {
     login: 'andriana99+96@gmail.com',
     password: 'asdASD123',

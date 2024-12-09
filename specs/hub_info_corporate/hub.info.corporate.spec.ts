@@ -3,9 +3,7 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { MIXED } from "../../utils/user_data";
 import {
-    CITY_DNIPRO,
-    CITY_POLTAVA, NUMBER_12, NUMBER_28, NUMBER_45, NUMBER_7, TEXT_ADRESS,
-    TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
+    CITY_DNIPRO, CITY_POLTAVA, NUMBER_12, NUMBER_28, NUMBER_45, NUMBER_7, TEXT_ADRESS, TEXT_NUMBER_OF_DEVICES_IM_COMPANY,
     TEXT_PANEL_INFORMATION, URL_LOGIN, URL_PANELS
 } from "../../utils/constants";
 
@@ -34,8 +32,23 @@ test.describe('Hub Page tests', () => {
 
         await page.waitForTimeout(2000);
 
-        for (const hub of await hubPage.informationIcon.all())
-        { await expect(hub).toBeVisible();}
+        for (const hubs of await hubPage.entityBlock.all())
+            await expect(hubs).toBeVisible();
+
+        for (const hub of await hubPage.entityBlock.all()) {
+            await expect(hub.filter({has: hubPage.hubEngineerIcon})).toBeVisible();}
+
+        for (const hub of await hubPage.entityBlock.all()) {
+            await expect(hub.filter({has: hubPage.informationIcon})).toBeVisible();}
+
+        for (const hub of await hubPage.entityBlock.all()) {
+            await expect(hub.filter({has: hubPage.trashIcon})).toBeVisible();}
+
+        for (const hub of await hubPage.entityBlock.all()) {
+            await expect(hub.filter({has: hubPage.hubCorpNameAccountInfo})).toBeVisible();}
+
+        for (const hub of await hubPage.entityBlock.all()) {
+            await expect(hub.filter({has: hubPage.hubCorpNumberConnectionInfo})).toBeVisible();}
 
         await (hubPage.informationIcon.first()).click();
 

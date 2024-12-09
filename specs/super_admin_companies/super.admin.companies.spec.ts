@@ -184,7 +184,7 @@ test.describe('SuperAdmin page tests',() => {
         test('Search by region under SUPER_ADMIN role', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694p3ztg"
+                description: "https://app.clickup.com/t/8696ybz63"
             });
 
             await superAdminPage.companies.click();
@@ -353,7 +353,7 @@ test.describe('SuperAdmin page tests',() => {
         test('Another company settings editing under SUPER_ADMIN role', { tag: '@smoke'},async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694phqe6"
+                description: "https://app.clickup.com/t/8694p3xcr"
             });
 
             await superAdminPage.companies.click();

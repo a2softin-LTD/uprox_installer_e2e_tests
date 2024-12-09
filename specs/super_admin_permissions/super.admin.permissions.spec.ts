@@ -170,7 +170,7 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable']},() => {
         test('Block employee', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8694pw1d6"
+                description: "https://app.clickup.com/t/8696yep9k"
             });
 
             await superAdminPage.permissions.click();

@@ -29,7 +29,7 @@ test.describe('Hub Page tests', { tag: ['@smoke', '@stable', '@hub']},() => {
         await hubPage.panels.click();
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
-
+        await page.waitForTimeout(4000);
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}
 

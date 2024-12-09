@@ -151,7 +151,7 @@ test.describe('Login Page tests', { tag: ['@smoke', '@stable']},() => {
     test('Resending confirmation letter', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "ClickUp_link",
-            description: "https://app.clickup.com/t/86946t9q2"
+            description: "https://app.clickup.com/t/86946t9q4"
         });
 
         const User: RegistrationModel = {

@@ -3,19 +3,10 @@ import { LoginPage } from "../../pages/login/LoginPage";
 import { SUPER_ADMIN, SYSTEM_ADMIN } from "../../utils/user_data";
 import { faker } from "@faker-js/faker";
 import {
-    ADMIN_EMAIL,
-    BUTTON_ADD_COMPANY,
-    COUNTRY_UKRAINE,
-    COUNTRY_UKRAINE_SHORT,
+    ADMIN_EMAIL, BUTTON_ADD_COMPANY, COUNTRY_UKRAINE, COUNTRY_UKRAINE_SHORT,
     EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIRST, FAKER_EMAIL_SECOND,
-    FAKER_NAME_OF_COMPANY_FIRST, FAKER_NAME_OF_COMPANY_SECOND,
-    FAKER_PHONE_FIRST,
-    ROLE_MONITORING_COMPANY,
-    TEXT_ABSENT,
-    TEXT_NO,
-    TEXT_TEST_DEALER_ROLE,
-    TITLE_TECHNICAL_SUPPORT,
-    URL_SUPPORT_SEARCH
+    FAKER_NAME_OF_COMPANY_FIRST, FAKER_NAME_OF_COMPANY_SECOND, FAKER_PHONE_FIRST,
+    ROLE_MONITORING_COMPANY, TEXT_ABSENT, TEXT_NO, TEXT_TEST_DEALER_ROLE, TITLE_TECHNICAL_SUPPORT, URL_SUPPORT_SEARCH
 } from "../../utils/constants";
 import {CompanyPage} from "../../pages/company/CompanyPage";
 
@@ -80,9 +71,6 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
             description: "https://app.clickup.com/t/8694att1n"
         });
 
-        const contactEmail: string = faker.internet.email({ firstName: EMAIL_NECESSARY_NAME_PART });
-
-
         await loginPage.auth(SUPER_ADMIN);
 
         await expect(page.getByText(TITLE_TECHNICAL_SUPPORT)).toBeVisible();
@@ -105,7 +93,7 @@ test.describe('Company Page tests', { tag: '@crud' },() => {
         await companyPage.selectSecondField.click();
         await page.waitForLoadState('domcontentloaded');
         await page.getByText(ROLE_MONITORING_COMPANY).click();
-        await companyPage.inputFourthField.fill(contactEmail);
+        await companyPage.inputFourthField.fill(FAKER_EMAIL_FIRST);
         await companyPage.inputFifthField.fill(FAKER_PHONE_FIRST);
         await companyPage.inputSixthtField.fill(TEXT_NO);
         await companyPage.inputSeventhField.fill(TEXT_ABSENT);

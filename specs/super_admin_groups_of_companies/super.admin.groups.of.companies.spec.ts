@@ -72,7 +72,7 @@ test.describe('SuperAdmin Page tests', { tag: ['@smoke', '@superadmin']},() => {
         test('Add company to group', { tag: '@smoke' },async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/30937733/v/l/xg4m5-4967"
+                description: "https://app.clickup.com/t/8694phyg8"
             });
 
             await superAdminPage.companies.click();

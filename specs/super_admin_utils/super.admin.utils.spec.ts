@@ -27,7 +27,7 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
         await expect(page).toHaveURL(URL_SUPPORT_SEARCH);
     });
 
-    test('Utils panel under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+    test('Checking UI elements of the utils page under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
             description: ""
@@ -294,7 +294,6 @@ test.describe('SuperAdmin page tests', { tag: ['@smoke', '@stable', '@superadmin
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694pyuyj'
             });
-
 
             await superAdminPage.utils.click();
 

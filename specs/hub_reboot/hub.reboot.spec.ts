@@ -2,10 +2,7 @@ import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
 import { USER_1 } from "../../utils/user_data";
-import {
-    TEXT_CHANGES_SAVED_SUCCESSFULLY, TITLE_GROUPS, TITLE_SYSTEM,
-    TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS
-} from "../../utils/constants";
+import { TEXT_CHANGES_SAVED_SUCCESSFULLY, TITLE_SYSTEM, TITLE_UPDATE_FIRMWARE_VERSION, URL_LOGIN, URL_PROFILE_PANELS} from "../../utils/constants";
 
 test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
 
@@ -35,7 +32,7 @@ test.describe('Hub Page tests',{ tag: ['@smoke', '@hub']}, () => {
 
         await expect(hubPage.pageTitle.filter({hasText:TITLE_SYSTEM})).toBeVisible();
 
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(5000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
         {  await hubPage.closeWindowButton.click()}

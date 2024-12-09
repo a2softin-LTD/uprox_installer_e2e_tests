@@ -31,7 +31,7 @@ import {
     URL_PROFILE_PANELS, USER_FULL_FIRST, USER_NAME
 } from "../../utils/constants";
 
-test.describe('Hub Page tests',{ tag: '@hub' }, () => {
+test.describe('Hub Page tests',{ tag: ['@stable', '@hub']}, () => {
 
     let loginPage: LoginPage;
     let hubPage: HubPage;
@@ -49,10 +49,10 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await page.waitForLoadState('domcontentloaded');
         await hubPage.firstHub.click();
 
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(4000);
 
         if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
-        {  await hubPage.closeWindowButton.click()}
+        {  await hubPage.closeWindowButton.click()};
 
         await hubPage.hubPanel.click();
     });
@@ -84,7 +84,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(hubPage.settingsHubName.filter({hasText:HUB_NAME_THIRD})).toBeVisible();
 
         await hubPage.settingsHubName.click();
-            await page.waitForLoadState('domcontentloaded');
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.inputField.fill(HUB_NAME_FIRST);
         await hubPage.saveButton.click();
 
@@ -119,7 +119,7 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(TEXT_INSTALLATION_COUNTRY)).toBeVisible();
 
         await hubPage.inputField.click();
-            await page.waitForLoadState('domcontentloaded');
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(COUNTRY_MOLDOVA, {exact: true}).click();
 
         await hubPage.submitButton.click();
@@ -167,9 +167,9 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(hubPage.settingsFirmwareUpdate.filter({hasText:SETTINGS_MANUALLY})).toBeVisible();
 
         await hubPage.settingsFirmwareUpdate.click();
-            await page.waitForLoadState('domcontentloaded');
+        await page.waitForLoadState('domcontentloaded');
         await page.getByText(SETTINGS_AUTOMATICALLY, {exact: true}).click();
-            await page.waitForLoadState('domcontentloaded');
+        await page.waitForLoadState('domcontentloaded');
         await hubPage.saveButton.click();
 
         await expect(page.getByText(BUTTON_RESTART_PANEL)).toBeVisible();
@@ -447,6 +447,11 @@ test.describe('Hub Page tests',{ tag: '@hub' }, () => {
         await expect(page.getByText(BUTTON_ADD_WIRELESS_DEVICE)).toBeVisible();
 
         await page.reload();
+
+        await page.waitForTimeout(5000);
+
+        if (await page.getByText(TITLE_UPDATE_FIRMWARE_VERSION).isVisible())
+        {  await hubPage.closeWindowButton.click()};
 
         await hubPage.hubPanel.click({timeout:10000});
         await hubPage.settingsKeypadCodeLength.click();
