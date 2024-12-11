@@ -63,7 +63,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
     test('Hubs list under MONITORING-SERVICE_COMPANY_ADMIN role: compact view', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0fth"
+            description: "https://app.clickup.com/t/86970rp6k"
         });
 
         await expect(hubPage.pageTitle.filter({has: page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)})).toBeVisible();
@@ -98,7 +98,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
     test('Hubs list under MONITORING-SERVICE_COMPANY_ADMIN role: short view', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0fth"
+            description: "https://app.clickup.com/t/86970rn8v"
         });
 
         await expect(hubPage.pageTitle.filter({has: page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)})).toBeVisible();
@@ -132,7 +132,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
     test('Hubs list under MONITORING-SERVICE_COMPANY_ADMIN role: detail view', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0fth"
+            description: "https://app.clickup.com/t/86970rnzt"
         });
 
         await expect(hubPage.pageTitle.filter({has: page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)})).toBeVisible();
@@ -166,7 +166,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
         test('Hub search by serial number under MONITORING-SERVICE_COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8695e8trb"
+                description: "https://app.clickup.com/t/86970rpn2"
             });
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -181,7 +181,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
         test('Hub search by account under MONITORING-SERVICE_COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8695e9b9n"
+                description: "https://app.clickup.com/t/86970rpn2"
             });
 
 
@@ -199,7 +199,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
         test('Hub search by name under MONITORING-SERVICE_COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8695e9b7n"
+                description: "https://app.clickup.com/t/86970rpn2"
             });
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -214,7 +214,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
         test('Hub search by panel state under MONITORING-SERVICE_COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
             test.info().annotations.push({
                type: "test_id",
-                description: "https://app.clickup.com/t/86957f77h"
+                description: "https://app.clickup.com/t/86970rpn2"
             });
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -234,7 +234,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
     test('Downloading hubs  list under MONITORING-SERVICE_COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8695e9ff0"
+                description: "https://app.clickup.com/t/86970rrhk"
             });
 
         await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
