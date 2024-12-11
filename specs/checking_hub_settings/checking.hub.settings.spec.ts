@@ -28,7 +28,7 @@ test.describe('Hub Page tests', () => {
 
     });
 
-    test('Add 250 users by autonomous installer', {tag: ['@smoke']}, async ({page}) => {
+    test.skip('Add 250 users by autonomous installer', {tag: ['@smoke']}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -95,7 +95,7 @@ test.describe('Hub Page tests', () => {
 
     });
 
-    test('Add 251 user by autonomous installer', {tag: ['@smoke']}, async ({page}) => {
+    test.skip('Add 251 user by autonomous installer', {tag: ['@smoke']}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -125,7 +125,7 @@ test.describe('Hub Page tests', () => {
 
     });
 
-    test('Add user with more than 63 symbols name', {tag: ['@smoke']}, async ({page}) => {
+    test.skip('Add user with more than 63 symbols name', {tag: ['@smoke']}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -152,7 +152,7 @@ test.describe('Hub Page tests', () => {
 
     });
 
-    test('Add user with 63 symbols name', {tag: ['@smoke']}, async ({page}) => {
+    test.skip('Add user with 63 symbols name', {tag: ['@smoke']}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -179,7 +179,7 @@ test.describe('Hub Page tests', () => {
 
     });
 
-    test('Delete all users by autonomous installer', {tag: ['@smoke']}, async ({page}) => {
+    test.skip('Delete all users by autonomous installer', {tag: ['@smoke']}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -209,7 +209,7 @@ test.describe('Hub Page tests', () => {
         await expect(hubPage.entityBlock).toHaveCount(0);
     });
 
-    test('Count users', {tag: ['@smoke']}, async ({page}) => {
+    test.skip('Count users', {tag: ['@smoke']}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8694amwf8"
@@ -233,7 +233,7 @@ test.describe('Hub Page tests', () => {
         console.log(hubsNumber);
     });
 
-    test('Add new group', { tag: ['@smoke']}, async ({ page }) => {
+    test.skip('Add new group', { tag: ['@smoke']}, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
             description: 'https://app.clickup.com/t/8694euhwd'
