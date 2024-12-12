@@ -54,6 +54,8 @@ export const USER_NAME_SER_ADMIN_NEW: string = 'Степан';
 
 export const USER_NAME_SER_ADMIN_OLD: string = 'Дмитро';
 
+export const USER_NAME_63_SYMBOLS: string = 'ПетроПетровичПетренкоПетровПетровичПетровичПетровПетров';
+
 export const USER_PHONE_NEW: string = '+380508888888';
 
 export const USER_PHONE_OLD: string = '+380507777777';
@@ -856,6 +858,8 @@ export const TEXT_REFUSE_PANEL_FROM_MONITORING: string = 'Refuse panel from moni
 export const TEXT_PUT_PANEL_ON_MONITORING: string = 'Put panel on monitoring';
 
 export const TEXT_REFUSE_SERVICE: string = 'Refuse service';
+
+export const TEXT_ERROR_CODE: string = 'Error code:';
 
 export const BLOCKING_SYSTEM_ADMIN: string = 'Blocking system_admin';
 

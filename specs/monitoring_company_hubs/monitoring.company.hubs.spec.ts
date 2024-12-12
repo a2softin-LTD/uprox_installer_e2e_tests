@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
-import {MIXED, MONITORING_COMPANY_1} from "../../utils/user_data";
+import { MONITORING_COMPANY_1 } from "../../utils/user_data";
 import {
     TEXT_BY_ACCOUNT,
     TEXT_BY_NAME,
@@ -13,8 +13,6 @@ import {
     URL_LOGIN,
     URL_PANELS,
     HUB_ACCOUNT_NAME_SECOND,
-    HUB_NAME_FIFTH,
-    HUB_SERIAL_NUMBER_TRUE_SEVENTH,
     TITLE_ALL_PANELS,
     PANEL_STATE_OUTDATED_FIRMWARE_VERSION,
     TEXT_ALL_PANELS,
@@ -63,7 +61,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
     test('Hubs list under MONITORING COMPANY_ADMIN role: compact view', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0fth"
+            description: "https://app.clickup.com/t/86970uyjc"
         });
 
         await expect(hubPage.pageTitle.filter({has: page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)})).toBeVisible();
@@ -94,7 +92,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
     test('Hubs list under MONITORING_COMPANY_ADMIN role: short view', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0fth"
+            description: "https://app.clickup.com/t/86970uxzp"
         });
 
         await expect(hubPage.pageTitle.filter({has: page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)})).toBeVisible();
@@ -125,7 +123,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
     test('Hubs list under MONITORING_COMPANY_ADMIN role: detail view', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8678p0fth"
+            description: "https://app.clickup.com/t/86970uyag"
         });
 
         await expect(hubPage.pageTitle.filter({has: page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)})).toBeVisible();
@@ -159,7 +157,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
         test('Hub search by serial number under MONITORING COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8695e8trb"
+                description: "https://app.clickup.com/t/86970uyu5"
             });
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -174,7 +172,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
         test.skip('Hub search by account under MONITORING COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8695e9b9n"
+                description: "https://app.clickup.com/t/86970uyu5"
             });
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -191,7 +189,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
         test('Hub search by name under MONITORING COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8695e9b7n"
+                description: "https://app.clickup.com/t/86970uyu5"
             });
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -206,7 +204,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
         test('Hub search by panel state under MONITORING COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/86957f77h"
+                description: "https://app.clickup.com/t/86970uyu5"
             });
 
             await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
@@ -226,7 +224,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
     test('Downloading hub list under MONITORING COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8695e9ff0"
+            description: "https://app.clickup.com/t/86970uz9h"
         });
 
         await expect(page.getByText(TEXT_NUMBER_OF_DEVICES_IM_COMPANY)).toBeVisible();
