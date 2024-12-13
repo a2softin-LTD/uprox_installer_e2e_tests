@@ -11,6 +11,7 @@ export class ProfilePage extends BasePage {
     private readonly _userEditSubmit: Locator;
     private readonly _userPassword: Locator;
     private readonly _userDeleteAccount: Locator;
+    private readonly _userProfileBlock: Locator;
     private readonly _userEditCurrentPasswordField: Locator;
     private readonly _userEditNewPasswordField: Locator;
     private readonly _userPhone: Locator;
@@ -31,6 +32,7 @@ export class ProfilePage extends BasePage {
         this._userLogo= this.page.locator('.main-section__logo');
         this._userName = page.getByText('Full name');
         this._userEditField = this.page.locator('.input_block-input');
+        this._userProfileBlock = this.page.locator('.constant_block-title');
         this._userEditSubmit = page.getByText('Change',{ exact: true });
         this._userPassword = page.getByText('Change password');
         this._userDeleteAccount = page.getByText('Delete account');
@@ -67,6 +69,10 @@ export class ProfilePage extends BasePage {
 
     get userDeleteAccount(): Locator {
         return this._userDeleteAccount;
+    }
+
+    get userProfileBlock(): Locator {
+        return this._userProfileBlock;
     }
 
     get userPassword(): Locator {
