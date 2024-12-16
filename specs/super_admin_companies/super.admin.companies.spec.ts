@@ -196,7 +196,7 @@ test.describe('SuperAdmin page tests',() => {
             await page.getByText(TEXT_DACH_CAPS,{ exact: true }).click();
             await page.waitForTimeout(2000);
 
-            await expect(superAdminPage.entityBlock.first()).not.toBeVisible({timeout:10000});
+            await expect(superAdminPage.entityBlock.first()).toBeVisible({timeout:10000});
 
         });
 

@@ -99,8 +99,8 @@ export const USER_1: object = {
 }
 
 export const USER_2: object = {
-    login: 'pinchuk.dap@gmail.com',
-    password: 'lepidoptera111278DAP!@#',
+    login: 'slobandriana+1@gmail.com',
+    password: 'asdASD123',
 }
 
 export const UNKNOWN_EMAIL: object = {

@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import {defineConfig, devices} from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -66,9 +66,17 @@ export default defineConfig({
         baseURL: 'https://dev-dach-web-security.u-prox.systems/login',
       },
     },
-    // {
-    //   name: 'chromium',
-    //   use: { ...devices['Desktop Chrome'] },
+     // {
+     //   name: 'chromium',
+     //  use: {
+     //    baseURL: 'https://dev-web-security.u-prox.systems/login',
+     //    ...devices['Desktop Chrome'],
+     //    deviceScaleFactor: undefined,
+     //    viewport: null,
+     //    launchOptions: {
+     //      args: ['--start-maximized']
+     //    },
+     //  },
     //   dependencies: ['setup'],
     // },
 

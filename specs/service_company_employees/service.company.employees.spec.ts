@@ -160,6 +160,10 @@ test.describe('Company Page tests', () => {
             await page.waitForLoadState('domcontentloaded');
             await companyPage.addButton.click();
 
+            await page.waitForTimeout(2000);
+            await companyPage.employees.click();
+            await page.waitForTimeout(2000);
+
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_EMPLOYEES)})).toBeVisible({timeout:15000});
             await expect(page.getByText(FAKER_EMAIL_FIRST)).toBeVisible();
 

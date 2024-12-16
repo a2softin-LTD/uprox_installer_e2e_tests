@@ -45,7 +45,7 @@ export class ProfilePage extends BasePage {
         this._userEmail = page.getByText('Email', { exact: true });
         this._myProfileButton = this.page.locator('div[routerlink="/profile"]');
         this._logoutButton = this.page.locator('span:text-is("Logout")');
-        this._message = page.getByText('Messages');
+        this._message = page.getByText('Messages',{ exact: true });
         this._messageNew = page.getByText('New message');
         this._myProfileTitle = this.page.locator('span:text-is("Email")');
 

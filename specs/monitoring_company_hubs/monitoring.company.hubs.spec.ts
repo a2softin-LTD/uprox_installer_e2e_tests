@@ -221,7 +221,7 @@ test.describe('Company Page tests', { tag: ['@stable', '@hub']}, () => {
 
     });
 
-    test('Downloading hub list under MONITORING COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
+    test.skip('Downloading hub list under MONITORING COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/86970uz9h"

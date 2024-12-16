@@ -1,40 +1,32 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
 import { HubPage } from "../../pages/hub/HubPage";
-import { USER_1, USER_2 } from "../../utils/user_data";
+import { USER_1 } from "../../utils/user_data";
 import {
     BUTTON_TRANSFER_OWNERSHIP,
     CODE_HIDE,
     CODE_SECOND,
     EMAIL_NECESSARY_NAME_PART, FAKER_EMAIL_FIFTH,
     FAKER_EMAIL_FIRST, FAKER_EMAIL_FOURTH, FAKER_EMAIL_SECOND, FAKER_EMAIL_SIX, FAKER_EMAIL_THIRD, FAKER_FULL_NAME,
-    FAKER_NAME_OF_GROUP_FIRST, GROUP_NAME_FIRST, SETTINGS_ALARMS_RESTORES, SETTINGS_ARMS_DISARM,
-    SETTINGS_ENABLED, SETTINGS_TROUBLES_RESTORES,
-    TEXT_ADD_GROUP,
+    GROUP_NAME_FIRST,
     TEXT_ADD_KEYFOB,
     TEXT_ADD_KEYFOB_INSTRUCTION_FIRST,
     TEXT_ADD_KEYFOB_INSTRUCTION_SECOND, TEXT_ALL_SELECTED,
     TEXT_CANSEL_REGISTRY,
     TEXT_EDIT_GROUP, TEXT_ENABLED,
     TEXT_ERROR_CODE,
-    TEXT_MOBILE,
-    TEXT_MOBILE_NEW, TEXT_SERVICE, TEXT_SUBMIT,
-    TEXT_USER_MANAGEMENT,
     TITLE_EDIT_USER,
     TITLE_GROUPS,
     TITLE_UPDATE_FIRMWARE_VERSION,
     TITLE_USERS,
     URL_LOGIN,
     URL_PROFILE_PANELS,
-    USER_FULL_FIRST,
     USER_NAME_63_SYMBOLS,
-    USER_NAME_67_SYMBOLS,
+    USER_NAME_67_SYMBOLS, USER_NAME_ARABIC, USER_NAME_CYRILLIC,
     USER_NAME_JAPAN,
     USER_NAME_LATIN,
-    USER_NAME_SER_ARABIC,
-    USER_NAME_SER_CYRILLIC,
     USER_NAME_SPECIAL_SYMBOLS,
-    USER_NAME_SPECIAL_TURKISH, USER_PHONE_NEW, USER_PHONE_OLD
+    USER_NAME_TURKISH
 } from "../../utils/constants";
 import {faker} from "@faker-js/faker";
 import {ProfilePage} from "../../pages/profile/ProfilePage";
@@ -88,10 +80,10 @@ test.describe('Hub Page tests', () => {
         await hubPage.addButton.click();
 
         try {
-            await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:7000});
+            await expect(page.getByText(BUTTON_TRANSFER_OWNERSHIP)).toBeVisible({timeout:5000});
         } catch (error) {
             await page.reload();
-            await page.waitForTimeout(2000);
+            await page.waitForTimeout(1000);
             await hubPage.users.click();
         } finally {
             await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
@@ -101,7 +93,7 @@ test.describe('Hub Page tests', () => {
         await expect(hubPage.entityBlock).toHaveCount(250);
     });
 
-    test('Add 251st user by autonomous installer', {tag: ['@smoke']}, async ({page}) => {
+    test('Add 251st user by autonomous installer: negative', {tag: ['@smoke']}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/8696vqgpn"
@@ -455,7 +447,7 @@ test.describe('Hub Page tests', () => {
 
         await hubPage.addButton.click();
         await page.waitForLoadState('domcontentloaded');
-        await hubPage.addUserName.fill(USER_NAME_SER_CYRILLIC);
+        await hubPage.addUserName.fill(USER_NAME_CYRILLIC);
         await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserEmail.fill(FAKER_EMAIL_SECOND);
         await page.waitForLoadState('domcontentloaded');
@@ -465,7 +457,7 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.users.click();
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect(page.getByText(USER_NAME_SER_CYRILLIC)).toBeVisible();
+        await expect(page.getByText(USER_NAME_CYRILLIC)).toBeVisible();
 
         await hubPage.addButton.click();
         await page.waitForLoadState('domcontentloaded');
@@ -497,7 +489,7 @@ test.describe('Hub Page tests', () => {
 
         await hubPage.addButton.click();
         await page.waitForLoadState('domcontentloaded');
-        await hubPage.addUserName.fill(USER_NAME_SER_ARABIC);
+        await hubPage.addUserName.fill(USER_NAME_ARABIC);
         await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserEmail.fill(FAKER_EMAIL_FIFTH);
         await page.waitForLoadState('domcontentloaded');
@@ -507,11 +499,11 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.users.click();
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect(page.getByText(USER_NAME_SER_ARABIC)).toBeVisible();
+        await expect(page.getByText(USER_NAME_ARABIC)).toBeVisible();
 
         await hubPage.addButton.click();
         await page.waitForLoadState('domcontentloaded');
-        await hubPage.addUserName.fill(USER_NAME_SPECIAL_TURKISH);
+        await hubPage.addUserName.fill(USER_NAME_TURKISH);
         await page.waitForLoadState('domcontentloaded');
         await hubPage.addUserEmail.fill(FAKER_EMAIL_SIX);
         await page.waitForLoadState('domcontentloaded');
@@ -521,7 +513,7 @@ test.describe('Hub Page tests', () => {
         await page.waitForTimeout(2000);
         await hubPage.users.click();
         await expect(hubPage.pageTitle.filter({hasText:TITLE_USERS})).toBeVisible();
-        await expect(page.getByText(USER_NAME_SPECIAL_TURKISH)).toBeVisible();
+        await expect(page.getByText(USER_NAME_TURKISH)).toBeVisible();
 
         while (await hubPage.entityBlock.first().isVisible())
         {   await hubPage.entityBlock.first().click();
