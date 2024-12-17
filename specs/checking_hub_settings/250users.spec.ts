@@ -60,7 +60,7 @@ test.describe('Hub Page tests', () => {
     test('Add 250 users by autonomous installer', {tag: ['@smoke']}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
-            description: ""
+            description: "https://app.clickup.com/t/8696vqggt"
         });
 
         await hubPage.users.click();

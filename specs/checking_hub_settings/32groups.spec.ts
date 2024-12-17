@@ -75,7 +75,7 @@ test.describe('Hub Page tests', () => {
     test('Add 33rd group by autonomous installer: negative', { tag: ['@smoke']}, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: ''
+            description: 'https://app.clickup.com/t/869740amj'
         });
 
         await hubPage.groups.click();
@@ -93,7 +93,7 @@ test.describe('Hub Page tests', () => {
     test('Delete all groups by autonomous installer', { tag: ['@smoke']}, async ({ page }) => {
         test.info().annotations.push({
             type: 'test_id',
-            description: ''
+            description: 'https://app.clickup.com/t/869740bd0'
         });
 
         await hubPage.groups.click();

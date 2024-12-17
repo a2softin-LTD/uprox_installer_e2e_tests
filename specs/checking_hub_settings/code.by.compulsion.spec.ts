@@ -50,7 +50,7 @@ test.describe('Hub Page tests', () => {
     test('Code by compulsion: 4 digits', {tag:['@smoke']}, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694amwf8"
+            description: "https://app.clickup.com/t/8696wch20"
         });
         await hubPage.hubPanel.click();
 
@@ -154,7 +154,7 @@ test.describe('Hub Page tests', () => {
     test('Code by compulsion: 6 digits', {tag:['@smoke']}, async ({ page }) => {
         test.info().annotations.push({
             type: "test_id",
-            description: "https://app.clickup.com/t/8694amwf8"
+            description: "https://app.clickup.com/t/8696wch20"
         });
         await hubPage.hubPanel.click();
 
