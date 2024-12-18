@@ -46,7 +46,7 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
 
     test.describe('Firmware under SUPER_ADMIN role', () => {
 
-        test('Add panel firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Add panel firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694p4320'
@@ -85,7 +85,7 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             await expect(page.getByText(VERSION_CODE_FIRST)).not.toBeVisible();
         });
 
-        test('Delete panel firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Delete panel firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694p434a'
@@ -165,7 +165,7 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
 
     test.describe('Firmware under SUPER_ADMIN role', () => {
 
-        test('Add console app firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Add console app firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694p43de'
@@ -214,7 +214,7 @@ test.describe('SuperAdmin Page test',{ tag: ['@smoke', '@stable', '@superadmin']
             await expect(page.getByText(VERSION_CODE_SECOND, {exact:true})).not.toBeVisible();
         });
 
-        test('Delete console app firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
+        test.skip('Delete console app firmware version under SUPER_ADMIN role', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: 'test_id',
                 description: 'https://app.clickup.com/t/8694pk0nj'

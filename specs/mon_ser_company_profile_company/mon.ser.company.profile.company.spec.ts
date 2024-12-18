@@ -314,6 +314,10 @@ test.describe('Company Page test', { tag: '@stable' }, () => {
 
             await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
 
+            await page.reload();
+
+            await expect(companyPage.pageTitle.filter({has:page.getByText(TITLE_COMPANY_SETTINGS)})).toBeVisible();
+
             await companyPage.companyUsersCabinet.click();
 
             await expect(page.getByText(TEXT_ENTER_THE_LINK)).toBeVisible();

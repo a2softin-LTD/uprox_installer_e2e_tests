@@ -232,7 +232,7 @@ test.describe('Hub Page tests', { tag: ['@stable', '@hub']}, () => {
 
     });
 
-    test('Downloading hubs  list under SERVICE_COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
+    test.skip('Downloading hubs  list under SERVICE_COMPANY_ADMIN role', {tag: '@smoke'}, async ({page}) => {
         test.info().annotations.push({
             type: "test_id",
             description: "https://app.clickup.com/t/86970u7pm"

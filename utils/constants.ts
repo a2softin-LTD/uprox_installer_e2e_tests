@@ -38,6 +38,8 @@ export const DEALER_EMAIL_FIRST: string = 'Дмитро Федорів (snaut12@
 
 export const DEALER_EMAIL_FIRST_SHORT: string = 'snaut12@bigmir.net';
 
+export const GROUP_NAME_FIRST: string = 'Група номер один';
+
 export const USER_NAME: string = 'Дмитро';
 
 export const USER_NAME_FULL: string = 'Дмитро Анатольович Пінчук';
@@ -55,6 +57,20 @@ export const USER_NAME_SER_ADMIN_NEW: string = 'Степан';
 export const USER_NAME_SER_ADMIN_OLD: string = 'Дмитро';
 
 export const USER_NAME_63_SYMBOLS: string = 'ПетроПетровичПетренкоПетровПетровичПетровичПетровПетров';
+
+export const USER_NAME_67_SYMBOLS: string = 'ПетроПетровичПетренкоПетровПетровичПетровичПетровПетровПетровПетров';
+
+export const USER_NAME_LATIN: string = 'John Doe';
+
+export const USER_NAME_CYRILLIC: string = 'Андрій Давиденко';
+
+export const USER_NAME_SPECIAL_SYMBOLS: string = '"J0hn#D0e$%';
+
+export const USER_NAME_JAPAN: string = '山田太郎';
+
+export const USER_NAME_ARABIC: string = 'محمد أحمد';
+
+export const USER_NAME_TURKISH: string = 'Çağrı Güneş';
 
 export const USER_PHONE_NEW: string = '+380508888888';
 
@@ -128,6 +144,24 @@ export const USER_LANGUAGE_SHORT_OLD: string = 'EN';
 
 export const USER_LANGUAGE_SHORT_NEW: string = 'FR';
 
+export const GROUP_NAME_LATIN: string = 'Emerald Valley Retreat';
+
+export const GROUP_NAME_CYRILLIC: string = 'Сонячна Долина Карпат';
+
+export const GROUP_NAME_SPECIAL_SYMBOLS: string = 'Misty#Peak@Mountain&Zone';
+
+export const GROUP_NAME_JAPAN: string = '静かな森の隠れ里の秘密';
+
+export const GROUP_NAME_ARABIC: string = 'واحة الرمال الذهبية السرية';
+
+export const GROUP_NAME_TURKISH: string = 'Büyülü Orman Kıyısı Yeri';
+
+export const GROUP_NAME_KOREAN: string = '비밀의 푸른 계곡 은신처';
+
+export const GROUP_NAME_CHINESE: string = '神秘的山谷隱藏的寶藏';
+
+export const GROUP_NAME_GREEK: string = 'Χρυσή Αετού Κορυφή';
+
 export const COMPANY_EMAIL_NEW: string = 'dmytro@ukr.net';
 
 export const COMPANY_SERVICE_EMAIL_OLD: string = 'asiarh45@ukr.net';
@@ -187,6 +221,14 @@ export const COMPANY_MONITORING_SERVICE_EMAIL_FIRST: string = 'zajac@ukr.net';
 export const CODE_FIRST: string = '1111';
 
 export const CODE_SECOND: string = '123456';
+
+export const CODE_THIRD: string = '111222'
+
+export const CODE_FOURTH: string = '111223'
+
+export const CODE_FIFTH: string = '1234'
+
+export const CODE_SIXTH: string = '1235'
 
 export const CODE_HIDE: string = '******';
 
@@ -657,6 +699,8 @@ export const TEXT_EMAIL_TEMPLATES_FAILURES: string = 'EMAIL_TEMPLATES_FAILURES';
 
 export const TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES_: string = 'TEXT_TEST_EMAIL_FOR_ALL_LANGUAGES';
 
+export const TEXT_ALL_SELECTED: string = 'Select all';
+
 export const TITLE_STATISTICS: string = 'Statistics';
 
 export const TITLE_RADIO_DEVICES: string = 'Radio devices';
@@ -861,6 +905,10 @@ export const TEXT_REFUSE_SERVICE: string = 'Refuse service';
 
 export const TEXT_ERROR_CODE: string = 'Error code:';
 
+export const TEXT_ERROR_CODE_BY_COMPULSION: string = 'This pin code is already used by another user on the panel';
+
+export const TEXT_ERROR_33_GROUP: string = 'Failed to create group';
+
 export const BLOCKING_SYSTEM_ADMIN: string = 'Blocking system_admin';
 
 
@@ -913,6 +961,10 @@ export const FAKER_EMAIL_THIRD: string = faker.internet.email({ firstName: 'pol_
 
 export const FAKER_EMAIL_FOURTH: string = faker.internet.email();
 
+export const FAKER_EMAIL_FIFTH: string = faker.internet.email();
+
+export const FAKER_EMAIL_SIX: string = faker.internet.email();
+
 export const FAKER_PHONE_FIRST: string = faker.phone.number();
 
 export const FAKER_PHONE_SECOND: string = faker.phone.number();
@@ -920,5 +972,7 @@ export const FAKER_PHONE_SECOND: string = faker.phone.number();
 export const FAKER_EMAIL_ADMIN: string = faker.internet.email({ firstName: 'sastest2398_' });
 
 export const FAKER_FULL_NAME: string = faker.person.fullName();
+
+export const FAKER_FULL_NAME_FIRST: string = faker.person.fullName();
 
 export const FAKER_CODE: string = (faker.number.int({ min: 111111, max: 999998 })).toString();

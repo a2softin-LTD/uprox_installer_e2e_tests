@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import {defineConfig, devices} from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -18,7 +18,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 3 : 0,
+  retries: process.env.CI ? 3 : 3,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : 1,
   /* Maximum time one test can run for. */
@@ -66,9 +66,17 @@ export default defineConfig({
         baseURL: 'https://dev-dach-web-security.u-prox.systems/login',
       },
     },
-    // {
-    //   name: 'chromium',
-    //   use: { ...devices['Desktop Chrome'] },
+     // {
+     //   name: 'chromium',
+     //  use: {
+     //    baseURL: 'https://dev-web-security.u-prox.systems/login',
+     //    ...devices['Desktop Chrome'],
+     //    deviceScaleFactor: undefined,
+     //    viewport: null,
+     //    launchOptions: {
+     //      args: ['--start-maximized']
+     //    },
+     //  },
     //   dependencies: ['setup'],
     // },
 

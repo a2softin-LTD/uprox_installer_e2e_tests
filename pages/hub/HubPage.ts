@@ -90,6 +90,7 @@ export class HubPage extends BasePage {
     private readonly _settingsKeyfob: Locator;
     private readonly _settingsKeyfobImage: Locator;
     private readonly _settingsCallOnAlarm: Locator;
+    private readonly _settingsGroupAccess: Locator;
     private readonly _settingsPanicButton: Locator;
     private readonly _settingsEventCategories: Locator;
     private readonly _settingsUserManagement: Locator;
@@ -191,6 +192,7 @@ export class HubPage extends BasePage {
         this._settingsKeyfob = page.locator('.input_block').filter({hasText:'Keyfob'});
         this._settingsMobileApp = page.locator('.input_block').filter({hasText:'Mobile app'});
         this._settingsUserManagement = page.locator('.input_block').filter({hasText:'User management'});
+        this._settingsGroupAccess = page.locator('.input_block').filter({hasText:'Group access'});
         this._settingsCallOnAlarm = page.locator('.input_block').filter({hasText:'Call on alarm'});
         this._settingsPanicButton = page.locator('.input_block').filter({hasText:'Mobile panic button'});
         this._settingsEventCategories = page.locator('.input_block').filter({hasText:'Event categories'});
@@ -444,6 +446,10 @@ export class HubPage extends BasePage {
 
     get settingsAirAlarm (): Locator {
         return this._settingsAirAlarm ;
+    }
+
+    get settingsGroupAccess (): Locator {
+        return this._settingsGroupAccess ;
     }
 
     get settingsKeypadCodeLength (): Locator {

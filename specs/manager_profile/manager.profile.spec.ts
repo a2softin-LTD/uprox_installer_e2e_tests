@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../../pages/login/LoginPage";
-import {DILER_1, MANAGER_1} from "../../utils/user_data";
+import { MANAGER_1 } from "../../utils/user_data";
 import {
     LANGUAGE_FRENCH,
     LANGUAGE_UKRAINIAN,
@@ -8,12 +8,6 @@ import {
     TITLE_MY_PROFILE,
     TEXT_ROLE,
     TEXT_EMAIL,
-    URL_DEALER_COMPANIES,
-    DEALER_NAME_NEW,
-    DEALER_1_NAME_NEW,
-    DEALER_1_NAME_OLD,
-    DEALER_1_PHONE_NEW,
-    DEALER_1_PHONE_OLD,
     URL_PROFILE_PANELS,
     MANAGER_1_NAME_NEW,
     MANAGER_1_NAME_OLD, MANAGER_1_PHONE_OLD, MANAGER_1_PHONE_NEW, SUPPORT_TEXT, SUPPORT_EMAIL
@@ -68,7 +62,7 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
         test('Manager name editing', {tag: ['@smoke']}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: ""
+                description: "https://app.clickup.com/t/86973zmyy"
             });
 
             if (await superAdminPage.profileNameBlock.filter({hasText: MANAGER_1_NAME_NEW}).isVisible()) {
@@ -102,7 +96,7 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
         test('Manager contact phone editing', {tag: ['@smoke']}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: ""
+                description: "https://app.clickup.com/t/86973zn5y"
             });
 
             if (await superAdminPage.profilePhoneBlock.filter({hasText: MANAGER_1_PHONE_NEW}).isVisible()) {
@@ -137,7 +131,7 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
         test('Language for emails edit: manager profile', {tag: ['@smoke']}, async ({page}) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: ""
+                description: "https://app.clickup.com/t/86973znhp"
             });
 
             if (await superAdminPage.profileLanguageBlock.filter({hasText: LANGUAGE_FRENCH}).isVisible()) {
@@ -173,7 +167,7 @@ test.describe('Company Page test', { tag: ['@stable']},() => {
         test('Support and messages: manager profile', { tag: '@smoke' }, async ({ page }) => {
             test.info().annotations.push({
                 type: "test_id",
-                description: "https://app.clickup.com/t/8696uya0z"
+                description: "https://app.clickup.com/t/86973znu1"
             });
 
             await companyPage.feedback.click();
